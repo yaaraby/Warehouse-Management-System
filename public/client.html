@@ -6,6 +6,31 @@
     <title>Document</title>
 </head>
 <body>
+
+
+<!-- Singel Item Options -->
+<h1>Singel item options</h1>
+    <form onsubmit='handleSubmitFromUser_SingelItem(event)'>
+        <input type="text" placeholder='Serial Number' name='serialNumber'>
+        <input type='text' placeholder="Item Name" name='itemName' required>
+        <input type="text" placeholder="Catlog Number" name='password' required>
+        <button type="Check">Submit</button>
+    </form>
+
+<!-- Multipal items options -->
+
+<h1>Multipal items options</h1>
+    <form onsubmit='handleSubmitFromUser_MultipalItems_ByRow(event)'>
+       <input type="text" placeholder='Search By Row' name='searchByRow'>
+       <button type="Check">Submit</button>
+    </form>
+
+    <form onsubmit='handleSubmitFromUser_MultipalItems_ByCatalogNumber(event)'>
+       <input type="text" placeholder='Search Catlog Number' name='searchByCatalogNumber'>
+       <button type="Check">Submit</button>
+    </form>
+
+
     
 </body>
 </html>
