@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap"
+        rel="stylesheet">
+    <link rel="shortcut icon" href="/img/store.png" type="image/x-icon">
+    <link rel="stylesheet" href="dist/login.css">
+</head>
+
+<body dir="rtl">
+    <div class="cardLogin">
+        <div class="login">התחברות</div>
+        <form onsubmit="handleLogin(event)">
+            <input type="text" name="userName" placeholder="שם משתמש" autocomplete=off></br>
+            <input type="password" name="password" placeholder="סיסמה" autocomplete=off></br>
+            <div id="error">הזן שם וסיסמה</div>
+            <input type="submit" value="אישור">
+        </form>
+    </div>
+    <script src="login.js"></script>
+</body>
+
+</html>
