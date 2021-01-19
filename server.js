@@ -14,7 +14,7 @@ const secret = 'gvfdgb%$^$%&$4054423654073467$6@$&*(@%$^&2310*/-/+'
 
 const url = "mongodb+srv://yaara:987Yaara@cluster0.uya8d.mongodb.net/test";
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
-
+ 
 const Users = mongoose.model('user', {
     id_user: String,
     userName: String,
@@ -24,6 +24,28 @@ const Users = mongoose.model('user', {
     phone: String,
     role: String
 });
+
+const Products = mongoose.model('product', {
+    UPS: String,
+    Name: String,
+    price: String,
+    Category: String,
+    Weight: String,
+    ExpiryDate: String
+
+});
+
+const product1 = new Products({
+    UPS: '81726',
+    Name: 'Milk',
+    price: '4.5',
+    Category: 'Milk',
+    Weight: '1',
+    ExpiryDate: '30/02/2021'
+
+})
+product1.save().then(doc => console.log(doc)).catch(e =>console.log(e));
+ 
 
 // const user = new Users({
 //     id_user: '123456',

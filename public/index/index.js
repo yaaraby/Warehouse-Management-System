@@ -8,4 +8,4 @@ setInterval(function () {
                 window.location.replace('/login/login.html')
             }
         })
-}, 500);
+}, 1000);
