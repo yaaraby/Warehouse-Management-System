@@ -13,14 +13,14 @@
     <link rel="stylesheet" href="dist/login.css">
 </head>
 
-<body>
+<body dir="rtl">
     <div class="cardLogin">
-        <div class="login">login</div>
+        <div class="login">התחברות</div>
         <form onsubmit="handleLogin(event)">
-            <input type="text" name="userName" placeholder="userName"></br>
-            <input type="password" name="password" placeholder="password"></br>
-            <div id="root"></div>
-            <input type="submit" value="submit">
+            <input type="text" name="userName" placeholder="שם משתמש" autocomplete=off></br>
+            <input type="password" name="password" placeholder="סיסמה" autocomplete=off></br>
+            <div id="error">הזן שם וסיסמה</div>
+            <input type="submit" value="אישור">
         </form>
     </div>
     <script src="login.js"></script>

@@ -26,9 +26,9 @@ const Users = mongoose.model('user', {
 });
 
 // const user = new Users({
-//     id_user: '',
-//     userName:'hillel',
-//     name: 'hillel',
+//     id_user: '123456',
+//     userName:'הלל',
+//     name: 'הלל',
 //     password: '2580',
 //     email: 'A4105962@GMAIL.COM',
 //     phone: '054-6080982',
@@ -59,7 +59,7 @@ app.post('/send-Login-details', async (req, res) => {
         let token = jwt.encode({ role }, secret);
 
         if (validate) {
-            res.cookie('validated', token, { maxAge: 20000, httpOnly: true })
+            res.cookie('validated', token, { maxAge: 9999999999, httpOnly: true })
         }
         res.send({ validate })
     }
