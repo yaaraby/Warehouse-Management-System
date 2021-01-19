@@ -1,0 +1,69 @@
+html {
+  font-size: 1px;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  align-items: center;
+  background-color: rgba(127, 255, 212, 0.342);
+}
+
+:root {
+  --background: aquamarine;
+  --font-family: "Rubik", sans-serif;
+}
+
+.cardLogin {
+  font-family: var(--font-family);
+  background-color: var(--background);
+  padding: 40px 20px;
+  text-align: center;
+  font-family: "Rubik", sans-serif;
+  border-radius: 10px;
+  box-shadow: 2px 2px 15px 10px rgba(128, 128, 128, 0.445);
+}
+.cardLogin input[type=text],
+.cardLogin input[type=password] {
+  padding: 10px;
+  font-size: 20rem;
+  border: 0;
+  border-bottom: 2px solid grey;
+  background: none;
+  margin-top: 40px;
+  outline: none;
+  font-family: var(--font-family);
+}
+.cardLogin input[type=text]:focus,
+.cardLogin input[type=password]:focus {
+  border-bottom: 2px solid #12a070;
+  transition: border 0.3s;
+}
+.cardLogin input[type=submit] {
+  padding: 10px 20px;
+  font-size: 20rem;
+  margin-top: 20px;
+  border-radius: 10px;
+  border: 3px solid grey;
+  font-family: var(--font-family);
+  outline: none;
+  background: rgba(128, 128, 128, 0.623);
+}
+.cardLogin input[type=submit]:active {
+  border: 3px solid #12a070;
+  color: var(--background);
+  transition: color 0.3s;
+}
+.cardLogin .login {
+  font-size: 25rem;
+  color: #2e574d;
+  font-weight: 600;
+}
+.cardLogin #root {
+  font-size: 20rem;
+  margin-top: 15px;
+  font-weight: 600;
+}
