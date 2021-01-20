@@ -14,7 +14,7 @@ const secret = 'gvfdgb%$^$%&$4054423654073467$6@$&*(@%$^&2310*/-/+'
 
 const url = "mongodb+srv://yaara:987Yaara@cluster0.uya8d.mongodb.net/test";
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
- 
+
 const Users = mongoose.model('user', {
     id_user: String,
     userName: String,
@@ -45,7 +45,7 @@ const Products = mongoose.model('product', {
 
 // })
 // product1.save().then(doc => console.log(doc)).catch(e =>console.log(e));
- 
+
 
 // const user = new Users({
 //     id_user: '123456',
@@ -103,34 +103,31 @@ app.get('/Cookie-test', (req, res) => {
     res.send({ validated })
 })
 
+app.post('/send-User-details-sign-up', async (req, res) => {
 
+    let message = 'ok'
+    const { id_user, name, userName, password, email, phone, role } = req.body
 
+    const data = await Users.find({})
+    for (i = 0; i < data.length; i++) {
+        if (id_user == data[i].id_user) {
+            message = 'מספר זהות קיים'
+            break
+        } else if (email == data[i].email) {
+            message = 'מייל זה כבר קיים במערכת'
+            break
+        } else if (userName == data[i].userName) {
+            message = 'שם משתמש כבר קיים'
+            break
+        } else {
+            const user = new Users({ id_user, name, userName, password, email, phone, role });
+            await user.save().then(doc => console.log(doc)).catch(e => console.log(e));
+            message = 'ok'
+        }
+    }
+    res.send({ message })
 
-app.post('/send-User-details_sign_up', (req, res, next) => {
-
-    let user_id = req.body.id_user;
-    let name = req.body.name;
-    let username = req.body.username;
-    let password = req.body.password;
-    let email = req.body.email;
-    let phone = req.body.phone;
-    let role = req.body.role;
-
-
-    const user = new Users({
-        id_user : user_id,
-        userName : username,
-        name : name,
-        password : password,
-        email : email,
-        phone : phone ,
-        role : role
-    });
-    user.save().then(doc => console.log(doc)).catch(e =>console.log(e));
-    
-        
-
-    })
+})
 
 
 

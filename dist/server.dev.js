@@ -33,7 +33,24 @@ var Users = mongoose.model('user', {
   email: String,
   phone: String,
   role: String
-}); // const user = new Users({
+});
+var Products = mongoose.model('product', {
+  UPS: String,
+  Name: String,
+  price: String,
+  Category: String,
+  Weight: String,
+  ExpiryDate: String
+}); // const product1 = new Products({
+//     UPS: '81726',
+//     Name: 'Milk',
+//     price: '4.5',
+//     Category: 'Milk',
+//     Weight: '1',
+//     ExpiryDate: '30/02/2021'
+// })
+// product1.save().then(doc => console.log(doc)).catch(e =>console.log(e));
+// const user = new Users({
 //     id_user: '123456',
 //     userName:'הלל',
 //     name: 'הלל',
@@ -111,6 +128,91 @@ app.get('/Cookie-test', function (req, res) {
 
   res.send({
     validated: validated
+  });
+});
+app.post('/send-User-details-sign-up', function _callee2(req, res) {
+  var message, _req$body2, id_user, name, userName, password, email, phone, role, data, user;
+
+  return regeneratorRuntime.async(function _callee2$(_context2) {
+    while (1) {
+      switch (_context2.prev = _context2.next) {
+        case 0:
+          message = 'ok';
+          _req$body2 = req.body, id_user = _req$body2.id_user, name = _req$body2.name, userName = _req$body2.userName, password = _req$body2.password, email = _req$body2.email, phone = _req$body2.phone, role = _req$body2.role;
+          _context2.next = 4;
+          return regeneratorRuntime.awrap(Users.find({}));
+
+        case 4:
+          data = _context2.sent;
+          i = 0;
+
+        case 6:
+          if (!(i < data.length)) {
+            _context2.next = 29;
+            break;
+          }
+
+          if (!(id_user == data[i].id_user)) {
+            _context2.next = 12;
+            break;
+          }
+
+          message = 'מספר זהות קיים';
+          return _context2.abrupt("break", 29);
+
+        case 12:
+          if (!(email == data[i].email)) {
+            _context2.next = 17;
+            break;
+          }
+
+          message = 'מייל זה כבר קיים במערכת';
+          return _context2.abrupt("break", 29);
+
+        case 17:
+          if (!(userName == data[i].userName)) {
+            _context2.next = 22;
+            break;
+          }
+
+          message = 'שם משתמש כבר קיים';
+          return _context2.abrupt("break", 29);
+
+        case 22:
+          user = new Users({
+            id_user: id_user,
+            name: name,
+            userName: userName,
+            password: password,
+            email: email,
+            phone: phone,
+            role: role
+          });
+          _context2.next = 25;
+          return regeneratorRuntime.awrap(user.save().then(function (doc) {
+            return console.log(doc);
+          })["catch"](function (e) {
+            return console.log(e);
+          }));
+
+        case 25:
+          message = 'ok';
+
+        case 26:
+          i++;
+          _context2.next = 6;
+          break;
+
+        case 29:
+          res.send({
+            message: message
+          });
+
+        case 30:
+        case "end":
+          return _context2.stop();
+      }
+    }
   });
 });
 var port = process.env.PORT || 8080;

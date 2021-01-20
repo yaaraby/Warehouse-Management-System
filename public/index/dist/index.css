@@ -42,6 +42,93 @@ body {
   cursor: pointer;
 }
 .menu .SelectionMenu:hover {
-  border-bottom: 4px solid var(--color);
-  transition: border 0.3s;
+  border-bottom: 4px solid #909090;
+  transition: border 0.2s;
+  color: #909090;
+}
+
+.Registration {
+  font-size: 20rem;
+  font-family: var(--font-family);
+  background-color: var(--background);
+  padding: 40px 20px;
+  text-align: center;
+  font-family: "Rubik", sans-serif;
+  border-radius: 10px;
+  box-shadow: 2px 2px 15px 10px rgba(128, 128, 128, 0.445);
+  direction: rtl;
+  position: relative;
+  display: none;
+}
+.Registration img {
+  width: 30px;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+.Registration input[type=text],
+.Registration input[type=email],
+.Registration input[type=password] {
+  padding: 10px;
+  font-size: 20rem;
+  border: 0;
+  border-bottom: 2px solid var(--color);
+  background: none;
+  margin-bottom: 25px;
+  outline: none;
+  font-family: var(--font-family);
+  color: var(--color);
+  width: 100%;
+  box-sizing: border-box;
+}
+.Registration input[type=submit] {
+  padding: 10px 20px;
+  font-size: 20rem;
+  border-radius: 10px;
+  border: 3px solid grey;
+  font-family: var(--font-family);
+  outline: none;
+  background: rgba(128, 128, 128, 0.623);
+  color: var(--color);
+  font-weight: 600;
+}
+.Registration input[type=submit]:active {
+  border: 3px solid var(--color);
+  color: var(--background);
+  transition: color 0.3s;
+}
+.Registration label {
+  font-size: 20rem;
+  padding: 5px;
+}
+.Registration .rtl {
+  text-align: right;
+}
+.Registration select {
+  padding: 10px;
+  font-size: 20rem;
+  border: 0;
+  border-bottom: 2px solid var(--color);
+  background: var(--background);
+  margin-bottom: 25px;
+  margin-top: 20px;
+  outline: none;
+  font-family: var(--font-family);
+  width: 100%;
+  box-sizing: border-box;
+}
+.Registration #message {
+  font-size: 25rem;
+  font-weight: 600;
+  padding: 5px;
+}
+
+@media only screen and (max-height: 1120px) {
+  body {
+    align-items: baseline;
+  }
+
+  .Registration {
+    margin-top: 100px;
+  }
 }

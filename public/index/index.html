@@ -13,8 +13,42 @@
     <div class="menu">
         <div class="SelectionMenu">מדפים</div>
         <div class="SelectionMenu">מוצרים</div>
-        <div class="SelectionMenu">חיפוש</div>
-        <div class="SelectionMenu">יציאה</div>
+        <div class="SelectionMenu" onclick="Addauser()">הוספת משתמש</div>
+        <div class="SelectionMenu" onclick="Output()">יציאה</div>
+    </div>
+    <div class="Registration">
+        <img src="/img/delete.png" onclick="Registrationdisplaynone()">
+        <h1>הרשמה</h1>
+        <form onsubmit="handleRegistration(event)">
+            <div class="rtl">
+                <label for="id_user">מספר זהות:
+                    <input type="text" name="id_user" id="id_user"></br>
+                </label>
+                <label for="name">שם:
+                    <input type="text" name="name" id="name"></br>
+                </label>
+                <label for="userName">שם משתמש:
+                    <input type="text" name="username" id="userName"></br>
+                </label>
+                <label for="password">סיסמה:
+                    <input type="password" name="password" id="password"></br>
+                </label>
+                <label for="email">אימייל:
+                    <input type="email" name="email" id="email"></br>
+                </label>
+                <label for="phone">פלאפון:
+                    <input type="text" name="phone" id="phone"></br>
+                </label>
+            </div>
+            <select name="role" id="role">
+                <option style="display: none;">דירוג</option>
+                <option value="public">מחסנאי</option>
+                <option value="admin">מנהל</option>
+            </select></br>
+            <div id="message"></div></br>
+            <input type="submit" value="הוספה">
+        </form>
+
     </div>
     <script src="index.js"></script>
 </body>
