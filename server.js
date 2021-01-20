@@ -35,16 +35,16 @@ const Products = mongoose.model('product', {
 
 });
 
-const product1 = new Products({
-    UPS: '81726',
-    Name: 'Milk',
-    price: '4.5',
-    Category: 'Milk',
-    Weight: '1',
-    ExpiryDate: '30/02/2021'
+// const product1 = new Products({
+//     UPS: '81726',
+//     Name: 'Milk',
+//     price: '4.5',
+//     Category: 'Milk',
+//     Weight: '1',
+//     ExpiryDate: '30/02/2021'
 
-})
-product1.save().then(doc => console.log(doc)).catch(e =>console.log(e));
+// })
+// product1.save().then(doc => console.log(doc)).catch(e =>console.log(e));
  
 
 // const user = new Users({
