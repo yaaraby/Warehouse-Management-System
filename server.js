@@ -106,6 +106,36 @@ app.get('/Cookie-test', (req, res) => {
 
 
 
+app.post('/send-User-details_sign_up', (req, res, next) => {
+
+    let user_id = req.body.id_user;
+    let name = req.body.name;
+    let username = req.body.username;
+    let password = req.body.password;
+    let email = req.body.email;
+    let phone = req.body.phone;
+    let role = req.body.role;
+
+
+    const user = new Users({
+        id_user : user_id,
+        userName : username,
+        name : name,
+        password : password,
+        email : email,
+        phone : phone ,
+        role : role
+    });
+    user.save().then(doc => console.log(doc)).catch(e =>console.log(e));
+    
+        
+
+    })
+
+
+
+
+
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log('server listen on port ', port))
 
