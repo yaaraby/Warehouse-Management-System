@@ -131,13 +131,13 @@ app.get('/Cookie-test', function (req, res) {
   });
 });
 app.post('/send-User-details-sign-up', function _callee2(req, res) {
-  var message, _req$body2, id_user, name, userName, password, email, phone, role, data, user;
+  var message, _req$body2, id_user, name, userName, password, email, phone, role, data;
 
   return regeneratorRuntime.async(function _callee2$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
-          message = 'ok';
+          message = '';
           _req$body2 = req.body, id_user = _req$body2.id_user, name = _req$body2.name, userName = _req$body2.userName, password = _req$body2.password, email = _req$body2.email, phone = _req$body2.phone, role = _req$body2.role;
           _context2.next = 4;
           return regeneratorRuntime.awrap(Users.find({}));
@@ -148,7 +148,7 @@ app.post('/send-User-details-sign-up', function _callee2(req, res) {
 
         case 6:
           if (!(i < data.length)) {
-            _context2.next = 29;
+            _context2.next = 27;
             break;
           }
 
@@ -158,7 +158,7 @@ app.post('/send-User-details-sign-up', function _callee2(req, res) {
           }
 
           message = 'מספר זהות קיים';
-          return _context2.abrupt("break", 29);
+          return _context2.abrupt("break", 27);
 
         case 12:
           if (!(email == data[i].email)) {
@@ -167,7 +167,7 @@ app.post('/send-User-details-sign-up', function _callee2(req, res) {
           }
 
           message = 'מייל זה כבר קיים במערכת';
-          return _context2.abrupt("break", 29);
+          return _context2.abrupt("break", 27);
 
         case 17:
           if (!(userName == data[i].userName)) {
@@ -176,39 +176,27 @@ app.post('/send-User-details-sign-up', function _callee2(req, res) {
           }
 
           message = 'שם משתמש כבר קיים';
-          return _context2.abrupt("break", 29);
+          return _context2.abrupt("break", 27);
 
         case 22:
-          user = new Users({
-            id_user: id_user,
-            name: name,
-            userName: userName,
-            password: password,
-            email: email,
-            phone: phone,
-            role: role
-          });
-          _context2.next = 25;
-          return regeneratorRuntime.awrap(user.save().then(function (doc) {
-            return console.log(doc);
-          })["catch"](function (e) {
-            return console.log(e);
-          }));
-
-        case 25:
           message = 'ok';
+          return _context2.abrupt("break", 27);
 
-        case 26:
+        case 24:
           i++;
           _context2.next = 6;
           break;
 
-        case 29:
+        case 27:
+          if (message == 'ok') {// const user = new Users({ id_user, name, userName, password, email, phone, role });
+            // await user.save().then(doc => console.log(doc)).catch(e => console.log(e));
+          }
+
           res.send({
             message: message
           });
 
-        case 30:
+        case 29:
         case "end":
           return _context2.stop();
       }

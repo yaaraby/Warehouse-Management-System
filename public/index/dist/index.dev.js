@@ -67,16 +67,17 @@ var handleRegistration = function handleRegistration(e) {
     }).then(function (res) {
       return res.json();
     }).then(function (data) {
-      if (data.message == 'ok') {
-        message.innerHTML = "הוספת המשתמש בוצע בהצלחה";
-        console.log('הוספת המשתמש בוצע בהצלחה');
-        id_user.value = '';
-        name.value = '';
-        userName.value = '';
-        password.value = '';
-        email.value = '';
-        phone.value = '';
-        role.value = 'דירוג';
+      console.log(data.message);
+
+      if (data.message == 'ok') {// message.innerHTML = "הוספת המשתמש בוצע בהצלחה"
+        // console.log('הוספת המשתמש בוצע בהצלחה')
+        // id_user.value = ''
+        // name.value = ''
+        // userName.value = ''
+        // password.value = ''
+        // email.value = ''
+        // phone.value = ''
+        // role.value = 'דירוג'
       } else {
         message.innerHTML = data.message;
       }

@@ -105,7 +105,7 @@ app.get('/Cookie-test', (req, res) => {
 
 app.post('/send-User-details-sign-up', async (req, res) => {
 
-    let message = 'ok'
+    let message = ''
     const { id_user, name, userName, password, email, phone, role } = req.body
 
     const data = await Users.find({})
@@ -120,10 +120,13 @@ app.post('/send-User-details-sign-up', async (req, res) => {
             message = 'שם משתמש כבר קיים'
             break
         } else {
-            const user = new Users({ id_user, name, userName, password, email, phone, role });
-            await user.save().then(doc => console.log(doc)).catch(e => console.log(e));
             message = 'ok'
+            break
         }
+    }
+    if (message == 'ok'){
+        // const user = new Users({ id_user, name, userName, password, email, phone, role });
+        // await user.save().then(doc => console.log(doc)).catch(e => console.log(e));
     }
     res.send({ message })
 
