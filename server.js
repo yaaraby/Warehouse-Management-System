@@ -105,7 +105,7 @@ app.get('/Cookie-test', (req, res) => {
 
 app.post('/send-User-details-sign-up', async (req, res) => {
 
-    let message = ''
+    let message=''
     const { id_user, name, userName, password, email, phone, role } = req.body
 
     const data = await Users.find({})
@@ -113,20 +113,21 @@ app.post('/send-User-details-sign-up', async (req, res) => {
         if (id_user == data[i].id_user) {
             message = 'מספר זהות קיים'
             break
-        } else if (email == data[i].email) {
-            message = 'מייל זה כבר קיים במערכת'
-            break
         } else if (userName == data[i].userName) {
             message = 'שם משתמש כבר קיים'
+            break
+        } else if (email == data[i].email) {
+            message = 'מייל זה כבר קיים במערכת'
             break
         } else {
             message = 'ok'
             break
         }
     }
+
     if (message == 'ok'){
-        // const user = new Users({ id_user, name, userName, password, email, phone, role });
-        // await user.save().then(doc => console.log(doc)).catch(e => console.log(e));
+        const user = new Users({ id_user, name, userName, password, email, phone, role });
+        await user.save().then(doc => console.log(doc)).catch(e => console.log(e));
     }
     res.send({ message })
 

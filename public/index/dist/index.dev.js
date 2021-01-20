@@ -1,14 +1,14 @@
 "use strict";
 
-setInterval(function () {
-  fetch('/Cookie-test').then(function (r) {
-    return r.json();
-  }).then(function (data) {
-    if (data.validated !== true) {
-      window.location.replace('/login/login.html');
-    }
-  });
-}, 1000);
+// setInterval(function () {
+//     fetch('/Cookie-test')
+//         .then(r => r.json())
+//         .then(data => {
+//             if (data.validated !== true) {
+//                 window.location.replace('/login/login.html')
+//             }
+//         })
+// }, 1000);
 var message = document.querySelector("#message");
 var Registration = document.querySelector('.Registration');
 
@@ -69,15 +69,16 @@ var handleRegistration = function handleRegistration(e) {
     }).then(function (data) {
       console.log(data.message);
 
-      if (data.message == 'ok') {// message.innerHTML = "הוספת המשתמש בוצע בהצלחה"
-        // console.log('הוספת המשתמש בוצע בהצלחה')
-        // id_user.value = ''
-        // name.value = ''
-        // userName.value = ''
-        // password.value = ''
-        // email.value = ''
-        // phone.value = ''
-        // role.value = 'דירוג'
+      if (data.message == 'ok') {
+        message.innerHTML = "הוספת המשתמש בוצע בהצלחה";
+        console.log('הוספת המשתמש בוצע בהצלחה');
+        id_user.value = '';
+        name.value = '';
+        userName.value = '';
+        password.value = '';
+        email.value = '';
+        phone.value = '';
+        role.value = 'דירוג';
       } else {
         message.innerHTML = data.message;
       }

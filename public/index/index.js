@@ -1,12 +1,12 @@
-setInterval(function () {
-    fetch('/Cookie-test')
-        .then(r => r.json())
-        .then(data => {
-            if (data.validated !== true) {
-                window.location.replace('/login/login.html')
-            }
-        })
-}, 1000);
+// setInterval(function () {
+//     fetch('/Cookie-test')
+//         .then(r => r.json())
+//         .then(data => {
+//             if (data.validated !== true) {
+//                 window.location.replace('/login/login.html')
+//             }
+//         })
+// }, 1000);
 
 const message = document.querySelector("#message")
 const Registration = document.querySelector('.Registration')
@@ -69,15 +69,15 @@ const handleRegistration = (e) => {
             .then(data => {
                 console.log(data.message)
                 if (data.message == 'ok') {
-                    // message.innerHTML = "הוספת המשתמש בוצע בהצלחה"
-                    // console.log('הוספת המשתמש בוצע בהצלחה')
-                    // id_user.value = ''
-                    // name.value = ''
-                    // userName.value = ''
-                    // password.value = ''
-                    // email.value = ''
-                    // phone.value = ''
-                    // role.value = 'דירוג'
+                    message.innerHTML = "הוספת המשתמש בוצע בהצלחה"
+                    console.log('הוספת המשתמש בוצע בהצלחה')
+                    id_user.value = ''
+                    name.value = ''
+                    userName.value = ''
+                    password.value = ''
+                    email.value = ''
+                    phone.value = ''
+                    role.value = 'דירוג'
 
                 } else {
                     message.innerHTML = data.message

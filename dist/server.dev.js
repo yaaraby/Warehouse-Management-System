@@ -131,7 +131,7 @@ app.get('/Cookie-test', function (req, res) {
   });
 });
 app.post('/send-User-details-sign-up', function _callee2(req, res) {
-  var message, _req$body2, id_user, name, userName, password, email, phone, role, data;
+  var message, _req$body2, id_user, name, userName, password, email, phone, role, data, user;
 
   return regeneratorRuntime.async(function _callee2$(_context2) {
     while (1) {
@@ -161,21 +161,21 @@ app.post('/send-User-details-sign-up', function _callee2(req, res) {
           return _context2.abrupt("break", 27);
 
         case 12:
-          if (!(email == data[i].email)) {
+          if (!(userName == data[i].userName)) {
             _context2.next = 17;
             break;
           }
 
-          message = 'מייל זה כבר קיים במערכת';
+          message = 'שם משתמש כבר קיים';
           return _context2.abrupt("break", 27);
 
         case 17:
-          if (!(userName == data[i].userName)) {
+          if (!(email == data[i].email)) {
             _context2.next = 22;
             break;
           }
 
-          message = 'שם משתמש כבר קיים';
+          message = 'מייל זה כבר קיים במערכת';
           return _context2.abrupt("break", 27);
 
         case 22:
@@ -188,15 +188,33 @@ app.post('/send-User-details-sign-up', function _callee2(req, res) {
           break;
 
         case 27:
-          if (message == 'ok') {// const user = new Users({ id_user, name, userName, password, email, phone, role });
-            // await user.save().then(doc => console.log(doc)).catch(e => console.log(e));
+          if (!(message == 'ok')) {
+            _context2.next = 31;
+            break;
           }
 
+          user = new Users({
+            id_user: id_user,
+            name: name,
+            userName: userName,
+            password: password,
+            email: email,
+            phone: phone,
+            role: role
+          });
+          _context2.next = 31;
+          return regeneratorRuntime.awrap(user.save().then(function (doc) {
+            return console.log(doc);
+          })["catch"](function (e) {
+            return console.log(e);
+          }));
+
+        case 31:
           res.send({
             message: message
           });
 
-        case 29:
+        case 32:
         case "end":
           return _context2.stop();
       }
