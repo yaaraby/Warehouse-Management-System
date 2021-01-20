@@ -34,20 +34,20 @@ var handleRegistration = function handleRegistration(e) {
   var phone = document.querySelector('#phone');
   var role = document.querySelector('#role');
 
-  if (id_user.value.length == 0) {
-    message.innerHTML = 'הזן מספר זהות';
-  } else if (name.length == 0) {
-    message.innerHTML = 'הזן שם פרטי';
-  } else if (userName.value.length == 0) {
-    message.innerHTML = 'הזן שם לכניסה';
-  } else if (password.value.length == 0) {
-    message.innerHTML = 'הזן סיסמה';
+  if (id_user.value.length !== 9) {
+    message.innerHTML = 'מספר זהות לא תקין';
+  } else if (name.value.length < 2) {
+    message.innerHTML = 'נדרש להזין שם מלא תקין';
+  } else if (userName.value.length < 2) {
+    message.innerHTML = 'נדרש להזין שם משתמש</br> המכיל 2 תווים לפחות ';
+  } else if (password.value.length < 6) {
+    message.innerHTML = 'בחר/י סיסמה המכילה 6</br> תווים לפחות';
   } else if (email.value.length == 0) {
-    message.innerHTML = 'הזן מייל';
-  } else if (phone.value.length == 0) {
-    message.innerHTML = 'הזן מספר טלפון';
+    message.innerHTML = 'נדרש להזין כתובת מייל';
+  } else if (phone.value.length < 10) {
+    message.innerHTML = 'מספר טלפון לא תקין';
   } else if (role.value == "דירוג") {
-    message.innerHTML = 'הזן דירוג למשתמש';
+    message.innerHTML = 'בחר דירוג למשתמש';
   } else {
     var concat = {
       "id_user": id_user.value,

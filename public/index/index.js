@@ -31,14 +31,14 @@ const handleRegistration = (e) => {
     let phone = document.querySelector('#phone')
     let role = document.querySelector('#role')
 
-    if (id_user.value.length < 10) {
+    if (id_user.value.length !== 9) {
         message.innerHTML = 'מספר זהות לא תקין'
     } else if (name.value.length < 2) {
         message.innerHTML = 'נדרש להזין שם מלא תקין'
     } else if (userName.value.length < 2) {
-        message.innerHTML = 'נדרש להזין שם משתמש המכיל 2 תווים לפחות '
+        message.innerHTML = 'נדרש להזין שם משתמש</br> המכיל 2 תווים לפחות '
     } else if (password.value.length < 6) {
-        message.innerHTML = 'בחר/י סיסמה המכילה 6 תווים לפחות'
+        message.innerHTML = 'בחר/י סיסמה המכילה 6</br> תווים לפחות'
     } else if (email.value.length == 0 ) {
         message.innerHTML = 'נדרש להזין כתובת מייל'
     } else if (phone.value.length < 10) {
