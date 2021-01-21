@@ -20,11 +20,11 @@ const handleLogin = (event) => {
 
     if (userName.length == 0 && password.length == 0) {
         error.innerHTML = 'הזן שם וסיסמה'
-    }else if (userName.length == 0) {
+    } else if (userName.length == 0) {
         error.innerHTML = 'הזן שם משתמש'
     } else if (password.length == 0) {
         error.innerHTML = 'הזן סיסמה'
-    }else {
+    } else {
         error.innerHTML = '<img src="/img/rotete.gif">'
 
         fetch('/send-Login-details', {

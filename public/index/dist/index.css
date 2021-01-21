@@ -61,7 +61,7 @@ body {
   margin-top: 150px;
 }
 .Registration .imgdelete {
-  width: 35px;
+  width: 30px;
   position: absolute;
   top: -15px;
   right: -15px;
@@ -96,10 +96,15 @@ body {
   background: rgba(128, 128, 128, 0.623);
   color: var(--color);
   font-weight: 600;
+  cursor: pointer;
 }
 .Registration input[type=submit]:active {
   border: 3px solid var(--color);
   color: var(--background);
+  transition: color 0.3s;
+}
+.Registration input[type=submit]:hover {
+  background: #a8998f;
   transition: color 0.3s;
 }
 .Registration label {
@@ -121,6 +126,7 @@ body {
   font-family: var(--font-family);
   width: 100%;
   box-sizing: border-box;
+  cursor: pointer;
 }
 .Registration #message {
   font-size: 25rem;
@@ -143,12 +149,14 @@ body {
   direction: rtl;
   position: relative;
   min-height: 750px;
-  min-width: 500px;
+  min-width: 350px;
+  width: 80%;
+  max-width: 750px;
   margin-top: 150px;
   display: none;
 }
 .cardCategory img {
-  width: 35px;
+  width: 30px;
   position: absolute;
   top: -15px;
   right: -15px;
@@ -184,12 +192,14 @@ body {
   direction: rtl;
   position: relative;
   min-height: 900px;
-  min-width: 600px;
-  margin-top: 150px;
+  min-width: 350px;
+  width: 80%;
+  max-width: 750px;
+  margin: 150px 0px 150px;
   display: none;
 }
 .ShowAll .delete {
-  width: 35px;
+  width: 30px;
   position: absolute;
   top: -15px;
   right: -15px;
@@ -211,10 +221,28 @@ body {
 }
 .ShowAll .cardlist .list {
   min-width: 120px;
-  border-left: 2px solid gray;
 }
 .ShowAll .cardlist img {
   border-radius: 10px;
   width: 100%;
   height: 100%;
+}
+
+.Bottom {
+  background-color: #f0ece2;
+  height: 50px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20rem;
+  font-weight: 600;
+  font-family: var(--font-family);
+  color: var(--background);
+  z-index: 5;
+}
+.Bottom img {
+  width: 25px;
 }

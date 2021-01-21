@@ -19,7 +19,7 @@ app.use(express["static"]('public'));
 
 var mongoose = require('mongoose');
 
-var secret = 'gvfdgb%$^$%&$4054423654073467$6@$&*(@%$^&2310*/-/+';
+var secret = 'gvfdgb%$^$%&3$4054423654073467$6@$&*(@%$^&2310*/-/+';
 var url = "mongodb+srv://yaara:987Yaara@cluster0.uya8d.mongodb.net/test";
 mongoose.connect(url, {
   useNewUrlParser: true,
@@ -111,7 +111,7 @@ app.post('/send-Login-details', function _callee2(req, res) {
 
           if (validate) {
             res.cookie('validated', token, {
-              maxAge: 200000,
+              maxAge: 100000000,
               httpOnly: true
             });
           }

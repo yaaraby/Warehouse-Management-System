@@ -18,7 +18,7 @@ body {
 :root {
   --background: #AA5439;
   --font-family: "Rubik", sans-serif;
-  --color:white;
+  --color: white;
 }
 
 .cardLogin {
@@ -53,10 +53,15 @@ body {
   background: rgba(128, 128, 128, 0.623);
   color: var(--color);
   font-weight: 600;
+  cursor: pointer;
 }
 .cardLogin input[type=submit]:active {
   border: 3px solid var(--color);
   color: var(--background);
+  transition: color 0.3s;
+}
+.cardLogin input[type=submit]:hover {
+  background: #a8998f;
   transition: color 0.3s;
 }
 .cardLogin .login {
@@ -72,4 +77,24 @@ body {
 }
 .cardLogin #error img {
   width: 30px;
+}
+
+.Bottom {
+  direction: initial;
+  background-color: #f0ece2;
+  height: 50px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20rem;
+  font-weight: 600;
+  font-family: var(--font-family);
+  color: var(--background);
+  z-index: 5;
+}
+.Bottom img {
+  width: 25px;
 }

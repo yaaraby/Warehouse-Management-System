@@ -22,13 +22,8 @@ function testcoocik() {
 }
 
 function Output() {
-  // window.location.replace('/login/login.html')
-  fetch('/Output').then(function (r) {
-    return r.json();
-  }).then(function (data) {
-    console.log(data);
-    testcoocik();
-  });
+  window.location.replace('/login/login.html');
+  fetch('/Output');
 }
 
 var cardboxcatygory = document.querySelector('.cardboxcatygory');
@@ -156,7 +151,7 @@ function PullThiscCategory(event) {
     console.log(data);
     titlecategory.innerHTML = eventCategory;
     data.data.forEach(function (elm) {
-      carbox.innerHTML += "<div class=\"cardlist\">\n            <div class=\"list\"><b>\u05E9\u05DD \u05D4\u05DE\u05D5\u05E6\u05E8:</b></br></br>".concat(elm.Name, "</div>\n            <div class=\"list\"><b>\u05DE\u05E9\u05E7\u05DC:</b></br></br>").concat(elm.Weight, "</div>\n            <div class=\"list\" style=\"border: 0;\"><b>\u05DE\u05D7\u05D9\u05E8:</b></br></br>").concat(elm.price, " \u20AA</div>\n            <img src=\"").concat(elm.price, "\">\n        </div>");
-    });
+      carbox.innerHTML += "<div class=\"cardlist\">\n            <div class=\"list\"><b>\u05E9\u05DD \u05D4\u05DE\u05D5\u05E6\u05E8:</b></br></br>".concat(elm.Name, "</div>\n            <div class=\"list\"><b>\u05DE\u05E9\u05E7\u05DC:</b></br></br>").concat(elm.Weight, "</div>\n            <div class=\"list\" style=\"border: 0;\"><b>\u05DE\u05D7\u05D9\u05E8:</b></br></br>").concat(elm.price, " \u20AA</div>\n        \n        </div>");
+    }); //<img src="${elm.price}">
   });
 }

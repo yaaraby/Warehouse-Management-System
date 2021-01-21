@@ -10,7 +10,7 @@ app.use(cookieParser());
 app.use(express.static('public'))
 const mongoose = require('mongoose');
 
-const secret = 'gvfdgb%$^$%&$4054423654073467$6@$&*(@%$^&2310*/-/+'
+const secret = 'gvfdgb%$^$%&3$4054423654073467$6@$&*(@%$^&2310*/-/+'
 
 const url = "mongodb+srv://yaara:987Yaara@cluster0.uya8d.mongodb.net/test";
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -89,7 +89,7 @@ app.post('/send-Login-details', async (req, res) => {
 
 
         if (validate) {
-            res.cookie('validated', token, { maxAge: 200000, httpOnly: true })
+            res.cookie('validated', token, { maxAge: 100000000, httpOnly: true })
         }
         setTimeout(() => { res.send({ validate }) }, 1000);
     }

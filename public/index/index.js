@@ -21,13 +21,8 @@ function testcoocik() {
 }
 
 function Output() {
-    // window.location.replace('/login/login.html')
+    window.location.replace('/login/login.html')
     fetch('/Output')
-    .then(r => r.json())
-    .then(data => {
-        console.log(data)
-        testcoocik()
-    })
 }
 
 
@@ -39,8 +34,8 @@ const ShowAll = document.querySelector('.ShowAll')
 const message = document.querySelector("#message")
 const Registration = document.querySelector('.Registration')
 
-function cardCategorydisplaynone(){
-    cardCategory.style.display='none'
+function cardCategorydisplaynone() {
+    cardCategory.style.display = 'none'
 }
 
 function Addauser() {
@@ -165,8 +160,8 @@ function PullThiscCategory(event) {
             <div class="list"><b>שם המוצר:</b></br></br>${elm.Name}</div>
             <div class="list"><b>משקל:</b></br></br>${elm.Weight}</div>
             <div class="list" style="border: 0;"><b>מחיר:</b></br></br>${elm.price} ₪</div>
-            <img src="${elm.price}">
+        
         </div>`
-            })
+            })    //<img src="${elm.price}">
         })
 }
