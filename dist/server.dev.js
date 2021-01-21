@@ -41,7 +41,12 @@ var Products = mongoose.model('product', {
   Category: String,
   Weight: String,
   ExpiryDate: String
-}); // const product1 = new Products({
+}); // hh()
+// async function hh(){
+// const ff = await Products.find({})
+// console.log(ff)
+// }
+// const product1 = new Products({
 //     UPS: '81726',
 //     Name: 'Milk',
 //     price: '4.5',
@@ -93,14 +98,16 @@ app.post('/send-Login-details', function _callee(req, res) {
 
           if (validate) {
             res.cookie('validated', token, {
-              maxAge: 9999999999,
+              maxAge: 100000000,
               httpOnly: true
             });
           }
 
-          res.send({
-            validate: validate
-          });
+          setTimeout(function () {
+            res.send({
+              validate: validate
+            });
+          }, 1000);
           _context.next = 16;
           break;
 
@@ -210,13 +217,64 @@ app.post('/send-User-details-sign-up', function _callee2(req, res) {
           }));
 
         case 31:
-          res.send({
-            message: message
-          });
+          setTimeout(function () {
+            res.send({
+              message: message
+            });
+          }, 1000);
 
         case 32:
         case "end":
           return _context2.stop();
+      }
+    }
+  });
+});
+app.get('/get-category', function _callee3(req, res) {
+  var data;
+  return regeneratorRuntime.async(function _callee3$(_context3) {
+    while (1) {
+      switch (_context3.prev = _context3.next) {
+        case 0:
+          _context3.next = 2;
+          return regeneratorRuntime.awrap(Products.find({}, {
+            Category: 1
+          }));
+
+        case 2:
+          data = _context3.sent;
+          res.send({
+            data: data
+          });
+
+        case 4:
+        case "end":
+          return _context3.stop();
+      }
+    }
+  });
+});
+app.post('/PullThiscCategory', function _callee4(req, res) {
+  var eventCategory, data;
+  return regeneratorRuntime.async(function _callee4$(_context4) {
+    while (1) {
+      switch (_context4.prev = _context4.next) {
+        case 0:
+          eventCategory = req.body.eventCategory;
+          _context4.next = 3;
+          return regeneratorRuntime.awrap(Products.find({
+            Category: eventCategory
+          }));
+
+        case 3:
+          data = _context4.sent;
+          res.send({
+            data: data
+          });
+
+        case 5:
+        case "end":
+          return _context4.stop();
       }
     }
   });

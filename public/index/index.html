@@ -12,12 +12,12 @@
 <body>
     <div class="menu">
         <div class="SelectionMenu">מדפים</div>
-        <div class="SelectionMenu">מוצרים</div>
+        <div class="SelectionMenu" onclick="getCategory()">קטגוריות</div>
         <div class="SelectionMenu" onclick="Addauser()">הוספת משתמש</div>
         <div class="SelectionMenu" onclick="Output()">יציאה</div>
     </div>
     <div class="Registration">
-        <img src="/img/delete.png" onclick="Registrationdisplaynone()">
+        <img class="imgdelete" src="/img/delete.png" onclick="Registrationdisplaynone()">
         <h1>הרשמה</h1>
         <form onsubmit="handleRegistration(event)">
             <div class="rtl">
@@ -48,8 +48,21 @@
             <div id="message"></div></br>
             <input type="submit" value="הוספה">
         </form>
-
     </div>
+
+    <div class="cardCategory"></div>
+
+
+    <div class="ShowAll">
+        <div class="cardlist">
+        <div class="list"><b>שם המוצר:</b></br></br>${}</div>
+        <div class="list"><b>משקל:</b></br></br>${}</div>
+        <div class="list" style="border: 0;"><b>מחיר:</b></br></br>${}</div>
+        <img src="${}">
+    </div>
+    </div>
+
+
     <script src="index.js"></script>
 </body>
 

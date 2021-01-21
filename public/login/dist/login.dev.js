@@ -14,6 +14,7 @@ var handleLogin = function handleLogin(event) {
   } else if (password.length == 0) {
     error.innerHTML = 'הזן סיסמה';
   } else {
+    error.innerHTML = '<img src="/img/rotete.gif">';
     fetch('/send-Login-details', {
       method: 'post',
       headers: {

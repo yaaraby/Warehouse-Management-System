@@ -1,22 +1,25 @@
-// setInterval(function () {
-//     fetch('/Cookie-test')
-//         .then(r => r.json())
-//         .then(data => {
-//             if (data.validated !== true) {
-//                 window.location.replace('/login/login.html')
-//             }
-//         })
-// }, 1000);
-
+setInterval(function () {
+    fetch('/Cookie-test')
+        .then(r => r.json())
+        .then(data => {
+            if (data.validated !== true) {
+                window.location.replace('/login/login.html')
+            }
+        })
+}, 200000);
+const cardCategory = document.querySelector('.cardCategory')
+const ShowAll= document.querySelector('.ShowAll')
 const message = document.querySelector("#message")
 const Registration = document.querySelector('.Registration')
 function Addauser() {
+    cardCategory.style.display = 'none'
+    ShowAll.style.display = 'none'
     Registration.style.display = 'block'
 }
-function Registrationdisplaynone(){
+function Registrationdisplaynone() {
     Registration.style.display = 'none'
 }
-function Output(){
+function Output() {
     window.location.replace('/login/login.html')
 }
 
@@ -39,9 +42,9 @@ const handleRegistration = (e) => {
         message.innerHTML = 'נדרש להזין שם משתמש</br> המכיל 2 תווים לפחות '
     } else if (password.value.length < 6) {
         message.innerHTML = 'בחר/י סיסמה המכילה 6</br> תווים לפחות'
-    } else if (email.value.length == 0 ) {
+    } else if (email.value.length == 0) {
         message.innerHTML = 'נדרש להזין כתובת מייל'
-    } else if (phone.value.length < 10) {
+    } else if (phone.value.length !== 9 && phone.value.length !== 10) {
         message.innerHTML = 'מספר טלפון לא תקין'
     } else if (role.value == "דירוג") {
         message.innerHTML = 'בחר דירוג למשתמש'
@@ -55,7 +58,7 @@ const handleRegistration = (e) => {
             "phone": phone.value,
             "role": role.value,
         }
-
+        message.innerHTML = '<img src="/img/rotete.gif">'
 
         fetch('/send-User-details-sign-up', {
             method: 'POST',
@@ -84,4 +87,55 @@ const handleRegistration = (e) => {
                 }
             })
     }
+}
+
+function getCategory() {
+    let aryycategory = []
+    Registration.style.display = 'none'
+    ShowAll.style.display = 'none'
+    cardCategory.style.display = 'block'
+    cardCategory.innerHTML = ''
+    fetch('/get-category')
+        .then(res =>
+            res.json()
+        )
+        .then(data => {
+            data.data.forEach(element => {
+                if (aryycategory.indexOf(element.Category) == -1) {
+                    aryycategory.push(element.Category)
+                }
+            });
+            aryycategory.forEach(elm => {
+                cardCategory.innerHTML += `<div class="A_line_in_a_category" onclick="PullThiscCategory(event)">${elm}</div>`
+            })
+        })
+}
+
+function PullThiscCategory(event) {
+    const eventCategory = event.target.innerText
+    ShowAll.innerHTML =''
+
+    fetch('/PullThiscCategory', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ eventCategory })
+    }).then(res =>
+        res.json()
+    )
+        .then(data => {
+            Registration.style.display = 'none'
+            cardCategory.style.display = 'none'
+            ShowAll.style.display = 'block'
+console.log(data)
+
+            data.data.forEach(elm=>{
+                ShowAll.innerHTML +=`<div class="cardlist">
+            <div class="list"><b>שם המוצר:</b></br></br>${elm.Name}</div>
+            <div class="list"><b>משקל:</b></br></br>${elm.Weight}</div>
+            <div class="list" style="border: 0;"><b>מחיר:</b></br></br>${elm.price}</div>
+            <img src="${elm.price}">
+        </div>`
+        }) })
 }

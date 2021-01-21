@@ -34,7 +34,11 @@ const Products = mongoose.model('product', {
     ExpiryDate: String
 
 });
-
+// hh()
+// async function hh(){
+// const ff = await Products.find({})
+// console.log(ff)
+// }
 // const product1 = new Products({
 //     UPS: '81726',
 //     Name: 'Milk',
@@ -81,9 +85,9 @@ app.post('/send-Login-details', async (req, res) => {
         let token = jwt.encode({ role }, secret);
 
         if (validate) {
-            res.cookie('validated', token, { maxAge: 9999999999, httpOnly: true })
+            res.cookie('validated', token, { maxAge: 100000000, httpOnly: true })
         }
-        res.send({ validate })
+        setTimeout(() => { res.send({ validate }) }, 1000);
     }
     catch (e) {
         console.log(e.message)
@@ -105,7 +109,7 @@ app.get('/Cookie-test', (req, res) => {
 
 app.post('/send-User-details-sign-up', async (req, res) => {
 
-    let message=''
+    let message = ''
     const { id_user, name, userName, password, email, phone, role } = req.body
 
     const data = await Users.find({})
@@ -125,14 +129,24 @@ app.post('/send-User-details-sign-up', async (req, res) => {
         }
     }
 
-    if (message == 'ok'){
+    if (message == 'ok') {
         const user = new Users({ id_user, name, userName, password, email, phone, role });
         await user.save().then(doc => console.log(doc)).catch(e => console.log(e));
     }
-    res.send({ message })
 
+    setTimeout(() => { res.send({ message }) }, 1000);
 })
 
+app.get('/get-category', async (req, res) => {
+    const data = await Products.find({}, { Category: 1 })
+    res.send({ data })
+})
+
+app.post('/PullThiscCategory', async (req, res) => {
+    const { eventCategory } = req.body
+    const data = await Products.find({ Category: eventCategory })
+    res.send({ data })
+})
 
 
 

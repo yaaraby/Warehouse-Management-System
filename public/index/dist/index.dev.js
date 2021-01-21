@@ -1,18 +1,22 @@
 "use strict";
 
-// setInterval(function () {
-//     fetch('/Cookie-test')
-//         .then(r => r.json())
-//         .then(data => {
-//             if (data.validated !== true) {
-//                 window.location.replace('/login/login.html')
-//             }
-//         })
-// }, 1000);
+setInterval(function () {
+  fetch('/Cookie-test').then(function (r) {
+    return r.json();
+  }).then(function (data) {
+    if (data.validated !== true) {
+      window.location.replace('/login/login.html');
+    }
+  });
+}, 200000);
+var cardCategory = document.querySelector('.cardCategory');
+var ShowAll = document.querySelector('.ShowAll');
 var message = document.querySelector("#message");
 var Registration = document.querySelector('.Registration');
 
 function Addauser() {
+  cardCategory.style.display = 'none';
+  ShowAll.style.display = 'none';
   Registration.style.display = 'block';
 }
 
@@ -44,7 +48,7 @@ var handleRegistration = function handleRegistration(e) {
     message.innerHTML = 'בחר/י סיסמה המכילה 6</br> תווים לפחות';
   } else if (email.value.length == 0) {
     message.innerHTML = 'נדרש להזין כתובת מייל';
-  } else if (phone.value.length < 10) {
+  } else if (phone.value.length !== 9 && phone.value.length !== 10) {
     message.innerHTML = 'מספר טלפון לא תקין';
   } else if (role.value == "דירוג") {
     message.innerHTML = 'בחר דירוג למשתמש';
@@ -58,6 +62,7 @@ var handleRegistration = function handleRegistration(e) {
       "phone": phone.value,
       "role": role.value
     };
+    message.innerHTML = '<img src="/img/rotete.gif">';
     fetch('/send-User-details-sign-up', {
       method: 'POST',
       headers: {
@@ -85,3 +90,47 @@ var handleRegistration = function handleRegistration(e) {
     });
   }
 };
+
+function getCategory() {
+  var aryycategory = [];
+  Registration.style.display = 'none';
+  ShowAll.style.display = 'none';
+  cardCategory.style.display = 'block';
+  cardCategory.innerHTML = '';
+  fetch('/get-category').then(function (res) {
+    return res.json();
+  }).then(function (data) {
+    data.data.forEach(function (element) {
+      if (aryycategory.indexOf(element.Category) == -1) {
+        aryycategory.push(element.Category);
+      }
+    });
+    aryycategory.forEach(function (elm) {
+      cardCategory.innerHTML += "<div class=\"A_line_in_a_category\" onclick=\"PullThiscCategory(event)\">".concat(elm, "</div>");
+    });
+  });
+}
+
+function PullThiscCategory(event) {
+  var eventCategory = event.target.innerText;
+  ShowAll.innerHTML = '';
+  fetch('/PullThiscCategory', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      eventCategory: eventCategory
+    })
+  }).then(function (res) {
+    return res.json();
+  }).then(function (data) {
+    Registration.style.display = 'none';
+    cardCategory.style.display = 'none';
+    ShowAll.style.display = 'block';
+    console.log(data);
+    data.data.forEach(function (elm) {
+      ShowAll.innerHTML += "<div class=\"cardlist\">\n            <div class=\"list\"><b>\u05E9\u05DD \u05D4\u05DE\u05D5\u05E6\u05E8:</b></br></br>".concat(elm.Name, "</div>\n            <div class=\"list\"><b>\u05DE\u05E9\u05E7\u05DC:</b></br></br>").concat(elm.Weight, "</div>\n            <div class=\"list\" style=\"border: 0;\"><b>\u05DE\u05D7\u05D9\u05E8:</b></br></br>").concat(elm.price, "</div>\n            <img src=\"").concat(elm.price, "\">\n        </div>");
+    });
+  });
+}
