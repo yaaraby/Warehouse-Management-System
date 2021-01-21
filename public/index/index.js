@@ -8,7 +8,9 @@ setInterval(function () {
         })
 }, 200000);
 const cardCategory = document.querySelector('.cardCategory')
-const ShowAll= document.querySelector('.ShowAll')
+const carbox = document.querySelector('.carbox')
+const titlecategory = document.querySelector('.titlecategory')
+const ShowAll = document.querySelector('.ShowAll')
 const message = document.querySelector("#message")
 const Registration = document.querySelector('.Registration')
 function Addauser() {
@@ -113,7 +115,7 @@ function getCategory() {
 
 function PullThiscCategory(event) {
     const eventCategory = event.target.innerText
-    ShowAll.innerHTML =''
+    carbox.innerHTML = ''
 
     fetch('/PullThiscCategory', {
         method: 'POST',
@@ -128,14 +130,15 @@ function PullThiscCategory(event) {
             Registration.style.display = 'none'
             cardCategory.style.display = 'none'
             ShowAll.style.display = 'block'
-console.log(data)
-
-            data.data.forEach(elm=>{
-                ShowAll.innerHTML +=`<div class="cardlist">
+            console.log(data)
+            titlecategory.innerHTML = eventCategory
+            data.data.forEach(elm => {
+                carbox.innerHTML += `<div class="cardlist">
             <div class="list"><b>שם המוצר:</b></br></br>${elm.Name}</div>
             <div class="list"><b>משקל:</b></br></br>${elm.Weight}</div>
-            <div class="list" style="border: 0;"><b>מחיר:</b></br></br>${elm.price}</div>
+            <div class="list" style="border: 0;"><b>מחיר:</b></br></br>${elm.price} ₪</div>
             <img src="${elm.price}">
         </div>`
-        }) })
+            })
+        })
 }

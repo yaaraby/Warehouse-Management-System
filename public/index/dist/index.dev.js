@@ -10,6 +10,8 @@ setInterval(function () {
   });
 }, 200000);
 var cardCategory = document.querySelector('.cardCategory');
+var carbox = document.querySelector('.carbox');
+var titlecategory = document.querySelector('.titlecategory');
 var ShowAll = document.querySelector('.ShowAll');
 var message = document.querySelector("#message");
 var Registration = document.querySelector('.Registration');
@@ -113,7 +115,7 @@ function getCategory() {
 
 function PullThiscCategory(event) {
   var eventCategory = event.target.innerText;
-  ShowAll.innerHTML = '';
+  carbox.innerHTML = '';
   fetch('/PullThiscCategory', {
     method: 'POST',
     headers: {
@@ -129,8 +131,9 @@ function PullThiscCategory(event) {
     cardCategory.style.display = 'none';
     ShowAll.style.display = 'block';
     console.log(data);
+    titlecategory.innerHTML = eventCategory;
     data.data.forEach(function (elm) {
-      ShowAll.innerHTML += "<div class=\"cardlist\">\n            <div class=\"list\"><b>\u05E9\u05DD \u05D4\u05DE\u05D5\u05E6\u05E8:</b></br></br>".concat(elm.Name, "</div>\n            <div class=\"list\"><b>\u05DE\u05E9\u05E7\u05DC:</b></br></br>").concat(elm.Weight, "</div>\n            <div class=\"list\" style=\"border: 0;\"><b>\u05DE\u05D7\u05D9\u05E8:</b></br></br>").concat(elm.price, "</div>\n            <img src=\"").concat(elm.price, "\">\n        </div>");
+      carbox.innerHTML += "<div class=\"cardlist\">\n            <div class=\"list\"><b>\u05E9\u05DD \u05D4\u05DE\u05D5\u05E6\u05E8:</b></br></br>".concat(elm.Name, "</div>\n            <div class=\"list\"><b>\u05DE\u05E9\u05E7\u05DC:</b></br></br>").concat(elm.Weight, "</div>\n            <div class=\"list\" style=\"border: 0;\"><b>\u05DE\u05D7\u05D9\u05E8:</b></br></br>").concat(elm.price, " \u20AA</div>\n            <img src=\"").concat(elm.price, "\">\n        </div>");
     });
   });
 }
