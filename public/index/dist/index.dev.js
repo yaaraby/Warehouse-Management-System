@@ -1,6 +1,17 @@
 "use strict";
 
-setInterval(function () {
+// setInterval(function testcoocik() {
+//     fetch('/Cookie-test')
+//         .then(r => r.json())
+//         .then(data => {
+//             if (data.validated !== true) {
+//                 window.location.replace('/login/login.html')
+//             }
+//         })
+// }, 200000);
+testcoocik();
+
+function testcoocik() {
   fetch('/Cookie-test').then(function (r) {
     return r.json();
   }).then(function (data) {
@@ -8,7 +19,18 @@ setInterval(function () {
       window.location.replace('/login/login.html');
     }
   });
-}, 200000);
+}
+
+function Output() {
+  // window.location.replace('/login/login.html')
+  fetch('/Output').then(function (r) {
+    return r.json();
+  }).then(function (data) {
+    console.log(data);
+    testcoocik();
+  });
+}
+
 var cardboxcatygory = document.querySelector('.cardboxcatygory');
 var cardCategory = document.querySelector('.cardCategory');
 var carbox = document.querySelector('.carbox');
@@ -29,10 +51,6 @@ function Addauser() {
 
 function Registrationdisplaynone() {
   Registration.style.display = 'none';
-}
-
-function Output() {
-  window.location.replace('/login/login.html');
 }
 
 var handleRegistration = function handleRegistration(e) {

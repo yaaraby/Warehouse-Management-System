@@ -1,6 +1,17 @@
 "use strict";
 
 var error = document.getElementById('error');
+testcoocik();
+
+function testcoocik() {
+  fetch('/Cookie-test').then(function (r) {
+    return r.json();
+  }).then(function (data) {
+    if (data.validated == true) {
+      window.location.replace('/index/index.html');
+    }
+  });
+}
 
 var handleLogin = function handleLogin(event) {
   event.preventDefault();

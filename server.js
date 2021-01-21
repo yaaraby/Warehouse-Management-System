@@ -37,9 +37,9 @@ const Products = mongoose.model('product', {
 
 // const product1 = new Products({
 //     UPS: '81726',
-//     Name: 'כסא',
+//     Name: 'כוס',
 //     price: '450',
-//     Category: 'משרד',
+//     Category: 'זכוכית',
 //     Weight: '5',
 //     ExpiryDate: '30/02/2021'
 
@@ -60,13 +60,21 @@ const Products = mongoose.model('product', {
 //  user.save().then(doc => console.log('doc')).catch(e =>console.log(e));
 
 // login.html
-
+let role = 'public'
 let ok = false
+let token = jwt.encode({ role }, secret);
+
+app.get('/Output', async (req, res) => {
+    res.cookie('validated', token, { maxAge: 0, httpOnly: true })
+    res.send(true)
+})
+
+
 app.post('/send-Login-details', async (req, res) => {
     try {
         const { userName, password } = req.body
         let validate = false
-        let role = 'public'
+
 
         const data = await Users.find({})
         data.forEach(elm => {
@@ -78,10 +86,10 @@ app.post('/send-Login-details', async (req, res) => {
             }
         })
 
-        let token = jwt.encode({ role }, secret);
+
 
         if (validate) {
-            res.cookie('validated', token, { maxAge: 100000000, httpOnly: true })
+            res.cookie('validated', token, { maxAge: 200000, httpOnly: true })
         }
         setTimeout(() => { res.send({ validate }) }, 1000);
     }

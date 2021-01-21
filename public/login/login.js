@@ -1,5 +1,18 @@
 const error = document.getElementById('error')
 
+testcoocik()
+
+function testcoocik() {
+    fetch('/Cookie-test')
+        .then(r => r.json())
+        .then(data => {
+            if (data.validated == true) {
+                window.location.replace('/index/index.html')
+            }
+        })
+}
+
+
 const handleLogin = (event) => {
     event.preventDefault();
     let userName = event.target.children.userName.value;

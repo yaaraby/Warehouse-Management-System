@@ -1,4 +1,16 @@
-setInterval(function () {
+// setInterval(function testcoocik() {
+//     fetch('/Cookie-test')
+//         .then(r => r.json())
+//         .then(data => {
+//             if (data.validated !== true) {
+//                 window.location.replace('/login/login.html')
+//             }
+//         })
+// }, 200000);
+
+testcoocik()
+
+function testcoocik() {
     fetch('/Cookie-test')
         .then(r => r.json())
         .then(data => {
@@ -6,8 +18,17 @@ setInterval(function () {
                 window.location.replace('/login/login.html')
             }
         })
-}, 200000);
+}
 
+function Output() {
+    // window.location.replace('/login/login.html')
+    fetch('/Output')
+    .then(r => r.json())
+    .then(data => {
+        console.log(data)
+        testcoocik()
+    })
+}
 
 
 const cardboxcatygory = document.querySelector('.cardboxcatygory')
@@ -30,9 +51,7 @@ function Addauser() {
 function Registrationdisplaynone() {
     Registration.style.display = 'none'
 }
-function Output() {
-    window.location.replace('/login/login.html')
-}
+
 
 const handleRegistration = (e) => {
     e.preventDefault();
