@@ -7,12 +7,21 @@ setInterval(function () {
             }
         })
 }, 200000);
+
+
+
+const cardboxcatygory = document.querySelector('.cardboxcatygory')
 const cardCategory = document.querySelector('.cardCategory')
 const carbox = document.querySelector('.carbox')
 const titlecategory = document.querySelector('.titlecategory')
 const ShowAll = document.querySelector('.ShowAll')
 const message = document.querySelector("#message")
 const Registration = document.querySelector('.Registration')
+
+function cardCategorydisplaynone(){
+    cardCategory.style.display='none'
+}
+
 function Addauser() {
     cardCategory.style.display = 'none'
     ShowAll.style.display = 'none'
@@ -96,7 +105,7 @@ function getCategory() {
     Registration.style.display = 'none'
     ShowAll.style.display = 'none'
     cardCategory.style.display = 'block'
-    cardCategory.innerHTML = ''
+    cardboxcatygory.innerHTML = ''
     fetch('/get-category')
         .then(res =>
             res.json()
@@ -108,7 +117,7 @@ function getCategory() {
                 }
             });
             aryycategory.forEach(elm => {
-                cardCategory.innerHTML += `<div class="A_line_in_a_category" onclick="PullThiscCategory(event)">${elm}</div>`
+                cardboxcatygory.innerHTML += `<div class="A_line_in_a_category" onclick="PullThiscCategory(event)">${elm}</div>`
             })
         })
 }

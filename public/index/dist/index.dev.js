@@ -9,12 +9,17 @@ setInterval(function () {
     }
   });
 }, 200000);
+var cardboxcatygory = document.querySelector('.cardboxcatygory');
 var cardCategory = document.querySelector('.cardCategory');
 var carbox = document.querySelector('.carbox');
 var titlecategory = document.querySelector('.titlecategory');
 var ShowAll = document.querySelector('.ShowAll');
 var message = document.querySelector("#message");
 var Registration = document.querySelector('.Registration');
+
+function cardCategorydisplaynone() {
+  cardCategory.style.display = 'none';
+}
 
 function Addauser() {
   cardCategory.style.display = 'none';
@@ -98,7 +103,7 @@ function getCategory() {
   Registration.style.display = 'none';
   ShowAll.style.display = 'none';
   cardCategory.style.display = 'block';
-  cardCategory.innerHTML = '';
+  cardboxcatygory.innerHTML = '';
   fetch('/get-category').then(function (res) {
     return res.json();
   }).then(function (data) {
@@ -108,7 +113,7 @@ function getCategory() {
       }
     });
     aryycategory.forEach(function (elm) {
-      cardCategory.innerHTML += "<div class=\"A_line_in_a_category\" onclick=\"PullThiscCategory(event)\">".concat(elm, "</div>");
+      cardboxcatygory.innerHTML += "<div class=\"A_line_in_a_category\" onclick=\"PullThiscCategory(event)\">".concat(elm, "</div>");
     });
   });
 }
