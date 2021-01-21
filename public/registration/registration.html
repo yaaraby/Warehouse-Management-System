@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src='registration.js'></script>
+</head>
+<body>
+    <h1>Registration</h1>
+    <form onsubmit="handleRegistration(event)">
+    <label for="fid-user">ID:</label>
+    <input type="text" name="id_user" required><br><br>
+
+    <label for="fname">Nmae:</label>
+    <input type="text" name="name" required><br><br>
+
+    <label for="fusername">User Name:</label>
+    <input type="text" name="username" required><br><br>
+
+    <label for="fpassword">Password:</label>
+    <input type="password" name="password" required><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" name="email"><br><br>
+
+    <label for="phone">Phone:</label>
+    <input type="text" name="phone" id="phone"><br><br>
+
+    <label for="frole">Role:</label>
+   <!--  <input type="text" name="role" value="role" list="role"><br><br>
+    <datalist id="role">
+        <option value="Admin">
+        <option value="Public">
+    </datalist> -->
+    
+    <select name="role" required>
+        <option value="admin">Admin</option>
+        <option value="public" selected>Public</option>
+    
+      </select><br><br>
+
+
+    <input type="submit" value="submit">
+    </form>
+    <div id="message"></div>
+</body>
+</html>
