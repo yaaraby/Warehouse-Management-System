@@ -41,17 +41,12 @@ var Products = mongoose.model('product', {
   Category: String,
   Weight: String,
   ExpiryDate: String
-}); // hh()
-// async function hh(){
-// const ff = await Products.find({})
-// console.log(ff)
-// }
-// const product1 = new Products({
+}); // const product1 = new Products({
 //     UPS: '81726',
-//     Name: 'Milk',
-//     price: '4.5',
-//     Category: 'Milk',
-//     Weight: '1',
+//     Name: 'כסא',
+//     price: '450',
+//     Category: 'משרד',
+//     Weight: '5',
 //     ExpiryDate: '30/02/2021'
 // })
 // product1.save().then(doc => console.log(doc)).catch(e =>console.log(e));
