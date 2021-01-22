@@ -28,12 +28,12 @@ const Users = mongoose.model('User', {
 
 const Shelfs = mongoose.model('Shelf', {
 
-   id_row:String,
-   Line: Number,
-   Area: String,
-   Floor: Number,
-   Weight: Number,
-   height: Number
+    Line: Number,
+    Area: String,
+    Floor: Number,
+    UPS_Shelfs: String,
+    Weight: Number,
+    height: Number
 
 });
 
