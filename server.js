@@ -15,25 +15,39 @@ const secret = 'gvfdgb%$^$%&3$4054423654073467$6@$&*(@%$^&2310*/-/+'
 const url = "mongodb+srv://yaara:987Yaara@cluster0.uya8d.mongodb.net/test";
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 
-const Row = mongoose.model('user', {
 
-    id_row:Number,
-    number:Number,//1
-
-
-    
-   
+const Users = mongoose.model('User', {
+    id_user: String,
+    userName:String,
+    name: String,
+    password: String,
+    email: String,
+    phone: String,
+    role: String
 });
-const Floor = mongoose.model('user', {
 
-<<<<<<< Updated upstream:server.js
+const Shelfs = mongoose.model('Shelf', {
+
+   id_row:String,
+   Line: Number,
+   Area: String,
+   Floor: Number,
+   Weight: Number,
+   height: Number
+
+});
+
 const Products = mongoose.model('product', {
-    UPS: String,
-    Name: String,
-    price: String,
-    Category: String,
-    Weight: String,
-    ExpiryDate: String
+   UPS: String,
+   Name: String,
+   price: Number,
+   Amount: Number,
+   Category: String,
+   Weight: Number,
+   height: Number,
+   ExpiryDate: String,
+   Image: Image,
+   Location:String
 
 });
 
@@ -49,15 +63,6 @@ const Products = mongoose.model('product', {
 // product1.save().then(doc => console.log(doc)).catch(e =>console.log(e));
 
 
-=======
-    id_row:Number,
-    number:String,//A
-    
-
-    
-   
-});
->>>>>>> Stashed changes:login/server.js
 // const user = new Users({
 //     id_user: '123456',
 //     userName:'הלל',
