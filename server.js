@@ -46,7 +46,7 @@ const Products = mongoose.model('product', {
    Weight: Number,
    height: Number,
    ExpiryDate: String,
-   Image: Image,
+   Image: String,
    Location:String
 
 });
@@ -171,6 +171,8 @@ app.post('/PullThiscCategory', async (req, res) => {
 
 
 
-const port = process.env.PORT || 8080;
+
+
+const port = process.env.PORT || 400;
 app.listen(port, () => console.log('server listen on port ', port))
 

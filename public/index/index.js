@@ -114,6 +114,7 @@ const handleRegistration = (e) => {
     }
 }
 
+
 function getCategory() {
     let aryycategory = []
     Registration.style.display = 'none'
