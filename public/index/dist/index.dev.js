@@ -1,14 +1,16 @@
 "use strict";
 
-// setInterval(function testcoocik() {
-//     fetch('/Cookie-test')
-//         .then(r => r.json())
-//         .then(data => {
-//             if (data.validated !== true) {
-//                 window.location.replace('/login/login.html')
-//             }
-//         })
-// }, 200000);
+var Searchselect = document.querySelector("#Searchselect");
+var inputSearch = document.querySelector("#inputSearch");
+var Search = document.querySelector('.Search');
+var cardboxcatygory = document.querySelector('.cardboxcatygory');
+var cardCategory = document.querySelector('.cardCategory');
+var carbox = document.querySelector('.carbox');
+var titlecategory = document.querySelector('.titlecategory');
+var ShowAll = document.querySelector('.ShowAll');
+var message = document.querySelector("#message");
+var Registration = document.querySelector('.Registration');
+var textmessage = document.querySelector('.textmessage');
 testcoocik();
 
 function testcoocik() {
@@ -25,17 +27,6 @@ function Output() {
   window.location.replace('/login/login.html');
   fetch('/Output');
 }
-
-var Searchselect = document.querySelector("#Searchselect");
-var inputSearch = document.querySelector("#inputSearch");
-var Search = document.querySelector('.Search');
-var cardboxcatygory = document.querySelector('.cardboxcatygory');
-var cardCategory = document.querySelector('.cardCategory');
-var carbox = document.querySelector('.carbox');
-var titlecategory = document.querySelector('.titlecategory');
-var ShowAll = document.querySelector('.ShowAll');
-var message = document.querySelector("#message");
-var Registration = document.querySelector('.Registration');
 
 function deletesearch() {
   Search.style.display = 'none';
@@ -67,10 +58,16 @@ function Searchdisplayblock() {
 
 function functionSearch() {
   console.log(inputSearch.value);
+  console.log(inputSearch.placeholder);
+
+  if (inputSearch.placeholder == 'בחר סוג חיפוש >>') {
+    textmessage.innerHTML = 'הזן סוג חיפוש';
+  }
 }
 
 function valueselect(event) {
   inputSearch.placeholder = event.target.value;
+  textmessage.innerHTML = inputSearch.placeholder;
 }
 
 var handleRegistration = function handleRegistration(e) {

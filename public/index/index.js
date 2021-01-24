@@ -1,12 +1,14 @@
-// setInterval(function testcoocik() {
-//     fetch('/Cookie-test')
-//         .then(r => r.json())
-//         .then(data => {
-//             if (data.validated !== true) {
-//                 window.location.replace('/login/login.html')
-//             }
-//         })
-// }, 200000);
+const Searchselect = document.querySelector("#Searchselect")
+const inputSearch = document.querySelector("#inputSearch")
+const Search = document.querySelector('.Search')
+const cardboxcatygory = document.querySelector('.cardboxcatygory')
+const cardCategory = document.querySelector('.cardCategory')
+const carbox = document.querySelector('.carbox')
+const titlecategory = document.querySelector('.titlecategory')
+const ShowAll = document.querySelector('.ShowAll')
+const message = document.querySelector("#message")
+const Registration = document.querySelector('.Registration')
+const textmessage = document.querySelector('.textmessage')
 
 testcoocik()
 
@@ -24,16 +26,6 @@ function Output() {
     window.location.replace('/login/login.html')
     fetch('/Output')
 }
-const Searchselect = document.querySelector("#Searchselect")
-const inputSearch = document.querySelector("#inputSearch")
-const Search = document.querySelector('.Search')
-const cardboxcatygory = document.querySelector('.cardboxcatygory')
-const cardCategory = document.querySelector('.cardCategory')
-const carbox = document.querySelector('.carbox')
-const titlecategory = document.querySelector('.titlecategory')
-const ShowAll = document.querySelector('.ShowAll')
-const message = document.querySelector("#message")
-const Registration = document.querySelector('.Registration')
 
 function deletesearch() {
     Search.style.display = 'none'
@@ -64,12 +56,18 @@ function Searchdisplayblock() {
 
 function functionSearch() {
     console.log(inputSearch.value)
+    console.log(inputSearch.placeholder)
 
+    if (inputSearch.placeholder == 'בחר סוג חיפוש >>'){
+        textmessage.innerHTML = 'הזן סוג חיפוש'
+    }
+    
 }
+
 
 function valueselect(event) {
     inputSearch.placeholder = event.target.value
-
+    textmessage.innerHTML = inputSearch.placeholder
 }
 
 const handleRegistration = (e) => {
@@ -137,7 +135,6 @@ const handleRegistration = (e) => {
             })
     }
 }
-
 
 function getCategory() {
     let aryycategory = []
