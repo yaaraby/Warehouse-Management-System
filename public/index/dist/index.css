@@ -262,6 +262,7 @@ body {
   max-width: 750px;
   margin: 150px 0px 150px;
   direction: rtl;
+  display: none;
 }
 .Search .img {
   width: 30px;
