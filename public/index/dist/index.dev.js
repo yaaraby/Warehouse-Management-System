@@ -26,6 +26,9 @@ function Output() {
   fetch('/Output');
 }
 
+var Searchselect = document.querySelector("#Searchselect");
+var inputSearch = document.querySelector("#inputSearch");
+var Search = document.querySelector('.Search');
 var cardboxcatygory = document.querySelector('.cardboxcatygory');
 var cardCategory = document.querySelector('.cardCategory');
 var carbox = document.querySelector('.carbox');
@@ -34,6 +37,11 @@ var ShowAll = document.querySelector('.ShowAll');
 var message = document.querySelector("#message");
 var Registration = document.querySelector('.Registration');
 
+function deletesearch() {
+  Search.style.display = 'none';
+  inputSearch.value = '';
+}
+
 function cardCategorydisplaynone() {
   cardCategory.style.display = 'none';
 }
@@ -41,11 +49,28 @@ function cardCategorydisplaynone() {
 function Addauser() {
   cardCategory.style.display = 'none';
   ShowAll.style.display = 'none';
+  Search.style.display = 'none';
   Registration.style.display = 'block';
 }
 
 function Registrationdisplaynone() {
   Registration.style.display = 'none';
+}
+
+function Searchdisplayblock() {
+  Search.style.display = 'block';
+  cardCategory.style.display = 'none';
+  ShowAll.style.display = 'none';
+  Registration.style.display = 'none';
+  inputSearch.focus();
+}
+
+function functionSearch() {
+  console.log(inputSearch.value);
+}
+
+function valueselect(event) {
+  inputSearch.placeholder = event.target.value;
 }
 
 var handleRegistration = function handleRegistration(e) {
@@ -114,6 +139,7 @@ var handleRegistration = function handleRegistration(e) {
 function getCategory() {
   var aryycategory = [];
   Registration.style.display = 'none';
+  Search.style.display = 'none';
   ShowAll.style.display = 'none';
   cardCategory.style.display = 'block';
   cardboxcatygory.innerHTML = '';

@@ -17,7 +17,7 @@ body {
 }
 
 :root {
-    --background: #AA5439;
+    --background: #aa5339e5;
     --font-family: 'Rubik', sans-serif;
     --color: white;
 }
@@ -270,12 +270,88 @@ body {
     }
 }
 
-// @media only screen and (max-height:1120px) {
-//     body {
-//         align-items: baseline;
-//     }z
+.Search {
+    font-size: 20rem;
+    font-family: var(--font-family);
+    background-color: var(--background);
+    // padding: 0px 20px 20px 20px;
+    text-align: center;
+    font-family: 'Rubik', sans-serif;
+    border-radius: 10px;
+    box-shadow: 2px 2px 15px 10px rgba(128, 128, 128, 0.445);
+    position: relative;
+    min-height: 900px;
+    min-width: 350px;
+    width: 80%;
+    max-width: 750px;
+    margin: 150px 0px 150px;
+    direction: rtl;
+    // display: none;
 
-//     .Registration {
-//         margin-top: 100px;
-//     }
-// }
+    .img {
+        width: 30px;
+        position: absolute;
+        top: -15px;
+        right: -15px;
+        background-color: var(--background);
+        padding: 10px;
+        border-radius: 20px;
+        cursor: pointer;
+        z-index: 1;
+    }
+
+    .Searchinput {
+        border-radius: 10px 10px 0 0;
+        background-color: rgba(214, 204, 200, 0.829);
+        position: relative;
+        padding: 18px;
+        width: 100;
+        text-align: center;
+
+
+
+        input[type=text] {
+            padding: 10px 65px;
+            font-size: 20rem;
+            border: 2px solid gray;
+            border-radius: 20px;
+            background: none;
+            outline: none;
+            font-family: var(--font-family);
+            box-sizing: border-box;
+            text-align: center;
+            width: 65%;
+        }
+
+        button {
+            background: none;
+            position: absolute;
+            top: 30px;
+            right: 21%;
+            outline: none;
+            border: 0;
+            width: 35px;
+            cursor: pointer;
+
+
+            .Searchimg {
+                width: 100%;
+            }
+        }
+    }
+
+    #Searchselect {
+        position: absolute;
+        top: 25px;
+        left: 21%;
+        width: 20px;
+        padding: 10px 15px;
+        background: none;
+        border: 0;
+        outline: none;
+        cursor: pointer;
+    }
+    option{
+        background-color: rgba(214, 204, 200, 0.911);;
+    }
+}

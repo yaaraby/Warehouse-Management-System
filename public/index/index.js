@@ -24,8 +24,9 @@ function Output() {
     window.location.replace('/login/login.html')
     fetch('/Output')
 }
-
-
+const Searchselect = document.querySelector("#Searchselect")
+const inputSearch = document.querySelector("#inputSearch")
+const Search = document.querySelector('.Search')
 const cardboxcatygory = document.querySelector('.cardboxcatygory')
 const cardCategory = document.querySelector('.cardCategory')
 const carbox = document.querySelector('.carbox')
@@ -34,6 +35,11 @@ const ShowAll = document.querySelector('.ShowAll')
 const message = document.querySelector("#message")
 const Registration = document.querySelector('.Registration')
 
+function deletesearch() {
+    Search.style.display = 'none'
+    inputSearch.value = ''
+}
+
 function cardCategorydisplaynone() {
     cardCategory.style.display = 'none'
 }
@@ -41,12 +47,30 @@ function cardCategorydisplaynone() {
 function Addauser() {
     cardCategory.style.display = 'none'
     ShowAll.style.display = 'none'
+    Search.style.display = 'none'
     Registration.style.display = 'block'
 }
 function Registrationdisplaynone() {
     Registration.style.display = 'none'
 }
 
+function Searchdisplayblock() {
+    Search.style.display = 'block'
+    cardCategory.style.display = 'none'
+    ShowAll.style.display = 'none'
+    Registration.style.display = 'none'
+    inputSearch.focus()
+}
+
+function functionSearch() {
+    console.log(inputSearch.value)
+
+}
+
+function valueselect(event) {
+    inputSearch.placeholder = event.target.value
+
+}
 
 const handleRegistration = (e) => {
     e.preventDefault();
@@ -118,6 +142,7 @@ const handleRegistration = (e) => {
 function getCategory() {
     let aryycategory = []
     Registration.style.display = 'none'
+    Search.style.display = 'none'
     ShowAll.style.display = 'none'
     cardCategory.style.display = 'block'
     cardboxcatygory.innerHTML = ''
