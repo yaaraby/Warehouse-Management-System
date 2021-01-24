@@ -27,7 +27,6 @@ const Users = mongoose.model('User', {
 });
 
 const Shelfs = mongoose.model('Shelf', {
-
     Line: Number,
     Area: String,
     Floor: Number,
@@ -74,6 +73,9 @@ const Products = mongoose.model('product', {
 // });
 
 //  user.save().then(doc => console.log('doc')).catch(e =>console.log(e));
+
+
+
 
 // login.html
 let role = 'public'
@@ -171,8 +173,6 @@ app.post('/PullThiscCategory', async (req, res) => {
 
 
 
-
-
-const port = process.env.PORT || 8000;
-app.listen(port, () => console.log('server listen on port ', port))
+const port = process.env.PORT || 8080;
+app.listen(port, () => console.log('http://localhost:8080/login/login.html'))
 
