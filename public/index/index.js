@@ -1,12 +1,15 @@
-// setInterval(function testcoocik() {
-//     fetch('/Cookie-test')
-//         .then(r => r.json())
-//         .then(data => {
-//             if (data.validated !== true) {
-//                 window.location.replace('/login/login.html')
-//             }
-//         })
-// }, 200000);
+const Searchselect = document.querySelector("#Searchselect")
+const inputSearch = document.querySelector("#inputSearch")
+const Search = document.querySelector('.Search')
+const cardboxcatygory = document.querySelector('.cardboxcatygory')
+const cardCategory = document.querySelector('.cardCategory')
+const carbox = document.querySelector('.carbox')
+const titlecategory = document.querySelector('.titlecategory')
+const ShowAll = document.querySelector('.ShowAll')
+const message = document.querySelector("#message")
+const Registration = document.querySelector('.Registration')
+const textmessage = document.querySelector('.textmessage')
+const Searchtml = document.querySelector('.Searchtml')
 
 testcoocik()
 
@@ -25,14 +28,10 @@ function Output() {
     fetch('/Output')
 }
 
-
-const cardboxcatygory = document.querySelector('.cardboxcatygory')
-const cardCategory = document.querySelector('.cardCategory')
-const carbox = document.querySelector('.carbox')
-const titlecategory = document.querySelector('.titlecategory')
-const ShowAll = document.querySelector('.ShowAll')
-const message = document.querySelector("#message")
-const Registration = document.querySelector('.Registration')
+function deletesearch() {
+    Search.style.display = 'none'
+    inputSearch.value = ''
+}
 
 function cardCategorydisplaynone() {
     cardCategory.style.display = 'none'
@@ -41,12 +40,105 @@ function cardCategorydisplaynone() {
 function Addauser() {
     cardCategory.style.display = 'none'
     ShowAll.style.display = 'none'
+    Search.style.display = 'none'
     Registration.style.display = 'block'
 }
 function Registrationdisplaynone() {
     Registration.style.display = 'none'
 }
 
+function Searchdisplayblock() {
+    Search.style.display = 'block'
+    cardCategory.style.display = 'none'
+    ShowAll.style.display = 'none'
+    Registration.style.display = 'none'
+    inputSearch.focus()
+}
+
+
+const arayy = [{
+    Category: "2021",
+    ExpiryDate: "30/02/2021",
+    Location: "1-A-3",
+    Name: "כוס",
+    Picture: "asdasdasda",
+    UPS: "81726",
+    Weight: 5,
+    price: 450,
+    __v: 0
+},
+{
+    Category: "2022",
+    ExpiryDate: "20/05/2022",
+    Location: "1-A-3",
+    Name: "כוס",
+    Picture: "asdasdasda",
+    UPS: "81726",
+    Weight: 5,
+    price: 450,
+    __v: 0
+},
+{
+    Category: "2010",
+    ExpiryDate: "10/02/2010",
+    Location: "1-A-3",
+    Name: "כוס",
+    Picture: "asdasdasda",
+    UPS: "81726",
+    Weight: 5,
+    price: 450,
+    __v: 0
+},
+]
+
+function functionSearch() {
+    if (inputSearch.placeholder == 'בחר סוג חיפוש >>') {
+        textmessage.innerHTML = 'הזן סוג חיפוש'
+    }
+    else {
+
+        // const c = arayy.sort((a, b) => a.Category - b.Category)
+        // console.log(c)
+
+        const placeholder = inputSearch.placeholder
+        const inputvalue = inputSearch.value
+
+        fetch('/Searchdeta', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ placeholder, inputvalue })
+        }).then(res =>
+            res.json()
+        )
+            .then(data => {
+                Searchtml.innerHTML = ''
+
+                if (data.message !== undefined) {
+                    textmessage.innerHTML = data.message
+                }
+                if (data.data){
+                    data.data.forEach(elm => {
+                        Searchtml.innerHTML += `<div class="cardlist">
+                    <div class="list"><b>שם המוצר:</b></br></br>${elm.Name}</div>
+                    <div class="list"><b>UPS-מקט:</b></br></br>${elm.UPS}</div>
+                    <div class="list"><b>משקל:</b></br></br>${elm.Weight}</div>
+                    <div class="list" style="border: 0;"><b>מחיר:</b></br></br>${elm.price} ₪</div>
+                </div>`
+                    })
+                }
+            })
+
+
+    }
+}
+
+
+function valueselect(event) {
+    inputSearch.placeholder = event.target.value
+    textmessage.innerHTML = inputSearch.placeholder
+}
 
 const handleRegistration = (e) => {
     e.preventDefault();
@@ -117,6 +209,7 @@ const handleRegistration = (e) => {
 function getCategory() {
     let aryycategory = []
     Registration.style.display = 'none'
+    Search.style.display = 'none'
     ShowAll.style.display = 'none'
     cardCategory.style.display = 'block'
     cardboxcatygory.innerHTML = ''
@@ -135,6 +228,7 @@ function getCategory() {
             })
         })
 }
+
 
 function PullThiscCategory(event) {
     const eventCategory = event.target.innerText
@@ -158,10 +252,10 @@ function PullThiscCategory(event) {
             data.data.forEach(elm => {
                 carbox.innerHTML += `<div class="cardlist">
             <div class="list"><b>שם המוצר:</b></br></br>${elm.Name}</div>
+            <div class="list"><b>UPS-מקט:</b></br></br>${elm.UPS}</div>
             <div class="list"><b>משקל:</b></br></br>${elm.Weight}</div>
             <div class="list" style="border: 0;"><b>מחיר:</b></br></br>${elm.price} ₪</div>
-        
         </div>`
-            })    //<img src="${elm.price}">
+            })
         })
 }

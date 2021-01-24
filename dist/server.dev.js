@@ -25,7 +25,7 @@ mongoose.connect(url, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
-var Users = mongoose.model('user', {
+var Users = mongoose.model('User', {
   id_user: String,
   userName: String,
   name: String,
@@ -34,13 +34,25 @@ var Users = mongoose.model('user', {
   phone: String,
   role: String
 });
+var Shelfs = mongoose.model('Shelf', {
+  Line: Number,
+  Area: String,
+  Floor: Number,
+  UPS_Shelfs: String,
+  Weight: Number,
+  height: Number
+});
 var Products = mongoose.model('product', {
   UPS: String,
   Name: String,
-  price: String,
+  price: Number,
+  Amount: Number,
   Category: String,
-  Weight: String,
-  ExpiryDate: String
+  Weight: Number,
+  height: Number,
+  ExpiryDate: String,
+  Image: String,
+  Location: String
 }); // const product1 = new Products({
 //     UPS: '81726',
 //     Name: 'כוס',
@@ -291,8 +303,75 @@ app.post('/PullThiscCategory', function _callee5(req, res) {
       }
     }
   });
+}); // Search
+
+app.post('/Searchdeta', function _callee6(req, res) {
+  var _req$body3, placeholder, inputvalue, data, _data;
+
+  return regeneratorRuntime.async(function _callee6$(_context6) {
+    while (1) {
+      switch (_context6.prev = _context6.next) {
+        case 0:
+          _req$body3 = req.body, placeholder = _req$body3.placeholder, inputvalue = _req$body3.inputvalue;
+
+          if (!(placeholder == 'UPS-מקט')) {
+            _context6.next = 8;
+            break;
+          }
+
+          _context6.next = 4;
+          return regeneratorRuntime.awrap(Products.find({
+            UPS: inputvalue
+          }));
+
+        case 4:
+          data = _context6.sent;
+
+          if (data.length == 0) {
+            res.send({
+              message: 'UPS לא נמצא'
+            });
+          } else {
+            res.send({
+              data: data
+            });
+          }
+
+          _context6.next = 13;
+          break;
+
+        case 8:
+          if (!(placeholder == 'חיפוש לפי שם מוצר')) {
+            _context6.next = 13;
+            break;
+          }
+
+          _context6.next = 11;
+          return regeneratorRuntime.awrap(Products.find({
+            Name: inputvalue
+          }));
+
+        case 11:
+          _data = _context6.sent;
+
+          if (_data.length == 0) {
+            res.send({
+              message: 'פריט לא קיים'
+            });
+          } else {
+            res.send({
+              data: _data
+            });
+          }
+
+        case 13:
+        case "end":
+          return _context6.stop();
+      }
+    }
+  });
 });
 var port = process.env.PORT || 8080;
 app.listen(port, function () {
-  return console.log('server listen on port ', port);
+  return console.log('http://localhost:8080/login/login.html');
 });

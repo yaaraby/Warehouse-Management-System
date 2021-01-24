@@ -16,6 +16,7 @@
     <div class="menu">
         <div class="SelectionMenu" onclick="getCategory()">קטגוריות</div>
         <div class="SelectionMenu" onclick="Addauser()">הוספת משתמש</div>
+        <div class="SelectionMenu" onclick="Searchdisplayblock()">חיפוש</div>
         <div class="SelectionMenu" onclick="Output()">יציאה</div>
     </div>
     <div class="Registration">
@@ -61,6 +62,31 @@
         <img class='delete' onclick="getCategory()" src="/img/return.png">
         <h1 class="titlecategory"></h1>
         <div class="carbox"></div>
+    </div>
+
+
+    <div class="Search">
+        <img class="img" src="/img/delete.png" onclick="deletesearch()">
+        <div class="Searchinput">
+            <select id="Searchselect" onclick="valueselect(event)">
+                <option>UPS-מקט</option>
+                <option>חיפוש לפי שם מוצר</option>
+                <option>חיפוש לפי תאריך תפוגה</option>
+                <option>חיפוש לפי מדף / מיקום</option>
+            </select>
+
+            <input type="text" id="inputSearch" placeholder="בחר סוג חיפוש >>">
+            <button type="submit"><img class="Searchimg" src="/img/Search.png" onclick="functionSearch()"></button>
+            <div class="textmessage"></div>
+        </div>
+        <div class="Searchtml">
+            <!-- <div class="cardlist">
+        <div class="list"><b>שם המוצר:</b></br></br>${elm.Name}</div>
+        <div class="list"><b>UPS-מקט:</b></br></br>${elm.UPS}</div>
+        <div class="list"><b>משקל:</b></br></br>${elm.Weight}</div>
+        <div class="list" style="border: 0;"><b>מחיר:</b></br></br>${elm.price} ₪</div>
+    </div>` -->
+        </div>
     </div>
 
     <div class="Bottom">

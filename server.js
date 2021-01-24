@@ -15,25 +15,38 @@ const secret = 'gvfdgb%$^$%&3$4054423654073467$6@$&*(@%$^&2310*/-/+'
 const url = "mongodb+srv://yaara:987Yaara@cluster0.uya8d.mongodb.net/test";
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 
-const Row = mongoose.model('user', {
 
-    id_row:Number,
-    number:Number,//1
-
-
-    
-   
+const Users = mongoose.model('User', {
+    id_user: String,
+    userName: String,
+    name: String,
+    password: String,
+    email: String,
+    phone: String,
+    role: String
 });
-const Floor = mongoose.model('user', {
 
-<<<<<<< Updated upstream:server.js
+const Shelfs = mongoose.model('Shelf', {
+    Line: Number,
+    Area: String,
+    Floor: Number,
+    UPS_Shelfs: String,
+    Weight: Number,
+    height: Number
+
+});
+
 const Products = mongoose.model('product', {
     UPS: String,
     Name: String,
-    price: String,
+    price: Number,
+    Amount: Number,
     Category: String,
-    Weight: String,
-    ExpiryDate: String
+    Weight: Number,
+    height: Number,
+    ExpiryDate: String,
+    Image: String,
+    Location: String
 
 });
 
@@ -49,15 +62,6 @@ const Products = mongoose.model('product', {
 // product1.save().then(doc => console.log(doc)).catch(e =>console.log(e));
 
 
-=======
-    id_row:Number,
-    number:String,//A
-    
-
-    
-   
-});
->>>>>>> Stashed changes:login/server.js
 // const user = new Users({
 //     id_user: '123456',
 //     userName:'הלל',
@@ -69,6 +73,9 @@ const Products = mongoose.model('product', {
 // });
 
 //  user.save().then(doc => console.log('doc')).catch(e =>console.log(e));
+
+
+
 
 // login.html
 let role = 'public'
@@ -164,8 +171,35 @@ app.post('/PullThiscCategory', async (req, res) => {
 })
 
 
+// Search
+
+app.post('/Searchdeta', async (req, res) => {
+    const { placeholder, inputvalue } = req.body
+
+    if (placeholder == 'UPS-מקט') {
+        const data = await Products.find({ UPS: inputvalue })
+        if (data.length == 0) {
+            res.send({ message: 'UPS לא נמצא' })
+        }
+        else {
+            res.send({ data })
+        }
+    }
+
+    else if (placeholder == 'חיפוש לפי שם מוצר') {
+        const data = await Products.find({ Name: inputvalue })
+        if (data.length == 0) {
+            res.send({ message: 'פריט לא קיים' })
+        }
+        else {
+            res.send({ data })
+        }
+    }
+    // const data = await Products.find({})
+    // res.send({ data })
+})
 
 
 const port = process.env.PORT || 8080;
-app.listen(port, () => console.log('server listen on port ', port))
+app.listen(port, () => console.log('http://localhost:8080/login/login.html'))
 
