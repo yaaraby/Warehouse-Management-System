@@ -18,7 +18,7 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const Users = mongoose.model('User', {
     id_user: String,
-    userName:String,
+    userName: String,
     name: String,
     password: String,
     email: String,
@@ -37,16 +37,16 @@ const Shelfs = mongoose.model('Shelf', {
 });
 
 const Products = mongoose.model('product', {
-   UPS: String,
-   Name: String,
-   price: Number,
-   Amount: Number,
-   Category: String,
-   Weight: Number,
-   height: Number,
-   ExpiryDate: String,
-   Image: String,
-   Location:String
+    UPS: String,
+    Name: String,
+    price: Number,
+    Amount: Number,
+    Category: String,
+    Weight: Number,
+    height: Number,
+    ExpiryDate: String,
+    Image: String,
+    Location: String
 
 });
 
@@ -171,6 +171,33 @@ app.post('/PullThiscCategory', async (req, res) => {
 })
 
 
+// Search
+
+app.post('/Searchdeta', async (req, res) => {
+    const { placeholder, inputvalue } = req.body
+
+    if (placeholder == 'UPS-מקט') {
+        const data = await Products.find({ UPS: inputvalue })
+        if (data.length == 0) {
+            res.send({ message: 'UPS לא נמצא' })
+        }
+        else {
+            res.send({ data })
+        }
+    }
+
+    else if (placeholder == 'חיפוש לפי שם מוצר') {
+        const data = await Products.find({ Name: inputvalue })
+        if (data.length == 0) {
+            res.send({ message: 'פריט לא קיים' })
+        }
+        else {
+            res.send({ data })
+        }
+    }
+    // const data = await Products.find({})
+    // res.send({ data })
+})
 
 
 const port = process.env.PORT || 8080;

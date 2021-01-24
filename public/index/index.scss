@@ -345,7 +345,30 @@ body {
             font-weight: 600;
             color: rgba(0, 0, 0, 0.74);
         }
+
+ 
     }
+
+    .Searchtml{
+            
+        .cardlist {
+            display: flex;
+            justify-content: space-between;
+            height: 120px;
+            align-items: center;
+            padding: 5px;
+            border-radius: 10px;
+            background-color: rgb(204, 192, 186);
+            margin-top: 20px;
+            margin: 10px 10px 0px 10px;
+    
+            .list {
+                min-width: 120px;
+                // border-left: 2px solid gray;
+            }
+        }
+    }
+
 
     #Searchselect {
         position: absolute;
@@ -360,5 +383,6 @@ body {
     }
     option{
         background-color: rgba(214, 204, 200, 0.911);;
+        font-size: 20rem;
     }
 }

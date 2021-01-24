@@ -313,6 +313,20 @@ body {
   font-weight: 600;
   color: rgba(0, 0, 0, 0.74);
 }
+.Search .Searchtml .cardlist {
+  display: flex;
+  justify-content: space-between;
+  height: 120px;
+  align-items: center;
+  padding: 5px;
+  border-radius: 10px;
+  background-color: #ccc0ba;
+  margin-top: 20px;
+  margin: 10px 10px 0px 10px;
+}
+.Search .Searchtml .cardlist .list {
+  min-width: 120px;
+}
 .Search #Searchselect {
   position: absolute;
   top: 27px;
@@ -326,4 +340,5 @@ body {
 }
 .Search option {
   background-color: rgba(214, 204, 200, 0.911);
+  font-size: 20rem;
 }

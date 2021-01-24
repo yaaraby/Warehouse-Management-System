@@ -11,6 +11,7 @@ var ShowAll = document.querySelector('.ShowAll');
 var message = document.querySelector("#message");
 var Registration = document.querySelector('.Registration');
 var textmessage = document.querySelector('.textmessage');
+var Searchtml = document.querySelector('.Searchtml');
 testcoocik();
 
 function testcoocik() {
@@ -56,12 +57,70 @@ function Searchdisplayblock() {
   inputSearch.focus();
 }
 
-function functionSearch() {
-  console.log(inputSearch.value);
-  console.log(inputSearch.placeholder);
+var arayy = [{
+  Category: "2021",
+  ExpiryDate: "30/02/2021",
+  Location: "1-A-3",
+  Name: "כוס",
+  Picture: "asdasdasda",
+  UPS: "81726",
+  Weight: 5,
+  price: 450,
+  __v: 0
+}, {
+  Category: "2022",
+  ExpiryDate: "20/05/2022",
+  Location: "1-A-3",
+  Name: "כוס",
+  Picture: "asdasdasda",
+  UPS: "81726",
+  Weight: 5,
+  price: 450,
+  __v: 0
+}, {
+  Category: "2010",
+  ExpiryDate: "10/02/2010",
+  Location: "1-A-3",
+  Name: "כוס",
+  Picture: "asdasdasda",
+  UPS: "81726",
+  Weight: 5,
+  price: 450,
+  __v: 0
+}];
 
+function functionSearch() {
   if (inputSearch.placeholder == 'בחר סוג חיפוש >>') {
     textmessage.innerHTML = 'הזן סוג חיפוש';
+  } else {
+    // const c = arayy.sort((a, b) => a.Category - b.Category)
+    // console.log(c)
+    var placeholder = inputSearch.placeholder;
+    var inputvalue = inputSearch.value;
+    fetch('/Searchdeta', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        placeholder: placeholder,
+        inputvalue: inputvalue
+      })
+    }).then(function (res) {
+      return res.json();
+    }).then(function (data) {
+      Searchtml.innerHTML = '';
+
+      if (data.message !== undefined) {
+        textmessage.innerHTML = data.message;
+      }
+
+      if (data.data) {
+        data.data.forEach(function (elm) {
+          Searchtml.innerHTML += "<div class=\"cardlist\">\n                    <div class=\"list\"><b>\u05E9\u05DD \u05D4\u05DE\u05D5\u05E6\u05E8:</b></br></br>".concat(elm.Name, "</div>\n                    <div class=\"list\"><b>UPS-\u05DE\u05E7\u05D8:</b></br></br>").concat(elm.UPS, "</div>\n                    <div class=\"list\"><b>\u05DE\u05E9\u05E7\u05DC:</b></br></br>").concat(elm.Weight, "</div>\n                    <div class=\"list\" style=\"border: 0;\"><b>\u05DE\u05D7\u05D9\u05E8:</b></br></br>").concat(elm.price, " \u20AA</div>\n                </div>");
+        });
+      }
+    });
   }
 }
 
@@ -174,7 +233,7 @@ function PullThiscCategory(event) {
     console.log(data);
     titlecategory.innerHTML = eventCategory;
     data.data.forEach(function (elm) {
-      carbox.innerHTML += "<div class=\"cardlist\">\n            <div class=\"list\"><b>\u05E9\u05DD \u05D4\u05DE\u05D5\u05E6\u05E8:</b></br></br>".concat(elm.Name, "</div>\n            <div class=\"list\"><b>\u05DE\u05E9\u05E7\u05DC:</b></br></br>").concat(elm.Weight, "</div>\n            <div class=\"list\" style=\"border: 0;\"><b>\u05DE\u05D7\u05D9\u05E8:</b></br></br>").concat(elm.price, " \u20AA</div>\n        \n        </div>");
-    }); //<img src="${elm.price}">
+      carbox.innerHTML += "<div class=\"cardlist\">\n            <div class=\"list\"><b>\u05E9\u05DD \u05D4\u05DE\u05D5\u05E6\u05E8:</b></br></br>".concat(elm.Name, "</div>\n            <div class=\"list\"><b>UPS-\u05DE\u05E7\u05D8:</b></br></br>").concat(elm.UPS, "</div>\n            <div class=\"list\"><b>\u05DE\u05E9\u05E7\u05DC:</b></br></br>").concat(elm.Weight, "</div>\n            <div class=\"list\" style=\"border: 0;\"><b>\u05DE\u05D7\u05D9\u05E8:</b></br></br>").concat(elm.price, " \u20AA</div>\n        </div>");
+    });
   });
 }
