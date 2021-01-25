@@ -297,6 +297,7 @@ body {
   box-sizing: border-box;
   text-align: center;
   width: 65%;
+  direction: initial;
 }
 .Search .Searchinput button {
   background: none;

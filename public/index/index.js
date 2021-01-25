@@ -14,7 +14,6 @@ const outcome = document.querySelector('.outcome')
 const cardtext = document.querySelector('.cardtext')
 
 testcoocik()
-
 function testcoocik() {
     fetch('/Cookie-test')
         .then(r => r.json())
