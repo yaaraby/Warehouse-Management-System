@@ -362,6 +362,7 @@ body {
   position: fixed;
   z-index: 110000;
   display: none;
+  cursor: pointer;
 }
 .outcome .card {
   margin-top: -250px;
@@ -372,17 +373,7 @@ body {
   border: 3px solid var(--background);
   padding: 15px;
   box-sizing: border-box;
-}
-.outcome .card .deletecard {
-  width: 30px;
-  position: absolute;
-  top: -15px;
-  right: -15px;
-  background-color: var(--background);
-  padding: 10px;
-  border-radius: 20px;
-  cursor: pointer;
-  z-index: 1;
+  z-index: 100000000;
 }
 .outcome .card .cardtext {
   direction: rtl;

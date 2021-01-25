@@ -408,6 +408,7 @@ body {
     position: fixed;
     z-index: 110000;
     display: none;
+    cursor: pointer;
 
     .card {
         margin-top:-250px;
@@ -418,20 +419,21 @@ body {
         border: 3px solid var(--background);
         padding: 15px;
         box-sizing: border-box;
+        z-index: 100000000;
 
 
-        .deletecard {
-            width: 30px;
-            position: absolute;
-            top: -15px;
-            right: -15px;
-            background-color: var(--background);
-            padding: 10px;
-            border-radius: 20px;
-            cursor: pointer;
-            z-index: 1;
+        // .deletecard {
+        //     width: 30px;
+        //     position: absolute;
+        //     top: -15px;
+        //     right: -15px;
+        //     background-color: var(--background);
+        //     padding: 10px;
+        //     border-radius: 20px;
+        //     cursor: pointer;
+        //     z-index: 1;
 
-        }
+        // }
 
         .cardtext {
             direction: rtl;
