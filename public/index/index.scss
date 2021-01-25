@@ -1,0 +1,388 @@
+html {
+    font-size: 1px;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    width: 100%;
+    height: 100vh;
+    // background-color: rgba(192, 179, 166, 0.342);
+    background-image: url(/img/background.png);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+:root {
+    --background: #aa5339e5;
+    --font-family: 'Rubik', sans-serif;
+    --color: white;
+}
+
+.menu {
+    background-color: var(--background);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    z-index: 2;
+
+    .SelectionMenu {
+        font-size: 25rem;
+        font-weight: 600;
+        color: var(--color);
+        font-family: var(--font-family);
+        border-bottom: 4px solid var(--background);
+        padding: 25px 15px;
+        cursor: pointer;
+    }
+
+    .SelectionMenu:hover {
+        border-bottom: 4px solid rgb(144, 144, 144);
+        transition: border 0.2s;
+        color: rgb(144, 144, 144);
+    }
+}
+
+.Registration {
+    font-size: 20rem;
+    font-family: var(--font-family);
+    background-color: var(--background);
+    padding: 40px 20px;
+    text-align: center;
+    font-family: 'Rubik', sans-serif;
+    border-radius: 10px;
+    box-shadow: 2px 2px 15px 10px rgba(128, 128, 128, 0.445);
+    direction: rtl;
+    position: relative;
+    display: none;
+    margin-top: 150px;
+
+    .imgdelete {
+        width: 30px;
+        position: absolute;
+        top: -15px;
+        right: -15px;
+        background-color: var(--background);
+        padding: 10px;
+        border-radius: 20px;
+        cursor: pointer;
+        z-index: 1;
+    }
+
+    input[type=text],
+    input[type=email],
+    input[type=password] {
+        padding: 10px;
+        font-size: 20rem;
+        border: 0;
+        border-bottom: 2px solid var(--color);
+        background: none;
+        margin-bottom: 25px;
+        outline: none;
+        font-family: var(--font-family);
+        color: var(--color);
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    input[type=submit] {
+        padding: 10px 20px;
+        font-size: 20rem;
+        border-radius: 10px;
+        border: 3px solid grey;
+        font-family: var(--font-family);
+        outline: none;
+        background: rgba(128, 128, 128, 0.623);
+        color: var(--color);
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    input[type=submit]:active {
+        border: 3px solid var(--color);
+        color: var(--background);
+        transition: color 0.3s;
+    }
+
+    input[type=submit]:hover {
+        background: rgb(168, 153, 143);
+        transition: color 0.3s;
+    }
+
+    label {
+        font-size: 20rem;
+        padding: 5px;
+    }
+
+    .rtl {
+        text-align: right;
+    }
+
+    select {
+        padding: 10px;
+        font-size: 20rem;
+        border: 0;
+        border-bottom: 2px solid var(--color);
+        background: var(--background);
+        margin-bottom: 25px;
+        margin-top: 20px;
+        outline: none;
+        font-family: var(--font-family);
+        width: 100%;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
+
+    #message {
+        font-size: 25rem;
+        font-weight: 600;
+        padding: 5px;
+
+        img {
+            width: 30px;
+        }
+
+    }
+}
+
+.cardCategory {
+    font-size: 20rem;
+    font-family: var(--font-family);
+    background-color: var(--background);
+    padding: 10px 20px 20px 20px;
+    text-align: center;
+    font-family: 'Rubik', sans-serif;
+    border-radius: 10px;
+    box-shadow: 2px 2px 15px 10px rgba(128, 128, 128, 0.445);
+    direction: rtl;
+    position: relative;
+    min-height: 750px;
+    min-width: 350px;
+    width: 80%;
+    max-width: 750px;
+    margin-top: 150px;
+    display: none;
+
+    img {
+        width: 30px;
+        position: absolute;
+        top: -15px;
+        right: -15px;
+        background-color: var(--background);
+        padding: 10px;
+        border-radius: 20px;
+        cursor: pointer;
+        z-index: 1;
+    }
+
+    .A_line_in_a_category {
+        background-color: gainsboro;
+        padding: 10px;
+        margin-top: 20px;
+        font-size: 22px;
+        font-weight: 600;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .A_line_in_a_category:hover {
+        transform: scale(1.01, 1.01);
+        background-color: rgb(175, 167, 153);
+    }
+}
+
+.ShowAll {
+    font-size: 20rem;
+    font-family: var(--font-family);
+    background-color: var(--background);
+    padding: 0px 20px 20px 20px;
+    text-align: center;
+    font-family: 'Rubik', sans-serif;
+    border-radius: 10px;
+    box-shadow: 2px 2px 15px 10px rgba(128, 128, 128, 0.445);
+    direction: rtl;
+    position: relative;
+    min-height: 750px;
+    min-width: 350px;
+    width: 80%;
+    max-width: 750px;
+    margin: 150px 0px 150px;
+    display: none;
+
+    .delete {
+        width: 30px;
+        position: absolute;
+        top: -15px;
+        right: -15px;
+        background-color: var(--background);
+        padding: 10px;
+        border-radius: 20px;
+        cursor: pointer;
+        z-index: 1;
+    }
+
+    .cardlist {
+        display: flex;
+        justify-content: space-between;
+        height: 120px;
+        align-items: center;
+        border: 5px solid gainsboro;
+        border-radius: 10px;
+        background-color: gainsboro;
+        margin-top: 20px;
+
+        .list {
+            min-width: 120px;
+            // border-left: 2px solid gray;
+        }
+
+        img {
+            border-radius: 10px;
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+.Bottom {
+    background-color: rgb(240, 236, 226);
+    height: 50px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20rem;
+    font-weight: 600;
+    font-family: var(--font-family);
+    color: var(--background);
+    z-index: 5;
+
+    img {
+        width: 25px;
+    }
+}
+
+.Search {
+    font-size: 20rem;
+    font-family: var(--font-family);
+    background-color: var(--background);
+    // padding: 0px 20px 20px 20px;
+    text-align: center;
+    font-family: 'Rubik', sans-serif;
+    border-radius: 10px;
+    box-shadow: 2px 2px 15px 10px rgba(128, 128, 128, 0.445);
+    position: relative;
+    min-height: 900px;
+    min-width: 350px;
+    width: 80%;
+    max-width: 750px;
+    margin: 150px 0px 150px;
+    direction: rtl;
+    // display: none;
+
+    .img {
+        width: 30px;
+        position: absolute;
+        top: -15px;
+        right: -15px;
+        background-color: var(--background);
+        padding: 10px;
+        border-radius: 20px;
+        cursor: pointer;
+        z-index: 1;
+    }
+
+    .Searchinput {
+        border-radius: 10px 10px 0 0;
+        background-color: rgba(214, 204, 200, 0.829);
+        position: relative;
+        padding: 20px 0 10px 0;
+        width: 100;
+        text-align: center;
+
+
+
+        input[type=text] {
+            padding: 10px 65px;
+            font-size: 20rem;
+            border: 2px solid gray;
+            border-radius: 20px;
+            background: none;
+            outline: none;
+            font-family: var(--font-family);
+            box-sizing: border-box;
+            text-align: center;
+            width: 65%;
+        }
+
+        button {
+            background: none;
+            position: absolute;
+            top: 32px;
+            right: 21%;
+            outline: none;
+            border: 0;
+            width: 35px;
+            cursor: pointer;
+
+
+            .Searchimg {
+                width: 100%;
+            }
+        }
+
+        .textmessage{
+            padding: 10px 0px 0px 0px;
+            font-size: 20rem;
+            font-weight: 600;
+            color: rgba(0, 0, 0, 0.74);
+        }
+
+ 
+    }
+
+    .Searchtml{
+            
+        .cardlist {
+            display: flex;
+            justify-content: space-between;
+            height: 120px;
+            align-items: center;
+            padding: 5px;
+            border-radius: 10px;
+            background-color: rgb(204, 192, 186);
+            margin-top: 20px;
+            margin: 10px 10px 0px 10px;
+    
+            .list {
+                min-width: 120px;
+                // border-left: 2px solid gray;
+            }
+        }
+    }
+
+
+    #Searchselect {
+        position: absolute;
+        top: 27px;
+        left: 21%;
+        width: 20px;
+        padding: 10px 15px;
+        background: none;
+        border: 0;
+        outline: none;
+        cursor: pointer;
+    }
+    option{
+        background-color: rgba(214, 204, 200, 0.911);;
+        font-size: 20rem;
+    }
+}
