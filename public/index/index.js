@@ -10,6 +10,8 @@ const message = document.querySelector("#message")
 const Registration = document.querySelector('.Registration')
 const textmessage = document.querySelector('.textmessage')
 const Searchtml = document.querySelector('.Searchtml')
+const outcome = document.querySelector('.outcome')
+const cardtext = document.querySelector('.cardtext')
 
 testcoocik()
 
@@ -23,10 +25,17 @@ function testcoocik() {
         })
 }
 
+
 function Output() {
     window.location.replace('/login/login.html')
     fetch('/Output')
 }
+
+inputSearch.addEventListener("keyup", function (event) {
+    if (event.keyCode === 13) {
+        functionSearch()
+    }
+})
 
 function deletesearch() {
     Search.style.display = 'none'
@@ -54,42 +63,9 @@ function Searchdisplayblock() {
     Registration.style.display = 'none'
     inputSearch.focus()
 }
-
-
-const arayy = [{
-    Category: "2021",
-    ExpiryDate: "30/02/2021",
-    Location: "1-A-3",
-    Name: "כוס",
-    Picture: "asdasdasda",
-    UPS: "81726",
-    Weight: 5,
-    price: 450,
-    __v: 0
-},
-{
-    Category: "2022",
-    ExpiryDate: "20/05/2022",
-    Location: "1-A-3",
-    Name: "כוס",
-    Picture: "asdasdasda",
-    UPS: "81726",
-    Weight: 5,
-    price: 450,
-    __v: 0
-},
-{
-    Category: "2010",
-    ExpiryDate: "10/02/2010",
-    Location: "1-A-3",
-    Name: "כוס",
-    Picture: "asdasdasda",
-    UPS: "81726",
-    Weight: 5,
-    price: 450,
-    __v: 0
-},
-]
+function deleteoutcome(){
+    outcome.style.display = 'none'
+}
 
 function functionSearch() {
     if (inputSearch.placeholder == 'בחר סוג חיפוש >>') {
@@ -97,11 +73,10 @@ function functionSearch() {
     }
     else {
 
-        // const c = arayy.sort((a, b) => a.Category - b.Category)
-        // console.log(c)
-
         const placeholder = inputSearch.placeholder
         const inputvalue = inputSearch.value
+
+        textmessage.innerHTML = '<img src="/img/gif.gif">'
 
         fetch('/Searchdeta', {
             method: 'POST',
@@ -113,27 +88,50 @@ function functionSearch() {
             res.json()
         )
             .then(data => {
-                Searchtml.innerHTML = ''
+                Searchtml.innerHTML =""
 
                 if (data.message !== undefined) {
                     textmessage.innerHTML = data.message
                 }
-                if (data.data){
+                if (data.data) {
+                    textmessage.innerHTML = placeholder
                     data.data.forEach(elm => {
-                        Searchtml.innerHTML += `<div class="cardlist">
-                    <div class="list"><b>שם המוצר:</b></br></br>${elm.Name}</div>
+                        Searchtml.innerHTML += `<div class="cardlist" onclick="PullInformation('${elm.UPS}')">
                     <div class="list"><b>UPS-מקט:</b></br></br>${elm.UPS}</div>
-                    <div class="list"><b>משקל:</b></br></br>${elm.Weight}</div>
-                    <div class="list" style="border: 0;"><b>מחיר:</b></br></br>${elm.price} ₪</div>
+                    <div class="list"><b>שם המוצר:</b></br></br>${elm.Name}</div>
+                    <div class="list"><b>תאריך תפוגה:</b></br></br>${elm.ExpiryDate}</div>
+                    <div class="list"><b>מיקום:</b></br></br>${elm.Location}</div>
                 </div>`
                     })
                 }
             })
-
-
     }
 }
+function PullInformation(e) {
+    fetch('/PullInformation', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ e })
+    }).then(res =>
+        res.json()
+    )
+        .then(data => {
+            outcome.style.display = 'flex'
 
+            console.log(data)
+            cardtext.innerHTML =
+            `<div class="text"><b>שם מוצר:</b>${data.data[0].Name}</div>
+            <div class="text"><b>תאריך תפוגה:</b>${data.data[0].ExpiryDate}</div>
+            <div class="text"><b>קטגוריה:</b>${data.data[0].Category}</div>
+            <div class="text"><b>UPS-מקט:</b>${data.data[0].UPS}</div>
+            <div class="text"><b>משקל:</b>${data.data[0].Weight}</div>
+            <div class="text"><b>מחיר:</b>${data.data[0].price}</div>
+            <div class="text"><b>מיקום:</b>${data.data[0].Location}</div>
+            <div class="text"><img src="${data.data[0].Picture}"></div>`
+        })
+}
 
 function valueselect(event) {
     inputSearch.placeholder = event.target.value
@@ -175,7 +173,7 @@ const handleRegistration = (e) => {
             "phone": phone.value,
             "role": role.value,
         }
-        message.innerHTML = '<img src="/img/rotete.gif">'
+        message.innerHTML = '<img src="/img/gif.gif">'
 
         fetch('/send-User-details-sign-up', {
             method: 'POST',
@@ -250,11 +248,11 @@ function PullThiscCategory(event) {
             console.log(data)
             titlecategory.innerHTML = eventCategory
             data.data.forEach(elm => {
-                carbox.innerHTML += `<div class="cardlist">
-            <div class="list"><b>שם המוצר:</b></br></br>${elm.Name}</div>
-            <div class="list"><b>UPS-מקט:</b></br></br>${elm.UPS}</div>
-            <div class="list"><b>משקל:</b></br></br>${elm.Weight}</div>
-            <div class="list" style="border: 0;"><b>מחיר:</b></br></br>${elm.price} ₪</div>
+                carbox.innerHTML += `<div class="cardlist" onclick="PullInformation('${elm.UPS}')">
+                <div class="list"><b>UPS-מקט:</b></br></br>${elm.UPS}</div>
+                <div class="list"><b>שם המוצר:</b></br></br>${elm.Name}</div>
+            <div class="list"><b>תאריך תפוגה:</b></br></br>${elm.ExpiryDate}</div> 
+            <div class="list"><b>מיקום:</b></br></br>${elm.Location}</div> 
         </div>`
             })
         })

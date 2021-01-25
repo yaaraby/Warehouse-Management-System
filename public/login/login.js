@@ -1,4 +1,5 @@
 const error = document.getElementById('error')
+document.querySelector("#userna").focus()
 
 testcoocik()
 
@@ -25,7 +26,7 @@ const handleLogin = (event) => {
     } else if (password.length == 0) {
         error.innerHTML = 'הזן סיסמה'
     } else {
-        error.innerHTML = '<img src="/img/rotete.gif">'
+        error.innerHTML = '<img src="/img/gif.gif">'
 
         fetch('/send-Login-details', {
             method: 'post',

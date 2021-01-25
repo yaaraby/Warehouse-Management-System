@@ -1,6 +1,7 @@
 "use strict";
 
 var error = document.getElementById('error');
+document.querySelector("#userna").focus();
 testcoocik();
 
 function testcoocik() {
@@ -25,7 +26,7 @@ var handleLogin = function handleLogin(event) {
   } else if (password.length == 0) {
     error.innerHTML = 'הזן סיסמה';
   } else {
-    error.innerHTML = '<img src="/img/rotete.gif">';
+    error.innerHTML = '<img src="/img/gif.gif">';
     fetch('/send-Login-details', {
       method: 'post',
       headers: {

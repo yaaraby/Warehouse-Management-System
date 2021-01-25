@@ -175,7 +175,7 @@ app.post('/PullThiscCategory', async (req, res) => {
 
 app.post('/Searchdeta', async (req, res) => {
     const { placeholder, inputvalue } = req.body
-
+    // return false 
     if (placeholder == 'UPS-מקט') {
         const data = await Products.find({ UPS: inputvalue })
         if (data.length == 0) {
@@ -185,7 +185,6 @@ app.post('/Searchdeta', async (req, res) => {
             res.send({ data })
         }
     }
-
     else if (placeholder == 'חיפוש לפי שם מוצר') {
         const data = await Products.find({ Name: inputvalue })
         if (data.length == 0) {
@@ -195,10 +194,31 @@ app.post('/Searchdeta', async (req, res) => {
             res.send({ data })
         }
     }
-    // const data = await Products.find({})
-    // res.send({ data })
+    else if (placeholder == 'חיפוש לפי תאריך תפוגה') {
+        const data = await Products.find({ ExpiryDate: inputvalue })
+        if (data.length == 0) {
+            res.send({ message: 'לא נמצא מוצר לפי תאריך תפוגה זה' })
+        }
+        else {
+            res.send({ data })
+        }
+    }
+    else if (placeholder == 'חיפוש לפי מדף / מיקום') {
+        const data = await Products.find({ Location: inputvalue })
+        if (data.length == 0) {
+            res.send({ message: 'מדף לא קיים' })
+        }
+        else {
+            res.send({ data })
+        }
+    }
 })
 
+app.post('/PullInformation', async (req, res) => {
+    const { e } = req.body
+    const data = await Products.find({ UPS: e })
+    res.send({data})
+})
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log('http://localhost:8080/login/login.html'))

@@ -306,13 +306,13 @@ app.post('/PullThiscCategory', function _callee5(req, res) {
 }); // Search
 
 app.post('/Searchdeta', function _callee6(req, res) {
-  var _req$body3, placeholder, inputvalue, data, _data;
+  var _req$body3, placeholder, inputvalue, data, _data, _data2, _data3;
 
   return regeneratorRuntime.async(function _callee6$(_context6) {
     while (1) {
       switch (_context6.prev = _context6.next) {
         case 0:
-          _req$body3 = req.body, placeholder = _req$body3.placeholder, inputvalue = _req$body3.inputvalue;
+          _req$body3 = req.body, placeholder = _req$body3.placeholder, inputvalue = _req$body3.inputvalue; // return false 
 
           if (!(placeholder == 'UPS-מקט')) {
             _context6.next = 8;
@@ -337,12 +337,12 @@ app.post('/Searchdeta', function _callee6(req, res) {
             });
           }
 
-          _context6.next = 13;
+          _context6.next = 27;
           break;
 
         case 8:
           if (!(placeholder == 'חיפוש לפי שם מוצר')) {
-            _context6.next = 13;
+            _context6.next = 15;
             break;
           }
 
@@ -364,9 +364,88 @@ app.post('/Searchdeta', function _callee6(req, res) {
             });
           }
 
-        case 13:
+          _context6.next = 27;
+          break;
+
+        case 15:
+          if (!(placeholder == 'חיפוש לפי תאריך תפוגה')) {
+            _context6.next = 22;
+            break;
+          }
+
+          _context6.next = 18;
+          return regeneratorRuntime.awrap(Products.find({
+            ExpiryDate: inputvalue
+          }));
+
+        case 18:
+          _data2 = _context6.sent;
+
+          if (_data2.length == 0) {
+            res.send({
+              message: 'לא נמצא מוצר לפי תאריך תפוגה זה'
+            });
+          } else {
+            res.send({
+              data: _data2
+            });
+          }
+
+          _context6.next = 27;
+          break;
+
+        case 22:
+          if (!(placeholder == 'חיפוש לפי מדף / מיקום')) {
+            _context6.next = 27;
+            break;
+          }
+
+          _context6.next = 25;
+          return regeneratorRuntime.awrap(Products.find({
+            Location: inputvalue
+          }));
+
+        case 25:
+          _data3 = _context6.sent;
+
+          if (_data3.length == 0) {
+            res.send({
+              message: 'מדף לא קיים'
+            });
+          } else {
+            res.send({
+              data: _data3
+            });
+          }
+
+        case 27:
         case "end":
           return _context6.stop();
+      }
+    }
+  });
+});
+app.post('/PullInformation', function _callee7(req, res) {
+  var e, data;
+  return regeneratorRuntime.async(function _callee7$(_context7) {
+    while (1) {
+      switch (_context7.prev = _context7.next) {
+        case 0:
+          e = req.body.e;
+          _context7.next = 3;
+          return regeneratorRuntime.awrap(Products.find({
+            UPS: e
+          }));
+
+        case 3:
+          data = _context7.sent;
+          res.send({
+            data: data
+          });
+
+        case 5:
+        case "end":
+          return _context7.stop();
       }
     }
   });
