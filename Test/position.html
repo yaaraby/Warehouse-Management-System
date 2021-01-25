@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>position</title>
+</head>
+
+<style>
+    .maxAll{
+        position: relative;
+        width: 50px;
+        height: 20px;
+    }
+    .conteiner{
+        position:relative;
+        width: 50px;
+        height: 20px;
+
+    }
+    .main {
+        position:relative;
+        height: 300px;
+        width: 300px;
+        background-color: lightpink;
+        left: 500px;
+        top: 150px;
+    }
+
+    .side {
+        position: absolute;
+        height: 150px;
+        width: 150px;
+        background-color: lightskyblue;
+        left: 700px;
+        top:100px;
+    }
+
+    .circle{
+        position: relative;
+        height: 150px;
+        width: 200px;
+        border-radius: 50%;
+        background-color: lightskyblue;
+        left: 400px;
+        top:100px;
+    }
+</style>
+
+<body>
+    <div class = "maxAll">
+    <div class="conteiner">
+        <div class="main"></div>
+        <div class="side"></div>
+        <div class= "circle"></div>
+    </div>
+</div>
+</body>
+</html>
