@@ -123,7 +123,7 @@ function PullInformation(e) {
   }).then(function (data) {
     outcome.style.display = 'flex';
     console.log(data);
-    cardtext.innerHTML = "<div class=\"text\"><b>\u05E9\u05DD \u05DE\u05D5\u05E6\u05E8:</b>".concat(data.data[0].Name, "</div>\n            <div class=\"text\"><b>\u05EA\u05D0\u05E8\u05D9\u05DA \u05EA\u05E4\u05D5\u05D2\u05D4:</b>").concat(data.data[0].ExpiryDate, "</div>\n            <div class=\"text\"><b>\u05E7\u05D8\u05D2\u05D5\u05E8\u05D9\u05D4:</b>").concat(data.data[0].Category, "</div>\n            <div class=\"text\"><b>UPS-\u05DE\u05E7\u05D8:</b>").concat(data.data[0].UPS, "</div>\n            <div class=\"text\"><b>\u05DE\u05E9\u05E7\u05DC:</b>").concat(data.data[0].Weight, "</div>\n            <div class=\"text\"><b>\u05DE\u05D7\u05D9\u05E8:</b>").concat(data.data[0].price, "</div>\n            <div class=\"text\"><b>\u05DE\u05D9\u05E7\u05D5\u05DD:</b>").concat(data.data[0].Location, "</div>\n            <div class=\"text\"><img src=\"").concat(data.data[0].Picture, "\"></div>");
+    cardtext.innerHTML = "<div class=\"text\"><b>\u05E9\u05DD \u05DE\u05D5\u05E6\u05E8:</b>".concat(data.data[0].Name, "</div>\n            <div class=\"text\"><b>\u05EA\u05D0\u05E8\u05D9\u05DA \u05EA\u05E4\u05D5\u05D2\u05D4:</b>").concat(data.data[0].ExpiryDate, "</div>\n            <div class=\"text\"><b>\u05E7\u05D8\u05D2\u05D5\u05E8\u05D9\u05D4:</b>").concat(data.data[0].Category, "</div>\n            <div class=\"text\"><b>UPS-\u05DE\u05E7\u05D8:</b>").concat(data.data[0].UPS, "</div>\n            <div class=\"text\"><b>\u05DE\u05E9\u05E7\u05DC:</b>").concat(data.data[0].Weight, "</div>\n            <div class=\"text\"><b>\u05DE\u05D7\u05D9\u05E8:</b>").concat(data.data[0].price, "</div>\n            <div class=\"text\" style=\"direction: initial;\"><b>\u05DE\u05D9\u05E7\u05D5\u05DD:</b>").concat(data.data[0].Location, "</div>\n            <div class=\"text\"><img src=\"").concat(data.data[0].Picture, "\"></div>");
   });
 }
 
@@ -236,7 +236,7 @@ function PullThiscCategory(event) {
     console.log(data);
     titlecategory.innerHTML = eventCategory;
     data.data.forEach(function (elm) {
-      carbox.innerHTML += "<div class=\"cardlist\" onclick=\"PullInformation('".concat(elm.UPS, "')\">\n                <div class=\"list\"><b>UPS-\u05DE\u05E7\u05D8:</b></br></br>").concat(elm.UPS, "</div>\n                <div class=\"list\"><b>\u05E9\u05DD \u05D4\u05DE\u05D5\u05E6\u05E8:</b></br></br>").concat(elm.Name, "</div>\n            <div class=\"list\"><b>\u05EA\u05D0\u05E8\u05D9\u05DA \u05EA\u05E4\u05D5\u05D2\u05D4:</b></br></br>").concat(elm.ExpiryDate, "</div> \n            <div class=\"list\"><b>\u05DE\u05D9\u05E7\u05D5\u05DD:</b></br></br>").concat(elm.Location, "</div> \n        </div>");
+      carbox.innerHTML += "<div class=\"cardlist\" onclick=\"PullInformation('".concat(elm.UPS, "')\">\n                <div class=\"list\"><b>UPS-\u05DE\u05E7\u05D8:</b></br></br>").concat(elm.UPS, "</div>\n                <div class=\"list\"><b>\u05E9\u05DD \u05D4\u05DE\u05D5\u05E6\u05E8:</b></br></br>").concat(elm.Name, "</div>\n            <div class=\"list\"><b>\u05EA\u05D0\u05E8\u05D9\u05DA \u05EA\u05E4\u05D5\u05D2\u05D4:</b></br></br>").concat(elm.ExpiryDate, "</div> \n            <div class=\"list\" style=\"direction: initial;\"><b>\u05DE\u05D9\u05E7\u05D5\u05DD:</b></br></br>").concat(elm.Location, "</div> \n        </div>");
     });
   });
 }

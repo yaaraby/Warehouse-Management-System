@@ -131,7 +131,7 @@ function PullInformation(e) {
             <div class="text"><b>UPS-מקט:</b>${data.data[0].UPS}</div>
             <div class="text"><b>משקל:</b>${data.data[0].Weight}</div>
             <div class="text"><b>מחיר:</b>${data.data[0].price}</div>
-            <div class="text"><b>מיקום:</b>${data.data[0].Location}</div>
+            <div class="text" style="direction: initial;"><b>מיקום:</b>${data.data[0].Location}</div>
             <div class="text"><img src="${data.data[0].Picture}"></div>`
         })
 }
@@ -255,7 +255,7 @@ function PullThiscCategory(event) {
                 <div class="list"><b>UPS-מקט:</b></br></br>${elm.UPS}</div>
                 <div class="list"><b>שם המוצר:</b></br></br>${elm.Name}</div>
             <div class="list"><b>תאריך תפוגה:</b></br></br>${elm.ExpiryDate}</div> 
-            <div class="list"><b>מיקום:</b></br></br>${elm.Location}</div> 
+            <div class="list" style="direction: initial;"><b>מיקום:</b></br></br>${elm.Location}</div> 
         </div>`
             })
         })

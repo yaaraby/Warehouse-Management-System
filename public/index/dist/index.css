@@ -119,7 +119,7 @@ body {
   font-size: 20rem;
   border: 0;
   border-bottom: 2px solid var(--color);
-  background: var(--background);
+  background: none;
   margin-bottom: 25px;
   margin-top: 20px;
   outline: none;
