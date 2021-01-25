@@ -75,32 +75,37 @@ function functionSearch() {
   } else {
     var placeholder = inputSearch.placeholder;
     var inputvalue = inputSearch.value;
-    textmessage.innerHTML = '<img src="/img/gif.gif">';
-    fetch('/Searchdeta', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        placeholder: placeholder,
-        inputvalue: inputvalue
-      })
-    }).then(function (res) {
-      return res.json();
-    }).then(function (data) {
-      Searchtml.innerHTML = "";
 
-      if (data.message !== undefined) {
-        textmessage.innerHTML = data.message;
-      }
+    if (inputvalue.length == 0) {
+      textmessage.innerHTML = 'הזן מידע לחיפוש';
+    } else {
+      textmessage.innerHTML = '<img src="/img/gif.gif">';
+      fetch('/Searchdeta', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          placeholder: placeholder,
+          inputvalue: inputvalue
+        })
+      }).then(function (res) {
+        return res.json();
+      }).then(function (data) {
+        Searchtml.innerHTML = "";
 
-      if (data.data) {
-        textmessage.innerHTML = placeholder;
-        data.data.forEach(function (elm) {
-          Searchtml.innerHTML += "<div class=\"cardlist\" onclick=\"PullInformation('".concat(elm.UPS, "')\">\n                    <div class=\"list\"><b>UPS-\u05DE\u05E7\u05D8:</b></br></br>").concat(elm.UPS, "</div>\n                    <div class=\"list\"><b>\u05E9\u05DD \u05D4\u05DE\u05D5\u05E6\u05E8:</b></br></br>").concat(elm.Name, "</div>\n                    <div class=\"list\"><b>\u05EA\u05D0\u05E8\u05D9\u05DA \u05EA\u05E4\u05D5\u05D2\u05D4:</b></br></br>").concat(elm.ExpiryDate, "</div>\n                    <div class=\"list\"><b>\u05DE\u05D9\u05E7\u05D5\u05DD:</b></br></br>").concat(elm.Location, "</div>\n                </div>");
-        });
-      }
-    });
+        if (data.message !== undefined) {
+          textmessage.innerHTML = data.message;
+        }
+
+        if (data.data) {
+          textmessage.innerHTML = placeholder;
+          data.data.forEach(function (elm) {
+            Searchtml.innerHTML += "<div class=\"cardlist\" onclick=\"PullInformation('".concat(elm.UPS, "')\">\n                    <div class=\"list\"><b>UPS-\u05DE\u05E7\u05D8:</b></br></br>").concat(elm.UPS, "</div>\n                    <div class=\"list\"><b>\u05E9\u05DD \u05D4\u05DE\u05D5\u05E6\u05E8:</b></br></br>").concat(elm.Name, "</div>\n                    <div class=\"list\"><b>\u05EA\u05D0\u05E8\u05D9\u05DA \u05EA\u05E4\u05D5\u05D2\u05D4:</b></br></br>").concat(elm.ExpiryDate, "</div>\n                    <div class=\"list\"><b>\u05DE\u05D9\u05E7\u05D5\u05DD:</b></br></br>").concat(elm.Location, "</div>\n                </div>");
+          });
+        }
+      });
+    }
   }
 }
 

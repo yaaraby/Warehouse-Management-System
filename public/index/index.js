@@ -63,7 +63,7 @@ function Searchdisplayblock() {
     Registration.style.display = 'none'
     inputSearch.focus()
 }
-function deleteoutcome(){
+function deleteoutcome() {
     outcome.style.display = 'none'
 }
 
@@ -72,39 +72,43 @@ function functionSearch() {
         textmessage.innerHTML = 'הזן סוג חיפוש'
     }
     else {
-
         const placeholder = inputSearch.placeholder
         const inputvalue = inputSearch.value
 
-        textmessage.innerHTML = '<img src="/img/gif.gif">'
+        if (inputvalue.length == 0) {
+            textmessage.innerHTML = 'הזן מידע לחיפוש'
+        }
+        else {
+            textmessage.innerHTML = '<img src="/img/gif.gif">'
 
-        fetch('/Searchdeta', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ placeholder, inputvalue })
-        }).then(res =>
-            res.json()
-        )
-            .then(data => {
-                Searchtml.innerHTML =""
+            fetch('/Searchdeta', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ placeholder, inputvalue })
+            }).then(res =>
+                res.json()
+            )
+                .then(data => {
+                    Searchtml.innerHTML = ""
 
-                if (data.message !== undefined) {
-                    textmessage.innerHTML = data.message
-                }
-                if (data.data) {
-                    textmessage.innerHTML = placeholder
-                    data.data.forEach(elm => {
-                        Searchtml.innerHTML += `<div class="cardlist" onclick="PullInformation('${elm.UPS}')">
+                    if (data.message !== undefined) {
+                        textmessage.innerHTML = data.message
+                    }
+                    if (data.data) {
+                        textmessage.innerHTML = placeholder
+                        data.data.forEach(elm => {
+                            Searchtml.innerHTML += `<div class="cardlist" onclick="PullInformation('${elm.UPS}')">
                     <div class="list"><b>UPS-מקט:</b></br></br>${elm.UPS}</div>
                     <div class="list"><b>שם המוצר:</b></br></br>${elm.Name}</div>
                     <div class="list"><b>תאריך תפוגה:</b></br></br>${elm.ExpiryDate}</div>
                     <div class="list"><b>מיקום:</b></br></br>${elm.Location}</div>
                 </div>`
-                    })
-                }
-            })
+                        })
+                    }
+                })
+        }
     }
 }
 function PullInformation(e) {
@@ -122,7 +126,7 @@ function PullInformation(e) {
 
             console.log(data)
             cardtext.innerHTML =
-            `<div class="text"><b>שם מוצר:</b>${data.data[0].Name}</div>
+                `<div class="text"><b>שם מוצר:</b>${data.data[0].Name}</div>
             <div class="text"><b>תאריך תפוגה:</b>${data.data[0].ExpiryDate}</div>
             <div class="text"><b>קטגוריה:</b>${data.data[0].Category}</div>
             <div class="text"><b>UPS-מקט:</b>${data.data[0].UPS}</div>
