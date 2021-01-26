@@ -17,15 +17,15 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 const Users = mongoose.model('User', {
-    id_user: String,
-    userName: String,
-    name: String,
-    password: String,
-    email: String,
-    phone: String,
-    role: String
+     id_user: String,
+     userName:String,
+     name: String,
+     password: String,
+     email: String,
+     phone: String,
+     role: String
 });
-
+ 
 const Shelfs = mongoose.model('Shelf', {
 
     Line: Number,
@@ -47,46 +47,34 @@ const Products = mongoose.model('product', {
     height: Number,
     ExpiryDate: String,
     Image: String,
-    Location: String
+    Location:String
 
 });
 
 app.get('/get-List-Users', async (req, res) => {
     const data = await Users.find()
-    res.send({ data })
-
-
+        res.send({ data})
+   
+    
 })
-app.delete('/:userId', async (req, res, next) => {
-    let { userId } = req.params
-    try {
-        // let isusersExists = isUsersExists(userId);
 
-        // if (!isusersExists) {
-        //     res.status(500).send('Error: User does not exists')
-        // } else {
-        await Users.findByIdAndDelete(userId);
-        const data = await Users.find({});
-        res.send(data)
-        // }
+app.delete('/:userId',async (req, res, next) => {
+    let userId = req.params.userId;
+    try {
+        let isusersExists = isUsersExists(userId);
+
+        if (!isusersExists) {
+            res.status(500).send('Error: User does not exists')
+        } else {
+            await Users.deleteOne({id_user: userId });
+            const data = await Users.find({})
+            res.send(data)
+        }
     } catch (e) {
         console.log(e)
     }
 })
-/* 
-app.put("/update", (req, res) => { 
-    const userId = req.body.userId
 
-    Users.updateOne({ id_user: userId }, {
-            $set: {}
-        }
-    
-    
-    console.log(products)
-    
-    
-        res.send({ ok: true })
-    }) */
 
 let isUsersExists = async (userId) => {
     let isExists = false;
@@ -96,17 +84,17 @@ let isUsersExists = async (userId) => {
         if (userId == data[i].id_user) {
             isExists = true;
         }
+    }       
+        console.log(isExists)
+        return isExists;
     }
-    console.log(isExists)
-    return isExists;
-}
 
 
 
 
 
 
-const port = process.env.PORT || 8081;
-app.listen(port, () => console.log('server listen on port ', port))
+    const port = process.env.PORT || 8081;
+    app.listen(port, () => console.log('server listen on port ', port))
 
 
