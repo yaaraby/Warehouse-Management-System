@@ -26,22 +26,22 @@
         <form onsubmit="handleRegistration(event)">
             <div class="rtl">
                 <label for="id_user">מספר זהות:
-                    <input type="text" name="id_user" id="id_user"></br>
+                    <input type="text" name="id_user" id="id_user" autocomplete='off'></br>
                 </label>
                 <label for="name">שם:
-                    <input type="text" name="name" id="name"></br>
+                    <input type="text" name="name" id="name" autocomplete='off'></br>
                 </label>
                 <label for="userName">שם משתמש:
-                    <input type="text" name="username" id="userName"></br>
+                    <input type="text" name="username" id="userName" autocomplete='off'></br>
                 </label>
                 <label for="password">סיסמה:
-                    <input type="password" name="password" id="password"></br>
+                    <input type="password" name="password" id="password" autocomplete='off'></br>
                 </label>
                 <label for="email">אימייל:
-                    <input type="email" name="email" id="email"></br>
+                    <input type="email" name="email" id="email" autocomplete='off'></br>
                 </label>
                 <label for="phone">פלאפון:
-                    <input type="text" name="phone" id="phone"></br>
+                    <input type="text" name="phone" id="phone" autocomplete='off'></br>
                 </label>
             </div>
             <select name="role" id="role">
@@ -69,14 +69,14 @@
     <div class="Search">
         <img class="img" src="/img/delete.png" onclick="deletesearch()">
         <div class="Searchinput">
-            <select id="Searchselect" onclick="valueselect(event)">
+            <select id="Searchselect" onchange="valueselect(event)">
                 <option>UPS-מקט</option>
                 <option>חיפוש לפי שם מוצר</option>
                 <option>חיפוש לפי תאריך תפוגה</option>
                 <option>חיפוש לפי מדף / מיקום</option>
             </select>
 
-            <input type="text" id="inputSearch" placeholder="<< בחר סוג חיפוש">
+            <input type="text" id="inputSearch" placeholder="<< בחר סוג חיפוש" autocomplete='off'>
             <button type="submit"><img class="Searchimg" src="/img/Search.png" onclick="functionSearch()"></button>
             <div class="textmessage"></div>
         </div>
@@ -100,7 +100,7 @@
         </div>
     </div>
 
-    <div class="UsersList">
+    <div class="UsersList" >
         <div class="userdetails">
             <div style="width: 20px;"></div>
         <div class="id">תעודת זהות</div>

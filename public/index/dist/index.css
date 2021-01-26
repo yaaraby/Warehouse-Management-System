@@ -405,6 +405,7 @@ body {
   margin: 150px 0px 150px;
   direction: rtl;
   padding: 15px 15px;
+  display: none;
 }
 .UsersList .userdetails {
   display: flex;
