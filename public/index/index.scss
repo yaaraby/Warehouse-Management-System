@@ -169,7 +169,7 @@ body {
     box-sizing: border-box;
 
 
-        img {
+    img {
         width: 30px;
         position: absolute;
         top: -15px;
@@ -410,7 +410,7 @@ body {
     cursor: pointer;
 
     .card {
-        margin-top:-250px;
+        margin-top: -250px;
         width: 500px;
         background-color: rgb(199, 181, 174);
         position: relative;
@@ -448,6 +448,58 @@ body {
                     font-size: 24rem;
                 }
             }
+        }
+    }
+}
+
+.UsersList {
+    font-size: 20rem;
+    font-family: var(--font-family);
+    background-color: var(--background);
+    // padding: 0px 20px 20px 20px;
+    text-align: center;
+    font-family: 'Rubik', sans-serif;
+    border-radius: 10px;
+    box-shadow: 2px 2px 15px 10px rgba(128, 128, 128, 0.445);
+    position: relative;
+    min-height: 750px;
+    min-width: 350px;
+    width: 90%;
+    max-width: 900px;
+    margin: 150px 0px 150px;
+    direction: rtl;
+    padding: 15px 15px;
+    // display: none;
+
+    .userdetails {
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 0px;
+
+        .id {
+            background-color: lavenderblush;
+            width: 150px;
+        }
+    }
+
+    .insertuserdetails {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+        padding: 5px 0;
+        background-color: rgba(209, 208, 196, 0.863);
+        border-radius: 5px;
+
+        .img {
+            width: 20px;
+
+            img{
+                width: 100%;
+            }
+        }
+
+        .name {
+            width: 150px;
         }
     }
 }

@@ -75,6 +75,24 @@ const Products = mongoose.model('product', {
 //  user.save().then(doc => console.log('doc')).catch(e =>console.log(e));
 
 
+app.get('/get-List-Users', async (req, res) => {
+    const data = await Users.find()
+    res.send({ data })
+
+
+})
+app.delete('/:userId', async (req, res, next) => {
+    let { userId } = req.params
+    try {
+        await Users.findByIdAndDelete(userId);
+        const data = await Users.find({});
+        res.send(data)
+        // }
+    } catch (e) {
+        console.log(e)
+    }
+})
+
 
 
 // login.html

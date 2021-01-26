@@ -260,3 +260,45 @@ function PullThiscCategory(event) {
             })
         })
 }
+
+
+function getListUsers() {
+    fetch('/get-List-Users')
+        .then(res =>
+            res.json()
+        )
+        .then(data => {
+            console.log(data)
+            reloadTable(data)
+        })
+}
+
+const deleteUser = (userId) => {
+    fetch('/' + userId, {
+
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    }).then(res =>
+        res.json()
+    )
+        .then(data => {
+            console.log(data)
+            reloadTable(data)
+        })
+
+}
+
+function reloadTable(data) {
+    data.data.forEach(element => {
+    document.querySelector('.insertuserdetails').innerHTML +=
+    `<div><div class="img"><img src="/img/delete.png" onclick="deleteUser('${element._id}')"></div>
+    <div class="name">${element.id_user}</div>
+        <div class="name">${element.name}</div>
+        <div class="name">${element.userName}</div>
+        <div class="name">${element.email}</div>
+        <div class="name">${element.phone}</div>
+        <div class="name">${element.role}</div></div>`
+    });
+}

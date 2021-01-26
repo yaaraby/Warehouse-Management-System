@@ -388,3 +388,47 @@ body {
   padding-left: 10px;
   font-size: 24rem;
 }
+
+.UsersList {
+  font-size: 20rem;
+  font-family: var(--font-family);
+  background-color: var(--background);
+  text-align: center;
+  font-family: "Rubik", sans-serif;
+  border-radius: 10px;
+  box-shadow: 2px 2px 15px 10px rgba(128, 128, 128, 0.445);
+  position: relative;
+  min-height: 750px;
+  min-width: 350px;
+  width: 90%;
+  max-width: 900px;
+  margin: 150px 0px 150px;
+  direction: rtl;
+  padding: 15px 15px;
+}
+.UsersList .userdetails {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0px;
+}
+.UsersList .userdetails .id {
+  background-color: lavenderblush;
+  width: 150px;
+}
+.UsersList .insertuserdetails {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding: 5px 0;
+  background-color: rgba(209, 208, 196, 0.863);
+  border-radius: 5px;
+}
+.UsersList .insertuserdetails .img {
+  width: 20px;
+}
+.UsersList .insertuserdetails .img img {
+  width: 100%;
+}
+.UsersList .insertuserdetails .name {
+  width: 150px;
+}

@@ -240,3 +240,32 @@ function PullThiscCategory(event) {
     });
   });
 }
+
+function getListUsers() {
+  fetch('/get-List-Users').then(function (res) {
+    return res.json();
+  }).then(function (data) {
+    console.log(data);
+    reloadTable(data);
+  });
+}
+
+var deleteUser = function deleteUser(userId) {
+  fetch('/' + userId, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then(function (res) {
+    return res.json();
+  }).then(function (data) {
+    console.log(data);
+    reloadTable(data);
+  });
+};
+
+function reloadTable(data) {
+  data.data.forEach(function (element) {
+    document.querySelector('.insertuserdetails').innerHTML += "<div><div class=\"img\"><img src=\"/img/delete.png\" onclick=\"deleteUser('".concat(element._id, "')\"></div>\n    <div class=\"name\">").concat(element.id_user, "</div>\n        <div class=\"name\">").concat(element.name, "</div>\n        <div class=\"name\">").concat(element.userName, "</div>\n        <div class=\"name\">").concat(element.email, "</div>\n        <div class=\"name\">").concat(element.phone, "</div>\n        <div class=\"name\">").concat(element.role, "</div></div>");
+  });
+}
