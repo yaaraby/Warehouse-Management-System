@@ -12,6 +12,7 @@ const textmessage = document.querySelector('.textmessage')
 const Searchtml = document.querySelector('.Searchtml')
 const outcome = document.querySelector('.outcome')
 const cardtext = document.querySelector('.cardtext')
+const menu = document.querySelector(".menu")
 
 testcoocik()
 function testcoocik() {
@@ -46,6 +47,7 @@ function cardCategorydisplaynone() {
 }
 
 function Addauser() {
+    menubutoondisplayblock()
     cardCategory.style.display = 'none'
     ShowAll.style.display = 'none'
     Search.style.display = 'none'
@@ -56,6 +58,7 @@ function Registrationdisplaynone() {
 }
 
 function Searchdisplayblock() {
+    menubutoondisplayblock()
     Search.style.display = 'block'
     cardCategory.style.display = 'none'
     ShowAll.style.display = 'none'
@@ -208,6 +211,7 @@ const handleRegistration = (e) => {
 }
 
 function getCategory() {
+    menubutoondisplayblock()
     let aryycategory = []
     Registration.style.display = 'none'
     Search.style.display = 'none'
@@ -263,6 +267,7 @@ function PullThiscCategory(event) {
 
 
 function getListUsers() {
+    menubutoondisplayblock()
     fetch('/get-List-Users')
         .then(res =>
             res.json()
@@ -301,4 +306,14 @@ function reloadTable(data) {
         <div class="name">${element.phone}</div>
         <div class="name">${element.role}</div></div>`
     });
+}
+
+function displayblockmenu(event){
+    // event.target.style.display='none'
+    menu.style.display='block'
+}
+
+function menubutoondisplayblock(){
+    // event.target.style.display='block'
+    menu.style.display='none'
 }

@@ -14,6 +14,7 @@ var textmessage = document.querySelector('.textmessage');
 var Searchtml = document.querySelector('.Searchtml');
 var outcome = document.querySelector('.outcome');
 var cardtext = document.querySelector('.cardtext');
+var menu = document.querySelector(".menu");
 testcoocik();
 
 function testcoocik() {
@@ -47,6 +48,7 @@ function cardCategorydisplaynone() {
 }
 
 function Addauser() {
+  menubutoondisplayblock();
   cardCategory.style.display = 'none';
   ShowAll.style.display = 'none';
   Search.style.display = 'none';
@@ -58,6 +60,7 @@ function Registrationdisplaynone() {
 }
 
 function Searchdisplayblock() {
+  menubutoondisplayblock();
   Search.style.display = 'block';
   cardCategory.style.display = 'none';
   ShowAll.style.display = 'none';
@@ -196,6 +199,7 @@ var handleRegistration = function handleRegistration(e) {
 };
 
 function getCategory() {
+  menubutoondisplayblock();
   var aryycategory = [];
   Registration.style.display = 'none';
   Search.style.display = 'none';
@@ -242,6 +246,7 @@ function PullThiscCategory(event) {
 }
 
 function getListUsers() {
+  menubutoondisplayblock();
   fetch('/get-List-Users').then(function (res) {
     return res.json();
   }).then(function (data) {
@@ -268,4 +273,14 @@ function reloadTable(data) {
   data.data.forEach(function (element) {
     document.querySelector('.insertuserdetails').innerHTML += "<div><div class=\"img\"><img src=\"/img/delete.png\" onclick=\"deleteUser('".concat(element._id, "')\"></div>\n    <div class=\"name\">").concat(element.id_user, "</div>\n        <div class=\"name\">").concat(element.name, "</div>\n        <div class=\"name\">").concat(element.userName, "</div>\n        <div class=\"name\">").concat(element.email, "</div>\n        <div class=\"name\">").concat(element.phone, "</div>\n        <div class=\"name\">").concat(element.role, "</div></div>");
   });
+}
+
+function displayblockmenu(event) {
+  // event.target.style.display='none'
+  menu.style.display = 'block';
+}
+
+function menubutoondisplayblock() {
+  // event.target.style.display='block'
+  menu.style.display = 'none';
 }
