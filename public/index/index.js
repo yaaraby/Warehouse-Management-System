@@ -13,6 +13,7 @@ const Searchtml = document.querySelector('.Searchtml')
 const outcome = document.querySelector('.outcome')
 const cardtext = document.querySelector('.cardtext')
 const menu = document.querySelector(".menu")
+const menubutoon =document.querySelector(".menubutoon")
 
 testcoocik()
 function testcoocik() {
@@ -297,8 +298,8 @@ const deleteUser = (userId) => {
 
 function reloadTable(data) {
     data.data.forEach(element => {
-    document.querySelector('.insertuserdetails').innerHTML +=
-    `<div><div class="img"><img src="/img/delete.png" onclick="deleteUser('${element._id}')"></div>
+        document.querySelector('.insertuserdetails').innerHTML +=
+            `<div><div class="img"><img src="/img/delete.png" onclick="deleteUser('${element._id}')"></div>
     <div class="name">${element.id_user}</div>
         <div class="name">${element.name}</div>
         <div class="name">${element.userName}</div>
@@ -308,12 +309,11 @@ function reloadTable(data) {
     });
 }
 
-function displayblockmenu(event){
-    // event.target.style.display='none'
-    menu.style.display='block'
+function displayblockmenu(event) {
+        menu.style.right = '0'
+        // event.target.style.display='none'
 }
 
-function menubutoondisplayblock(){
-    // event.target.style.display='block'
-    menu.style.display='none'
+function menubutoondisplayblock() {
+        menu.style.right = '-100%'
 }

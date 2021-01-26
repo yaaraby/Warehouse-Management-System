@@ -20,17 +20,23 @@ body {
 
 .menu {
     background-color: #aa5339;
-    width: 100%;
+    width: 50%;
+    height: 100%;
+    max-width: 220px;
     position: fixed;
     top: 0;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+    right: -100%;
     z-index: 2;
     white-space: nowrap;
+    // display: none;
+    transition: all 0.5s;
 
     img{
-        display: none;
+        width:30px;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 5px;
     }
 
     .SelectionMenu {
@@ -38,14 +44,14 @@ body {
         font-weight: 600;
         color: var(--color);
         font-family: var(--font-family);
-        border-bottom: 4px solid var(--background);
+        // border-bottom: 4px solid var(--background);
         padding: 25px 15px;
         cursor: pointer;
     }
 
     .SelectionMenu:hover {
-        border-bottom: 4px solid rgb(144, 144, 144);
-        transition: border 0.2s;
+        // border-bottom: 4px solid rgb(144, 144, 144);
+        transition: color 0.2s;
         color: rgb(144, 144, 144);
     }
 }
@@ -516,31 +522,34 @@ body {
     html {
         font-size: 0.9px;
     }
-    .menu {
-        text-align: center;
-        display:none;
-        border-radius: 0 0 10px 10px;
-
-        img{
-            display: block;
-            width:30px;
-            position: absolute;
-            top: 10px;
-            right: 10px;
-        }
+    // .menu {
+    //     text-align: center;
+    //     display:none;
+    //     border-radius: 0 0 10px 10px;
         
-        .SelectionMenu {
-            border:0;
-            padding: 10px 0px;
-            width: 60%;
-            margin: auto;
-        }
+
+    //     img{
+    //         display: block;
+    //         width:30px;
+    //         position: absolute;
+    //         top: 10px;
+    //         right: 10px;
+    //     }
+        
+    //     .SelectionMenu {
+    //         border:0;
+    //         padding: 10px 0px;
+    //         width: 60%;
+    //         margin: auto;
+    //     }
     
-        .SelectionMenu:hover {
-            border:0;
-        }
-    }
+    //     .SelectionMenu:hover {
+    //         border:0;
+    //     }
+    // }
 }
+
+
 .menubutoon{
     position: fixed;
     display: block;

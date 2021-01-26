@@ -15,6 +15,7 @@ var Searchtml = document.querySelector('.Searchtml');
 var outcome = document.querySelector('.outcome');
 var cardtext = document.querySelector('.cardtext');
 var menu = document.querySelector(".menu");
+var menubutoon = document.querySelector(".menubutoon");
 testcoocik();
 
 function testcoocik() {
@@ -276,11 +277,9 @@ function reloadTable(data) {
 }
 
 function displayblockmenu(event) {
-  // event.target.style.display='none'
-  menu.style.display = 'block';
+  menu.style.right = '0'; // event.target.style.display='none'
 }
 
 function menubutoondisplayblock() {
-  // event.target.style.display='block'
-  menu.style.display = 'none';
+  menu.style.right = '-100%';
 }

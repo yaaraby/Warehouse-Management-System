@@ -18,30 +18,33 @@ body {
 
 .menu {
   background-color: #aa5339;
-  width: 100%;
+  width: 50%;
+  height: 100%;
+  max-width: 220px;
   position: fixed;
   top: 0;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  right: -100%;
   z-index: 2;
   white-space: nowrap;
+  transition: all 0.5s;
 }
 .menu img {
-  display: none;
+  width: 30px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px;
 }
 .menu .SelectionMenu {
   font-size: 25rem;
   font-weight: 600;
   color: var(--color);
   font-family: var(--font-family);
-  border-bottom: 4px solid var(--background);
   padding: 25px 15px;
   cursor: pointer;
 }
 .menu .SelectionMenu:hover {
-  border-bottom: 4px solid #909090;
-  transition: border 0.2s;
+  transition: color 0.2s;
   color: #909090;
 }
 
@@ -442,28 +445,6 @@ body {
 @media only screen and (max-width: 450px) {
   html {
     font-size: 0.9px;
-  }
-
-  .menu {
-    text-align: center;
-    display: none;
-    border-radius: 0 0 10px 10px;
-  }
-  .menu img {
-    display: block;
-    width: 30px;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-  }
-  .menu .SelectionMenu {
-    border: 0;
-    padding: 10px 0px;
-    width: 60%;
-    margin: auto;
-  }
-  .menu .SelectionMenu:hover {
-    border: 0;
   }
 }
 .menubutoon {
