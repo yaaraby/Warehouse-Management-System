@@ -308,9 +308,6 @@ function getListUsers() {
                                     <a>שם משתמש</a>
                                 </th>
                                 <th>
-                                    <a>טלפון</a>
-                                </th>
-                                <th>
                                     <a>תפקיד</a>
                                 </th>
                             </tr>
@@ -320,7 +317,6 @@ function getListUsers() {
                                     `<tr>
                                         <td>   ${elm.name}   </td>
                                         <td>   ${elm.userName}   </td>
-                                        <td>   ${elm.phone}   </td>
                                         <td>   ${elm.role}   </td> 
                                         <td>
                                         <a action="Edit" onclick='editUser(${elm._id})'>    Edit</a> |
@@ -368,9 +364,6 @@ const deleteUser = (userId) => {
                         שם משתמש
                     </th>
                     <th>
-                        טלפון
-                    </th>
-                    <th>
                         תפקיד
                     </th>
                 </tr>
@@ -380,7 +373,6 @@ const deleteUser = (userId) => {
                         `<tr>
                             <td>   ${elm.name}   </td>
                             <td>   ${elm.userName}   </td>
-                            <td>   ${elm.phone}   </td>
                             <td>   ${elm.role}   </td> 
                             <td>
                             <a action="Edit" onclick='editUser(${elm._id})'>    Edit</a> |

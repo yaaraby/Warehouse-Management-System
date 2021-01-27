@@ -86,7 +86,7 @@ body {
         z-index: 1;
     }
 
-    .listuser{
+    .listuser {
         width: 50px;
         position: absolute;
         top: 15px;
@@ -485,53 +485,57 @@ body {
     position: relative;
     width: 90%;
     max-width: 1000px;
-    margin: 150px auto 50px;
+    margin: 150px auto 70px;
     direction: rtl;
     padding: 10px;
     display: none;
     box-sizing: border-box;
 
-.Addanewuser{
-    width: 60px;
-    font-size: 20rem;
-    font-weight: 600;
-    position: absolute;
-    top: -15px;
-    left: -15px;
-    background-color:var(--background);
-    border: 0;
-    outline: none;
-    border-radius: 20px;
-    cursor: pointer;
-    z-index: 1;
 
-    img{
-        width: 100%;
+    .Addanewuser {
+        width: 60px;
+        font-size: 20rem;
+        font-weight: 600;
+        position: absolute;
+        top: -15px;
+        left: -15px;
+        background-color: var(--background);
+        border: 0;
+        outline: none;
+        border-radius: 20px;
+        cursor: pointer;
+        z-index: 1;
+
+        img {
+            width: 100%;
+        }
     }
-}
-    
-table {
+
+    table {
         font-family: arial, sans-serif;
         border-collapse: collapse;
         width: 100%;
         box-sizing: border-box;
-      }
+        table-layout: fixed;
+    }
 
-      
-      td, th {
+
+    td,
+    th {
         border: 1px solid #dddddd;
         text-align: center;
         padding: 10px;
+        table-layout: fixed;
 
 
-        img{
+        img {
             width: 20px;
         }
-      }
-      
-      tr:nth-child(even) {
+    }
+
+    tr:nth-child(even) {
         background-color: gray;
-      }
+    }
 }
 
 .menubutoon {
@@ -559,7 +563,8 @@ table {
 .Registration,
 .Search,
 .ShowAll,
-.cardCategory {
+.cardCategory,
+#UsersList {
     margin-top: 70px;
 }
 
