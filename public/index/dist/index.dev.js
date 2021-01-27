@@ -258,22 +258,15 @@ function getListUsers() {
   fetch('/get-List-Users').then(function (res) {
     return res.json();
   }).then(function (data) {
-    outcome.style.display = 'none';
-    Registration.style.display = 'none';
-    Search.style.display = 'none';
-    ShowAll.style.display = 'none';
-    cardCategory.style.display = 'none';
-    UsersList.style.display = 'block';
-
     if (data.data != null) {
-      data.data.forEach(function (element) {
-        UsersList.innerHTML = "<div class=\"col-sm-4\">\n                        <button class=\"Addanewuser\" onclick=\"Addauser()\"><img src=\"/img/adduser.png\"></button>\n                        </div>\n                    <table>\n                    <thead>\n                        <tr>\n                        <th>\n                        </th>\n                                <th>\n                                    <a>\u05D6\u05D4\u05D5\u05EA \u05DE\u05E9\u05EA\u05DE\u05E9</a>\n                                </th>\n                                <th>\n                                    <a>\u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9</a>\n                                </th>\n                                <th>\n                                    <a>\u05EA\u05E4\u05E7\u05D9\u05D3</a>\n                                </th>\n                            </tr>\n                        </thead>\n                            <tbody>\n                                ".concat(data.data.map(function (elm) {
-          return "<tr>\n                                    <td>\n                                    <a action=\"Edit\" onclick='editUser(".concat(elm._id, ")'>\u05E2\u05E8\u05D9\u05DB\u05D4</a> |\n                                    <a action=\"Delete\" onclick='deleteUser(\"").concat(elm._id, "\")'>\u05DE\u05D7\u05D9\u05E7\u05D4</a>\n                                </td>\n                                        <td>   ").concat(elm.id_user, "   </td>\n                                        <td>   ").concat(elm.userName, "   </td>\n                                        <td>   ").concat(elm.role, "   </td> \n                                     \n                                         \n                        </tr>\n                        \n                        ");
-        }).join(''), "</tbody>\n                        </table>");
-      });
+      outcome.style.display = 'none';
+      Registration.style.display = 'none';
+      Search.style.display = 'none';
+      ShowAll.style.display = 'none';
+      cardCategory.style.display = 'none';
+      UsersList.style.display = 'block';
+      alluser(data.data);
     }
-
-    ;
   });
 }
 
@@ -286,10 +279,7 @@ var deleteUser = function deleteUser(userId) {
   }).then(function (res) {
     return res.json();
   }).then(function (data) {
-    console.log(data);
-    document.getElementById('UsersList').innerHTML = "<div class=\"col-sm-4\">\n                    <button class=\"Addanewuser\" onclick=\"Addauser()\"><img src=\"/img/adduser.png\"></button>\n                    </div>\n        <table>\n        <thead>\n            <tr>\n            <th>\n                    </th>\n                    <th>\n                       \u05D6\u05D4\u05D5\u05EA \u05DE\u05E9\u05EA\u05DE\u05E9\n                    </th>\n                    <th>\n                        \u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9\n                    </th>\n                    <th>\n                        \u05EA\u05E4\u05E7\u05D9\u05D3\n                    </th>\n                </tr>\n            </thead>\n                <tbody>\n                    ".concat(data.map(function (elm) {
-      return "<tr> <td>\n                        <a action=\"Edit\" onclick='editUser(".concat(elm._id, ")'>\u05E2\u05E8\u05D9\u05DB\u05D4</a> |\n                        <a action=\"Delete\" onclick='deleteUser(\"").concat(elm._id, "\")'>\u05DE\u05D7\u05D9\u05E7\u05D4</a>\n                        </td>\n                          <td>   ").concat(elm.id_user, "   </td>\n                            <td>   ").concat(elm.userName, "   </td>\n                            <td>   ").concat(elm.role, "   </td> \n                           \n                             \n            </tr>\n            \n            ");
-    }).join(''), "</tbody>\n            </table>");
+    alluser(data);
   });
 };
 
@@ -299,4 +289,10 @@ function displayblockmenu(event) {
 
 function menubutoondisplayblock() {
   menu.style.right = '-100%';
+}
+
+function alluser(data) {
+  document.getElementById('UsersList').innerHTML = "<div class=\"col-sm-4\">\n        <button class=\"Addanewuser\" onclick=\"Addauser()\"><img src=\"/img/adduser.png\"></button>\n        </div>\n<table>\n<thead>\n    <tr>\n        <th></th>\n        <th>\u05D6\u05D4\u05D5\u05EA \u05DE\u05E9\u05EA\u05DE\u05E9</th>\n        <th>\u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9</th>\n        <th>\u05EA\u05E4\u05E7\u05D9\u05D3</th>\n    </tr>\n</thead>\n    <tbody>\n        ".concat(data.map(function (elm) {
+    return "<tr>\n        <td class=\"flexdeleteuser\">\n        <a action=\"Edit\" class=\"deleteuser\" onclick='editUser(".concat(elm._id, ")'><img src=\"/img/edit-button.png\"></a>\n        <a action=\"Delete\" class=\"deleteuser\" onclick='deleteUser(\"").concat(elm._id, "\")'><img src=\"/img/deleteuser.png\"></a>\n        </td>\n                <td>").concat(elm.id_user, "</td>\n                <td>").concat(elm.userName, "</td>\n                <td>").concat(elm.role, "</td> \n        </tr>\n\n");
+  }).join(''), "</tbody>\n</table>");
 }

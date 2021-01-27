@@ -443,11 +443,19 @@ body {
   box-sizing: border-box;
   table-layout: fixed;
 }
+#UsersList .flexdeleteuser {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+#UsersList .flexdeleteuser .deleteuser {
+  cursor: pointer;
+}
 #UsersList td,
 #UsersList th {
   border: 1px solid #dddddd;
   text-align: center;
-  padding: 10px 0px;
+  padding: 12px 0px 9px 0px;
   table-layout: fixed;
   word-wrap: break-word;
 }

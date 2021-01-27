@@ -279,64 +279,24 @@ function PullThiscCategory(event) {
 function getListUsers() {
     menu.style.right = '-100%'
 
-
     fetch('/get-List-Users')
         .then(res =>
             res.json()
         )
         .then(data => {
+            if (data.data != null) {
+
             outcome.style.display = 'none'
             Registration.style.display = 'none'
             Search.style.display = 'none'
             ShowAll.style.display = 'none'
             cardCategory.style.display = 'none'
             UsersList.style.display = 'block'
-
-            if (data.data != null) {
-                data.data.forEach(element => {
-                    UsersList.innerHTML =
-                        `<div class="col-sm-4">
-                        <button class="Addanewuser" onclick="Addauser()"><img src="/img/adduser.png"></button>
-                        </div>
-                    <table>
-                    <thead>
-                        <tr>
-                        <th>
-                        </th>
-                                <th>
-                                    <a>זהות משתמש</a>
-                                </th>
-                                <th>
-                                    <a>שם משתמש</a>
-                                </th>
-                                <th>
-                                    <a>תפקיד</a>
-                                </th>
-                            </tr>
-                        </thead>
-                            <tbody>
-                                ${data.data.map(elm =>
-                            `<tr>
-                                    <td>
-                                    <a action="Edit" onclick='editUser(${elm._id})'>עריכה</a> |
-                                    <a action="Delete" onclick='deleteUser("${elm._id}")'>מחיקה</a>
-                                </td>
-                                        <td>   ${elm.id_user}   </td>
-                                        <td>   ${elm.userName}   </td>
-                                        <td>   ${elm.role}   </td> 
-                                     
-                                         
-                        </tr>
-                        
-                        `).join('')}</tbody>
-                        </table>`;
-
-                })
-
-            };
+            alluser(data.data)
+            }
         })
-
 }
+
 
 const deleteUser = (userId) => {
 
@@ -349,52 +309,11 @@ const deleteUser = (userId) => {
     }).then(res =>
         res.json()
     )
-
         .then(data => {
-            console.log(data)
-            document.getElementById('UsersList').innerHTML =
-                `<div class="col-sm-4">
-                    <button class="Addanewuser" onclick="Addauser()"><img src="/img/adduser.png"></button>
-                    </div>
-        <table>
-        <thead>
-            <tr>
-            <th>
-                    </th>
-                    <th>
-                       זהות משתמש
-                    </th>
-                    <th>
-                        שם משתמש
-                    </th>
-                    <th>
-                        תפקיד
-                    </th>
-                </tr>
-            </thead>
-                <tbody>
-                    ${data.map(elm =>
-                    `<tr> <td>
-                        <a action="Edit" onclick='editUser(${elm._id})'>עריכה</a> |
-                        <a action="Delete" onclick='deleteUser("${elm._id}")'>מחיקה</a>
-                        </td>
-                          <td>   ${elm.id_user}   </td>
-                            <td>   ${elm.userName}   </td>
-                            <td>   ${elm.role}   </td> 
-                           
-                             
-            </tr>
-            
-            `).join('')}</tbody>
-            </table>`;
+
+            alluser(data)
         })
-
-}
-
-
-
-
-
+    }
 
 
 function displayblockmenu(event) {
@@ -404,4 +323,36 @@ function displayblockmenu(event) {
 
 function menubutoondisplayblock() {
     menu.style.right = '-100%'
+}
+
+
+
+function alluser(data){
+    document.getElementById('UsersList').innerHTML =
+    `<div class="col-sm-4">
+        <button class="Addanewuser" onclick="Addauser()"><img src="/img/adduser.png"></button>
+        </div>
+<table>
+<thead>
+    <tr>
+        <th></th>
+        <th>זהות משתמש</th>
+        <th>שם משתמש</th>
+        <th>תפקיד</th>
+    </tr>
+</thead>
+    <tbody>
+        ${data.map(elm =>
+        `<tr>
+        <td class="flexdeleteuser">
+        <a action="Edit" class="deleteuser" onclick='editUser(${elm._id})'><img src="/img/edit-button.png"></a>
+        <a action="Delete" class="deleteuser" onclick='deleteUser("${elm._id}")'><img src="/img/deleteuser.png"></a>
+        </td>
+                <td>${elm.id_user}</td>
+                <td>${elm.userName}</td>
+                <td>${elm.role}</td> 
+        </tr>
+
+`).join('')}</tbody>
+</table>`;
 }
