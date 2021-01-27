@@ -524,9 +524,9 @@ body {
     th {
         border: 1px solid #dddddd;
         text-align: center;
-        padding: 10px;
+        padding: 10px 0px;
         table-layout: fixed;
-
+        word-wrap: break-word;
 
         img {
             width: 20px;

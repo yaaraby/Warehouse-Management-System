@@ -13,7 +13,7 @@ const Searchtml = document.querySelector('.Searchtml')
 const outcome = document.querySelector('.outcome')
 const cardtext = document.querySelector('.cardtext')
 const menu = document.querySelector(".menu")
-const menubutoon =document.querySelector(".menubutoon")
+const menubutoon = document.querySelector(".menubutoon")
 const UsersList = document.getElementById('UsersList');
 
 testcoocik()
@@ -206,10 +206,10 @@ const handleRegistration = (e) => {
                     email.value = ''
                     phone.value = ''
                     role.value = 'דירוג'
-                    
+
                     setTimeout(() => {
                         getListUsers()
-                     }, 500);
+                    }, 500);
 
                 } else {
                     message.innerHTML = data.message
@@ -284,7 +284,7 @@ function getListUsers() {
         .then(res =>
             res.json()
         )
-        .then(data=>{ 
+        .then(data => {
             outcome.style.display = 'none'
             Registration.style.display = 'none'
             Search.style.display = 'none'
@@ -301,8 +301,10 @@ function getListUsers() {
                     <table>
                     <thead>
                         <tr>
+                        <th>
+                        </th>
                                 <th>
-                                    <a>שם מלא</a>
+                                    <a>זהות משתמש</a>
                                 </th>
                                 <th>
                                     <a>שם משתמש</a>
@@ -313,33 +315,33 @@ function getListUsers() {
                             </tr>
                         </thead>
                             <tbody>
-                                ${data.data.map(elm => 
-                                    `<tr>
-                                        <td>   ${elm.name}   </td>
+                                ${data.data.map(elm =>
+                            `<tr>
+                                    <td>
+                                    <a action="Edit" onclick='editUser(${elm._id})'>עריכה</a> |
+                                    <a action="Delete" onclick='deleteUser("${elm._id}")'>מחיקה</a>
+                                </td>
+                                        <td>   ${elm.id_user}   </td>
                                         <td>   ${elm.userName}   </td>
                                         <td>   ${elm.role}   </td> 
-                                        <td>
-                                        <a action="Edit" onclick='editUser(${elm._id})'>    Edit</a> |
-                                        <a action="Details">    Details</a> |
-                                        <a action="Delete" onclick='deleteUser("${elm._id}")'>    Delete</a>
-                                    </td>
+                                     
                                          
                         </tr>
                         
                         `).join('')}</tbody>
                         </table>`;
-              
+
                 })
-                
+
             };
         })
-        
+
 }
 
 const deleteUser = (userId) => {
 
     fetch('/' + userId, {
-      
+
         method: 'delete',
         headers: {
             'Content-Type': 'application/json'
@@ -347,18 +349,20 @@ const deleteUser = (userId) => {
     }).then(res =>
         res.json()
     )
-        
+
         .then(data => {
             console.log(data)
-                document.getElementById('UsersList').innerHTML =
-                    `<div class="col-sm-4">
+            document.getElementById('UsersList').innerHTML =
+                `<div class="col-sm-4">
                     <button class="Addanewuser" onclick="Addauser()"><img src="/img/adduser.png"></button>
                     </div>
         <table>
         <thead>
             <tr>
+            <th>
+                    </th>
                     <th>
-                        שם מלא
+                       זהות משתמש
                     </th>
                     <th>
                         שם משתמש
@@ -370,21 +374,20 @@ const deleteUser = (userId) => {
             </thead>
                 <tbody>
                     ${data.map(elm =>
-                        `<tr>
-                            <td>   ${elm.name}   </td>
+                    `<tr> <td>
+                        <a action="Edit" onclick='editUser(${elm._id})'>עריכה</a> |
+                        <a action="Delete" onclick='deleteUser("${elm._id}")'>מחיקה</a>
+                        </td>
+                          <td>   ${elm.id_user}   </td>
                             <td>   ${elm.userName}   </td>
                             <td>   ${elm.role}   </td> 
-                            <td>
-                            <a action="Edit" onclick='editUser(${elm._id})'>    Edit</a> |
-                            <a action="Details">    Details</a> |
-                            <a action="Delete" onclick='deleteUser("${elm._id}")'>    Delete</a>
-                        </td>
+                           
                              
             </tr>
             
             `).join('')}</tbody>
             </table>`;
-            })
+        })
 
 }
 
@@ -395,10 +398,10 @@ const deleteUser = (userId) => {
 
 
 function displayblockmenu(event) {
-        menu.style.right = '0'
-        // event.target.style.display='none'
+    menu.style.right = '0'
+    // event.target.style.display='none'
 }
 
 function menubutoondisplayblock() {
-        menu.style.right = '-100%'
+    menu.style.right = '-100%'
 }
