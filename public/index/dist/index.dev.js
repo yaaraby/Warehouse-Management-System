@@ -16,6 +16,7 @@ var outcome = document.querySelector('.outcome');
 var cardtext = document.querySelector('.cardtext');
 var menu = document.querySelector(".menu");
 var menubutoon = document.querySelector(".menubutoon");
+var UsersList = document.getElementById('UsersList');
 testcoocik();
 
 function testcoocik() {
@@ -53,6 +54,7 @@ function Addauser() {
   cardCategory.style.display = 'none';
   ShowAll.style.display = 'none';
   Search.style.display = 'none';
+  UsersList.style.display = 'none';
   Registration.style.display = 'block';
 }
 
@@ -65,6 +67,7 @@ function Searchdisplayblock() {
   Search.style.display = 'block';
   cardCategory.style.display = 'none';
   ShowAll.style.display = 'none';
+  UsersList.style.display = 'none';
   Registration.style.display = 'none';
   inputSearch.focus();
 }
@@ -192,6 +195,9 @@ var handleRegistration = function handleRegistration(e) {
         email.value = '';
         phone.value = '';
         role.value = 'דירוג';
+        setTimeout(function () {
+          getListUsers();
+        }, 500);
       } else {
         message.innerHTML = data.message;
       }
@@ -205,6 +211,7 @@ function getCategory() {
   Registration.style.display = 'none';
   Search.style.display = 'none';
   ShowAll.style.display = 'none';
+  UsersList.style.display = 'none';
   cardCategory.style.display = 'block';
   cardboxcatygory.innerHTML = '';
   fetch('/get-category').then(function (res) {
@@ -247,18 +254,32 @@ function PullThiscCategory(event) {
 }
 
 function getListUsers() {
-  menubutoondisplayblock();
+  menu.style.right = '-100%';
   fetch('/get-List-Users').then(function (res) {
     return res.json();
   }).then(function (data) {
-    console.log(data);
-    reloadTable(data);
+    outcome.style.display = 'none';
+    Registration.style.display = 'none';
+    Search.style.display = 'none';
+    ShowAll.style.display = 'none';
+    cardCategory.style.display = 'none';
+    UsersList.style.display = 'block';
+
+    if (data.data != null) {
+      data.data.forEach(function (element) {
+        UsersList.innerHTML = "<div class=\"col-sm-4\">\n                        <button class=\"Addanewuser\" onclick=\"Addauser()\"><img src=\"/img/adduser.png\"></button>\n                        </div>\n                    <table>\n                    <thead>\n                        <tr>\n                                <th>\n                                    <a>\u05E9\u05DD \u05DE\u05DC\u05D0</a>\n                                </th>\n                                <th>\n                                    <a>\u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9</a>\n                                </th>\n                                <th>\n                                    <a>\u05D8\u05DC\u05E4\u05D5\u05DF</a>\n                                </th>\n                                <th>\n                                    <a>\u05EA\u05E4\u05E7\u05D9\u05D3</a>\n                                </th>\n                            </tr>\n                        </thead>\n                            <tbody>\n                                ".concat(data.data.map(function (elm) {
+          return "<tr>\n                                        <td>   ".concat(elm.name, "   </td>\n                                        <td>   ").concat(elm.userName, "   </td>\n                                        <td>   ").concat(elm.phone, "   </td>\n                                        <td>   ").concat(elm.role, "   </td> \n                                        <td>\n                                        <a action=\"Edit\" onclick='editUser(").concat(elm._id, ")'>    Edit</a> |\n                                        <a action=\"Details\">    Details</a> |\n                                        <a action=\"Delete\" onclick='deleteUser(\"").concat(elm._id, "\")'>    Delete</a>\n                                    </td>\n                                         \n                        </tr>\n                        \n                        ");
+        }).join(''), "</tbody>\n                        </table>");
+      });
+    }
+
+    ;
   });
 }
 
 var deleteUser = function deleteUser(userId) {
   fetch('/' + userId, {
-    method: 'DELETE',
+    method: 'delete',
     headers: {
       'Content-Type': 'application/json'
     }
@@ -266,15 +287,11 @@ var deleteUser = function deleteUser(userId) {
     return res.json();
   }).then(function (data) {
     console.log(data);
-    reloadTable(data);
+    document.getElementById('UsersList').innerHTML = "<div class=\"col-sm-4\">\n                    <button class=\"Addanewuser\" onclick=\"Addauser()\"><img src=\"/img/adduser.png\"></button>\n                    </div>\n        <table>\n        <thead>\n            <tr>\n                    <th>\n                        \u05E9\u05DD \u05DE\u05DC\u05D0\n                    </th>\n                    <th>\n                        \u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9\n                    </th>\n                    <th>\n                        \u05D8\u05DC\u05E4\u05D5\u05DF\n                    </th>\n                    <th>\n                        \u05EA\u05E4\u05E7\u05D9\u05D3\n                    </th>\n                </tr>\n            </thead>\n                <tbody>\n                    ".concat(data.map(function (elm) {
+      return "<tr>\n                            <td>   ".concat(elm.name, "   </td>\n                            <td>   ").concat(elm.userName, "   </td>\n                            <td>   ").concat(elm.phone, "   </td>\n                            <td>   ").concat(elm.role, "   </td> \n                            <td>\n                            <a action=\"Edit\" onclick='editUser(").concat(elm._id, ")'>    Edit</a> |\n                            <a action=\"Details\">    Details</a> |\n                            <a action=\"Delete\" onclick='deleteUser(\"").concat(elm._id, "\")'>    Delete</a>\n                        </td>\n                             \n            </tr>\n            \n            ");
+    }).join(''), "</tbody>\n            </table>");
   });
 };
-
-function reloadTable(data) {
-  data.data.forEach(function (element) {
-    document.querySelector('.insertuserdetails').innerHTML += "<div><div class=\"img\"><img src=\"/img/delete.png\" onclick=\"deleteUser('".concat(element._id, "')\"></div>\n    <div class=\"name\">").concat(element.id_user, "</div>\n        <div class=\"name\">").concat(element.name, "</div>\n        <div class=\"name\">").concat(element.userName, "</div>\n        <div class=\"name\">").concat(element.email, "</div>\n        <div class=\"name\">").concat(element.phone, "</div>\n        <div class=\"name\">").concat(element.role, "</div></div>");
-  });
-}
 
 function displayblockmenu(event) {
   menu.style.right = '0'; // event.target.style.display='none'

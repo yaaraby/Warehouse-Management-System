@@ -76,6 +76,15 @@ body {
   cursor: pointer;
   z-index: 1;
 }
+.Registration .listuser {
+  width: 50px;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  z-index: 1;
+}
 .Registration input[type=text],
 .Registration input[type=email],
 .Registration input[type=password] {
@@ -368,6 +377,7 @@ body {
   z-index: 110000;
   display: none;
   cursor: pointer;
+  top: 0;
 }
 .outcome .card {
   margin-top: -250px;
@@ -393,60 +403,61 @@ body {
   font-size: 24rem;
 }
 
-.UsersList {
+#UsersList {
   font-size: 20rem;
   font-family: var(--font-family);
   background-color: var(--background);
-  text-align: center;
   font-family: "Rubik", sans-serif;
   border-radius: 10px;
   box-shadow: 2px 2px 15px 10px rgba(128, 128, 128, 0.445);
   position: relative;
-  min-height: 750px;
-  min-width: 350px;
   width: 90%;
-  max-width: 900px;
-  margin: 150px 0px 150px;
+  max-width: 1000px;
+  margin: 150px auto 50px;
   direction: rtl;
-  padding: 15px 15px;
+  padding: 10px;
   display: none;
+  box-sizing: border-box;
 }
-.UsersList .userdetails {
-  display: flex;
-  justify-content: space-between;
-  padding: 5px 0px;
+#UsersList .Addanewuser {
+  width: 60px;
+  font-size: 20rem;
+  font-weight: 600;
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  background-color: var(--background);
+  border: 0;
+  outline: none;
+  border-radius: 20px;
+  cursor: pointer;
+  z-index: 1;
 }
-.UsersList .userdetails .id {
-  background-color: lavenderblush;
-  width: 150px;
-}
-.UsersList .insertuserdetails {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-  padding: 5px 0;
-  background-color: rgba(209, 208, 196, 0.863);
-  border-radius: 5px;
-}
-.UsersList .insertuserdetails .img {
-  width: 20px;
-}
-.UsersList .insertuserdetails .img img {
+#UsersList .Addanewuser img {
   width: 100%;
 }
-.UsersList .insertuserdetails .name {
-  width: 150px;
+#UsersList table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  box-sizing: border-box;
+}
+#UsersList td, #UsersList th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 10px;
+}
+#UsersList td img, #UsersList th img {
+  width: 20px;
+}
+#UsersList tr:nth-child(even) {
+  background-color: gray;
 }
 
 .menubutoon {
   display: none;
 }
 
-@media only screen and (max-width: 450px) {
-  html {
-    font-size: 0.9px;
-  }
-}
 .menubutoon {
   position: fixed;
   display: block;
@@ -469,4 +480,11 @@ body {
 .ShowAll,
 .cardCategory {
   margin-top: 70px;
+}
+
+@media only screen and (max-width: 450px) {
+  html {
+    font-size: 0.9px;
+    user-select: none;
+  }
 }

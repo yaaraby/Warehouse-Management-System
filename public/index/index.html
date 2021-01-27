@@ -19,12 +19,13 @@
         <div class="SelectionMenu" onclick="getCategory()">קטגוריות</div>
         <div class="SelectionMenu" onclick="getListUsers()">משתמשים</div>
         <div class="SelectionMenu" onclick="Addauser()">הוספת משתמש</div>
-        <div class="SelectionMenu" onclick="Searchdisplayblock()" >חיפוש</div>
+        <div class="SelectionMenu" onclick="Searchdisplayblock()">חיפוש</div>
         <div class="SelectionMenu" onclick="Output()">יציאה</div>
     </div>
 
     <div class="Registration">
         <img class="imgdelete" src="/img/delete.png" onclick="Registrationdisplaynone()">
+        <img class="listuser" onclick="getListUsers()" src="/img/identification.png" alt="">
         <h1>הרשמה</h1>
         <form onsubmit="handleRegistration(event)">
             <div class="rtl">
@@ -89,33 +90,14 @@
 
     <div class="outcome" onclick="deleteoutcome()">
         <div class="card">
-            <!-- <img class="deletecard" src="/img/delete.png" onclick="deleteoutcome()"> -->
             <div class="cardtext">
-                <!-- <div class="text"><b>שם מוצר:</b>${ג}</div>
-                <div class="text"><b>:תאריך תפוגה:</b>${הכגד}</div>
-                <div class="text"><b>:קטגוריה:</b>${גדה}</div>
-                <div class="text"><b>:UPS-מקט:</b>${גהה}</div>
-                <div class="text"><b>:משקל:</b>${הכגד}</div>
-                <div class="text"><b>:מחיר:</b>${גהדז}</div>
-                <div class="text"><b>:מיקום:</b>${הגסדזה}</div>
-                <div class="text"><img src="/public/img/background.png"></div> -->
             </div>
         </div>
     </div>
 
-    <div class="UsersList" >
-        <div class="userdetails">
-            <div style="width: 20px;"></div>
-        <div class="id">תעודת זהות</div>
-        <div class="id">שם מלא</div>
-        <div class="id">שם משתמש</div>
-        <div class="id">אימייל</div>
-        <div class="id">טלפון</div>
-        <div class="id">תפקיד</div>
-    </div>
-    <div class="insertuserdetails">
-    </div>
-</div>
+        <div id="UsersList"></div>
+
+
     <div class="Bottom">
         <img src="/img/Bottom.png"> - מחסן
     </div>

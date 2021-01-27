@@ -14,6 +14,7 @@ const outcome = document.querySelector('.outcome')
 const cardtext = document.querySelector('.cardtext')
 const menu = document.querySelector(".menu")
 const menubutoon =document.querySelector(".menubutoon")
+const UsersList = document.getElementById('UsersList');
 
 testcoocik()
 function testcoocik() {
@@ -52,6 +53,7 @@ function Addauser() {
     cardCategory.style.display = 'none'
     ShowAll.style.display = 'none'
     Search.style.display = 'none'
+    UsersList.style.display = 'none'
     Registration.style.display = 'block'
 }
 function Registrationdisplaynone() {
@@ -63,6 +65,7 @@ function Searchdisplayblock() {
     Search.style.display = 'block'
     cardCategory.style.display = 'none'
     ShowAll.style.display = 'none'
+    UsersList.style.display = 'none'
     Registration.style.display = 'none'
     inputSearch.focus()
 }
@@ -203,6 +206,10 @@ const handleRegistration = (e) => {
                     email.value = ''
                     phone.value = ''
                     role.value = 'דירוג'
+                    
+                    setTimeout(() => {
+                        getListUsers()
+                     }, 500);
 
                 } else {
                     message.innerHTML = data.message
@@ -217,6 +224,7 @@ function getCategory() {
     Registration.style.display = 'none'
     Search.style.display = 'none'
     ShowAll.style.display = 'none'
+    UsersList.style.display = 'none'
     cardCategory.style.display = 'block'
     cardboxcatygory.innerHTML = ''
     fetch('/get-category')
@@ -267,47 +275,132 @@ function PullThiscCategory(event) {
 }
 
 
+
 function getListUsers() {
-    menubutoondisplayblock()
+    menu.style.right = '-100%'
+
+
     fetch('/get-List-Users')
         .then(res =>
             res.json()
         )
-        .then(data => {
-            console.log(data)
-            reloadTable(data)
+        .then(data=>{ 
+            outcome.style.display = 'none'
+            Registration.style.display = 'none'
+            Search.style.display = 'none'
+            ShowAll.style.display = 'none'
+            cardCategory.style.display = 'none'
+            UsersList.style.display = 'block'
+
+            if (data.data != null) {
+                data.data.forEach(element => {
+                    UsersList.innerHTML =
+                        `<div class="col-sm-4">
+                        <button class="Addanewuser" onclick="Addauser()"><img src="/img/adduser.png"></button>
+                        </div>
+                    <table>
+                    <thead>
+                        <tr>
+                                <th>
+                                    <a>שם מלא</a>
+                                </th>
+                                <th>
+                                    <a>שם משתמש</a>
+                                </th>
+                                <th>
+                                    <a>טלפון</a>
+                                </th>
+                                <th>
+                                    <a>תפקיד</a>
+                                </th>
+                            </tr>
+                        </thead>
+                            <tbody>
+                                ${data.data.map(elm => 
+                                    `<tr>
+                                        <td>   ${elm.name}   </td>
+                                        <td>   ${elm.userName}   </td>
+                                        <td>   ${elm.phone}   </td>
+                                        <td>   ${elm.role}   </td> 
+                                        <td>
+                                        <a action="Edit" onclick='editUser(${elm._id})'>    Edit</a> |
+                                        <a action="Details">    Details</a> |
+                                        <a action="Delete" onclick='deleteUser("${elm._id}")'>    Delete</a>
+                                    </td>
+                                         
+                        </tr>
+                        
+                        `).join('')}</tbody>
+                        </table>`;
+              
+                })
+                
+            };
         })
+        
 }
 
 const deleteUser = (userId) => {
-    fetch('/' + userId, {
 
-        method: 'DELETE',
+    fetch('/' + userId, {
+      
+        method: 'delete',
         headers: {
             'Content-Type': 'application/json'
         },
     }).then(res =>
         res.json()
     )
+        
         .then(data => {
             console.log(data)
-            reloadTable(data)
-        })
+                document.getElementById('UsersList').innerHTML =
+                    `<div class="col-sm-4">
+                    <button class="Addanewuser" onclick="Addauser()"><img src="/img/adduser.png"></button>
+                    </div>
+        <table>
+        <thead>
+            <tr>
+                    <th>
+                        שם מלא
+                    </th>
+                    <th>
+                        שם משתמש
+                    </th>
+                    <th>
+                        טלפון
+                    </th>
+                    <th>
+                        תפקיד
+                    </th>
+                </tr>
+            </thead>
+                <tbody>
+                    ${data.map(elm =>
+                        `<tr>
+                            <td>   ${elm.name}   </td>
+                            <td>   ${elm.userName}   </td>
+                            <td>   ${elm.phone}   </td>
+                            <td>   ${elm.role}   </td> 
+                            <td>
+                            <a action="Edit" onclick='editUser(${elm._id})'>    Edit</a> |
+                            <a action="Details">    Details</a> |
+                            <a action="Delete" onclick='deleteUser("${elm._id}")'>    Delete</a>
+                        </td>
+                             
+            </tr>
+            
+            `).join('')}</tbody>
+            </table>`;
+            })
 
 }
 
-function reloadTable(data) {
-    data.data.forEach(element => {
-        document.querySelector('.insertuserdetails').innerHTML +=
-            `<div><div class="img"><img src="/img/delete.png" onclick="deleteUser('${element._id}')"></div>
-    <div class="name">${element.id_user}</div>
-        <div class="name">${element.name}</div>
-        <div class="name">${element.userName}</div>
-        <div class="name">${element.email}</div>
-        <div class="name">${element.phone}</div>
-        <div class="name">${element.role}</div></div>`
-    });
-}
+
+
+
+
+
 
 function displayblockmenu(event) {
         menu.style.right = '0'

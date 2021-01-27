@@ -81,13 +81,13 @@ app.get('/get-List-Users', async (req, res) => {
 
 
 })
-app.delete('/:userId', async (req, res, next) => {
-    let { userId } = req.params
+
+app.delete('/:userId', async (req, res) => {
     try {
-        await Users.findByIdAndDelete(userId);
-        const data = await Users.find({});
-        res.send(data)
-        // }
+    let userId = req.params.userId;
+            await Users.findByIdAndDelete(userId);
+            const data = await Users.find({})
+            res.send(data)
     } catch (e) {
         console.log(e)
     }
@@ -235,7 +235,7 @@ app.post('/Searchdeta', async (req, res) => {
 app.post('/PullInformation', async (req, res) => {
     const { e } = req.body
     const data = await Products.find({ UPS: e })
-    res.send({data})
+    res.send({ data })
 })
 
 const port = process.env.PORT || 8080;
