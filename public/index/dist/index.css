@@ -443,12 +443,8 @@ body {
   box-sizing: border-box;
   table-layout: fixed;
 }
-#UsersList .flexdeleteuser {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
-#UsersList .flexdeleteuser .deleteuser {
+#UsersList .deleteuser {
+  padding: 0px 15px;
   cursor: pointer;
 }
 #UsersList td,

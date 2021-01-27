@@ -519,15 +519,12 @@ body {
         table-layout: fixed;
     }
 
-    .flexdeleteuser {
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
 
         .deleteuser {
+            padding: 0px 15px;
             cursor: pointer;
         }
-    }
+
 
     td,
     th {
