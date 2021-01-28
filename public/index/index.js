@@ -325,7 +325,7 @@ function displayblockmenu(event) {
 }
 
 function menubutoondisplayblock() {
-    menu.style.right = '-100%'
+    menu.style.right = '-50%'
 }
 
 function UsersListnone(){
