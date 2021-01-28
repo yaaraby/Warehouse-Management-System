@@ -505,6 +505,127 @@ app.post('/PullInformation', function _callee9(req, res) {
     }
   });
 });
+app.put("/update", function _callee10(req, res) {
+  var data, myquery, newvalues;
+  return regeneratorRuntime.async(function _callee10$(_context10) {
+    while (1) {
+      switch (_context10.prev = _context10.next) {
+        case 0:
+          _context10.next = 2;
+          return regeneratorRuntime.awrap(Users.find({}));
+
+        case 2:
+          data = _context10.sent;
+          i = 0;
+
+        case 4:
+          if (!(i < data.length)) {
+            _context10.next = 21;
+            break;
+          }
+
+          if (!(req.body.id_user !== data[i].id_user)) {
+            _context10.next = 18;
+            break;
+          }
+
+          if (!(req.body.userName == data[i].userName)) {
+            _context10.next = 11;
+            break;
+          }
+
+          message = 'שם משתמש כבר קיים';
+          return _context10.abrupt("break", 21);
+
+        case 11:
+          if (!(req.body.email == data[i].email)) {
+            _context10.next = 16;
+            break;
+          }
+
+          message = 'מייל זה כבר קיים במערכת';
+          return _context10.abrupt("break", 21);
+
+        case 16:
+          message = 'ok';
+          return _context10.abrupt("break", 21);
+
+        case 18:
+          i++;
+          _context10.next = 4;
+          break;
+
+        case 21:
+          if (!(message == 'ok')) {
+            _context10.next = 26;
+            break;
+          }
+
+          myquery = {
+            id_user: req.body.id_user
+          };
+          newvalues = {
+            $set: {
+              userName: req.body.userName,
+              name: req.body.name,
+              password: req.body.password,
+              email: req.body.email,
+              phone: req.body.phone,
+              role: req.body.role
+            }
+          };
+          _context10.next = 26;
+          return regeneratorRuntime.awrap(Users.update(myquery, newvalues, function (err, res) {
+            if (err) throw err;
+            console.log("1 document updated");
+          }));
+
+        case 26:
+          setTimeout(function () {
+            res.send({
+              message: message
+            });
+          }, 1000);
+
+        case 27:
+        case "end":
+          return _context10.stop();
+      }
+    }
+  });
+});
+app.get('/get-details-users:userId', function _callee11(req, res) {
+  var userId, findUser;
+  return regeneratorRuntime.async(function _callee11$(_context11) {
+    while (1) {
+      switch (_context11.prev = _context11.next) {
+        case 0:
+          userId = req.params.userId;
+          console.log(userId);
+          _context11.prev = 2;
+          _context11.next = 5;
+          return regeneratorRuntime.awrap(Users.findOne({
+            _id: userId
+          }));
+
+        case 5:
+          findUser = _context11.sent;
+          res.send(findUser);
+          _context11.next = 12;
+          break;
+
+        case 9:
+          _context11.prev = 9;
+          _context11.t0 = _context11["catch"](2);
+          console.log(_context11.t0);
+
+        case 12:
+        case "end":
+          return _context11.stop();
+      }
+    }
+  }, null, null, [[2, 9]]);
+});
 var port = process.env.PORT || 8080;
 app.listen(port, function () {
   return console.log('http://localhost:8080/login/login.html');

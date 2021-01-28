@@ -62,7 +62,7 @@ app.get('/get-details-users:userId', async (req, res, next) =>
      let {userId} = req.params;
      console.log(userId)
      try {
-     const findUser = await Users.findOne({ id_user : userId});
+     const findUser = await Users.findOne({ _id : userId});
 
         res.send(findUser)
     } catch (e) {

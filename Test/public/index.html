@@ -16,7 +16,40 @@
     <div id="UsersList"></div>
     <div id="message"></div>
 
+
     <div id="editUserById"> 
+        <h1>עריכת משתמש</h1>
+        <form onsubmit="handleEditUser(event)">
+     <div class="userDetails">
+     
+         <label for="id_user">מספר זהות:
+        <input type="text" name="id_user" id="id_user" value="${data.id_user}" disabled="disabled" autocomplete='off'></br>
+    </label>
+    <label for="name">שם:
+        <input type="text" name="name" id="name" value="${data.name}" autocomplete='off'></br>
+    </label>
+    <label for="userName">שם משתמש:
+        <input type="text" name="username" id="userName" value=${data.userName} autocomplete='off'></br>
+    </label>
+    <label for="password">סיסמה:
+        <input type="text" name="password" id="password" value=${data.password} autocomplete='off'></br>
+    </label>
+    <label for="email">אימייל:
+        <input type="email" name="email" id="email" value=${data.email} autocomplete='off'></br>
+    </label>
+    <label for="phone">פלאפון:
+        <input type="text" name="phone" id="phone" value=${data.phone} autocomplete='off'></br>
+    </label>
+</div>
+<select name="role" id="role" value=${data.role}>
+    <option style="display: none;">${data.role}</option>
+    <option value="public">מחסנאי</option>
+    <option value="admin">מנהל</option>
+</select></br>
+<div id="message"></div></br>
+<input type="submit" value="אישור">
+</form>`
+
 <!--      <form onsubmit="handleEditUser(event)">
 
      </form> -->

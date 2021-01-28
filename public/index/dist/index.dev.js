@@ -51,6 +51,7 @@ function cardCategorydisplaynone() {
 
 function Addauser() {
   menubutoondisplayblock();
+  editUserById.style.display = "none";
   cardCategory.style.display = 'none';
   ShowAll.style.display = 'none';
   Search.style.display = 'none';
@@ -65,6 +66,7 @@ function Registrationdisplaynone() {
 function Searchdisplayblock() {
   menubutoondisplayblock();
   Search.style.display = 'block';
+  editUserById.style.display = "none";
   cardCategory.style.display = 'none';
   ShowAll.style.display = 'none';
   UsersList.style.display = 'none';
@@ -208,6 +210,7 @@ var handleRegistration = function handleRegistration(e) {
 function getCategory() {
   menubutoondisplayblock();
   var aryycategory = [];
+  editUserById.style.display = "none";
   Registration.style.display = 'none';
   Search.style.display = 'none';
   ShowAll.style.display = 'none';
@@ -217,7 +220,7 @@ function getCategory() {
   fetch('/get-category').then(function (res) {
     return res.json();
   }).then(function (data) {
-    data.data.forEach(function (element) {
+    data.forEach(function (element) {
       if (aryycategory.indexOf(element.Category) == -1) {
         aryycategory.push(element.Category);
       }
@@ -264,6 +267,7 @@ function getListUsers() {
       Search.style.display = 'none';
       ShowAll.style.display = 'none';
       cardCategory.style.display = 'none';
+      editUserById.style.display = "none";
       UsersList.style.display = 'block';
       alluser(data.data);
     }
@@ -293,6 +297,82 @@ function menubutoondisplayblock() {
 
 function alluser(data) {
   document.getElementById('UsersList').innerHTML = "<div class=\"col-sm-4\">\n        <button class=\"Addanewuser\" onclick=\"Addauser()\"><img src=\"/img/adduser.png\"></button>\n        </div>\n<table>\n<thead>\n    <tr>\n        <th></th>\n        <th>\u05D6\u05D4\u05D5\u05EA \u05DE\u05E9\u05EA\u05DE\u05E9</th>\n        <th>\u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9</th>\n        <th>\u05EA\u05E4\u05E7\u05D9\u05D3</th>\n    </tr>\n</thead>\n    <tbody>\n        ".concat(data.map(function (elm) {
-    return "<tr>\n        <td class=\"flexdeleteuser\">\n        <a action=\"Edit\" class=\"deleteuser\" onclick='editUser(".concat(elm._id, ")'><img src=\"/img/edit-button.png\"></a>\n        <a action=\"Delete\" class=\"deleteuser\" onclick='deleteUser(\"").concat(elm._id, "\")'><img src=\"/img/deleteuser.png\"></a>\n        </td>\n                <td>").concat(elm.id_user, "</td>\n                <td>").concat(elm.userName, "</td>\n                <td>").concat(elm.role, "</td> \n        </tr>\n\n");
+    return "<tr>\n        <td class=\"flexdeleteuser\">\n        <a action=\"Edit\" class=\"deleteuser\" onclick='editUser(\"".concat(elm._id, "\")'><img src=\"/img/edit-button.png\"></a>\n        <a action=\"Delete\" class=\"deleteuser\" onclick='deleteUser(\"").concat(elm._id, "\")'><img src=\"/img/deleteuser.png\"></a>\n        </td>\n                <td>").concat(elm.id_user, "</td>\n                <td>").concat(elm.userName, "</td>\n                <td>").concat(elm.role, "</td> \n        </tr>\n\n");
   }).join(''), "</tbody>\n</table>");
+}
+
+var editUserById = document.querySelector("#editUserById");
+
+function editUserByIddisplaynone() {
+  editUserById.style.display = "none";
+  getListUsers();
+}
+
+var editUser = function editUser(userId) {
+  letdistinctResult = [];
+  fetch('/get-details-users' + userId, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then(function (res) {
+    return res.json();
+  }).then(function (data) {
+    editUserById.style.display = "block";
+    UsersList.style.display = 'none';
+    document.getElementById('editUserById').innerHTML = "<img src=\"/img/return.png\" onclick=\"editUserByIddisplaynone()\">\n                    <h1>\u05E2\u05E8\u05D9\u05DB\u05EA \u05DE\u05E9\u05EA\u05DE\u05E9</h1>\n                    <form onsubmit=\"handleEditUser(event)\">\n                    \n                 <div class=\"rtl\">\n                 \n                     <label for=\"id_user\">\u05DE\u05E1\u05E4\u05E8 \u05D6\u05D4\u05D5\u05EA:\n                    <input type=\"text\" name=\"id_user\" id=\"id_user\" value=\"".concat(data.id_user, "\" disabled=\"disabled\" autocomplete='off'></br>\n                </label>\n                <label for=\"name\">\u05E9\u05DD:\n                    <input type=\"text\" name=\"name\" id=\"name\" value=\"").concat(data.name, "\" autocomplete='off'></br>\n                </label>\n                <label for=\"userName\">\u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9:\n                    <input type=\"text\" name=\"username\" id=\"userName\" value=").concat(data.userName, " autocomplete='off'></br>\n                </label>\n                <label for=\"password\">\u05E1\u05D9\u05E1\u05DE\u05D4:\n                    <input type=\"text\" name=\"password\" id=\"password\" value=").concat(data.password, " autocomplete='off'></br>\n                </label>\n                <label for=\"email\">\u05D0\u05D9\u05DE\u05D9\u05D9\u05DC:\n                    <input type=\"email\" name=\"email\" id=\"email\" value=").concat(data.email, " autocomplete='off'></br>\n                </label>\n                <label for=\"phone\">\u05E4\u05DC\u05D0\u05E4\u05D5\u05DF:\n                    <input type=\"text\" name=\"phone\" id=\"phone\" value=").concat(data.phone, " autocomplete='off'></br>\n                </label>\n            </div>\n            <select name=\"role\" id=\"role\" value=").concat(data.role, ">\n                <option style=\"display: none;\">").concat(data.role, "</option>\n                <option value=\"public\">\u05DE\u05D7\u05E1\u05E0\u05D0\u05D9</option>\n                <option value=\"admin\">\u05DE\u05E0\u05D4\u05DC</option>\n            </select></br>\n            <div id=\"messag\"></div></br>\n            <input type=\"submit\" value=\"\u05E9\u05DE\u05D5\u05E8 \u05E9\u05D9\u05E0\u05D5\u05D9\u05D9\u05DD\">\n        </form>");
+  });
+};
+
+function handleEditUser(e) {
+  e.preventDefault();
+  var id_user = e.target[0].value;
+  var name = e.target[1].value;
+  var userName = e.target[2].value;
+  var password = e.target[3].value;
+  var email = e.target[4].value;
+  var phone = e.target[5].value;
+  var role = e.target[6].value;
+  var message = document.getElementById('messag');
+  message.innerHTML = '';
+
+  if (name.length < 2) {
+    message.innerHTML = 'נדרש להזין שם מלא תקין';
+  } else if (userName.length < 2) {
+    message.innerHTML = 'נדרש להזין שם משתמש</br> המכיל 2 תווים לפחות ';
+  } else if (password.length < 6) {
+    message.innerHTML = 'בחר/י סיסמה המכילה 6</br> תווים לפחות';
+  } else if (email.length == 0) {
+    message.innerHTML = 'נדרש להזין כתובת מייל';
+  } else if (phone.length !== 9 && phone.length !== 10) {
+    message.innerHTML = 'מספר טלפון לא תקין';
+  } else if (role == "דירוג") {
+    message.innerHTML = 'בחר דירוג למשתמש';
+  } else {
+    console.log(id_user, name, userName, password, email, role);
+    fetch("/update", {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id_user: id_user,
+        name: name,
+        userName: userName,
+        password: password,
+        email: email,
+        phone: phone,
+        role: role
+      })
+    }).then(function (res) {
+      return res.json();
+    }).then(function (data) {
+      if (data.message == 'ok') {
+        message.innerHTML = 'המשתמש עודכן במערכת';
+        getListUsers();
+      } else {
+        message.innerHTML = data.message;
+      }
+    });
+  }
 }

@@ -50,6 +50,7 @@ function cardCategorydisplaynone() {
 
 function Addauser() {
     menubutoondisplayblock()
+    editUserById.style.display = "none"
     cardCategory.style.display = 'none'
     ShowAll.style.display = 'none'
     Search.style.display = 'none'
@@ -63,6 +64,7 @@ function Registrationdisplaynone() {
 function Searchdisplayblock() {
     menubutoondisplayblock()
     Search.style.display = 'block'
+    editUserById.style.display = "none"
     cardCategory.style.display = 'none'
     ShowAll.style.display = 'none'
     UsersList.style.display = 'none'
@@ -221,6 +223,7 @@ const handleRegistration = (e) => {
 function getCategory() {
     menubutoondisplayblock()
     let aryycategory = []
+    editUserById.style.display = "none"
     Registration.style.display = 'none'
     Search.style.display = 'none'
     ShowAll.style.display = 'none'
@@ -286,13 +289,14 @@ function getListUsers() {
         .then(data => {
             if (data.data != null) {
 
-            outcome.style.display = 'none'
-            Registration.style.display = 'none'
-            Search.style.display = 'none'
-            ShowAll.style.display = 'none'
-            cardCategory.style.display = 'none'
-            UsersList.style.display = 'block'
-            alluser(data.data)
+                outcome.style.display = 'none'
+                Registration.style.display = 'none'
+                Search.style.display = 'none'
+                ShowAll.style.display = 'none'
+                cardCategory.style.display = 'none'
+                editUserById.style.display = "none"
+                UsersList.style.display = 'block'
+                alluser(data.data)
             }
         })
 }
@@ -313,7 +317,7 @@ const deleteUser = (userId) => {
 
             alluser(data)
         })
-    }
+}
 
 
 function displayblockmenu(event) {
@@ -327,9 +331,9 @@ function menubutoondisplayblock() {
 
 
 
-function alluser(data){
+function alluser(data) {
     document.getElementById('UsersList').innerHTML =
-    `<div class="col-sm-4">
+        `<div class="col-sm-4">
         <button class="Addanewuser" onclick="Addauser()"><img src="/img/adduser.png"></button>
         </div>
 <table>
@@ -343,9 +347,9 @@ function alluser(data){
 </thead>
     <tbody>
         ${data.map(elm =>
-        `<tr>
+            `<tr>
         <td class="flexdeleteuser">
-        <a action="Edit" class="deleteuser" onclick='editUser(${elm._id})'><img src="/img/edit-button.png"></a>
+        <a action="Edit" class="deleteuser" onclick='editUser("${elm._id}")'><img src="/img/edit-button.png"></a>
         <a action="Delete" class="deleteuser" onclick='deleteUser("${elm._id}")'><img src="/img/deleteuser.png"></a>
         </td>
                 <td>${elm.id_user}</td>
@@ -356,3 +360,113 @@ function alluser(data){
 `).join('')}</tbody>
 </table>`;
 }
+
+const editUserById = document.querySelector("#editUserById")
+
+function editUserByIddisplaynone() {
+    editUserById.style.display = "none"
+    getListUsers()
+}
+
+
+const editUser = (userId) => {
+    letdistinctResult = [];
+    fetch('/get-details-users' + userId, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(res => res.json())
+        .then(data => {
+            editUserById.style.display = "block"
+            UsersList.style.display = 'none'
+
+            document.getElementById('editUserById').innerHTML =
+                `<img src="/img/return.png" onclick="editUserByIddisplaynone()">
+                    <h1>עריכת משתמש</h1>
+                    <form onsubmit="handleEditUser(event)">
+                    
+                 <div class="rtl">
+                 
+                     <label for="id_user">מספר זהות:
+                    <input type="text" name="id_user" id="id_user" value="${data.id_user}" disabled="disabled" autocomplete='off'></br>
+                </label>
+                <label for="name">שם:
+                    <input type="text" name="name" id="name" value="${data.name}" autocomplete='off'></br>
+                </label>
+                <label for="userName">שם משתמש:
+                    <input type="text" name="username" id="userName" value=${data.userName} autocomplete='off'></br>
+                </label>
+                <label for="password">סיסמה:
+                    <input type="text" name="password" id="password" value=${data.password} autocomplete='off'></br>
+                </label>
+                <label for="email">אימייל:
+                    <input type="email" name="email" id="email" value=${data.email} autocomplete='off'></br>
+                </label>
+                <label for="phone">פלאפון:
+                    <input type="text" name="phone" id="phone" value=${data.phone} autocomplete='off'></br>
+                </label>
+            </div>
+            <select name="role" id="role" value=${data.role}>
+                <option style="display: none;">${data.role}</option>
+                <option value="public">מחסנאי</option>
+                <option value="admin">מנהל</option>
+            </select></br>
+            <div id="messag"></div></br>
+            <input type="submit" value="שמור שינויים">
+        </form>`
+        })
+}
+
+
+function handleEditUser(e) {
+    e.preventDefault();
+
+    let id_user = e.target[0].value;
+    let name = e.target[1].value;
+    let userName = e.target[2].value;
+    let password = e.target[3].value;
+    let email = e.target[4].value;
+    let phone = e.target[5].value;
+    let role = e.target[6].value;
+
+
+    let message = document.getElementById('messag');
+    message.innerHTML = ''
+    if (name.length < 2) {
+        message.innerHTML = 'נדרש להזין שם מלא תקין'
+    } else if (userName.length < 2) {
+        message.innerHTML = 'נדרש להזין שם משתמש</br> המכיל 2 תווים לפחות '
+    } else if (password.length < 6) {
+        message.innerHTML = 'בחר/י סיסמה המכילה 6</br> תווים לפחות'
+    } else if (email.length == 0) {
+        message.innerHTML = 'נדרש להזין כתובת מייל'
+    } else if (phone.length !== 9 && phone.length !== 10) {
+        message.innerHTML = 'מספר טלפון לא תקין'
+    } else if (role == "דירוג") {
+        message.innerHTML = 'בחר דירוג למשתמש'
+    } else {
+
+        console.log(id_user, name, userName, password, email, role)
+
+        fetch("/update", {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id_user, name, userName, password, email, phone, role })
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.message == 'ok') {
+                    message.innerHTML = 'המשתמש עודכן במערכת'
+                    getListUsers()
+
+                } else {
+                    message.innerHTML = data.message
+                }
+            })
+    }
+}
+
+
