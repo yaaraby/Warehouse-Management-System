@@ -235,7 +235,7 @@ function getCategory() {
             res.json()
         )
         .then(data => {
-            data.forEach(element => {
+            data.data.forEach(element => {
                 if (aryycategory.indexOf(element.Category) == -1) {
                     aryycategory.push(element.Category)
                 }
@@ -329,11 +329,15 @@ function menubutoondisplayblock() {
     menu.style.right = '-100%'
 }
 
+function UsersListnone(){
+    UsersList.style.display='none'
+}
 
 
 function alluser(data) {
     document.getElementById('UsersList').innerHTML =
-        `<div class="col-sm-4">
+        `
+        <img src="/img/delete.png" class="displaynone" onclick="UsersListnone()"><div class="col-sm-4">
         <button class="Addanewuser" onclick="Addauser()"><img src="/img/adduser.png"></button>
         </div>
 <table>
@@ -365,7 +369,7 @@ const editUserById = document.querySelector("#editUserById")
 
 function editUserByIddisplaynone() {
     editUserById.style.display = "none"
-    getListUsers()
+    UsersList.style.display = 'block'
 }
 
 

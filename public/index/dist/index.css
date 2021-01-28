@@ -163,7 +163,6 @@ body {
   direction: rtl;
   position: relative;
   min-height: 750px;
-  min-width: 350px;
   width: 90%;
   max-width: 750px;
   margin: 150px auto 70px;
@@ -207,12 +206,14 @@ body {
   direction: rtl;
   position: relative;
   min-height: 750px;
-  min-width: 350px;
   width: 90%;
   max-width: 750px;
   margin: 150px auto 70px;
   box-sizing: border-box;
   display: none;
+}
+.ShowAll .titlecategory {
+  padding-top: 20px;
 }
 .ShowAll .delete {
   width: 30px;
@@ -419,6 +420,17 @@ body {
   display: none;
   box-sizing: border-box;
 }
+#UsersList .displaynone {
+  width: 30px;
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  background-color: var(--background);
+  padding: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  z-index: 1;
+}
 #UsersList .Addanewuser {
   width: 60px;
   font-size: 20rem;
@@ -444,7 +456,7 @@ body {
   table-layout: fixed;
 }
 #UsersList .deleteuser {
-  margin: 0px 15px;
+  margin: 5px 15px;
   cursor: pointer;
 }
 #UsersList td,
