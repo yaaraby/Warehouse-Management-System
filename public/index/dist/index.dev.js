@@ -401,62 +401,26 @@ function PullShelfInformation(e) {
     titlecategory.innerHTML = eventCategory;
     data.data.forEach(function (elm) {});
   });
-}
+} //Yehial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 
 function shelfObservation() {
-  // let populatedShelf = []
-  // Registration.style.display = 'none'
-  // Search.style.display = 'none'
-  // ShowAll.style.display = 'none'
-  // cardCategory.style.display = 'block'
-  // cardboxcatygory.innerHTML = ''
-  // fetch('/pull-Shelf')
-  //     .then(r =>
-  //         r.json()
-  //     )
-  //     .then(data => {
-  //         console.log(data.data);
-  //         data.data.forEach(elm => {
-  //             cardboxcatygory.innerHTML += 
-  //             `<div class="A_line_in_a_category" onclick="PullShelfInformation(event)" style=direction:initial>Number Of Products On Shelf:${elm.NumberOfProductsonShelf}   Shelf:${elm.UPS_Shelfs}  </div>`
-  //         })
-  //     })
-  menu.style.right = '-100%'; //Yehial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-  function shelfObservation() {
-    menubutoondisplayblock();
-    var populatedShelf = [];
-    outcome.style.display = 'none';
-    editUserById.style.display = "none";
-    UsersList.style.display = 'none';
-    Registration.style.display = 'none';
-    Search.style.display = 'none';
-    ShowAll.style.display = 'none';
-    cardCategory.style.display = 'block';
-    cardboxcatygory.innerHTML = '';
-    fetch('/pull-Shelf').then(function (res) {
-      return res.json();
-    }).then(function (data) {
-      if (data.data != null) {
-        outcome.style.display = 'none';
-        Registration.style.display = 'none';
-        Search.style.display = 'none';
-        ShowAll.style.display = 'none';
-        cardCategory.style.display = 'none';
-        editUserById.style.display = "none";
-        UsersList.style.display = 'block';
-        allShelfs(data.data);
-      }
-
-      data.data.forEach(function (elm) {
-        cardboxcatygory.innerHTML += "<div class=\"A_line_in_a_category\" onclick=\"PullShelfInformation(event)\" style=direction:initial>Number Of Products On Shelf:".concat(elm.NumberOfProductsonShelf, "   Shelf:").concat(elm.UPS_Shelfs, "  </div>");
-      });
+  menubutoondisplayblock();
+  var populatedShelf = [];
+  outcome.style.display = 'none';
+  editUserById.style.display = "none";
+  UsersList.style.display = 'none';
+  Registration.style.display = 'none';
+  Search.style.display = 'none';
+  ShowAll.style.display = 'none';
+  cardCategory.style.display = 'block';
+  cardboxcatygory.innerHTML = '';
+  fetch('/pull-Shelf').then(function (r) {
+    return r.json();
+  }).then(function (data) {
+    console.log(data.data);
+    data.data.forEach(function (elm) {
+      cardboxcatygory.innerHTML += "<div class=\"A_line_in_a_category\" onclick=\"PullShelfInformation(event)\" style=direction:initial>Number Of Products On Shelf:".concat(elm.NumberOfProductsonShelf, "   Shelf:").concat(elm.UPS_Shelfs, "  </div>");
     });
-  }
-
-  function allShelfs(data) {
-    document.getElementById('UsersList').innerHTML = "\n        <img src=\"/img/delete.png\" class=\"displaynone\" onclick=\"UsersListnone()\"><div class=\"col-sm-4\">\n        <button class=\"Addanewuser\" onclick=\"Addauser()\"><img src=\"/img/adduser.png\"></button>\n        </div>\n<table>\n<thead>\n    <tr>\n        <th></th>\n        <th>\u05DE\u05E1\u05E4\u05E8 \u05DE\u05D3\u05E3</th>\n        <th>\u05DB\u05DE\u05D5\u05EA \u05DE\u05D5\u05E6\u05E8\u05D9\u05DD</th>\n        <th>\u05DE\u05E9\u05E7\u05DC \u05DB\u05D5\u05DC\u05DC</th>\n    </tr>\n</thead>\n    <tbody>\n        ".concat(data.map(function (elm) {
-      return "<tr>\n        <td class=\"flexdeleteuser\">\n        <a action=\"Edit\" class=\"deleteShelf\" onclick='editShelf(\"".concat(elm._id, "\")'><img src=\"/img/edit-button.png\"></a>\n        <a action=\"Delete\" class=\"deleteShelf\" onclick='deleteShelf(\"").concat(elm._id, "\")'><img src=\"/img/deleteuser.png\"></a>\n        </td>\n                <td>").concat(elm.UPS_Shelfs, "</td>\n                <td>").concat(elm.NumberOfProductsonShelf, "</td>\n                <td>").concat(elm.Weight, "</td> \n        </tr>\n\n");
-    }).join(''), "</tbody>\n</table>");
-  }
+  });
 }
