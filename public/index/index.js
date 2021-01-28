@@ -498,7 +498,6 @@ function PullShelfInformation(e) {
 }
 
 
-<<<<<<< HEAD
 function shelfObservation() {
     // let populatedShelf = []
     // Registration.style.display = 'none'
@@ -524,8 +523,6 @@ function shelfObservation() {
 }
 
 
-=======
->>>>>>> master
 //Yehial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 function shelfObservation() {
     menubutoondisplayblock()
