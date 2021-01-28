@@ -328,8 +328,8 @@ function menubutoondisplayblock() {
     menu.style.right = '-50%'
 }
 
-function UsersListnone(){
-    UsersList.style.display='none'
+function UsersListnone() {
+    UsersList.style.display = 'none'
 }
 
 
@@ -496,9 +496,14 @@ function PullShelfInformation(e) {
         })
 }
 
+
 //Yehial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 function shelfObservation() {
+    menubutoondisplayblock()
     let populatedShelf = []
+    outcome.style.display = 'none'
+    editUserById.style.display = "none"
+    UsersList.style.display = 'none'
     Registration.style.display = 'none'
     Search.style.display = 'none'
     ShowAll.style.display = 'none'
@@ -512,10 +517,10 @@ function shelfObservation() {
             console.log(data.data);
 
             data.data.forEach(elm => {
-                cardboxcatygory.innerHTML += 
-                
-                `<div class="A_line_in_a_category" onclick="PullShelfInformation(event)" style=direction:initial>Number Of Products On Shelf:${elm.NumberOfProductsonShelf}   Shelf:${elm.UPS_Shelfs}  </div>`
-                
+                cardboxcatygory.innerHTML +=
+
+                    `<div class="A_line_in_a_category" onclick="PullShelfInformation(event)" style=direction:initial>Number Of Products On Shelf:${elm.NumberOfProductsonShelf}   Shelf:${elm.UPS_Shelfs}  </div>`
+
             })
         })
 }

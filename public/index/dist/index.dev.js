@@ -379,4 +379,48 @@ function handleEditUser(e) {
       }
     });
   }
+} //Yehial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+function PullShelfInformation(e) {
+  fetch('/PullShelfInformation', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      e: e
+    })
+  }).then(function (res) {
+    return res.json();
+  }).then(function (data) {
+    Registration.style.display = 'none';
+    cardCategory.style.display = 'none';
+    ShowAll.style.display = 'block';
+    console.log(data);
+    titlecategory.innerHTML = eventCategory;
+    data.data.forEach(function (elm) {});
+  });
+} //Yehial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+function shelfObservation() {
+  menubutoondisplayblock();
+  var populatedShelf = [];
+  outcome.style.display = 'none';
+  editUserById.style.display = "none";
+  UsersList.style.display = 'none';
+  Registration.style.display = 'none';
+  Search.style.display = 'none';
+  ShowAll.style.display = 'none';
+  cardCategory.style.display = 'block';
+  cardboxcatygory.innerHTML = '';
+  fetch('/pull-Shelf').then(function (r) {
+    return r.json();
+  }).then(function (data) {
+    console.log(data.data);
+    data.data.forEach(function (elm) {
+      cardboxcatygory.innerHTML += "<div class=\"A_line_in_a_category\" onclick=\"PullShelfInformation(event)\" style=direction:initial>Number Of Products On Shelf:".concat(elm.NumberOfProductsonShelf, "   Shelf:").concat(elm.UPS_Shelfs, "  </div>");
+    });
+  });
 }
