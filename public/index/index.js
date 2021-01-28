@@ -497,7 +497,11 @@ function PullShelfInformation(e) {
 }
 
 
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+>>>>>>> master
 function shelfObservation() {
     // let populatedShelf = []
     // Registration.style.display = 'none'
@@ -522,7 +526,11 @@ function shelfObservation() {
 
     menu.style.right = '-100%'
 
+<<<<<<< HEAD
 
+=======
+=======
+>>>>>>> master
 //Yehial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 function shelfObservation() {
     menubutoondisplayblock()
@@ -535,13 +543,22 @@ function shelfObservation() {
     ShowAll.style.display = 'none'
     cardCategory.style.display = 'block'
     cardboxcatygory.innerHTML = ''
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
+>>>>>>> master
     fetch('/pull-Shelf')
         .then(res =>
             res.json()
         )
         .then(data => {
             if (data.data != null) {
+<<<<<<< HEAD
+=======
+
+<<<<<<< HEAD
+>>>>>>> master
                 outcome.style.display = 'none'
                 Registration.style.display = 'none'
                 Search.style.display = 'none'
@@ -551,14 +568,22 @@ function shelfObservation() {
                 UsersList.style.display = 'block'
                 allShelfs(data.data)
             }
+<<<<<<< HEAD
 
+=======
+=======
+>>>>>>> master
             data.data.forEach(elm => {
                 cardboxcatygory.innerHTML +=
 
                     `<div class="A_line_in_a_category" onclick="PullShelfInformation(event)" style=direction:initial>Number Of Products On Shelf:${elm.NumberOfProductsonShelf}   Shelf:${elm.UPS_Shelfs}  </div>`
 
             })
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
+>>>>>>> master
         })
 }
 function allShelfs(data) {
