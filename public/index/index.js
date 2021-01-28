@@ -328,8 +328,8 @@ function menubutoondisplayblock() {
     menu.style.right = '-50%'
 }
 
-function UsersListnone(){
-    UsersList.style.display='none'
+function UsersListnone() {
+    UsersList.style.display = 'none'
 }
 
 
@@ -497,6 +497,7 @@ function PullShelfInformation(e) {
 }
 
 
+
 function shelfObservation() {
     // let populatedShelf = []
     // Registration.style.display = 'none'
@@ -521,13 +522,26 @@ function shelfObservation() {
 
     menu.style.right = '-100%'
 
+
+//Yehial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+function shelfObservation() {
+    menubutoondisplayblock()
+    let populatedShelf = []
+    outcome.style.display = 'none'
+    editUserById.style.display = "none"
+    UsersList.style.display = 'none'
+    Registration.style.display = 'none'
+    Search.style.display = 'none'
+    ShowAll.style.display = 'none'
+    cardCategory.style.display = 'block'
+    cardboxcatygory.innerHTML = ''
+
     fetch('/pull-Shelf')
         .then(res =>
             res.json()
         )
         .then(data => {
             if (data.data != null) {
-
                 outcome.style.display = 'none'
                 Registration.style.display = 'none'
                 Search.style.display = 'none'
@@ -537,6 +551,14 @@ function shelfObservation() {
                 UsersList.style.display = 'block'
                 allShelfs(data.data)
             }
+
+            data.data.forEach(elm => {
+                cardboxcatygory.innerHTML +=
+
+                    `<div class="A_line_in_a_category" onclick="PullShelfInformation(event)" style=direction:initial>Number Of Products On Shelf:${elm.NumberOfProductsonShelf}   Shelf:${elm.UPS_Shelfs}  </div>`
+
+            })
+
         })
 }
 function allShelfs(data) {
