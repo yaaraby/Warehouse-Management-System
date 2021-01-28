@@ -223,7 +223,7 @@ function getCategory() {
             res.json()
         )
         .then(data => {
-            data.data.forEach(element => {
+            data.forEach(element => {
                 if (aryycategory.indexOf(element.Category) == -1) {
                     aryycategory.push(element.Category)
                 }

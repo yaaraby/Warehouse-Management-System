@@ -57,6 +57,18 @@ app.get('/get-List-Users', async (req, res) => {
    
     
 })
+app.get('/get-details-users:userId', async (req, res, next) =>
+ {
+     let {userId} = req.params;
+     console.log(userId)
+     try {
+     const findUser = await Users.findOne({ id_user : userId});
+
+        res.send(findUser)
+    } catch (e) {
+        console.log(e)
+    }
+})
 
 app.delete('/:userId',async (req, res, next) => {
     let userId = req.params.userId;
@@ -75,6 +87,44 @@ app.delete('/:userId',async (req, res, next) => {
     }
 })
 
+ app.put("/update", async (req, res) => {
+  const data = await Users.find({})
+    for (i = 0; i < data.length; i++) {
+        if(req.body.id_user !==  data[i].id_user){
+    if (req.body.userName == data[i].userName) {
+            message = 'שם משתמש כבר קיים'
+            break
+        } else if (req.body.email == data[i].email) {
+            message = 'מייל זה כבר קיים במערכת'
+            break
+        } else {
+            message = 'ok'
+            break
+        }
+        }
+    }
+
+    if (message == 'ok') {
+
+
+
+  var myquery = {id_user:  req.body.id_user};
+  var newvalues = { $set: {
+                         userName: req.body.userName
+                        , name:     req.body.name
+                        , password: req.body.password
+                        , email:    req.body.email
+                        , phone:    req.body.phone
+                        , role:     req.body.role} };
+     await Users.update(myquery, newvalues, function(err, res) {
+    if (err) throw err;
+    console.log("1 document updated");
+
+  });
+    }
+    setTimeout(() => { res.send({ message }) }, 1000);
+}); 
+         
 
 let isUsersExists = async (userId) => {
     let isExists = false;
