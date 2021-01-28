@@ -15,5 +15,15 @@
     "mongoose": "^5.11.12",
     "nodemon": "^2.0.7"
   },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yaaraby/Warehouse-Management-System.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/yaaraby/Warehouse-Management-System/issues"
+  },
+  "homepage": "https://github.com/yaaraby/Warehouse-Management-System#readme",
   "description": ""
 }

@@ -140,8 +140,7 @@ function PullInformation(e) {
             <div class="text"><b>UPS-מקט:</b>${data.data[0].UPS}</div>
             <div class="text"><b>משקל:</b>${data.data[0].Weight}</div>
             <div class="text"><b>מחיר:</b>${data.data[0].price}</div>
-            <div class="text" style="direction: initial;"><b>מיקום:</b>${data.data[0].Location}</div>
-            <div class="text"><img src="${data.data[0].Picture}"></div>`
+            <div class="text"><b>מיקום:</b>${data.data[0].Location}</div>`
         })
 }
 
@@ -271,7 +270,7 @@ function PullThiscCategory(event) {
                 <div class="list"><b>UPS-מקט:</b></br></br>${elm.UPS}</div>
                 <div class="list"><b>שם המוצר:</b></br></br>${elm.Name}</div>
             <div class="list"><b>תאריך תפוגה:</b></br></br>${elm.ExpiryDate}</div> 
-            <div class="list" style="direction: initial;"><b>מיקום:</b></br></br>${elm.Location}</div> 
+            <div class="list"><b>מיקום:</b></br></br>${elm.Location}</div> 
         </div>`
             })
         })
@@ -473,4 +472,50 @@ function handleEditUser(e) {
     }
 }
 
+//Yehial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+function PullShelfInformation(e) {
+    fetch('/PullShelfInformation', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ e })
+    }).then(res =>
+        res.json()
+    )
+        .then(data => {
+            Registration.style.display = 'none'
+            cardCategory.style.display = 'none'
+            ShowAll.style.display = 'block'
+            console.log(data)
+            titlecategory.innerHTML = eventCategory
+            data.data.forEach(elm => {
 
+
+            })
+        })
+}
+
+//Yehial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+function shelfObservation() {
+    let populatedShelf = []
+    Registration.style.display = 'none'
+    Search.style.display = 'none'
+    ShowAll.style.display = 'none'
+    cardCategory.style.display = 'block'
+    cardboxcatygory.innerHTML = ''
+    fetch('/pull-Shelf')
+        .then(r =>
+            r.json()
+        )
+        .then(data => {
+            console.log(data.data);
+
+            data.data.forEach(elm => {
+                cardboxcatygory.innerHTML += 
+                
+                `<div class="A_line_in_a_category" onclick="PullShelfInformation(event)" style=direction:initial>Number Of Products On Shelf:${elm.NumberOfProductsonShelf}   Shelf:${elm.UPS_Shelfs}  </div>`
+                
+            })
+        })
+}

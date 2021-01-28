@@ -31,6 +31,7 @@ const Shelfs = mongoose.model('Shelf', {
     Area: String,
     Floor: Number,
     UPS_Shelfs: String,
+    NumberOfProductsonShelf:Number,
     Weight: Number,
     height: Number
 
@@ -49,6 +50,8 @@ const Products = mongoose.model('product', {
     Location: String
 
 });
+
+
 
 // const product1 = new Products({
 //     UPS: '81726',
@@ -181,6 +184,23 @@ app.get('/get-category', async (req, res) => {
     const data = await Products.find({}, { Category: 1 })
     res.send({ data })
 })
+
+
+//yehial------------------------------------------------------------------
+app.get('/pull-Shelf', async (req, res) => {
+    const data = await Shelfs.find({ NumberOfProductsonShelf: { $gte: 1} })
+    res.send({data})
+})
+
+// app.post('/PullShelfInformation', async (req, res) => {
+//     const { e } = req.body;
+    
+//     console.log(e);
+//     const data = await Shelfs.find({ UPS_Shelfs: e });
+    
+//     res.send({e});
+// })
+
 
 app.post('/PullThiscCategory', async (req, res) => {
     const { eventCategory } = req.body
