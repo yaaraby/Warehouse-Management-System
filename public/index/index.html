@@ -18,7 +18,7 @@
         <img class="delete" src="/img/delete.png" onclick="menubutoondisplayblock()">
         <div class="SelectionMenu" onclick="getCategory()">מוצרים</div>
         <div class="SelectionMenu" onclick="shelfObservation()">רשימת מדפים</div>
-        <div class="SelectionMenu" onclick="shelfEditor()">עריכת מדפים</div>
+        <!-- <div class="SelectionMenu" onclick="shelfEditor()">עריכת מדפים</div> -->
         <div class="SelectionMenu" onclick="getListUsers()">משתמשים</div>
         <!-- <div class="SelectionMenu" onclick="Addauser()">הוספת משתמש</div> -->
         <div class="SelectionMenu" onclick="Searchdisplayblock()">חיפוש</div>
@@ -60,6 +60,28 @@
         </form>
     </div>
 
+    <div class="AddShelf" style="display: none;">
+        <!-- <img class="imgdelete" src="/img/delete.png" onclick="addShelfDisplayNone()"> -->
+        <h1>הוספת מדפים</h1>
+        <form onsubmit="handleAddShelf(event)">
+            <div class="rtl">
+                <label for="firstRow">שורה ראשונה 
+                    <input type="text" name="firstRow" id="firstRow" autocomplete='off'></br>
+                </label>
+                <label for="lastRow">שורה אחרונה
+                    <input type="text" name="lastRow" id="lastRow" autocomplete='off'></br>
+                </label>
+                <label for="numberOfAreas">כמות אזורים בכל שורה
+                    <input type="text" name="numberOfAreas" id="numberOfAreas" autocomplete='off'></br>
+                </label>
+                <label for="numberOfShelfs">כמות מדפים בכל אזור
+                    <input type="text" name="numberOfShelfs" id="numberOfShelfs" autocomplete='off'></br>
+                </label>
+            </div>
+            <input type="submit" value="הוספה">
+        </form>
+    </div>
+
     <div class="cardCategory">
         <img src="/img/delete.png" onclick="cardCategorydisplaynone()">
         <div class="cardboxcatygory"></div>
@@ -82,7 +104,7 @@
                 <option>חיפוש לפי מדף / מיקום</option>
             </select>
 
-            <input type="text" id="inputSearch" placeholder="<< בחר סוג חיפוש" autocomplete='off'>
+            <input type="text" id="inputSearch" placeholder="בחר סוג חיפוש" autocomplete='off'>
             <button type="submit"><img class="Searchimg" src="/img/Search.png" onclick="functionSearch()"></button>
             <div class="textmessage"></div>
         </div>
@@ -98,6 +120,7 @@
     </div>
 
     <div id="UsersList"></div>
+    <div id="ShelfList"></div>
     
 
     <div id="editUserById"></div>

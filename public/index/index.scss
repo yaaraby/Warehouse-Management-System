@@ -172,6 +172,125 @@ body {
     }
 }
 
+
+
+.AddShelf{  
+    font-size: 20rem;
+    font-family: var(--font-family);
+    background-color: var(--background);
+    padding: 40px 20px;
+    text-align: center;
+    font-family: 'Rubik', sans-serif;
+    border-radius: 10px;
+    box-shadow: 2px 2px 15px 10px rgba(128, 128, 128, 0.445);
+    direction: rtl;
+    position: relative;
+    display: none;
+    margin: 150px auto 70px;
+    width: 90%;
+    max-width: 500px;
+    box-sizing: border-box;
+
+    .imgdelete {
+        width: 30px;
+        position: absolute;
+        top: -15px;
+        right: -15px;
+        background-color: var(--background);
+        padding: 10px;
+        border-radius: 20px;
+        cursor: pointer;
+        z-index: 1;
+    }
+
+    .listuser {
+        width: 50px;
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        border-radius: 20px;
+        cursor: pointer;
+        z-index: 1;
+    }
+
+
+    input[type=text],
+    input[type=email],
+    input[type=password] {
+        padding: 10px;
+        font-size: 20rem;
+        border: 0;
+        border-bottom: 2px solid var(--color);
+        background: none;
+        margin-bottom: 25px;
+        outline: none;
+        font-family: var(--font-family);
+        color: var(--color);
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    input[type=submit] {
+        padding: 10px 20px;
+        font-size: 20rem;
+        border-radius: 10px;
+        border: 3px solid grey;
+        font-family: var(--font-family);
+        outline: none;
+        background: rgba(128, 128, 128, 0.623);
+        color: var(--color);
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    input[type=submit]:active {
+        border: 3px solid var(--color);
+        color: var(--background);
+        transition: color 0.3s;
+    }
+
+    input[type=submit]:hover {
+        background: rgb(168, 153, 143);
+        transition: color 0.3s;
+    }
+
+    label {
+        font-size: 20rem;
+        padding: 5px;
+    }
+
+    .rtl {
+        text-align: right;
+    }
+
+    select {
+        padding: 10px;
+        font-size: 20rem;
+        border: 0;
+        border-bottom: 2px solid var(--color);
+        background: none;
+        margin-bottom: 25px;
+        margin-top: 20px;
+        outline: none;
+        font-family: var(--font-family);
+        width: 100%;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
+
+    #message {
+        font-size: 25rem;
+        font-weight: 600;
+        padding: 5px;
+
+        img {
+            width: 30px;
+        }
+    }
+
+  
+}
+
 .cardCategory {
     font-size: 20rem;
     font-family: var(--font-family);
@@ -559,6 +678,87 @@ body {
     }
 }
 
+// yehial
+#ShelfList {
+    font-size: 20rem;
+    font-family: var(--font-family);
+    background-color: var(--background);
+    font-family: 'Rubik', sans-serif;
+    border-radius: 10px;
+    box-shadow: 2px 2px 15px 10px rgba(128, 128, 128, 0.445);
+    position: relative;
+    width: 90%;
+    max-width: 1000px;
+    margin: 150px auto 70px;
+    direction: rtl;
+    padding: 10px;
+    display: none;
+    box-sizing: border-box;
+
+
+    .displaynone {
+        width: 30px;
+        position: absolute;
+        top: -15px;
+        right: -15px;
+        background-color: var(--background);
+        padding: 10px;
+        border-radius: 20px;
+        cursor: pointer;
+        z-index: 1;
+    }
+    
+    .Addanewuser {
+        width: 60px;
+        font-size: 20rem;
+        font-weight: 600;
+        position: absolute;
+        top: -15px;
+        left: -15px;
+        background-color: var(--background);
+        border: 0;
+        outline: none;
+        border-radius: 20px;
+        cursor: pointer;
+        z-index: 1;
+
+        img {
+            width: 100%;
+        }
+    }
+
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        box-sizing: border-box;
+        table-layout: fixed;
+    }
+
+
+    .deleteuser {
+        margin: 5px 15px;
+        cursor: pointer;
+    }
+
+
+    td,
+    th {
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 12px 0px 9px 0px;
+        table-layout: fixed;
+        word-wrap: break-word;
+
+        img {
+            width: 20px;
+        }
+    }
+
+    tr:nth-child(even) {
+        background-color: gray;
+    }
+}
 
 
 
@@ -722,9 +922,16 @@ body {
     .Search,
     .ShowAll,
     .cardCategory,
+    .AddShelf,  
     #UsersList,
+    #ShelfList,
     #editUserById {
       margin: 70px auto 70px;
     }
 
 }
+
+
+
+
+

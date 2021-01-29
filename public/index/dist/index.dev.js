@@ -10,6 +10,7 @@ var titlecategory = document.querySelector('.titlecategory');
 var ShowAll = document.querySelector('.ShowAll');
 var message = document.querySelector("#message");
 var Registration = document.querySelector('.Registration');
+var AddShelf = document.querySelector('.AddShelf');
 var textmessage = document.querySelector('.textmessage');
 var Searchtml = document.querySelector('.Searchtml');
 var outcome = document.querySelector('.outcome');
@@ -17,6 +18,7 @@ var cardtext = document.querySelector('.cardtext');
 var menu = document.querySelector(".menu");
 var menubutoon = document.querySelector(".menubutoon");
 var UsersList = document.getElementById('UsersList');
+var ShelfList = document.getElementById('ShelfList');
 testcoocik();
 
 function testcoocik() {
@@ -71,6 +73,7 @@ function Searchdisplayblock() {
   ShowAll.style.display = 'none';
   UsersList.style.display = 'none';
   Registration.style.display = 'none';
+  AddShelf.style.display - 'none';
   inputSearch.focus();
 }
 
@@ -215,6 +218,7 @@ function getCategory() {
   Search.style.display = 'none';
   ShowAll.style.display = 'none';
   UsersList.style.display = 'none';
+  AddShelf.style.display - 'none';
   cardCategory.style.display = 'block';
   cardboxcatygory.innerHTML = '';
   fetch('/get-category').then(function (res) {
@@ -292,7 +296,7 @@ function displayblockmenu(event) {
 }
 
 function menubutoondisplayblock() {
-  menu.style.right = '-50%';
+  menu.style.right = '-220px';
 }
 
 function UsersListnone() {
@@ -404,23 +408,67 @@ function PullShelfInformation(e) {
 } //Yehial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
+function handleAddShelf(e) {
+  e.preventDefault();
+  var firstRow = document.querySelector('#firstRow');
+  var lastRow = document.querySelector('#lastRow');
+  var numberOfAreas = document.querySelector('#numberOfAreas');
+  var numberOfShelfs = document.querySelector('#numberOfShelfs');
+  var tempTotalRowNumber = lastRow.value - firstRow.value;
+  var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K'];
+  var tempNewRows = [];
+  console.log(firstRow.value, lastRow.value, numberOfAreas.value, numberOfShelfs.value);
+
+  for (i = 1; i <= tempTotalRowNumber + 1; i++) {
+    for (j = 1; j <= numberOfAreas.value; j++) {
+      for (k = 1; k <= numberOfShelfs.value; k++) {
+        console.log("".concat(i).concat(letters[j - 1]).concat(k));
+        tempNewRows.push({
+          Line: i,
+          Area: "".concat(letters[j - 1]),
+          Floor: k,
+          UPS_Shelfs: "".concat(i, "-").concat(letters[j - 1], "-").concat(k) // NumberOfProductsonShelf:Number,
+          // MaximumWeight: Number,
+          // CurrentWeight: Number,
+          // height: Number
+
+        }); // Object.assign(tempNewRows, {row:`${i}${letters[j-1]}${k}`});
+      }
+    }
+  }
+
+  console.log(JSON.stringify(tempNewRows));
+}
+
 function shelfObservation() {
-  menubutoondisplayblock();
-  var populatedShelf = [];
-  outcome.style.display = 'none';
-  editUserById.style.display = "none";
-  UsersList.style.display = 'none';
-  Registration.style.display = 'none';
-  Search.style.display = 'none';
-  ShowAll.style.display = 'none';
-  cardCategory.style.display = 'block';
-  cardboxcatygory.innerHTML = '';
-  fetch('/pull-Shelf').then(function (r) {
-    return r.json();
+  fetch('/pull-Shelf').then(function (res) {
+    return res.json();
   }).then(function (data) {
-    console.log(data.data);
-    data.data.forEach(function (elm) {
-      cardboxcatygory.innerHTML += "<div class=\"A_line_in_a_category\" onclick=\"PullShelfInformation(event)\" style=direction:initial>Number Of Products On Shelf:".concat(elm.NumberOfProductsonShelf, "   Shelf:").concat(elm.UPS_Shelfs, "  </div>");
-    });
+    if (data.data != null) {
+      outcome.style.display = 'none';
+      Registration.style.display = 'none';
+      Search.style.display = 'none';
+      ShowAll.style.display = 'none';
+      cardCategory.style.display = 'none';
+      editUserById.style.display = "none";
+      UsersList.style.display = 'none'; //need to change the userlist to shelf list
+
+      ShelfList.style.display = 'block';
+      allShelfs(data.data);
+    }
   });
+}
+
+function allShelfs(data) {
+  menubutoondisplayblock();
+  document.getElementById('ShelfList').innerHTML = //need to change user user icon img
+  "\n        <img src=\"/img/delete.png\" class=\"displaynone\" onclick=\"UsersListnone()\"><div class=\"col-sm-4\">\n        <button class=\"addNewShelf\" onclick=\"addNewShelf()\"><img src=\"/img/adduser.png\"></button>\n        </div>\n<table>\n<thead>\n    <tr>\n        <th></th>\n        <th>\u05DE\u05E1\u05E4\u05E8 \u05DE\u05D3\u05E3</th>\n        <th>\u05DB\u05DE\u05D5\u05EA \u05DE\u05D5\u05E6\u05E8\u05D9\u05DD</th>\n        <th>\u05DE\u05E9\u05E7\u05DC \u05DE\u05D3\u05E3</th>\n        <th>\u05DE\u05E9\u05E7\u05DC \u05DE\u05E7\u05E1\u05D9\u05DE\u05DC\u05D9</th>\n    </tr>\n</thead>\n    <tbody>\n        ".concat(data.map(function (elm) {
+    return "<tr>\n        <td class=\"flexdeleteuser\">\n        <a action=\"Edit\" class=\"editshelf\" onclick='editShelf(\"".concat(elm._id, "\")'><img src=\"/img/edit-button.png\"></a>\n        <a action=\"Delete\" class=\"deleteShelf\" onclick='deleteShelf(\"").concat(elm._id, "\")'><img src=\"/img/deleteuser.png\"></a>\n        </td>\n                <td>").concat(elm.UPS_Shelfs, "</td>\n                <td>").concat(elm.NumberOfProductsonShelf, "</td>\n                <td>").concat(elm.MaximumWeight, "</td> \n                <td>").concat(elm.CurrentWeight, "</td> \n        </tr>\n\n");
+  }).join(''), "</tbody>\n</table>");
+}
+
+function addNewShelf() {
+  menubutoondisplayblock();
+  ShelfList.style.display = 'none';
+  AddShelf.style.display = 'block';
 }

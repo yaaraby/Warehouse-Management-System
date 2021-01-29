@@ -35,8 +35,6 @@ const Shelfs = mongoose.model('Shelf', {
     MaximumWeight: Number,
     CurrentWeight: Number,
     height: Number
-
-
 });
 
 const Products = mongoose.model('product', {
@@ -53,6 +51,18 @@ const Products = mongoose.model('product', {
 
 });
 
+
+// const testShelf = new Shelfs({
+//     Line: 3,
+//     Area: 'F',
+//     Floor: 5,
+//     UPS_Shelfs: ``,
+//     NumberOfProductsonShelf:32,
+//     MaximumWeight: 500,
+//     CurrentWeight: 300,
+//     height: 50
+// });
+// testShelf.save().then(doc => console.log(doc)).catch(e =>console.log(e));
 
 
 // const product1 = new Products({
@@ -194,14 +204,14 @@ app.get('/pull-Shelf', async (req, res) => {
     res.send({data})
 })
 
-// app.post('/PullShelfInformation', async (req, res) => {
-//     const { e } = req.body;
+
+
+app.post('/shelf-creation', async (req, res) => {
+    console.log(req);
+
     
-//     console.log(e);
-//     const data = await Shelfs.find({ UPS_Shelfs: e });
-    
-//     res.send({e});
-// })
+    res.send();
+})
 
 
 app.post('/PullThiscCategory', async (req, res) => {

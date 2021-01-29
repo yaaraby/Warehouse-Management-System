@@ -8,6 +8,7 @@ const titlecategory = document.querySelector('.titlecategory')
 const ShowAll = document.querySelector('.ShowAll')
 const message = document.querySelector("#message")
 const Registration = document.querySelector('.Registration')
+const AddShelf = document.querySelector('.AddShelf')
 const textmessage = document.querySelector('.textmessage')
 const Searchtml = document.querySelector('.Searchtml')
 const outcome = document.querySelector('.outcome')
@@ -15,6 +16,7 @@ const cardtext = document.querySelector('.cardtext')
 const menu = document.querySelector(".menu")
 const menubutoon = document.querySelector(".menubutoon")
 const UsersList = document.getElementById('UsersList');
+const ShelfList = document.getElementById('ShelfList');
 
 
 testcoocik()
@@ -62,6 +64,8 @@ function Registrationdisplaynone() {
     Registration.style.display = 'none'
 }
 
+
+
 function Searchdisplayblock() {
     menubutoondisplayblock()
     Search.style.display = 'block'
@@ -70,6 +74,7 @@ function Searchdisplayblock() {
     ShowAll.style.display = 'none'
     UsersList.style.display = 'none'
     Registration.style.display = 'none'
+    AddShelf.style.display - 'none'
     inputSearch.focus()
 }
 function deleteoutcome() {
@@ -228,6 +233,7 @@ function getCategory() {
     Search.style.display = 'none'
     ShowAll.style.display = 'none'
     UsersList.style.display = 'none'
+    AddShelf.style.display - 'none'
     cardCategory.style.display = 'block'
     cardboxcatygory.innerHTML = ''
     fetch('/get-category')
@@ -498,44 +504,54 @@ function PullShelfInformation(e) {
 }
 
 
-function shelfObservation() {
-    // let populatedShelf = []
-    // Registration.style.display = 'none'
-    // Search.style.display = 'none'
-    // ShowAll.style.display = 'none'
-    // cardCategory.style.display = 'block'
-    // cardboxcatygory.innerHTML = ''
-    // fetch('/pull-Shelf')
-    //     .then(r =>
-    //         r.json()
-    //     )
-    //     .then(data => {
-    //         console.log(data.data);
+//Yehial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+function handleAddShelf(e){
+    e.preventDefault();
+    
+    const firstRow = document.querySelector('#firstRow')
+    const lastRow = document.querySelector('#lastRow')
+    const numberOfAreas = document.querySelector('#numberOfAreas')
+    const numberOfShelfs = document.querySelector('#numberOfShelfs')
 
-    //         data.data.forEach(elm => {
-    //             cardboxcatygory.innerHTML += 
-                
-    //             `<div class="A_line_in_a_category" onclick="PullShelfInformation(event)" style=direction:initial>Number Of Products On Shelf:${elm.NumberOfProductsonShelf}   Shelf:${elm.UPS_Shelfs}  </div>`
-                
-    //         })
-    //     })
+    
+    
+    let tempTotalRowNumber=lastRow.value-firstRow.value;
+    const letters=['A','B','C','D','E','F','G','H','I','K']
+    let tempNewRows=[]
 
+    console.log(firstRow.value,lastRow.value,numberOfAreas.value,numberOfShelfs.value);
+    for(i=1;i<=tempTotalRowNumber+1;i++){
+        
+        for(j=1;j<=numberOfAreas.value;j++)
+        {
+           for(k=1;k<=numberOfShelfs.value;k++){
+
+                console.log(`${i}${letters[j-1]}${k}`)
+                tempNewRows.push({
+                    Line: i,
+                    Area: `${letters[j-1]}`,
+                    Floor: k,
+                    UPS_Shelfs: `${i}-${letters[j-1]}-${k}`,
+                    // NumberOfProductsonShelf:Number,
+                    // MaximumWeight: Number,
+                    // CurrentWeight: Number,
+                    // height: Number
+                })
+
+                // Object.assign(tempNewRows, {row:`${i}${letters[j-1]}${k}`});
+            }
+        }
+    }
+
+    console.log(JSON.stringify(tempNewRows))
+
+
+    
 }
 
 
-//Yehial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-function shelfObservation() {
-    menubutoondisplayblock()
-    let populatedShelf = []
-    outcome.style.display = 'none'
-    editUserById.style.display = "none"
-    UsersList.style.display = 'none'
-    Registration.style.display = 'none'
-    Search.style.display = 'none'
-    ShowAll.style.display = 'none'
-    cardCategory.style.display = 'block'
-    cardboxcatygory.innerHTML = ''
 
+function shelfObservation() {
     fetch('/pull-Shelf')
         .then(res =>
             res.json()
@@ -549,24 +565,21 @@ function shelfObservation() {
                 ShowAll.style.display = 'none'
                 cardCategory.style.display = 'none'
                 editUserById.style.display = "none"
-                UsersList.style.display = 'block'
+                UsersList.style.display = 'none'
+                //need to change the userlist to shelf list
+                ShelfList.style.display = 'block'
                 allShelfs(data.data)
             }
-
-            data.data.forEach(elm => {
-                cardboxcatygory.innerHTML +=
-
-                    `<div class="A_line_in_a_category" onclick="PullShelfInformation(event)" style=direction:initial>Number Of Products On Shelf:${elm.NumberOfProductsonShelf}   Shelf:${elm.UPS_Shelfs}  </div>`
-
-            })
 
         })
 }
 function allShelfs(data) {
-    document.getElementById('UsersList').innerHTML =
+    menubutoondisplayblock()
+    document.getElementById('ShelfList').innerHTML =
+    //need to change user user icon img
         `
         <img src="/img/delete.png" class="displaynone" onclick="UsersListnone()"><div class="col-sm-4">
-        <button class="Addanewuser" onclick="Addauser()"><img src="/img/adduser.png"></button>
+        <button class="addNewShelf" onclick="addNewShelf()"><img src="/img/adduser.png"></button>
         </div>
 <table>
 <thead>
@@ -582,7 +595,7 @@ function allShelfs(data) {
         ${data.map(elm =>
             `<tr>
         <td class="flexdeleteuser">
-        <a action="Edit" class="deleteShelf" onclick='editShelf("${elm._id}")'><img src="/img/edit-button.png"></a>
+        <a action="Edit" class="editshelf" onclick='editShelf("${elm._id}")'><img src="/img/edit-button.png"></a>
         <a action="Delete" class="deleteShelf" onclick='deleteShelf("${elm._id}")'><img src="/img/deleteuser.png"></a>
         </td>
                 <td>${elm.UPS_Shelfs}</td>
@@ -593,4 +606,11 @@ function allShelfs(data) {
 
 `).join('')}</tbody>
 </table>`;
+}
+
+function addNewShelf() {
+    menubutoondisplayblock()
+    ShelfList.style.display='none'
+    AddShelf.style.display='block'
+
 }

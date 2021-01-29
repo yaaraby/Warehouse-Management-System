@@ -39,7 +39,9 @@ var Shelfs = mongoose.model('Shelf', {
   Area: String,
   Floor: Number,
   UPS_Shelfs: String,
-  Weight: Number,
+  NumberOfProductsonShelf: Number,
+  MaximumWeight: Number,
+  CurrentWeight: Number,
   height: Number
 });
 var Products = mongoose.model('product', {
@@ -53,7 +55,18 @@ var Products = mongoose.model('product', {
   ExpiryDate: String,
   Image: String,
   Location: String
-}); // const product1 = new Products({
+}); // const testShelf = new Shelfs({
+//     Line: 3,
+//     Area: 'F',
+//     Floor: 5,
+//     UPS_Shelfs: ``,
+//     NumberOfProductsonShelf:32,
+//     MaximumWeight: 500,
+//     CurrentWeight: 300,
+//     height: 50
+// });
+// testShelf.save().then(doc => console.log(doc)).catch(e =>console.log(e));
+// const product1 = new Products({
 //     UPS: '81726',
 //     Name: 'כוס',
 //     price: '450',
@@ -333,163 +346,59 @@ app.get('/get-category', function _callee6(req, res) {
       }
     }
   });
-});
-app.post('/PullThiscCategory', function _callee7(req, res) {
-  var eventCategory, data;
+}); //yehial------------------------------------------------------------------
+
+app.get('/pull-Shelf', function _callee7(req, res) {
+  var data;
   return regeneratorRuntime.async(function _callee7$(_context7) {
     while (1) {
       switch (_context7.prev = _context7.next) {
         case 0:
-          eventCategory = req.body.eventCategory;
-          _context7.next = 3;
-          return regeneratorRuntime.awrap(Products.find({
-            Category: eventCategory
+          _context7.next = 2;
+          return regeneratorRuntime.awrap(Shelfs.find({
+            NumberOfProductsonShelf: {
+              $gte: 1
+            }
           }));
 
-        case 3:
+        case 2:
           data = _context7.sent;
           res.send({
             data: data
           });
 
-        case 5:
+        case 4:
         case "end":
           return _context7.stop();
       }
     }
   });
-}); // Search
-
-app.post('/Searchdeta', function _callee8(req, res) {
-  var _req$body3, placeholder, inputvalue, data, _data, _data2, _data3;
-
+});
+app.post('/shelf-creation', function _callee8(req, res) {
   return regeneratorRuntime.async(function _callee8$(_context8) {
     while (1) {
       switch (_context8.prev = _context8.next) {
         case 0:
-          _req$body3 = req.body, placeholder = _req$body3.placeholder, inputvalue = _req$body3.inputvalue; // return false 
+          console.log(req);
+          res.send();
 
-          if (!(placeholder == 'UPS-מקט')) {
-            _context8.next = 8;
-            break;
-          }
-
-          _context8.next = 4;
-          return regeneratorRuntime.awrap(Products.find({
-            UPS: inputvalue
-          }));
-
-        case 4:
-          data = _context8.sent;
-
-          if (data.length == 0) {
-            res.send({
-              message: 'UPS לא נמצא'
-            });
-          } else {
-            res.send({
-              data: data
-            });
-          }
-
-          _context8.next = 27;
-          break;
-
-        case 8:
-          if (!(placeholder == 'חיפוש לפי שם מוצר')) {
-            _context8.next = 15;
-            break;
-          }
-
-          _context8.next = 11;
-          return regeneratorRuntime.awrap(Products.find({
-            Name: inputvalue
-          }));
-
-        case 11:
-          _data = _context8.sent;
-
-          if (_data.length == 0) {
-            res.send({
-              message: 'פריט לא קיים'
-            });
-          } else {
-            res.send({
-              data: _data
-            });
-          }
-
-          _context8.next = 27;
-          break;
-
-        case 15:
-          if (!(placeholder == 'חיפוש לפי תאריך תפוגה')) {
-            _context8.next = 22;
-            break;
-          }
-
-          _context8.next = 18;
-          return regeneratorRuntime.awrap(Products.find({
-            ExpiryDate: inputvalue
-          }));
-
-        case 18:
-          _data2 = _context8.sent;
-
-          if (_data2.length == 0) {
-            res.send({
-              message: 'לא נמצא מוצר לפי תאריך תפוגה זה'
-            });
-          } else {
-            res.send({
-              data: _data2
-            });
-          }
-
-          _context8.next = 27;
-          break;
-
-        case 22:
-          if (!(placeholder == 'חיפוש לפי מדף / מיקום')) {
-            _context8.next = 27;
-            break;
-          }
-
-          _context8.next = 25;
-          return regeneratorRuntime.awrap(Products.find({
-            Location: inputvalue
-          }));
-
-        case 25:
-          _data3 = _context8.sent;
-
-          if (_data3.length == 0) {
-            res.send({
-              message: 'מדף לא קיים'
-            });
-          } else {
-            res.send({
-              data: _data3
-            });
-          }
-
-        case 27:
+        case 2:
         case "end":
           return _context8.stop();
       }
     }
   });
 });
-app.post('/PullInformation', function _callee9(req, res) {
-  var e, data;
+app.post('/PullThiscCategory', function _callee9(req, res) {
+  var eventCategory, data;
   return regeneratorRuntime.async(function _callee9$(_context9) {
     while (1) {
       switch (_context9.prev = _context9.next) {
         case 0:
-          e = req.body.e;
+          eventCategory = req.body.eventCategory;
           _context9.next = 3;
           return regeneratorRuntime.awrap(Products.find({
-            UPS: e
+            Category: eventCategory
           }));
 
         case 3:
@@ -504,60 +413,206 @@ app.post('/PullInformation', function _callee9(req, res) {
       }
     }
   });
-});
-app.put("/update", function _callee10(req, res) {
-  var data, myquery, newvalues;
+}); // Search
+
+app.post('/Searchdeta', function _callee10(req, res) {
+  var _req$body3, placeholder, inputvalue, data, _data, _data2, _data3;
+
   return regeneratorRuntime.async(function _callee10$(_context10) {
     while (1) {
       switch (_context10.prev = _context10.next) {
         case 0:
-          _context10.next = 2;
+          _req$body3 = req.body, placeholder = _req$body3.placeholder, inputvalue = _req$body3.inputvalue; // return false 
+
+          if (!(placeholder == 'UPS-מקט')) {
+            _context10.next = 8;
+            break;
+          }
+
+          _context10.next = 4;
+          return regeneratorRuntime.awrap(Products.find({
+            UPS: inputvalue
+          }));
+
+        case 4:
+          data = _context10.sent;
+
+          if (data.length == 0) {
+            res.send({
+              message: 'UPS לא נמצא'
+            });
+          } else {
+            res.send({
+              data: data
+            });
+          }
+
+          _context10.next = 27;
+          break;
+
+        case 8:
+          if (!(placeholder == 'חיפוש לפי שם מוצר')) {
+            _context10.next = 15;
+            break;
+          }
+
+          _context10.next = 11;
+          return regeneratorRuntime.awrap(Products.find({
+            Name: inputvalue
+          }));
+
+        case 11:
+          _data = _context10.sent;
+
+          if (_data.length == 0) {
+            res.send({
+              message: 'פריט לא קיים'
+            });
+          } else {
+            res.send({
+              data: _data
+            });
+          }
+
+          _context10.next = 27;
+          break;
+
+        case 15:
+          if (!(placeholder == 'חיפוש לפי תאריך תפוגה')) {
+            _context10.next = 22;
+            break;
+          }
+
+          _context10.next = 18;
+          return regeneratorRuntime.awrap(Products.find({
+            ExpiryDate: inputvalue
+          }));
+
+        case 18:
+          _data2 = _context10.sent;
+
+          if (_data2.length == 0) {
+            res.send({
+              message: 'לא נמצא מוצר לפי תאריך תפוגה זה'
+            });
+          } else {
+            res.send({
+              data: _data2
+            });
+          }
+
+          _context10.next = 27;
+          break;
+
+        case 22:
+          if (!(placeholder == 'חיפוש לפי מדף / מיקום')) {
+            _context10.next = 27;
+            break;
+          }
+
+          _context10.next = 25;
+          return regeneratorRuntime.awrap(Products.find({
+            Location: inputvalue
+          }));
+
+        case 25:
+          _data3 = _context10.sent;
+
+          if (_data3.length == 0) {
+            res.send({
+              message: 'מדף לא קיים'
+            });
+          } else {
+            res.send({
+              data: _data3
+            });
+          }
+
+        case 27:
+        case "end":
+          return _context10.stop();
+      }
+    }
+  });
+});
+app.post('/PullInformation', function _callee11(req, res) {
+  var e, data;
+  return regeneratorRuntime.async(function _callee11$(_context11) {
+    while (1) {
+      switch (_context11.prev = _context11.next) {
+        case 0:
+          e = req.body.e;
+          _context11.next = 3;
+          return regeneratorRuntime.awrap(Products.find({
+            UPS: e
+          }));
+
+        case 3:
+          data = _context11.sent;
+          res.send({
+            data: data
+          });
+
+        case 5:
+        case "end":
+          return _context11.stop();
+      }
+    }
+  });
+});
+app.put("/update", function _callee12(req, res) {
+  var data, myquery, newvalues;
+  return regeneratorRuntime.async(function _callee12$(_context12) {
+    while (1) {
+      switch (_context12.prev = _context12.next) {
+        case 0:
+          _context12.next = 2;
           return regeneratorRuntime.awrap(Users.find({}));
 
         case 2:
-          data = _context10.sent;
+          data = _context12.sent;
           i = 0;
 
         case 4:
           if (!(i < data.length)) {
-            _context10.next = 21;
+            _context12.next = 21;
             break;
           }
 
           if (!(req.body.id_user !== data[i].id_user)) {
-            _context10.next = 18;
+            _context12.next = 18;
             break;
           }
 
           if (!(req.body.userName == data[i].userName)) {
-            _context10.next = 11;
+            _context12.next = 11;
             break;
           }
 
           message = 'שם משתמש כבר קיים';
-          return _context10.abrupt("break", 21);
+          return _context12.abrupt("break", 21);
 
         case 11:
           if (!(req.body.email == data[i].email)) {
-            _context10.next = 16;
+            _context12.next = 16;
             break;
           }
 
           message = 'מייל זה כבר קיים במערכת';
-          return _context10.abrupt("break", 21);
+          return _context12.abrupt("break", 21);
 
         case 16:
           message = 'ok';
-          return _context10.abrupt("break", 21);
+          return _context12.abrupt("break", 21);
 
         case 18:
           i++;
-          _context10.next = 4;
+          _context12.next = 4;
           break;
 
         case 21:
           if (!(message == 'ok')) {
-            _context10.next = 26;
+            _context12.next = 26;
             break;
           }
 
@@ -574,7 +629,7 @@ app.put("/update", function _callee10(req, res) {
               role: req.body.role
             }
           };
-          _context10.next = 26;
+          _context12.next = 26;
           return regeneratorRuntime.awrap(Users.update(myquery, newvalues, function (err, res) {
             if (err) throw err;
             console.log("1 document updated");
@@ -589,39 +644,39 @@ app.put("/update", function _callee10(req, res) {
 
         case 27:
         case "end":
-          return _context10.stop();
+          return _context12.stop();
       }
     }
   });
 });
-app.get('/get-details-users:userId', function _callee11(req, res) {
+app.get('/get-details-users:userId', function _callee13(req, res) {
   var userId, findUser;
-  return regeneratorRuntime.async(function _callee11$(_context11) {
+  return regeneratorRuntime.async(function _callee13$(_context13) {
     while (1) {
-      switch (_context11.prev = _context11.next) {
+      switch (_context13.prev = _context13.next) {
         case 0:
           userId = req.params.userId;
           console.log(userId);
-          _context11.prev = 2;
-          _context11.next = 5;
+          _context13.prev = 2;
+          _context13.next = 5;
           return regeneratorRuntime.awrap(Users.findOne({
             _id: userId
           }));
 
         case 5:
-          findUser = _context11.sent;
+          findUser = _context13.sent;
           res.send(findUser);
-          _context11.next = 12;
+          _context13.next = 12;
           break;
 
         case 9:
-          _context11.prev = 9;
-          _context11.t0 = _context11["catch"](2);
-          console.log(_context11.t0);
+          _context13.prev = 9;
+          _context13.t0 = _context13["catch"](2);
+          console.log(_context13.t0);
 
         case 12:
         case "end":
-          return _context11.stop();
+          return _context13.stop();
       }
     }
   }, null, null, [[2, 9]]);
