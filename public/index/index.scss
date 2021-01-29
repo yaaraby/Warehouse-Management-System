@@ -25,11 +25,11 @@ body {
     max-width: 220px;
     position: fixed;
     top: 0;
-    right: -100%;
+    right: -220px;
     z-index: 2;
     white-space: nowrap;
     // display: none;
-    transition: all 0.5s;
+    transition: all 0.4s;
 
     img {
         width: 30px;

@@ -23,10 +23,10 @@ body {
   max-width: 220px;
   position: fixed;
   top: 0;
-  right: -100%;
+  right: -220px;
   z-index: 2;
   white-space: nowrap;
-  transition: all 0.5s;
+  transition: all 0.4s;
 }
 .menu img {
   width: 30px;
