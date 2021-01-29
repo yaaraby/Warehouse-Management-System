@@ -32,8 +32,10 @@ const Shelfs = mongoose.model('Shelf', {
     Floor: Number,
     UPS_Shelfs: String,
     NumberOfProductsonShelf:Number,
-    Weight: Number,
+    MaximumWeight: Number,
+    CurrentWeight: Number,
     height: Number
+
 
 });
 
