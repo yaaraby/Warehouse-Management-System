@@ -326,7 +326,7 @@ function displayblockmenu(event) {
 }
 
 function menubutoondisplayblock() {
-    menu.style.right = '-50%'
+    menu.style.right = '-220px'
 }
 
 function UsersListnone() {
@@ -574,7 +574,8 @@ function allShelfs(data) {
         <th></th>
         <th>מספר מדף</th>
         <th>כמות מוצרים</th>
-        <th>משקל כולל</th>
+        <th>משקל מדף</th>
+        <th>משקל מקסימלי</th>
     </tr>
 </thead>
     <tbody>
@@ -586,7 +587,8 @@ function allShelfs(data) {
         </td>
                 <td>${elm.UPS_Shelfs}</td>
                 <td>${elm.NumberOfProductsonShelf}</td>
-                <td>${elm.Weight}</td> 
+                <td>${elm.MaximumWeight}</td> 
+                <td>${elm.CurrentWeight}</td> 
         </tr>
 
 `).join('')}</tbody>
