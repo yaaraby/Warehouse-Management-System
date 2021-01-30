@@ -237,7 +237,7 @@ app.put("/shelf-creation", async (req, res) => {
 
 
   }); 
-  res.send({ok })
+  res.send({ok:true })
 });
 
 

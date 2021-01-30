@@ -409,7 +409,7 @@ app.put("/shelf-creation", function _callee9(req, res) {
             testShelf.save();
           });
           res.send({
-            ok: ok
+            ok: true
           });
 
         case 2:

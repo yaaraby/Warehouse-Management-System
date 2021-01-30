@@ -17,6 +17,7 @@ const menu = document.querySelector(".menu")
 const menubutoon = document.querySelector(".menubutoon")
 const UsersList = document.getElementById('UsersList');
 const ShelfList = document.getElementById('ShelfList');
+// const allShelfs = document.getElementById('allShelfs');
 
 
 testcoocik()
@@ -479,29 +480,7 @@ function handleEditUser(e) {
     }
 }
 
-//Yehial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// function PullShelfInformation(e) {
-//     fetch('/PullShelfInformation', {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify({ e })
-//     }).then(res =>
-//         res.json()
-//     )
-//         .then(data => {
-//             Registration.style.display = 'none'
-//             cardCategory.style.display = 'none'
-//             ShowAll.style.display = 'block'
-//             console.log(data)
-//             titlecategory.innerHTML = eventCategory
-//             data.data.forEach(elm => {
 
-
-//             })
-//         })
-// }
 
 
 //Yehial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -555,7 +534,7 @@ function handleAddShelf(e){
     })
         .then(res => res.json())
         .then(data => {
-            console.log(data)
+            console.log(data.data)
             if (data== false) {
                 console.log(data)
                 
@@ -565,11 +544,19 @@ function handleAddShelf(e){
             }
         })
 
+        
+        
+        AddShelf.style.display='none'
+        
 
+        
     
 }
 
+function addShelfDisplayNone(){
 
+AddShelf.style.display='none'
+}
 
 function shelfObservation() {
     fetch('/pull-Shelf')
@@ -593,12 +580,18 @@ function shelfObservation() {
 
         })
 }
+function shelfObservationDisplayNone(){
+    ShelfList.style.display='none'
+
+
+}
+
 function allShelfs(data) {
     menubutoondisplayblock()
     document.getElementById('ShelfList').innerHTML =
     //need to change user user icon img
         `
-        <img src="/img/delete.png" class="displaynone" onclick="UsersListnone()"><div class="col-sm-4">
+        <img src="/img/delete.png" class="displaynone" onclick="shelfObservationDisplayNone()"><div class="col-sm-4">
         <button class="addNewShelf" onclick="addNewShelf()"><img src="/img/adduser.png"></button>
         </div>
 <table>
@@ -612,19 +605,21 @@ function allShelfs(data) {
     </tr>
 </thead>
     <tbody>
+    
         ${data.map(elm =>
             `<tr>
         <td class="flexdeleteuser">
         <a action="Edit" class="editshelf" onclick='editShelf("${elm._id}")'><img src="/img/edit-button.png"></a>
         <a action="Delete" class="deleteShelf" onclick='deleteShelf("${elm._id}")'><img src="/img/deleteuser.png"></a>
         </td>
-                <td>${elm.UPS_Shelfs}</td>
+                <td class="rtl">${elm.UPS_Shelfs}</td>
                 <td>${elm.NumberOfProductsonShelf}</td>
                 <td>${elm.MaximumWeight}</td> 
                 <td>${elm.CurrentWeight}</td> 
+                
         </tr>
 
-`).join('')}</tbody>
+`).join('')}
 </table>`;
 }
 
