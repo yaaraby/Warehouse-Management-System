@@ -44,13 +44,12 @@ body {
         font-weight: 600;
         color: var(--color);
         font-family: var(--font-family);
-        // border-bottom: 4px solid var(--background);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.438);
         padding: 25px 15px;
         cursor: pointer;
     }
 
     .SelectionMenu:hover {
-        // border-bottom: 4px solid rgb(144, 144, 144);
         transition: color 0.2s;
         color: rgb(144, 144, 144);
     }
@@ -174,7 +173,7 @@ body {
 
 
 
-.AddShelf{  
+.AddShelf {
     font-size: 20rem;
     font-family: var(--font-family);
     background-color: var(--background);
@@ -191,7 +190,7 @@ body {
     max-width: 500px;
     box-sizing: border-box;
 
-    .imgdelete{
+    .imgdelete {
         width: 30px;
         position: absolute;
         top: -15px;
@@ -213,7 +212,7 @@ body {
         cursor: pointer;
         z-index: 1;
     }
-    
+
 
 
     input[type=text],
@@ -290,7 +289,7 @@ body {
         }
     }
 
-  
+
 }
 
 .cardCategory {
@@ -311,7 +310,7 @@ body {
     display: none;
     box-sizing: border-box;
 
- 
+
 
     img {
         width: 30px;
@@ -359,7 +358,7 @@ body {
     box-sizing: border-box;
     display: none;
 
-    .titlecategory{
+    .titlecategory {
         padding-top: 20px;
     }
 
@@ -627,7 +626,7 @@ body {
         cursor: pointer;
         z-index: 1;
     }
-    
+
     .Addanewuser {
         width: 60px;
         font-size: 20rem;
@@ -710,7 +709,7 @@ body {
         z-index: 1;
     }
 
-    .addNewShelf{
+    .addNewShelf {
         background: none;
         border: none;
         outline: none;
@@ -725,11 +724,11 @@ body {
         cursor: pointer;
         z-index: 1;
 
-        img{
+        img {
             width: 100%;
         }
     }
-    
+
     .Addanewuser {
         width: 60px;
         font-size: 20rem;
@@ -782,12 +781,6 @@ body {
     }
 }
 
-
-
-.menubutoon {
-    display: none;
-}
-
 .menubutoon {
     position: fixed;
     display: block;
@@ -800,6 +793,7 @@ body {
     padding: 5px;
     background-color: var(--background);
     border-radius: 10px;
+    z-index: 2;
 
     img {
         width: 100%;
@@ -944,16 +938,11 @@ body {
     .Search,
     .ShowAll,
     .cardCategory,
-    .AddShelf,  
+    .AddShelf,
     #UsersList,
     #ShelfList,
     #editUserById {
-      margin: 70px auto 70px;
+        margin: 70px auto 70px;
     }
 
 }
-
-
-
-
-

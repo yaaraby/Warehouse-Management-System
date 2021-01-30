@@ -40,6 +40,7 @@ body {
   font-weight: 600;
   color: var(--color);
   font-family: var(--font-family);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.438);
   padding: 25px 15px;
   cursor: pointer;
 }
@@ -669,10 +670,6 @@ body {
 }
 
 .menubutoon {
-  display: none;
-}
-
-.menubutoon {
   position: fixed;
   display: block;
   width: 40px;
@@ -684,6 +681,7 @@ body {
   padding: 5px;
   background-color: var(--background);
   border-radius: 10px;
+  z-index: 2;
 }
 .menubutoon img {
   width: 100%;
