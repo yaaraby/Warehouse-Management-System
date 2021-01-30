@@ -74,7 +74,8 @@ function Searchdisplayblock() {
   ShowAll.style.display = 'none';
   UsersList.style.display = 'none';
   Registration.style.display = 'none';
-  AddShelf.style.display - 'none';
+  AddShelf.style.display = 'none';
+  ShelfList.style.display = 'none';
   inputSearch.focus();
 }
 
@@ -83,7 +84,7 @@ function deleteoutcome() {
 }
 
 function functionSearch() {
-  if (inputSearch.placeholder == 'בחר סוג חיפוש >>') {
+  if (inputSearch.placeholder == 'בחר סוג חיפוש') {
     textmessage.innerHTML = 'הזן סוג חיפוש';
   } else {
     var placeholder = inputSearch.placeholder;
@@ -219,7 +220,8 @@ function getCategory() {
   Search.style.display = 'none';
   ShowAll.style.display = 'none';
   UsersList.style.display = 'none';
-  AddShelf.style.display - 'none';
+  AddShelf.style.display = 'none';
+  ShelfList.style.display = 'none';
   cardCategory.style.display = 'block';
   cardboxcatygory.innerHTML = '';
   fetch('/get-category').then(function (res) {
@@ -273,6 +275,8 @@ function getListUsers() {
       ShowAll.style.display = 'none';
       cardCategory.style.display = 'none';
       editUserById.style.display = "none";
+      AddShelf.style.display = 'none';
+      ShelfList.style.display = 'none';
       UsersList.style.display = 'block';
       alluser(data.data);
     }
@@ -452,7 +456,8 @@ function shelfObservation() {
       ShowAll.style.display = 'none';
       cardCategory.style.display = 'none';
       editUserById.style.display = "none";
-      UsersList.style.display = 'none'; //need to change the userlist to shelf list
+      UsersList.style.display = 'none';
+      AddShelf.style.display = 'none'; //need to change the userlist to shelf list
 
       ShelfList.style.display = 'block';
       allShelfs(data.data);

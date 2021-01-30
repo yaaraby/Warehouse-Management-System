@@ -75,7 +75,8 @@ function Searchdisplayblock() {
     ShowAll.style.display = 'none'
     UsersList.style.display = 'none'
     Registration.style.display = 'none'
-    AddShelf.style.display - 'none'
+    AddShelf.style.display = 'none'
+    ShelfList.style.display = 'none'
     inputSearch.focus()
 }
 function deleteoutcome() {
@@ -83,7 +84,7 @@ function deleteoutcome() {
 }
 
 function functionSearch() {
-    if (inputSearch.placeholder == 'בחר סוג חיפוש >>') {
+    if (inputSearch.placeholder == 'בחר סוג חיפוש') {
         textmessage.innerHTML = 'הזן סוג חיפוש'
     }
     else {
@@ -234,7 +235,8 @@ function getCategory() {
     Search.style.display = 'none'
     ShowAll.style.display = 'none'
     UsersList.style.display = 'none'
-    AddShelf.style.display - 'none'
+    AddShelf.style.display = 'none'
+    ShelfList.style.display = 'none'
     cardCategory.style.display = 'block'
     cardboxcatygory.innerHTML = ''
     fetch('/get-category')
@@ -302,6 +304,8 @@ function getListUsers() {
                 ShowAll.style.display = 'none'
                 cardCategory.style.display = 'none'
                 editUserById.style.display = "none"
+                AddShelf.style.display = 'none'
+                ShelfList.style.display = 'none'
                 UsersList.style.display = 'block'
                 alluser(data.data)
             }
@@ -565,7 +569,6 @@ function shelfObservation() {
         )
         .then(data => {
             if (data.data != null) {
-
                 outcome.style.display = 'none'
                 Registration.style.display = 'none'
                 Search.style.display = 'none'
@@ -573,6 +576,7 @@ function shelfObservation() {
                 cardCategory.style.display = 'none'
                 editUserById.style.display = "none"
                 UsersList.style.display = 'none'
+                AddShelf.style.display = 'none'
                 //need to change the userlist to shelf list
                 ShelfList.style.display = 'block'
                 allShelfs(data.data)
