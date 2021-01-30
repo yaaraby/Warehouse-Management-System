@@ -589,10 +589,9 @@ function shelfObservationDisplayNone(){
 function allShelfs(data) {
     menubutoondisplayblock()
     document.getElementById('ShelfList').innerHTML =
-    //need to change user user icon img
-        `
-        <img src="/img/delete.png" class="displaynone" onclick="shelfObservationDisplayNone()"><div class="col-sm-4">
-        <button class="addNewShelf" onclick="addNewShelf()"><img src="/img/adduser.png"></button>
+        `<img src="/img/delete.png" class="displaynone" onclick="shelfObservationDisplayNone()">
+        <div class="col-sm-4">
+        <button class="addNewShelf" onclick="addNewShelf()"><img src="/img/+.png"></button>
         </div>
 <table>
 <thead>
@@ -628,4 +627,9 @@ function addNewShelf() {
     ShelfList.style.display='none'
     AddShelf.style.display='block'
 
+}
+
+function addShelflist(){
+    AddShelf.style.display='none'
+    ShelfList.style.display='block'
 }

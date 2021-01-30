@@ -191,7 +191,7 @@ body {
     max-width: 500px;
     box-sizing: border-box;
 
-    .imgdelete {
+    .imgdelete{
         width: 30px;
         position: absolute;
         top: -15px;
@@ -203,6 +203,16 @@ body {
         z-index: 1;
     }
 
+    .imglist {
+        width: 40px;
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        padding: 10px;
+        border-radius: 20px;
+        cursor: pointer;
+        z-index: 1;
+    }
     
 
 
@@ -698,6 +708,26 @@ body {
         border-radius: 20px;
         cursor: pointer;
         z-index: 1;
+    }
+
+    .addNewShelf{
+        background: none;
+        border: none;
+        outline: none;
+        background: none;
+        width: 55px;
+        position: absolute;
+        top: -15px;
+        left: -15px;
+        background-color: var(--background);
+        padding: 10px;
+        border-radius: 20px;
+        cursor: pointer;
+        z-index: 1;
+
+        img{
+            width: 100%;
+        }
     }
     
     .Addanewuser {
