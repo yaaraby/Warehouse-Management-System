@@ -213,6 +213,33 @@ app.post('/shelf-creation', async (req, res) => {
     res.send();
 })
 
+app.put("/shelf-creation", async (req, res) => {
+    
+    // console.log(req.body.UPS_Shelfs)
+    
+
+    req.body.forEach(element => 
+        {
+        const testShelf = new Shelfs(
+
+            {
+                Line: element.Line,
+                Area: element.Area,
+                Floor: element.Floor,
+                UPS_Shelfs: element.UPS_Shelfs,
+                NumberOfProductsonShelf:1,
+                MaximumWeight: 0,
+                CurrentWeight: 0,
+                height: 0 
+            });
+
+        testShelf.save();
+
+
+  }); 
+  res.send({ok })
+});
+
 
 app.post('/PullThiscCategory', async (req, res) => {
     const { eventCategory } = req.body

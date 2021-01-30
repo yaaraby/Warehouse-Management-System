@@ -384,28 +384,27 @@ function handleEditUser(e) {
     });
   }
 } //Yehial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
-function PullShelfInformation(e) {
-  fetch('/PullShelfInformation', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      e: e
-    })
-  }).then(function (res) {
-    return res.json();
-  }).then(function (data) {
-    Registration.style.display = 'none';
-    cardCategory.style.display = 'none';
-    ShowAll.style.display = 'block';
-    console.log(data);
-    titlecategory.innerHTML = eventCategory;
-    data.data.forEach(function (elm) {});
-  });
-} //Yehial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// function PullShelfInformation(e) {
+//     fetch('/PullShelfInformation', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({ e })
+//     }).then(res =>
+//         res.json()
+//     )
+//         .then(data => {
+//             Registration.style.display = 'none'
+//             cardCategory.style.display = 'none'
+//             ShowAll.style.display = 'block'
+//             console.log(data)
+//             titlecategory.innerHTML = eventCategory
+//             data.data.forEach(elm => {
+//             })
+//         })
+// }
+//Yehial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
 function handleAddShelf(e) {
@@ -438,6 +437,23 @@ function handleAddShelf(e) {
   }
 
   console.log(JSON.stringify(tempNewRows));
+  fetch("/shelf-creation", {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(tempNewRows)
+  }).then(function (res) {
+    return res.json();
+  }).then(function (data) {
+    console.log(data);
+
+    if (data == false) {
+      console.log(data);
+    } else {
+      message.innerHTML = data.message;
+    }
+  });
 }
 
 function shelfObservation() {
