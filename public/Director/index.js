@@ -66,9 +66,15 @@ function Addauser() {
 function Registrationdisplaynone() {
     Registration.style.display = 'none'
 }
+<<<<<<< Updated upstream:public/Director/index.js
 
 
 
+=======
+function newShelfMenu() {
+    Registration.style.display = 'none'
+}
+>>>>>>> Stashed changes:public/index/index.js
 function Searchdisplayblock() {
     menubutoondisplayblock()
     Search.style.display = 'block'
@@ -593,11 +599,18 @@ function shelfObservationDisplayNone(){
 }
 
 function allShelfs(data) {
+<<<<<<< Updated upstream:public/Director/index.js
     menubutoondisplayblock()
     document.getElementById('ShelfList').innerHTML =
         `<img src="/img/delete.png" class="displaynone" onclick="shelfObservationDisplayNone()">
         <div class="col-sm-4">
         <button class="addNewShelf" onclick="addNewShelf()"><img src="/img/+.png"></button>
+=======
+    document.getElementById('UsersList').innerHTML =
+        `
+        <img src="/img/delete.png" class="displaynone" onclick="UsersListnone()"><div class="col-sm-4">
+        <button class="Addanewuser" onclick="addShelf()"><img src="/img/adduser.png"></button>
+>>>>>>> Stashed changes:public/index/index.js
         </div>
 <table>
 <thead>
@@ -628,6 +641,7 @@ function allShelfs(data) {
 </table>`;
 }
 
+<<<<<<< Updated upstream:public/Director/index.js
 function addNewShelf() {
     menubutoondisplayblock()
     ShelfList.style.display='none'
@@ -638,4 +652,14 @@ function addNewShelf() {
 function addShelflist(){
     AddShelf.style.display='none'
     ShelfList.style.display='block'
+=======
+function addShelf() {
+    menubutoondisplayblock()
+    editUserById.style.display = "none"
+    cardCategory.style.display = 'none'
+    ShowAll.style.display = 'none'
+    Search.style.display = 'none'
+    UsersList.style.display = 'none'
+    Registration.style.display = 'block'
+>>>>>>> Stashed changes:public/index/index.js
 }

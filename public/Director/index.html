@@ -17,8 +17,14 @@
     <div class="menu">
         <img class="delete" src="/img/delete.png" onclick="menubutoondisplayblock()">
         <div class="SelectionMenu" onclick="getCategory()">מוצרים</div>
+<<<<<<< Updated upstream:public/Director/index.html
         <div class="SelectionMenu" onclick="shelfObservation()">מדפים</div>
         <!-- <div class="SelectionMenu" onclick="shelfEditor()">עריכת מדפים</div> -->
+=======
+        <div class="SelectionMenu" onclick="shelfEditor()">עריכת מדפים</div>
+        <div class="SelectionMenu" onclick="shelfObservation()">רשימת מדפים</div>
+        <div class="SelectionMenu" onclick="shelfEditor()">עריכת מדפים</div>
+>>>>>>> Stashed changes:public/index/index.html
         <div class="SelectionMenu" onclick="getListUsers()">משתמשים</div>
         <!-- <div class="SelectionMenu" onclick="Addauser()">הוספת משתמש</div> -->
         <div class="SelectionMenu" onclick="Searchdisplayblock()">חיפוש</div>
@@ -60,6 +66,7 @@
         </form>
     </div>
 
+<<<<<<< Updated upstream:public/Director/index.html
     <div class="AddShelf">
         <img class="imgdelete" src="/img/delete.png" onclick="addShelfDisplayNone()">
         <img class="imglist" src="/img/list.png" onclick="addShelflist()">
@@ -80,10 +87,39 @@
                     <input type="text" name="numberOfShelfs" id="numberOfShelfs" autocomplete='off'></br>
                 </label>
             </div>
+=======
+<!-- Yehial ---------------------------------------------------------------------------------- -->
+    <div class="newShelfMenu">
+        <img class="imgdelete" src="/img/delete.png" onclick="Newshelfdisplaynone()">
+        <img class="listuser" onclick="getListUsers()" src="/img/identification.png" alt="">
+        <h1>הקמת מדף חדש</h1>
+        <form onsubmit="handleRegistration(event)">
+            <div class="rtl">
+                <label for="id_user">כמות שורות חדשות :
+                    <input type="text" name="id_user" id="id_user" autocomplete='off'></br>
+                </label>
+                <label for="name">מספר אזורים בכל שורה :
+                    <input type="text" name="name" id="name" autocomplete='off'></br>
+                </label>
+                <label for="userName">מספר מדפים בכל שורה :
+                    <input type="text" name="username" id="userName" autocomplete='off'></br>
+                </label>
+            </div>
+            <select name="role" id="role">
+                <option style="display: none;">דירוג</option>
+                <option value="public">מחסנאי</option>
+                <option value="admin">מנהל</option>
+            </select></br>
+            <div id="message"></div></br>
+>>>>>>> Stashed changes:public/index/index.html
             <input type="submit" value="הוספה">
         </form>
     </div>
 
+<<<<<<< Updated upstream:public/Director/index.html
+=======
+
+>>>>>>> Stashed changes:public/index/index.html
     <div class="cardCategory">
         <img src="/img/delete.png" onclick="cardCategorydisplaynone()">
         <div class="cardboxcatygory"></div>
