@@ -31,7 +31,7 @@ const Shelfs = mongoose.model('Shelf', {
     Area: String,
     Floor: Number,
     UPS_Shelfs: String,
-    NumberOfProductsonShelf:Number,
+    NumberOfProductsonShelf: Number,
     MaximumWeight: Number,
     CurrentWeight: Number,
     height: Number
@@ -93,27 +93,24 @@ const Products = mongoose.model('product', {
 app.get('/get-List-Users', async (req, res) => {
     const data = await Users.find()
     res.send({ data })
-
-
 })
+
 
 app.delete('/:userId', async (req, res) => {
     try {
-    let userId = req.params.userId;
-            await Users.findByIdAndDelete(userId);
-            const data = await Users.find({})
-            res.send(data)
+        let userId = req.params.userId;
+        await Users.findByIdAndDelete(userId);
+        const data = await Users.find({})
+        res.send(data)
     } catch (e) {
         console.log(e)
     }
 })
 
-
-
 // login.html
-let role = 'public'
+let role = "מחסנאי"
 let ok = false
-let token = jwt.encode({ role }, secret);
+let token
 
 app.get('/Output', async (req, res) => {
     res.cookie('validated', token, { maxAge: 0, httpOnly: true })
@@ -128,21 +125,26 @@ app.post('/send-Login-details', async (req, res) => {
 
 
         const data = await Users.find({})
-        data.forEach(elm => {
-            if (userName == elm.userName && password == elm.password) {
+        for (i = 0; i < data.length; i++) {
+            if (userName == data[i].userName && password == data[i].password) {
                 validate = true;
-                role = elm.role
+                if (data[i].role == 'מנהל') {
+                    role = 'ok'
+                } else {
+                    role = 'none'
+                }
+                break
             } else {
-                console.log(`no match ${elm.userName}`)
+                role = 'מחסנאי'
+                console.log(`no match ${data[i].userName}`)
             }
-        })
-
-
+        }
+        token = jwt.encode({ role }, secret)
 
         if (validate) {
             res.cookie('validated', token, { maxAge: 100000000, httpOnly: true })
         }
-        setTimeout(() => { res.send({ validate }) }, 1000);
+        res.send({ validate, role });
     }
     catch (e) {
         console.log(e.message)
@@ -151,16 +153,22 @@ app.post('/send-Login-details', async (req, res) => {
 
 // index.html
 app.get('/Cookie-test', (req, res) => {
-    let validated = true
+    let validated
+    let checkCookie = req.cookies.validated
 
-    const checkCookie = req.cookies.validated
-    console.log(checkCookie)
+    if (checkCookie) {
+        let decoded = jwt.decode(checkCookie, secret);
+        validated = decoded.role
 
-    if (checkCookie == undefined) {
+    } else {
         validated = false
     }
+
     res.send({ validated })
 })
+
+
+
 
 app.post('/send-User-details-sign-up', async (req, res) => {
 
@@ -200,8 +208,8 @@ app.get('/get-category', async (req, res) => {
 
 //yehial------------------------------------------------------------------
 app.get('/pull-Shelf', async (req, res) => {
-    const data = await Shelfs.find({ NumberOfProductsonShelf: { $gte: 1} })
-    res.send({data})
+    const data = await Shelfs.find({ NumberOfProductsonShelf: { $gte: 1 } })
+    res.send({ data })
 })
 
 
@@ -209,17 +217,16 @@ app.get('/pull-Shelf', async (req, res) => {
 app.post('/shelf-creation', async (req, res) => {
     console.log(req);
 
-    
+
     res.send();
 })
 
 app.put("/shelf-creation", async (req, res) => {
-    
-    // console.log(req.body.UPS_Shelfs)
-    
 
-    req.body.forEach(element => 
-        {
+    // console.log(req.body.UPS_Shelfs)
+
+
+    req.body.forEach(element => {
         const testShelf = new Shelfs(
 
             {
@@ -227,17 +234,17 @@ app.put("/shelf-creation", async (req, res) => {
                 Area: element.Area,
                 Floor: element.Floor,
                 UPS_Shelfs: element.UPS_Shelfs,
-                NumberOfProductsonShelf:1,
+                NumberOfProductsonShelf: 1,
                 MaximumWeight: 0,
                 CurrentWeight: 0,
-                height: 0 
+                height: 0
             });
 
         testShelf.save();
 
 
-  }); 
-  res.send({ok:true })
+    });
+    res.send({ ok: true })
 });
 
 
@@ -300,46 +307,49 @@ app.post('/PullInformation', async (req, res) => {
 
 app.put("/update", async (req, res) => {
     const data = await Users.find({})
-      for (i = 0; i < data.length; i++) {
-          if(req.body.id_user !==  data[i].id_user){
-      if (req.body.userName == data[i].userName) {
-              message = 'שם משתמש כבר קיים'
-              break
-          } else if (req.body.email == data[i].email) {
-              message = 'מייל זה כבר קיים במערכת'
-              break
-          } else {
-              message = 'ok'
-              break
-          }
-          }
-      }
+    for (i = 0; i < data.length; i++) {
+        if (req.body.id_user !== data[i].id_user) {
+            if (req.body.userName == data[i].userName) {
+                message = 'שם משתמש כבר קיים'
+                break
+            } else if (req.body.email == data[i].email) {
+                message = 'מייל זה כבר קיים במערכת'
+                break
+            } else {
+                message = 'ok'
+                break
+            }
+        }
+    }
 
-      if (message == 'ok') {
-  
-    var myquery = {id_user:  req.body.id_user};
-    var newvalues = { $set: {
-                           userName: req.body.userName
-                          , name:     req.body.name
-                          , password: req.body.password
-                          , email:    req.body.email
-                          , phone:    req.body.phone
-                          , role:     req.body.role} };
-       await Users.update(myquery, newvalues, function(err, res) {
-      if (err) throw err;
-      console.log("1 document updated");
-  
-    });
-      }
-      setTimeout(() => { res.send({ message }) }, 1000);
-  }); 
-         
+    if (message == 'ok') {
 
-  app.get('/get-details-users:userId', async (req, res) =>{
-     let {userId} = req.params
-     console.log(userId)
-     try {
-     const findUser = await Users.findOne({ _id : userId});
+        var myquery = { id_user: req.body.id_user };
+        var newvalues = {
+            $set: {
+                userName: req.body.userName
+                , name: req.body.name
+                , password: req.body.password
+                , email: req.body.email
+                , phone: req.body.phone
+                , role: req.body.role
+            }
+        };
+        await Users.update(myquery, newvalues, function (err, res) {
+            if (err) throw err;
+            console.log("1 document updated");
+
+        });
+    }
+    setTimeout(() => { res.send({ message }) }, 1000);
+});
+
+
+app.get('/get-details-users:userId', async (req, res) => {
+    let { userId } = req.params
+    console.log(userId)
+    try {
+        const findUser = await Users.findOne({ _id: userId });
         res.send(findUser)
 
     } catch (e) {

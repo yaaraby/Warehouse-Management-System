@@ -142,11 +142,9 @@ app["delete"]('/:userId', function _callee2(req, res) {
   }, null, null, [[0, 10]]);
 }); // login.html
 
-var role = 'public';
+var role = "מחסנאי";
 var ok = false;
-var token = jwt.encode({
-  role: role
-}, secret);
+var token;
 app.get('/Output', function _callee3(req, res) {
   return regeneratorRuntime.async(function _callee3$(_context3) {
     while (1) {
@@ -180,14 +178,42 @@ app.post('/send-Login-details', function _callee4(req, res) {
 
         case 5:
           data = _context4.sent;
-          data.forEach(function (elm) {
-            if (userName == elm.userName && password == elm.password) {
-              validate = true;
-              role = elm.role;
-            } else {
-              console.log("no match ".concat(elm.userName));
-            }
-          });
+          i = 0;
+
+        case 7:
+          if (!(i < data.length)) {
+            _context4.next = 19;
+            break;
+          }
+
+          if (!(userName == data[i].userName && password == data[i].password)) {
+            _context4.next = 14;
+            break;
+          }
+
+          validate = true;
+
+          if (data[i].role == 'מנהל') {
+            role = 'ok';
+          } else {
+            role = 'none';
+          }
+
+          return _context4.abrupt("break", 19);
+
+        case 14:
+          role = 'מחסנאי';
+          console.log("no match ".concat(data[i].userName));
+
+        case 16:
+          i++;
+          _context4.next = 7;
+          break;
+
+        case 19:
+          token = jwt.encode({
+            role: role
+          }, secret);
 
           if (validate) {
             res.cookie('validated', token, {
@@ -196,33 +222,34 @@ app.post('/send-Login-details', function _callee4(req, res) {
             });
           }
 
-          setTimeout(function () {
-            res.send({
-              validate: validate
-            });
-          }, 1000);
-          _context4.next = 14;
+          res.send({
+            validate: validate,
+            role: role
+          });
+          _context4.next = 27;
           break;
 
-        case 11:
-          _context4.prev = 11;
+        case 24:
+          _context4.prev = 24;
           _context4.t0 = _context4["catch"](0);
           console.log(_context4.t0.message);
 
-        case 14:
+        case 27:
         case "end":
           return _context4.stop();
       }
     }
-  }, null, null, [[0, 11]]);
+  }, null, null, [[0, 24]]);
 }); // index.html
 
 app.get('/Cookie-test', function (req, res) {
-  var validated = true;
+  var validated;
   var checkCookie = req.cookies.validated;
-  console.log(checkCookie);
 
-  if (checkCookie == undefined) {
+  if (checkCookie) {
+    var decoded = jwt.decode(checkCookie, secret);
+    validated = decoded.role;
+  } else {
     validated = false;
   }
 

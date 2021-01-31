@@ -27,7 +27,10 @@ function testcoocik() {
   fetch('/Cookie-test').then(function (r) {
     return r.json();
   }).then(function (data) {
-    if (data.validated !== true) {
+    if (data.validated == 'none') {// window.location.replace('/userRegular/index.html')
+    } else if (data.validated == "ok") {
+      window.location.replace('/Director/index.html');
+    } else {
       window.location.replace('/login/login.html');
     }
   });

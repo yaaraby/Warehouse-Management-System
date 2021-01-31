@@ -26,7 +26,11 @@ function testcoocik() {
     fetch('/Cookie-test')
         .then(r => r.json())
         .then(data => {
-            if (data.validated !== true) {
+            if (data.validated == 'none') {
+                // window.location.replace('/userRegular/index.html')
+            }else if (data.validated == "ok") {
+                window.location.replace('/Director/index.html')
+            } else {
                 window.location.replace('/login/login.html')
             }
         })
@@ -43,7 +47,7 @@ function functionSearch() {
 
     if (inputSearch.placeholder == 'בחר סוג חיפוש') {
         textmessage.innerHTML = 'הזן סוג חיפוש'
-    }else {
+    } else {
         const placeholder = inputSearch.placeholder
         const inputvalue = inputSearch.value
 
@@ -172,26 +176,25 @@ function PullThiscCategory(event) {
 
 
 
-function handleAddShelf(e){
+function handleAddShelf(e) {
     e.preventDefault();
-        
-    let tempTotalRowNumber=lastRow.value-firstRow.value;
-    const letters=['A','B','C','D','E','F','G','H','I','K']
-    let tempNewRows=[]
 
-    console.log(firstRow.value,lastRow.value,numberOfAreas.value,numberOfShelfs.value);
-    for(i=1;i<=tempTotalRowNumber+1;i++){
-        
-        for(j=1;j<=numberOfAreas.value;j++)
-        {
-           for(k=1;k<=numberOfShelfs.value;k++){
+    let tempTotalRowNumber = lastRow.value - firstRow.value;
+    const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K']
+    let tempNewRows = []
 
-                console.log(`${i}${letters[j-1]}${k}`)
+    console.log(firstRow.value, lastRow.value, numberOfAreas.value, numberOfShelfs.value);
+    for (i = 1; i <= tempTotalRowNumber + 1; i++) {
+
+        for (j = 1; j <= numberOfAreas.value; j++) {
+            for (k = 1; k <= numberOfShelfs.value; k++) {
+
+                console.log(`${i}${letters[j - 1]}${k}`)
                 tempNewRows.push({
                     Line: i,
-                    Area: `${letters[j-1]}`,
+                    Area: `${letters[j - 1]}`,
                     Floor: k,
-                    UPS_Shelfs: `${i}-${letters[j-1]}-${k}`,
+                    UPS_Shelfs: `${i}-${letters[j - 1]}-${k}`,
                     // NumberOfProductsonShelf:Number,
                     // MaximumWeight: Number,
                     // CurrentWeight: Number,
@@ -216,22 +219,22 @@ function handleAddShelf(e){
         .then(res => res.json())
         .then(data => {
             console.log(data.data)
-            if (data== false) {
+            if (data == false) {
                 console.log(data)
-                
+
 
             } else {
                 message.innerHTML = data.message
             }
         })
-        
-        AddShelf.style.display='none'
-    
+
+    AddShelf.style.display = 'none'
+
 }
 
-function addShelfDisplayNone(){
+function addShelfDisplayNone() {
 
-AddShelf.style.display='none'
+    AddShelf.style.display = 'none'
 }
 
 function shelfObservation() {
@@ -253,8 +256,8 @@ function shelfObservation() {
 
         })
 }
-function shelfObservationDisplayNone(){
-    ShelfList.style.display='none'
+function shelfObservationDisplayNone() {
+    ShelfList.style.display = 'none'
 
 
 }
@@ -333,12 +336,12 @@ function Searchdisplayblock() {
 
 function addNewShelf() {
     menubutoondisplayblock()
-    ShelfList.style.display='none'
-    AddShelf.style.display='block'
+    ShelfList.style.display = 'none'
+    AddShelf.style.display = 'block'
 
 }
 
-function addShelflist(){
-    AddShelf.style.display='none'
-    ShelfList.style.display='block'
+function addShelflist() {
+    AddShelf.style.display = 'none'
+    ShelfList.style.display = 'block'
 }

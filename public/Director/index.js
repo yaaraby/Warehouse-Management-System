@@ -25,7 +25,10 @@ function testcoocik() {
     fetch('/Cookie-test')
         .then(r => r.json())
         .then(data => {
-            if (data.validated !== true) {
+            if (data.validated == "ok") {
+            } else if (data.validate == 'none') {
+                window.location.replace('/userRegular/index.html')
+            }else {
                 window.location.replace('/login/login.html')
             }
         })

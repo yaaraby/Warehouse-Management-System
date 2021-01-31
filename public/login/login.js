@@ -7,8 +7,10 @@ function testcoocik() {
     fetch('/Cookie-test')
         .then(r => r.json())
         .then(data => {
-            if (data.validated == true) {
-                window.location.replace('/index/index.html')
+            if (data.validated == "ok") {
+                window.location.replace('/Director/index.html')
+            } else if (data.validate == 'none') {
+                window.location.replace('/userRegular/index.html')
             }
         })
 }
@@ -39,8 +41,10 @@ const handleLogin = (event) => {
             })
         }).then(res => res.json())
             .then(data => {
-                if (data.validate) {
-                    window.location.replace('/index/index.html')
+                if (data.validate == true && data.role == 'ok') {
+                    window.location.replace('/Director/index.html')
+                } else if (data.validate == true && data.role == 'none') {
+                    window.location.replace('/userRegular/index.html')
                 } else {
                     error.innerHTML = "פרטים שגויים נסה שנית";
                 }
