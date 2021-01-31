@@ -19,7 +19,6 @@ const UsersList = document.getElementById('UsersList');
 const ShelfList = document.getElementById('ShelfList');
 // const allShelfs = document.getElementById('allShelfs');
 
-
 testcoocik()
 function testcoocik() {
     fetch('/Cookie-test')
@@ -27,16 +26,16 @@ function testcoocik() {
         .then(data => {
             if (data.validated == "ok") {
             } else if (data.validate == 'none') {
-                window.location.replace('/userRegular/index.html')
+                location.href='/userRegular/index.html'
             }else {
-                window.location.replace('/login/login.html')
+                location.href='/login/login.html'
             }
         })
 }
 
 
 function Output() {
-    window.location.replace('/login/login.html')
+    location.href='/login/login.html'
     fetch('/Output')
 }
 
@@ -292,7 +291,7 @@ function PullThiscCategory(event) {
 
 
 function getListUsers() {
-    menu.style.right = '-100%'
+    menu.style.right = '-220px'
 
     fetch('/get-List-Users')
         .then(res =>
@@ -427,8 +426,8 @@ const editUser = (userId) => {
             </div>
             <select name="role" id="role" value=${data.role}>
                 <option style="display: none;">${data.role}</option>
-                <option value="public">מחסנאי</option>
-                <option value="admin">מנהל</option>
+                <option>מחסנאי</option>
+                <option>מנהל</option>
             </select></br>
             <div id="messag"></div></br>
             <input type="submit" value="שמור שינויים">

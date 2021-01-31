@@ -29,15 +29,15 @@ function testcoocik() {
             if (data.validated == 'none') {
                 // window.location.replace('/userRegular/index.html')
             }else if (data.validated == "ok") {
-                window.location.replace('/Director/index.html')
+                location.href='/Director/index.html'
             } else {
-                window.location.replace('/login/login.html')
+                location.href='/login/login.html'
             }
         })
 }
 
 function Output() {
-    window.location.replace('/login/login.html')
+    location.href='/login/login.html'
     fetch('/Output')
 }
 

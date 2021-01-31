@@ -8,9 +8,9 @@ function testcoocik() {
         .then(r => r.json())
         .then(data => {
             if (data.validated == "ok") {
-                window.location.replace('/Director/index.html')
+                location.href='/Director/index.html'
             } else if (data.validate == 'none') {
-                window.location.replace('/userRegular/index.html')
+                location.href='/userRegular/index.html'
             }
         })
 }
