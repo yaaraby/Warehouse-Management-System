@@ -19,7 +19,8 @@ var menu = document.querySelector(".menu");
 var menubutoon = document.querySelector(".menubutoon");
 var UsersList = document.getElementById('UsersList');
 var ShelfList = document.getElementById('ShelfList'); // const allShelfs = document.getElementById('allShelfs');
-// testcoocik()
+
+testcoocik();
 
 function testcoocik() {
   fetch('/Cookie-test').then(function (r) {

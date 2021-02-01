@@ -10,18 +10,7 @@
         rel="stylesheet">
     <link rel="shortcut icon" href="/img/store.png" type="image/x-icon">
     <link rel="stylesheet" href="dist/index.css">
-    <script>
-    fetch('/Cookie-test')
-        .then(r => r.json())
-        .then(data => {
-            if (data.validated == "ok") {
-            } else if (data.validate == 'none') {
-                location.href = '/userRegular/index.html'
-            } else {
-                location.href = '/login/login.html'
-            }
-        })
-    </script>
+
 </head>
 
 <body>

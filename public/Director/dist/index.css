@@ -11,13 +11,13 @@ body {
 }
 
 :root {
-  --background: #aa5339e5;
+  --background: #aa5339f5;
   --font-family: "Rubik", sans-serif;
   --color: white;
 }
 
 .menu {
-  background-color: #aa5339;
+  background-color: var(--background);
   width: 50%;
   height: 100%;
   max-width: 220px;

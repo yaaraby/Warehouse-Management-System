@@ -20,7 +20,8 @@ var editUserById = document.querySelector("#editUserById");
 var firstRow = document.querySelector('#firstRow');
 var lastRow = document.querySelector('#lastRow');
 var numberOfAreas = document.querySelector('#numberOfAreas');
-var numberOfShelfs = document.querySelector('#numberOfShelfs'); // testcoocik()
+var numberOfShelfs = document.querySelector('#numberOfShelfs');
+testcoocik();
 
 function testcoocik() {
   fetch('/Cookie-test').then(function (r) {

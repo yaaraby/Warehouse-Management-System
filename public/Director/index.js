@@ -19,7 +19,7 @@ const UsersList = document.getElementById('UsersList');
 const ShelfList = document.getElementById('ShelfList');
 // const allShelfs = document.getElementById('allShelfs');
 
-// testcoocik()
+testcoocik()
 function testcoocik() {
     fetch('/Cookie-test')
         .then(r => r.json())
