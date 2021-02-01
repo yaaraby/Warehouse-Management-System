@@ -127,7 +127,7 @@ function functionSearch() {
                             </thead>
                                 <tbody>
                                     ${data.data.map(elm =>
-                                            ` <tr>
+                                            ` <tr onclick="PullInformation('${elm.UPS}')">
                                             <td>${elm.UPS}</td>
                                             <td>${elm.Name}</td>
                                             <td>${elm.ExpiryDate}</td>
@@ -299,7 +299,7 @@ function PullThiscCategory(event) {
 </thead>
     <tbody>
         ${data.data.map(elm =>
-                ` <tr>
+                ` <tr onclick="PullInformation('${elm.UPS}')">
                 <td>${elm.Location}</td> 
                 <td>${elm.ExpiryDate}</td>
                 <td>${elm.Name}</td>
@@ -307,29 +307,6 @@ function PullThiscCategory(event) {
         </tr>
 `).join('')}</tbody>
 </table>`;
-
-            //     data.data.forEach(elm => {
-            //         carbox.innerHTML += `
-            //         <div class="list"><b>UPS-מקט:</b></br></br>${elm.UPS}</div>
-            //         <div class="list"><b>שם המוצר:</b></br></br>${elm.Name}</div>
-            //     <div class="list"><b>תאריך תפוגה:</b></br></br>${elm.ExpiryDate}</div> 
-            //     <div class="list"><b>מיקום:</b></br></br>${elm.Location}</div> 
-            // </div>`
-
-
-            //         ${data.map(elm =>
-            //             `<tr>
-            //         <td class="flexdeleteuser">
-            //         <a action="Edit" class="deleteuser" onclick='editUser("${elm._id}")'><img src="/img/edit-button.png"></a>
-            //         <a action="Delete" class="deleteuser" onclick='deleteUser("${elm._id}")'><img src="/img/deleteuser.png"></a>
-            //         </td>
-            //                 <td>${elm.id_user}</td>
-            //                 <td>${elm.userName}</td>
-            //                 <td>${elm.role}</td> 
-            //         </tr>
-
-            // `).join('')}
-            // })
         })
 }
 

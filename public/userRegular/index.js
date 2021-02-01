@@ -85,7 +85,7 @@ function functionSearch() {
                         </thead>
                             <tbody>
                                 ${data.data.map(elm =>
-                                        ` <tr>
+                                        ` <tr onclick="PullInformation('${elm.UPS}')">
                                         <td>${elm.UPS}</td>
                                         <td>${elm.Name}</td>
                                         <td>${elm.ExpiryDate}</td>
@@ -185,7 +185,7 @@ function PullThiscCategory(event) {
                 </thead>
                     <tbody>
                         ${data.data.map(elm =>
-                                ` <tr>
+                                ` <tr onclick="PullInformation('${elm.UPS}')">
                                 <td>${elm.Location}</td> 
                                 <td>${elm.ExpiryDate}</td>
                                 <td>${elm.Name}</td>
