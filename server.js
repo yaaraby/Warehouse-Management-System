@@ -215,17 +215,27 @@ app.get('/pull-Shelf', async (req, res) => {
 
 app.put("/shelf-creation", async (req, res) => {
 
+    // console.log(req.body);
+    // let flag = await Shelfs.findOne({ Line: 1 }).exec();
+    // // console.log(req.body)
+    // console.log(flag.Line)
 
-    console.log(req.body)
+    req.body.forEach(element => {
 
-    const data = await Shelfs.find({Line:{ $gte: req.body.Line }})
-    console.log(data)
-    if(data){
-        console.log(req.body.Line)
-    }
-    else{
-        console.log('ain')
-    }
+        console.log(element.Line)
+
+
+    })
+        
+    // const data = await Shelfs.find({Line:{ $gte: req.body.Line }})
+    // console.log(data)
+    // if(data){
+    //     console.log(req.body.Line)
+    // }
+    // else{
+    //     console.log('ain')
+    // }
+
 
   
 
@@ -234,8 +244,10 @@ app.put("/shelf-creation", async (req, res) => {
 
 
     req.body.forEach(element => {
+        console.log(req.body)
         const testShelf = new Shelfs(
             {
+               
                 Line: element.Line,
                 Area: element.Area,
                 Floor: element.Floor,
