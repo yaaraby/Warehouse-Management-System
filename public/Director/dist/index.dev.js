@@ -18,7 +18,8 @@ var cardtext = document.querySelector('.cardtext');
 var menu = document.querySelector(".menu");
 var menubutoon = document.querySelector(".menubutoon");
 var UsersList = document.getElementById('UsersList');
-var ShelfList = document.getElementById('ShelfList'); // const allShelfs = document.getElementById('allShelfs');
+var ShelfList = document.getElementById('ShelfList');
+var handleAddShelftext = document.querySelector(".handleAddShelftext"); // const allShelfs = document.getElementById('allShelfs');
 
 testcoocik();
 
@@ -401,30 +402,35 @@ function handleAddShelf(e) {
   var lastRow = document.querySelector('#lastRow');
   var numberOfAreas = document.querySelector('#numberOfAreas');
   var numberOfShelfs = document.querySelector('#numberOfShelfs');
+  var maxWight = document.querySelector('#maxWight');
   var tempTotalRowNumber = lastRow.value - firstRow.value;
-  var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K'];
-  var tempNewRows = [];
-  console.log(firstRow.value, lastRow.value, numberOfAreas.value, numberOfShelfs.value);
+  var tempFirstRow = firstRow.value;
+  var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'O'];
+  var tempNewRows = []; // console.log(firstRow.value, lastRow.value, numberOfAreas.value, numberOfShelfs.value,maxWight.value);
 
   for (i = 1; i <= tempTotalRowNumber + 1; i++) {
     for (j = 1; j <= numberOfAreas.value; j++) {
       for (k = 1; k <= numberOfShelfs.value; k++) {
         console.log("".concat(i).concat(letters[j - 1]).concat(k));
         tempNewRows.push({
-          Line: i,
+          Line: tempFirstRow,
           Area: "".concat(letters[j - 1]),
           Floor: k,
-          UPS_Shelfs: "".concat(i, "-").concat(letters[j - 1], "-").concat(k) // NumberOfProductsonShelf:Number,
-          // MaximumWeight: Number,
-          // CurrentWeight: Number,
+          UPS_Shelfs: "".concat(tempFirstRow, "-").concat(letters[j - 1], "-").concat(k),
+          // NumberOfProductsonShelf:Number,
+          MaximumWeight: maxWight.value // CurrentWeight: Number,
           // height: Number
 
-        }); // Object.assign(tempNewRows, {row:`${i}${letters[j-1]}${k}`});
+        });
       }
     }
+
+    tempFirstRow++;
   }
 
+  console.log(tempNewRows);
   console.log(JSON.stringify(tempNewRows));
+  handleAddShelftext.innerHTML = '';
   fetch("/shelf-creation", {
     method: 'PUT',
     headers: {
@@ -434,7 +440,11 @@ function handleAddShelf(e) {
   }).then(function (res) {
     return res.json();
   }).then(function (data) {
-    shelfObservation();
+    if (data) {
+      shelfObservation();
+    } else {
+      handleAddShelftext.innerHTML = data.message;
+    }
   });
 }
 
@@ -476,7 +486,7 @@ function allShelfs(data) {
   });
   console.log(data);
   document.getElementById('ShelfList').innerHTML = "<img src=\"/img/delete.png\" class=\"displaynone\" onclick=\"shelfObservationDisplayNone()\">\n        <div class=\"col-sm-4\">\n        <button class=\"addNewShelf\" onclick=\"addNewShelf()\"><img src=\"/img/+.png\"></button>\n        </div>\n<table>\n<thead>\n    <tr>\n        <th></th>\n        <th>\u05DE\u05E1\u05E4\u05E8 \u05DE\u05D3\u05E3</th>\n        <th>\u05DB\u05DE\u05D5\u05EA \u05DE\u05D5\u05E6\u05E8\u05D9\u05DD</th>\n        <th>\u05DE\u05E9\u05E7\u05DC \u05DE\u05D3\u05E3</th>\n        <th>\u05DE\u05E9\u05E7\u05DC \u05DE\u05E7\u05E1\u05D9\u05DE\u05DC\u05D9</th>\n    </tr>\n</thead>\n    <tbody>\n    \n        ".concat(data.map(function (elm) {
-    return "<tr>\n        <td class=\"flexdeleteuser\">\n        <a action=\"Edit\" class=\"editshelf\" style=\"margin: 5px 15px;cursor: pointer;\" onclick='editShelf(\"".concat(elm._id, "\")'><img src=\"/img/edit-button.png\"></a>\n        <a action=\"Delete\" class=\"deleteShelf\"  style=\"margin: 5px 15px;cursor: pointer;\" onclick='deleteShelf(\"").concat(elm._id, "\")'><img src=\"/img/deleteuser.png\"></a>\n        </td>\n                <td style=\"direction: initial;\">").concat(elm.UPS_Shelfs, "</td>\n                <td>").concat(elm.NumberOfProductsonShelf, "</td>\n                <td>").concat(elm.MaximumWeight, "</td> \n                <td>").concat(elm.CurrentWeight, "</td> \n                \n        </tr>\n\n");
+    return "<tr>\n        <td class=\"flexdeleteuser\">\n        <a action=\"Edit\" class=\"editshelf\" style=\"margin: 5px 15px;cursor: pointer;\" onclick='editShelf(\"".concat(elm._id, "\")'><img src=\"/img/edit-button.png\"></a>\n        <a action=\"Delete\" class=\"deleteShelf\"  style=\"margin: 5px 15px;cursor: pointer;\" onclick='deleteShelf(\"").concat(elm._id, "\")'><img src=\"/img/deleteuser.png\"></a>\n        </td>\n                <td style=\"direction: initial;\">").concat(elm.UPS_Shelfs, "</td>\n                <td>").concat(elm.NumberOfProductsonShelf, "</td>\n                <td>").concat(elm.CurrentWeight, "</td> \n                <td>").concat(elm.MaximumWeight, "</td> \n                \n        </tr>\n\n");
   }).join(''), "\n</table>");
 }
 

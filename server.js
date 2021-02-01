@@ -215,6 +215,7 @@ app.get('/pull-Shelf', async (req, res) => {
 
 app.put("/shelf-creation", async (req, res) => {
 
+    let message =""
     // console.log(req.body);
     // let flag = await Shelfs.findOne({ Line: 1 }).exec();
     // // console.log(req.body)
@@ -242,16 +243,12 @@ app.put("/shelf-creation", async (req, res) => {
                 testShelf.save();
         
             });
-            res.send({ ok: true })
-
-
+            res.send(true)
         }
         else{
-            console.log('noono no no no  can do')
+            message ='שורה זאת כבר קיימת'
+            res.send({message})
         }
-
-
-
     })
         
     // const data = await Shelfs.find({Line:{ $gte: req.body.Line }})

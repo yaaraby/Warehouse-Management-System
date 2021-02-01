@@ -17,6 +17,8 @@ const menu = document.querySelector(".menu")
 const menubutoon = document.querySelector(".menubutoon")
 const UsersList = document.getElementById('UsersList');
 const ShelfList = document.getElementById('ShelfList');
+const handleAddShelftext= document.querySelector(".handleAddShelftext")
+
 // const allShelfs = document.getElementById('allShelfs');
 
 testcoocik()
@@ -522,7 +524,6 @@ function handleEditUser(e) {
 
 
 
-
 //Yehial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 function handleAddShelf(e) {
     e.preventDefault();
@@ -557,16 +558,14 @@ function handleAddShelf(e) {
                     // CurrentWeight: Number,
                     // height: Number
                 })
-
-                
             }
-
         }
         tempFirstRow++
     }
 
     console.log(tempNewRows)
     console.log(JSON.stringify(tempNewRows))
+    handleAddShelftext.innerHTML =''
 
     fetch("/shelf-creation", {
         method: 'PUT',
@@ -577,17 +576,15 @@ function handleAddShelf(e) {
     })
         .then(res => res.json())
         .then(data => {
+            if (data){
             shelfObservation()
+        }else{
+            handleAddShelftext.innerHTML =data.message
+        }
         })
-
-
-
-
-
-
-
-
 }
+
+
 
 function addShelfDisplayNone() {
     AddShelf.style.display = 'none'
@@ -624,6 +621,8 @@ function shelfObservationDisplayNone() {
 function allShelfs(data) {
     menubutoondisplayblock()
     data.sort((a, b) => { if (a.Line < b.Line) return -1;})
+    data.sort((a, b) => { if (a.Area < b.Area) return -1;})
+    console.log(data) 
 
     document.getElementById('ShelfList').innerHTML =
         `<img src="/img/delete.png" class="displaynone" onclick="shelfObservationDisplayNone()">
