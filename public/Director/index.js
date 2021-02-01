@@ -25,7 +25,7 @@ function testcoocik() {
         .then(r => r.json())
         .then(data => {
             if (data.validated == "ok") {
-                document.body.style.display="block"
+                document.body.style.display = "block"
             } else if (data.validate == 'none') {
                 location.href = '/userRegular/index.html'
             } else {
@@ -117,7 +117,7 @@ function functionSearch() {
                     }
                     if (data.data) {
                         textmessage.innerHTML = placeholder
-                            Searchtml.innerHTML += `<table>
+                        Searchtml.innerHTML += `<table>
                             <thead>
                                 <tr>
                                     <th>מקט - UPS </th>
@@ -128,7 +128,7 @@ function functionSearch() {
                             </thead>
                                 <tbody>
                                     ${data.data.map(elm =>
-                                            ` <tr onclick="PullInformation('${elm.UPS}')">
+                            ` <tr onclick="PullInformation('${elm.UPS}')">
                                             <td>${elm.UPS}</td>
                                             <td>${elm.Name}</td>
                                             <td>${elm.ExpiryDate}</td>
@@ -561,21 +561,12 @@ function handleAddShelf(e) {
     })
         .then(res => res.json())
         .then(data => {
-            console.log(data.data)
             shelfObservation()
-
-            if (data == false) {
-                console.log(data)
-
-
-            } else {
-                message.innerHTML = data.message
-            }
         })
 
 
 
-    
+
 
 
 
@@ -616,6 +607,7 @@ function shelfObservationDisplayNone() {
 
 function allShelfs(data) {
     menubutoondisplayblock()
+    data.sort((a, b) => { if (a.Line < b.Line) return -1; })
     document.getElementById('ShelfList').innerHTML =
         `<img src="/img/delete.png" class="displaynone" onclick="shelfObservationDisplayNone()">
         <div class="col-sm-4">
