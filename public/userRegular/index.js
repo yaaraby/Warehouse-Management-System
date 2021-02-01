@@ -74,14 +74,25 @@ function functionSearch() {
                     }
                     if (data.data) {
                         textmessage.innerHTML = placeholder
-                        data.data.forEach(elm => {
-                            Searchtml.innerHTML += `<div class="cardlist" onclick="PullInformation('${elm.UPS}')">
-                    <div class="list"><b>UPS-מקט:</b></br></br>${elm.UPS}</div>
-                    <div class="list"><b>שם המוצר:</b></br></br>${elm.Name}</div>
-                    <div class="list"><b>תאריך תפוגה:</b></br></br>${elm.ExpiryDate}</div>
-                    <div class="list"><b>מיקום:</b></br></br>${elm.Location}</div>
-                </div>`
-                        })
+                        Searchtml.innerHTML += `<table>
+                        <thead>
+                            <tr>
+                                <th>מקט - UPS </th>
+                                <th>שם המוצר</th>
+                                <th>תאריך תפוגה</th>
+                                  <th>מיקום</th>
+                            </tr>
+                        </thead>
+                            <tbody>
+                                ${data.data.map(elm =>
+                                        ` <tr>
+                                        <td>${elm.UPS}</td>
+                                        <td>${elm.Name}</td>
+                                        <td>${elm.ExpiryDate}</td>
+                                        <td>${elm.Location}</td> 
+                                </tr>
+                        `).join('')}</tbody>
+                        </table>`;
                     }
                 })
         }
@@ -163,15 +174,26 @@ function PullThiscCategory(event) {
             ShowAll.style.display = 'block'
             console.log(data)
             titlecategory.innerHTML = eventCategory
-            data.data.forEach(elm => {
-                carbox.innerHTML += `<div class="cardlist" onclick="PullInformation('${elm.UPS}')">
-                <div class="list"><b>UPS-מקט:</b></br></br>${elm.UPS}</div>
-                <div class="list"><b>שם המוצר:</b></br></br>${elm.Name}</div>
-            <div class="list"><b>תאריך תפוגה:</b></br></br>${elm.ExpiryDate}</div> 
-            <div class="list"><b>מיקום:</b></br></br>${elm.Location}</div> 
-        </div>`
+                carbox.innerHTML += `<table>
+                <thead>
+                    <tr>
+                        <th>מיקום</th>
+                        <th>תאריך תפוגה</th>
+                        <th>שם המוצר</th>
+                        <th>מקט - UPS </th>
+                    </tr>
+                </thead>
+                    <tbody>
+                        ${data.data.map(elm =>
+                                ` <tr>
+                                <td>${elm.Location}</td> 
+                                <td>${elm.ExpiryDate}</td>
+                                <td>${elm.Name}</td>
+                                <td>${elm.UPS}</td>
+                        </tr>
+                `).join('')}</tbody>
+                </table>`;
             })
-        })
 }
 
 

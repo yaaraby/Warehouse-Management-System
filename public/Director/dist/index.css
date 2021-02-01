@@ -308,7 +308,6 @@ body {
   font-family: "Rubik", sans-serif;
   border-radius: 10px;
   box-shadow: 2px 2px 15px 10px rgba(128, 128, 128, 0.445);
-  direction: rtl;
   position: relative;
   min-height: 750px;
   width: 90%;
@@ -331,24 +330,32 @@ body {
   cursor: pointer;
   z-index: 1;
 }
-.ShowAll .cardlist {
-  display: flex;
-  justify-content: space-between;
-  height: 120px;
-  align-items: center;
-  border: 5px solid gainsboro;
-  border-radius: 10px;
-  background-color: gainsboro;
-  margin-top: 20px;
-  cursor: pointer;
-}
-.ShowAll .cardlist .list {
-  min-width: 120px;
-}
-.ShowAll .cardlist img {
-  border-radius: 10px;
+.ShowAll table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
   width: 100%;
-  height: 100%;
+  box-sizing: border-box;
+  table-layout: fixed;
+  background-color: rgba(255, 255, 255, 0.425);
+}
+.ShowAll thead {
+  background-color: rgba(0, 0, 0, 0.801);
+  color: white;
+}
+.ShowAll td,
+.ShowAll th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 12px 0px 9px 0px;
+  table-layout: fixed;
+  word-wrap: break-word;
+}
+.ShowAll td img,
+.ShowAll th img {
+  width: 20px;
+}
+.ShowAll tr:nth-child(even) {
+  background-color: rgba(128, 128, 128, 0.486);
 }
 
 .Bottom {
@@ -440,20 +447,32 @@ body {
 .Search .Searchinput .textmessage img {
   width: 30px;
 }
-.Search .Searchtml .cardlist {
-  display: flex;
-  justify-content: space-between;
-  height: 120px;
-  align-items: center;
-  padding: 5px;
-  border-radius: 10px;
-  background-color: #ccc0ba;
-  margin-top: 20px;
-  margin: 10px 10px 0px 10px;
-  cursor: pointer;
+.Search .Searchtml table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  box-sizing: border-box;
+  table-layout: fixed;
+  background-color: rgba(255, 255, 255, 0.425);
 }
-.Search .Searchtml .cardlist .list {
-  min-width: 120px;
+.Search .Searchtml thead {
+  background-color: rgba(0, 0, 0, 0.801);
+  color: white;
+}
+.Search .Searchtml td,
+.Search .Searchtml th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 12px 0px 9px 0px;
+  table-layout: fixed;
+  word-wrap: break-word;
+}
+.Search .Searchtml td img,
+.Search .Searchtml th img {
+  width: 20px;
+}
+.Search .Searchtml tr:nth-child(even) {
+  background-color: rgba(128, 128, 128, 0.486);
 }
 .Search #Searchselect {
   position: absolute;

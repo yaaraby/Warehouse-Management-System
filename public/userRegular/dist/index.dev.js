@@ -72,9 +72,9 @@ function functionSearch() {
 
         if (data.data) {
           textmessage.innerHTML = placeholder;
-          data.data.forEach(function (elm) {
-            Searchtml.innerHTML += "<div class=\"cardlist\" onclick=\"PullInformation('".concat(elm.UPS, "')\">\n                    <div class=\"list\"><b>UPS-\u05DE\u05E7\u05D8:</b></br></br>").concat(elm.UPS, "</div>\n                    <div class=\"list\"><b>\u05E9\u05DD \u05D4\u05DE\u05D5\u05E6\u05E8:</b></br></br>").concat(elm.Name, "</div>\n                    <div class=\"list\"><b>\u05EA\u05D0\u05E8\u05D9\u05DA \u05EA\u05E4\u05D5\u05D2\u05D4:</b></br></br>").concat(elm.ExpiryDate, "</div>\n                    <div class=\"list\"><b>\u05DE\u05D9\u05E7\u05D5\u05DD:</b></br></br>").concat(elm.Location, "</div>\n                </div>");
-          });
+          Searchtml.innerHTML += "<table>\n                        <thead>\n                            <tr>\n                                <th>\u05DE\u05E7\u05D8 - UPS </th>\n                                <th>\u05E9\u05DD \u05D4\u05DE\u05D5\u05E6\u05E8</th>\n                                <th>\u05EA\u05D0\u05E8\u05D9\u05DA \u05EA\u05E4\u05D5\u05D2\u05D4</th>\n                                  <th>\u05DE\u05D9\u05E7\u05D5\u05DD</th>\n                            </tr>\n                        </thead>\n                            <tbody>\n                                ".concat(data.data.map(function (elm) {
+            return " <tr>\n                                        <td>".concat(elm.UPS, "</td>\n                                        <td>").concat(elm.Name, "</td>\n                                        <td>").concat(elm.ExpiryDate, "</td>\n                                        <td>").concat(elm.Location, "</td> \n                                </tr>\n                        ");
+          }).join(''), "</tbody>\n                        </table>");
         }
       });
     }
@@ -146,9 +146,9 @@ function PullThiscCategory(event) {
     ShowAll.style.display = 'block';
     console.log(data);
     titlecategory.innerHTML = eventCategory;
-    data.data.forEach(function (elm) {
-      carbox.innerHTML += "<div class=\"cardlist\" onclick=\"PullInformation('".concat(elm.UPS, "')\">\n                <div class=\"list\"><b>UPS-\u05DE\u05E7\u05D8:</b></br></br>").concat(elm.UPS, "</div>\n                <div class=\"list\"><b>\u05E9\u05DD \u05D4\u05DE\u05D5\u05E6\u05E8:</b></br></br>").concat(elm.Name, "</div>\n            <div class=\"list\"><b>\u05EA\u05D0\u05E8\u05D9\u05DA \u05EA\u05E4\u05D5\u05D2\u05D4:</b></br></br>").concat(elm.ExpiryDate, "</div> \n            <div class=\"list\"><b>\u05DE\u05D9\u05E7\u05D5\u05DD:</b></br></br>").concat(elm.Location, "</div> \n        </div>");
-    });
+    carbox.innerHTML += "<table>\n                <thead>\n                    <tr>\n                        <th>\u05DE\u05D9\u05E7\u05D5\u05DD</th>\n                        <th>\u05EA\u05D0\u05E8\u05D9\u05DA \u05EA\u05E4\u05D5\u05D2\u05D4</th>\n                        <th>\u05E9\u05DD \u05D4\u05DE\u05D5\u05E6\u05E8</th>\n                        <th>\u05DE\u05E7\u05D8 - UPS </th>\n                    </tr>\n                </thead>\n                    <tbody>\n                        ".concat(data.data.map(function (elm) {
+      return " <tr>\n                                <td>".concat(elm.Location, "</td> \n                                <td>").concat(elm.ExpiryDate, "</td>\n                                <td>").concat(elm.Name, "</td>\n                                <td>").concat(elm.UPS, "</td>\n                        </tr>\n                ");
+    }).join(''), "</tbody>\n                </table>");
   });
 }
 

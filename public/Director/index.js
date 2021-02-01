@@ -26,16 +26,16 @@ function testcoocik() {
         .then(data => {
             if (data.validated == "ok") {
             } else if (data.validate == 'none') {
-                location.href='/userRegular/index.html'
-            }else {
-                location.href='/login/login.html'
+                location.href = '/userRegular/index.html'
+            } else {
+                location.href = '/login/login.html'
             }
         })
 }
 
 
 function Output() {
-    location.href='/login/login.html'
+    location.href = '/login/login.html'
     fetch('/Output')
 }
 
@@ -116,14 +116,25 @@ function functionSearch() {
                     }
                     if (data.data) {
                         textmessage.innerHTML = placeholder
-                        data.data.forEach(elm => {
-                            Searchtml.innerHTML += `<div class="cardlist" onclick="PullInformation('${elm.UPS}')">
-                    <div class="list"><b>UPS-מקט:</b></br></br>${elm.UPS}</div>
-                    <div class="list"><b>שם המוצר:</b></br></br>${elm.Name}</div>
-                    <div class="list"><b>תאריך תפוגה:</b></br></br>${elm.ExpiryDate}</div>
-                    <div class="list"><b>מיקום:</b></br></br>${elm.Location}</div>
-                </div>`
-                        })
+                            Searchtml.innerHTML += `<table>
+                            <thead>
+                                <tr>
+                                    <th>מקט - UPS </th>
+                                    <th>שם המוצר</th>
+                                    <th>תאריך תפוגה</th>
+                                      <th>מיקום</th>
+                                </tr>
+                            </thead>
+                                <tbody>
+                                    ${data.data.map(elm =>
+                                            ` <tr>
+                                            <td>${elm.UPS}</td>
+                                            <td>${elm.Name}</td>
+                                            <td>${elm.ExpiryDate}</td>
+                                            <td>${elm.Location}</td> 
+                                    </tr>
+                            `).join('')}</tbody>
+                            </table>`;
                     }
                 })
         }
@@ -277,14 +288,48 @@ function PullThiscCategory(event) {
             ShowAll.style.display = 'block'
             console.log(data)
             titlecategory.innerHTML = eventCategory
-            data.data.forEach(elm => {
-                carbox.innerHTML += `<div class="cardlist" onclick="PullInformation('${elm.UPS}')">
-                <div class="list"><b>UPS-מקט:</b></br></br>${elm.UPS}</div>
-                <div class="list"><b>שם המוצר:</b></br></br>${elm.Name}</div>
-            <div class="list"><b>תאריך תפוגה:</b></br></br>${elm.ExpiryDate}</div> 
-            <div class="list"><b>מיקום:</b></br></br>${elm.Location}</div> 
-        </div>`
-            })
+            carbox.innerHTML += `<table>
+<thead>
+    <tr>
+        <th>מיקום</th>
+        <th>תאריך תפוגה</th>
+        <th>שם המוצר</th>
+        <th>מקט - UPS </th>
+    </tr>
+</thead>
+    <tbody>
+        ${data.data.map(elm =>
+                ` <tr>
+                <td>${elm.Location}</td> 
+                <td>${elm.ExpiryDate}</td>
+                <td>${elm.Name}</td>
+                <td>${elm.UPS}</td>
+        </tr>
+`).join('')}</tbody>
+</table>`;
+
+            //     data.data.forEach(elm => {
+            //         carbox.innerHTML += `
+            //         <div class="list"><b>UPS-מקט:</b></br></br>${elm.UPS}</div>
+            //         <div class="list"><b>שם המוצר:</b></br></br>${elm.Name}</div>
+            //     <div class="list"><b>תאריך תפוגה:</b></br></br>${elm.ExpiryDate}</div> 
+            //     <div class="list"><b>מיקום:</b></br></br>${elm.Location}</div> 
+            // </div>`
+
+
+            //         ${data.map(elm =>
+            //             `<tr>
+            //         <td class="flexdeleteuser">
+            //         <a action="Edit" class="deleteuser" onclick='editUser("${elm._id}")'><img src="/img/edit-button.png"></a>
+            //         <a action="Delete" class="deleteuser" onclick='deleteUser("${elm._id}")'><img src="/img/deleteuser.png"></a>
+            //         </td>
+            //                 <td>${elm.id_user}</td>
+            //                 <td>${elm.userName}</td>
+            //                 <td>${elm.role}</td> 
+            //         </tr>
+
+            // `).join('')}
+            // })
         })
 }
 
@@ -490,33 +535,32 @@ function handleEditUser(e) {
 
 
 //Yehial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-function handleAddShelf(e){
+function handleAddShelf(e) {
     e.preventDefault();
-    
+
     const firstRow = document.querySelector('#firstRow')
     const lastRow = document.querySelector('#lastRow')
     const numberOfAreas = document.querySelector('#numberOfAreas')
     const numberOfShelfs = document.querySelector('#numberOfShelfs')
 
-    
-    
-    let tempTotalRowNumber=lastRow.value-firstRow.value;
-    const letters=['A','B','C','D','E','F','G','H','I','K']
-    let tempNewRows=[]
 
-    console.log(firstRow.value,lastRow.value,numberOfAreas.value,numberOfShelfs.value);
-    for(i=1;i<=tempTotalRowNumber+1;i++){
-        
-        for(j=1;j<=numberOfAreas.value;j++)
-        {
-           for(k=1;k<=numberOfShelfs.value;k++){
 
-                console.log(`${i}${letters[j-1]}${k}`)
+    let tempTotalRowNumber = lastRow.value - firstRow.value;
+    const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K']
+    let tempNewRows = []
+
+    console.log(firstRow.value, lastRow.value, numberOfAreas.value, numberOfShelfs.value);
+    for (i = 1; i <= tempTotalRowNumber + 1; i++) {
+
+        for (j = 1; j <= numberOfAreas.value; j++) {
+            for (k = 1; k <= numberOfShelfs.value; k++) {
+
+                console.log(`${i}${letters[j - 1]}${k}`)
                 tempNewRows.push({
                     Line: i,
-                    Area: `${letters[j-1]}`,
+                    Area: `${letters[j - 1]}`,
                     Floor: k,
-                    UPS_Shelfs: `${i}-${letters[j-1]}-${k}`,
+                    UPS_Shelfs: `${i}-${letters[j - 1]}-${k}`,
                     // NumberOfProductsonShelf:Number,
                     // MaximumWeight: Number,
                     // CurrentWeight: Number,
@@ -541,27 +585,27 @@ function handleAddShelf(e){
         .then(res => res.json())
         .then(data => {
             console.log(data.data)
-            if (data== false) {
+            if (data == false) {
                 console.log(data)
-                
+
 
             } else {
                 message.innerHTML = data.message
             }
         })
 
-        
-        
-        AddShelf.style.display='none'
-        
 
-        
-    
+
+    AddShelf.style.display = 'none'
+
+
+
+
 }
 
-function addShelfDisplayNone(){
+function addShelfDisplayNone() {
 
-AddShelf.style.display='none'
+    AddShelf.style.display = 'none'
 }
 
 function shelfObservation() {
@@ -586,8 +630,8 @@ function shelfObservation() {
 
         })
 }
-function shelfObservationDisplayNone(){
-    ShelfList.style.display='none'
+function shelfObservationDisplayNone() {
+    ShelfList.style.display = 'none'
 
 
 }
@@ -630,12 +674,13 @@ function allShelfs(data) {
 
 function addNewShelf() {
     menubutoondisplayblock()
-    ShelfList.style.display='none'
-    AddShelf.style.display='block'
+    ShelfList.style.display = 'none'
+    AddShelf.style.display = 'block'
 
 }
 
-function addShelflist(){
-    AddShelf.style.display='none'
-    ShelfList.style.display='block'
+function addShelflist() {
+    AddShelf.style.display = 'none'
+    ShelfList.style.display = 'block'
 }
+
