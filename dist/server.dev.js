@@ -217,7 +217,7 @@ app.post('/send-Login-details', function _callee4(req, res) {
 
           if (validate) {
             res.cookie('validated', token, {
-              maxAge: 100000000,
+              maxAge: 10086400,
               httpOnly: true
             });
           }

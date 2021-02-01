@@ -95,13 +95,17 @@ function PullInformation(e) {
   }).then(function (data) {
     outcome.style.display = 'flex';
     console.log(data);
-    cardtext.innerHTML = "<div class=\"text\"><b>\u05E9\u05DD \u05DE\u05D5\u05E6\u05E8:</b>".concat(data.data[0].Name, "</div>\n            <div class=\"text\"><b>\u05EA\u05D0\u05E8\u05D9\u05DA \u05EA\u05E4\u05D5\u05D2\u05D4:</b>").concat(data.data[0].ExpiryDate, "</div>\n            <div class=\"text\"><b>\u05E7\u05D8\u05D2\u05D5\u05E8\u05D9\u05D4:</b>").concat(data.data[0].Category, "</div>\n            <div class=\"text\"><b>UPS-\u05DE\u05E7\u05D8:</b>").concat(data.data[0].UPS, "</div>\n            <div class=\"text\"><b>\u05DE\u05E9\u05E7\u05DC:</b>").concat(data.data[0].Weight, "</div>\n            <div class=\"text\"><b>\u05DE\u05D7\u05D9\u05E8:</b>").concat(data.data[0].price, "</div>\n            <div class=\"text\"><b>\u05DE\u05D9\u05E7\u05D5\u05DD:</b>").concat(data.data[0].Location, "</div>");
+    cardtext.innerHTML = "<div class=\"text\"><b>\u05E9\u05DD \u05DE\u05D5\u05E6\u05E8:</b>".concat(data.data[0].Name, "</div>\n            <div class=\"text\"><b>\u05EA\u05D0\u05E8\u05D9\u05DA \u05EA\u05E4\u05D5\u05D2\u05D4:</b>").concat(data.data[0].ExpiryDate, "</div>\n            <div class=\"text\"><b>\u05E7\u05D8\u05D2\u05D5\u05E8\u05D9\u05D4:</b>").concat(data.data[0].Category, "</div>\n            <div class=\"text\"><b>UPS-\u05DE\u05E7\u05D8:</b>").concat(data.data[0].UPS, "</div>\n            <div class=\"text\"><b>\u05DE\u05E9\u05E7\u05DC:</b>").concat(data.data[0].Weight, "</div>\n            <div class=\"text\"><b>\u05DE\u05D7\u05D9\u05E8:</b>").concat(data.data[0].price, "</div>\n            <div class=\"text\" style=\"direction:revert;\"><b>\u05DE\u05D9\u05E7\u05D5\u05DD:</b>").concat(data.data[0].Location, "</div>");
   });
 }
 
 function valueselect(event) {
   inputSearch.placeholder = event.target.value;
   textmessage.innerHTML = inputSearch.placeholder;
+}
+
+function deleteoutcome() {
+  outcome.style.display = 'none';
 }
 
 function getCategory() {

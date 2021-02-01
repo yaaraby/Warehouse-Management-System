@@ -517,6 +517,7 @@ body {
 }
 .outcome .card .cardtext {
   direction: rtl;
+  text-align: right;
 }
 .outcome .card .cardtext .text {
   padding: 20px 0;

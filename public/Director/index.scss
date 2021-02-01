@@ -586,22 +586,9 @@ body {
         box-sizing: border-box;
         z-index: 100000000;
 
-
-        // .deletecard {
-        //     width: 30px;
-        //     position: absolute;
-        //     top: -15px;
-        //     right: -15px;
-        //     background-color: var(--background);
-        //     padding: 10px;
-        //     border-radius: 20px;
-        //     cursor: pointer;
-        //     z-index: 1;
-
-        // }
-
         .cardtext {
-            direction: rtl;
+            direction:rtl;
+            text-align: right;
 
 
             .text {

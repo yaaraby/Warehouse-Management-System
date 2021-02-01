@@ -308,7 +308,6 @@ body {
   font-family: "Rubik", sans-serif;
   border-radius: 10px;
   box-shadow: 2px 2px 15px 10px rgba(128, 128, 128, 0.445);
-  direction: rtl;
   position: relative;
   min-height: 750px;
   width: 90%;
@@ -518,6 +517,7 @@ body {
 }
 .outcome .card .cardtext {
   direction: rtl;
+  text-align: right;
 }
 .outcome .card .cardtext .text {
   padding: 20px 0;

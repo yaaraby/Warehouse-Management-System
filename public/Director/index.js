@@ -161,7 +161,7 @@ function PullInformation(e) {
             <div class="text"><b>UPS-מקט:</b>${data.data[0].UPS}</div>
             <div class="text"><b>משקל:</b>${data.data[0].Weight}</div>
             <div class="text"><b>מחיר:</b>${data.data[0].price}</div>
-            <div class="text"><b>מיקום:</b>${data.data[0].Location}</div>`
+            <div class="text" style="direction:revert;"><b>מיקום:</b>${data.data[0].Location}</div>`
         })
 }
 

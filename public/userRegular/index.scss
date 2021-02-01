@@ -26,6 +26,7 @@ body {
     right: -220px;
     z-index: 2;
     white-space: nowrap;
+    // display: none;
     transition: all 0.3s;
 
     img {
@@ -346,7 +347,6 @@ body {
     font-family: 'Rubik', sans-serif;
     border-radius: 10px;
     box-shadow: 2px 2px 15px 10px rgba(128, 128, 128, 0.445);
-    direction: rtl;
     position: relative;
     min-height: 750px;
     width: 90%;
@@ -401,6 +401,7 @@ body {
     tr:nth-child(even) {
         background-color: rgba(128, 128, 128, 0.486);
     }
+
 }
 
 .Bottom {
@@ -528,7 +529,7 @@ body {
             padding: 12px 0px 9px 0px;
             table-layout: fixed;
             word-wrap: break-word;
-           
+
     
             img {
                 width: 20px;
@@ -585,22 +586,9 @@ body {
         box-sizing: border-box;
         z-index: 100000000;
 
-
-        // .deletecard {
-        //     width: 30px;
-        //     position: absolute;
-        //     top: -15px;
-        //     right: -15px;
-        //     background-color: var(--background);
-        //     padding: 10px;
-        //     border-radius: 20px;
-        //     cursor: pointer;
-        //     z-index: 1;
-
-        // }
-
         .cardtext {
-            direction: rtl;
+            direction:rtl;
+            text-align: right;
 
 
             .text {

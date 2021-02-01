@@ -142,7 +142,7 @@ app.post('/send-Login-details', async (req, res) => {
         token = jwt.encode({ role }, secret)
 
         if (validate) {
-            res.cookie('validated', token, { maxAge: 100000000, httpOnly: true })
+            res.cookie('validated', token, { maxAge: 10086400, httpOnly: true })
         }
         res.send({ validate, role });
     }
