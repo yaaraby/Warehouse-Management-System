@@ -215,6 +215,24 @@ app.get('/pull-Shelf', async (req, res) => {
 
 app.put("/shelf-creation", async (req, res) => {
 
+
+    console.log(req.body)
+
+    const data = await Shelfs.find({Line:{ $gte: req.body.Line }})
+    console.log(data)
+    if(data){
+        console.log(req.body.Line)
+    }
+    else{
+        console.log('ain')
+    }
+
+  
+
+
+
+
+
     req.body.forEach(element => {
         const testShelf = new Shelfs(
             {
@@ -223,7 +241,7 @@ app.put("/shelf-creation", async (req, res) => {
                 Floor: element.Floor,
                 UPS_Shelfs: element.UPS_Shelfs,
                 NumberOfProductsonShelf: 1,
-                MaximumWeight: 0,
+                MaximumWeight: element.MaximumWeight,
                 CurrentWeight: 0,
                 height: 0
             });

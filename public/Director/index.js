@@ -120,6 +120,7 @@ function functionSearch() {
                         Searchtml.innerHTML += `<table>
                             <thead>
                                 <tr>
+                                <th></th>
                                     <th>מקט - UPS </th>
                                     <th>שם המוצר</th>
                                     <th>תאריך תפוגה</th>
@@ -129,6 +130,11 @@ function functionSearch() {
                                 <tbody>
                                     ${data.data.map(elm =>
                             ` <tr onclick="PullInformation('${elm.UPS}')">
+                            <td class="flexdeleteuser">
+                            <a action="Edit" class="editshelf" style="margin: 5px 15px;cursor: pointer;" onclick='editShelf("${elm._id}")'><img src="/img/edit-button.png"></a>
+                            <a action="Delete" class="deleteShelf"  style="margin: 5px 15px;cursor: pointer;" onclick='deleteShelf("${elm._id}")'><img src="/img/deleteuser.png"></a>
+                            </td>
+                    
                                             <td>${elm.UPS}</td>
                                             <td>${elm.Name}</td>
                                             <td>${elm.ExpiryDate}</td>
@@ -296,15 +302,20 @@ function PullThiscCategory(event) {
         <th>תאריך תפוגה</th>
         <th>שם המוצר</th>
         <th>מקט - UPS </th>
+        <th></th>
     </tr>
 </thead>
     <tbody>
         ${data.data.map(elm =>
-                ` <tr onclick="PullInformation('${elm.UPS}')">
+                `<tr onclick="PullInformation('${elm.UPS}')">
                 <td>${elm.Location}</td> 
                 <td>${elm.ExpiryDate}</td>
                 <td>${elm.Name}</td>
                 <td>${elm.UPS}</td>
+                <td class="flexdeleteuser">
+                <a action="Edit" class="editshelf" style="margin: 5px 15px;cursor: pointer;" onclick='editShelf("${elm._id}")'><img src="/img/edit-button.png"></a>
+                <a action="Delete" class="deleteShelf"  style="margin: 5px 15px;cursor: pointer;" onclick='deleteShelf("${elm._id}")'><img src="/img/deleteuser.png"></a>
+                </td>
         </tr>
 `).join('')}</tbody>
 </table>`;
@@ -520,14 +531,14 @@ function handleAddShelf(e) {
     const lastRow = document.querySelector('#lastRow')
     const numberOfAreas = document.querySelector('#numberOfAreas')
     const numberOfShelfs = document.querySelector('#numberOfShelfs')
-
+    const maxWight = document.querySelector('#maxWight')
 
 
     let tempTotalRowNumber = lastRow.value - firstRow.value;
-    const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K']
+    const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K','L','M']
     let tempNewRows = []
 
-    console.log(firstRow.value, lastRow.value, numberOfAreas.value, numberOfShelfs.value);
+    console.log(firstRow.value, lastRow.value, numberOfAreas.value, numberOfShelfs.value,maxWight.value);
     for (i = 1; i <= tempTotalRowNumber + 1; i++) {
 
         for (j = 1; j <= numberOfAreas.value; j++) {
@@ -540,12 +551,12 @@ function handleAddShelf(e) {
                     Floor: k,
                     UPS_Shelfs: `${i}-${letters[j - 1]}-${k}`,
                     // NumberOfProductsonShelf:Number,
-                    // MaximumWeight: Number,
+                    MaximumWeight: maxWight.value,
                     // CurrentWeight: Number,
                     // height: Number
                 })
 
-                // Object.assign(tempNewRows, {row:`${i}${letters[j-1]}${k}`});
+                
             }
         }
     }
@@ -607,7 +618,10 @@ function shelfObservationDisplayNone() {
 
 function allShelfs(data) {
     menubutoondisplayblock()
-    data.sort((a, b) => { if (a.Line < b.Line) return -1; })
+    data.sort((a, b) => { if (a.Line < b.Line) return -1;}) 
+    data.sort((a, b) => { if (a.Area < b.Area) return -1;})
+    console.log(data)
+
     document.getElementById('ShelfList').innerHTML =
         `<img src="/img/delete.png" class="displaynone" onclick="shelfObservationDisplayNone()">
         <div class="col-sm-4">
@@ -633,8 +647,8 @@ function allShelfs(data) {
         </td>
                 <td style="direction: initial;">${elm.UPS_Shelfs}</td>
                 <td>${elm.NumberOfProductsonShelf}</td>
-                <td>${elm.MaximumWeight}</td> 
                 <td>${elm.CurrentWeight}</td> 
+                <td>${elm.MaximumWeight}</td> 
                 
         </tr>
 
