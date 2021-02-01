@@ -21,7 +21,7 @@ const numberOfAreas = document.querySelector('#numberOfAreas')
 const numberOfShelfs = document.querySelector('#numberOfShelfs')
 
 
-testcoocik()
+// testcoocik()
 function testcoocik() {
     fetch('/Cookie-test')
         .then(r => r.json())
