@@ -636,8 +636,8 @@ function allShelfs(data) {
         ${data.map(elm =>
             `<tr>
         <td class="flexdeleteuser">
-        <a action="Edit" class="editshelf" onclick='editShelf("${elm._id}")'><img src="/img/edit-button.png"></a>
-        <a action="Delete" class="deleteShelf" onclick='deleteShelf("${elm._id}")'><img src="/img/deleteuser.png"></a>
+        <a action="Edit" class="editshelf" style="margin: 5px 15px;cursor: pointer;" onclick='editShelf("${elm._id}")'><img src="/img/edit-button.png"></a>
+        <a action="Delete" class="deleteShelf"  style="margin: 5px 15px;cursor: pointer;" onclick='deleteShelf("${elm._id}")'><img src="/img/deleteuser.png"></a>
         </td>
                 <td style="direction: initial;">${elm.UPS_Shelfs}</td>
                 <td>${elm.NumberOfProductsonShelf}</td>
