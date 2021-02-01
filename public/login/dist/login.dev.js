@@ -12,6 +12,8 @@ function testcoocik() {
       location.href = '/Director/index.html';
     } else if (data.validate == 'none') {
       location.href = '/userRegular/index.html';
+    } else {
+      document.body.style.display = "flex";
     }
   });
 }

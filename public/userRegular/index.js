@@ -27,7 +27,7 @@ function testcoocik() {
         .then(r => r.json())
         .then(data => {
             if (data.validated == 'none') {
-                // window.location.replace('/userRegular/index.html')
+                document.body.style.display="block"
             }else if (data.validated == "ok") {
                 location.href='/Director/index.html'
             } else {

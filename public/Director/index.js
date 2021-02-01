@@ -25,6 +25,7 @@ function testcoocik() {
         .then(r => r.json())
         .then(data => {
             if (data.validated == "ok") {
+                document.body.style.display="block"
             } else if (data.validate == 'none') {
                 location.href = '/userRegular/index.html'
             } else {

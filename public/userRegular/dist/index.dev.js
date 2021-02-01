@@ -27,7 +27,8 @@ function testcoocik() {
   fetch('/Cookie-test').then(function (r) {
     return r.json();
   }).then(function (data) {
-    if (data.validated == 'none') {// window.location.replace('/userRegular/index.html')
+    if (data.validated == 'none') {
+      document.body.style.display = "block";
     } else if (data.validated == "ok") {
       location.href = '/Director/index.html';
     } else {
