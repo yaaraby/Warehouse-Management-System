@@ -563,6 +563,9 @@ function handleAddShelf(e) {
         .then(res => res.json())
         .then(data => {
             console.log(data.data)
+            AddShelf.style.display = 'none'
+            shelfObservation()
+
             if (data == false) {
                 console.log(data)
 
@@ -574,7 +577,7 @@ function handleAddShelf(e) {
 
 
 
-    AddShelf.style.display = 'none'
+    
 
 
 
@@ -582,7 +585,6 @@ function handleAddShelf(e) {
 }
 
 function addShelfDisplayNone() {
-
     AddShelf.style.display = 'none'
 }
 

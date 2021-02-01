@@ -213,22 +213,10 @@ app.get('/pull-Shelf', async (req, res) => {
 })
 
 
-
-app.post('/shelf-creation', async (req, res) => {
-    console.log(req);
-
-
-    res.send();
-})
-
 app.put("/shelf-creation", async (req, res) => {
-
-    // console.log(req.body.UPS_Shelfs)
-
 
     req.body.forEach(element => {
         const testShelf = new Shelfs(
-
             {
                 Line: element.Line,
                 Area: element.Area,
@@ -241,7 +229,6 @@ app.put("/shelf-creation", async (req, res) => {
             });
 
         testShelf.save();
-
 
     });
     res.send({ ok: true })

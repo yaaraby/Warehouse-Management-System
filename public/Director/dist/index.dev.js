@@ -435,6 +435,8 @@ function handleAddShelf(e) {
     return res.json();
   }).then(function (data) {
     console.log(data.data);
+    AddShelf.style.display = 'none';
+    shelfObservation();
 
     if (data == false) {
       console.log(data);
@@ -442,7 +444,6 @@ function handleAddShelf(e) {
       message.innerHTML = data.message;
     }
   });
-  AddShelf.style.display = 'none';
 }
 
 function addShelfDisplayNone() {
