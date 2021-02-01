@@ -215,23 +215,62 @@ app.get('/pull-Shelf', async (req, res) => {
 
 app.put("/shelf-creation", async (req, res) => {
 
-    req.body.forEach(element => {
-        const testShelf = new Shelfs(
-            {
-                Line: element.Line,
-                Area: element.Area,
-                Floor: element.Floor,
-                UPS_Shelfs: element.UPS_Shelfs,
-                NumberOfProductsonShelf: 1,
-                MaximumWeight: 0,
-                CurrentWeight: 0,
-                height: 0
+    // console.log(req.body);
+    // let flag = await Shelfs.findOne({ Line: 1 }).exec();
+    // // console.log(req.body)
+    // console.log(flag.Line)
+
+    req.body.forEach(async element => {
+        let flag = await Shelfs.findOne({Line: element.Line}).exec();
+        //console.log(flag)
+        if(flag==null){
+            req.body.forEach(element => {
+                // console.log(req.body)
+                const testShelf = new Shelfs(
+                    {
+                       
+                        Line: element.Line,
+                        Area: element.Area,
+                        Floor: element.Floor,
+                        UPS_Shelfs: element.UPS_Shelfs,
+                        NumberOfProductsonShelf: 1,
+                        MaximumWeight: element.MaximumWeight,
+                        CurrentWeight: 0,
+                        height: 0
+                    });
+        
+                testShelf.save();
+        
             });
+            res.send({ ok: true })
 
-        testShelf.save();
 
-    });
-    res.send({ ok: true })
+        }
+        else{
+            console.log('noono no no no  can do')
+        }
+
+
+
+    })
+        
+    // const data = await Shelfs.find({Line:{ $gte: req.body.Line }})
+    // console.log(data)
+    // if(data){
+    //     console.log(req.body.Line)
+    // }
+    // else{
+    //     console.log('ain')
+    // }
+
+
+  
+
+
+
+
+
+    
 });
 
 

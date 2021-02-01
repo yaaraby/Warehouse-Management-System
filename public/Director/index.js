@@ -531,36 +531,41 @@ function handleAddShelf(e) {
     const lastRow = document.querySelector('#lastRow')
     const numberOfAreas = document.querySelector('#numberOfAreas')
     const numberOfShelfs = document.querySelector('#numberOfShelfs')
-
+    const maxWight = document.querySelector('#maxWight')
 
 
     let tempTotalRowNumber = lastRow.value - firstRow.value;
-    const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K']
+    let tempFirstRow = firstRow.value;
+    const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K','L','M','N','O']
     let tempNewRows = []
 
-    console.log(firstRow.value, lastRow.value, numberOfAreas.value, numberOfShelfs.value);
+    // console.log(firstRow.value, lastRow.value, numberOfAreas.value, numberOfShelfs.value,maxWight.value);
     for (i = 1; i <= tempTotalRowNumber + 1; i++) {
 
         for (j = 1; j <= numberOfAreas.value; j++) {
+
             for (k = 1; k <= numberOfShelfs.value; k++) {
 
                 console.log(`${i}${letters[j - 1]}${k}`)
                 tempNewRows.push({
-                    Line: i,
+                    Line: tempFirstRow,
                     Area: `${letters[j - 1]}`,
                     Floor: k,
-                    UPS_Shelfs: `${i}-${letters[j - 1]}-${k}`,
+                    UPS_Shelfs: `${tempFirstRow}-${letters[j - 1]}-${k}`,
                     // NumberOfProductsonShelf:Number,
-                    // MaximumWeight: Number,
+                    MaximumWeight: maxWight.value,
                     // CurrentWeight: Number,
                     // height: Number
                 })
 
-                // Object.assign(tempNewRows, {row:`${i}${letters[j-1]}${k}`});
+                
             }
+
         }
+        tempFirstRow++
     }
 
+    console.log(tempNewRows)
     console.log(JSON.stringify(tempNewRows))
 
     fetch("/shelf-creation", {
@@ -619,8 +624,6 @@ function shelfObservationDisplayNone() {
 function allShelfs(data) {
     menubutoondisplayblock()
     data.sort((a, b) => { if (a.Line < b.Line) return -1;})
-    data.sort((a, b) => { if (a.Area < b.Area) return -1;})
-    console.log(data)
 
     document.getElementById('ShelfList').innerHTML =
         `<img src="/img/delete.png" class="displaynone" onclick="shelfObservationDisplayNone()">
@@ -647,8 +650,8 @@ function allShelfs(data) {
         </td>
                 <td style="direction: initial;">${elm.UPS_Shelfs}</td>
                 <td>${elm.NumberOfProductsonShelf}</td>
-                <td>${elm.MaximumWeight}</td> 
                 <td>${elm.CurrentWeight}</td> 
+                <td>${elm.MaximumWeight}</td> 
                 
         </tr>
 
