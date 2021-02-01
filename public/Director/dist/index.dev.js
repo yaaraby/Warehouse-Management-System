@@ -435,7 +435,6 @@ function handleAddShelf(e) {
     return res.json();
   }).then(function (data) {
     console.log(data.data);
-    AddShelf.style.display = 'none';
     shelfObservation();
 
     if (data == false) {
@@ -477,7 +476,7 @@ function shelfObservationDisplayNone() {
 function allShelfs(data) {
   menubutoondisplayblock();
   document.getElementById('ShelfList').innerHTML = "<img src=\"/img/delete.png\" class=\"displaynone\" onclick=\"shelfObservationDisplayNone()\">\n        <div class=\"col-sm-4\">\n        <button class=\"addNewShelf\" onclick=\"addNewShelf()\"><img src=\"/img/+.png\"></button>\n        </div>\n<table>\n<thead>\n    <tr>\n        <th></th>\n        <th>\u05DE\u05E1\u05E4\u05E8 \u05DE\u05D3\u05E3</th>\n        <th>\u05DB\u05DE\u05D5\u05EA \u05DE\u05D5\u05E6\u05E8\u05D9\u05DD</th>\n        <th>\u05DE\u05E9\u05E7\u05DC \u05DE\u05D3\u05E3</th>\n        <th>\u05DE\u05E9\u05E7\u05DC \u05DE\u05E7\u05E1\u05D9\u05DE\u05DC\u05D9</th>\n    </tr>\n</thead>\n    <tbody>\n    \n        ".concat(data.map(function (elm) {
-    return "<tr>\n        <td class=\"flexdeleteuser\">\n        <a action=\"Edit\" class=\"editshelf\" onclick='editShelf(\"".concat(elm._id, "\")'><img src=\"/img/edit-button.png\"></a>\n        <a action=\"Delete\" class=\"deleteShelf\" onclick='deleteShelf(\"").concat(elm._id, "\")'><img src=\"/img/deleteuser.png\"></a>\n        </td>\n                <td class=\"rtl\">").concat(elm.UPS_Shelfs, "</td>\n                <td>").concat(elm.NumberOfProductsonShelf, "</td>\n                <td>").concat(elm.MaximumWeight, "</td> \n                <td>").concat(elm.CurrentWeight, "</td> \n                \n        </tr>\n\n");
+    return "<tr>\n        <td class=\"flexdeleteuser\">\n        <a action=\"Edit\" class=\"editshelf\" onclick='editShelf(\"".concat(elm._id, "\")'><img src=\"/img/edit-button.png\"></a>\n        <a action=\"Delete\" class=\"deleteShelf\" onclick='deleteShelf(\"").concat(elm._id, "\")'><img src=\"/img/deleteuser.png\"></a>\n        </td>\n                <td style=\"direction: initial;\">").concat(elm.UPS_Shelfs, "</td>\n                <td>").concat(elm.NumberOfProductsonShelf, "</td>\n                <td>").concat(elm.MaximumWeight, "</td> \n                <td>").concat(elm.CurrentWeight, "</td> \n                \n        </tr>\n\n");
   }).join(''), "\n</table>");
 }
 

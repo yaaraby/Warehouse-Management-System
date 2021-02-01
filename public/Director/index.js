@@ -552,7 +552,6 @@ function handleAddShelf(e) {
 
     console.log(JSON.stringify(tempNewRows))
 
-
     fetch("/shelf-creation", {
         method: 'PUT',
         headers: {
@@ -563,7 +562,6 @@ function handleAddShelf(e) {
         .then(res => res.json())
         .then(data => {
             console.log(data.data)
-            AddShelf.style.display = 'none'
             shelfObservation()
 
             if (data == false) {
@@ -641,7 +639,7 @@ function allShelfs(data) {
         <a action="Edit" class="editshelf" onclick='editShelf("${elm._id}")'><img src="/img/edit-button.png"></a>
         <a action="Delete" class="deleteShelf" onclick='deleteShelf("${elm._id}")'><img src="/img/deleteuser.png"></a>
         </td>
-                <td class="rtl">${elm.UPS_Shelfs}</td>
+                <td style="direction: initial;">${elm.UPS_Shelfs}</td>
                 <td>${elm.NumberOfProductsonShelf}</td>
                 <td>${elm.MaximumWeight}</td> 
                 <td>${elm.CurrentWeight}</td> 
