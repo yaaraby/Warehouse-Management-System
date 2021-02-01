@@ -221,8 +221,8 @@ app.put("/shelf-creation", async (req, res) => {
     // console.log(flag.Line)
 
     req.body.forEach(async element => {
-        let flag = await Shelfs.findOne({ Line: element.Line  }).exec();
-        console.log(flag)
+        let flag = await Shelfs.findOne({Line: element.Line}).exec();
+        //console.log(flag)
         if(flag==null){
             req.body.forEach(element => {
                 // console.log(req.body)
@@ -247,7 +247,7 @@ app.put("/shelf-creation", async (req, res) => {
 
         }
         else{
-            console.log('no can do')
+            console.log('noono no no no  can do')
         }
 
 
