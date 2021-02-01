@@ -618,7 +618,7 @@ function shelfObservationDisplayNone() {
 
 function allShelfs(data) {
     menubutoondisplayblock()
-    data.sort((a, b) => { if (a.Line < b.Line) return -1;}) 
+    data.sort((a, b) => { if (a.Line < b.Line) return -1;})
     data.sort((a, b) => { if (a.Area < b.Area) return -1;})
     console.log(data)
 
