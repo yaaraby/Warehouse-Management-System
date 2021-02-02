@@ -57,8 +57,6 @@ function connected() {
     
     `).join('')}</tbody>
     </table>`;
-
-            UsersList.style.display = 'block'
             outcome.style.display = 'none'
             Registration.style.display = 'none'
             Search.style.display = 'none'
@@ -67,6 +65,9 @@ function connected() {
             AddShelf.style.display = 'none'
             ShelfList.style.display = 'none'
             editUserById.style.display = 'none'
+            menubutoondisplayblock()
+            UsersList.style.display = 'block'
+
         })
 }
 
@@ -683,10 +684,10 @@ function handleAddShelf(e) {
                     Area: `${letters[j - 1]}`,
                     Floor: k,
                     UPS_Shelfs: `${tempFirstRow}-${letters[j - 1]}-${k}`,
-                    // NumberOfProductsonShelf:Number,
+                    // NumberOfProductsonShelf:Number, //Optional
                     MaximumWeight: maxWight.value,
-                    // CurrentWeight: Number,
-                    // height: Number
+                    // CurrentWeight: Number,//Optional
+                    // height: Number//Optional
                 })
             }
         }
@@ -751,8 +752,8 @@ function shelfObservationDisplayNone() {
 
 function allShelfs(data) {
     menubutoondisplayblock()
-    data.sort((a, b) => { if (a.Line < b.Line) return -1; })
-    data.sort((a, b) => { if (a.Area < b.Area) return -1; })
+    // data.sort((a, b) => { if (a.Line < b.Line) return -1; })
+    // data.sort((a, b) => { if (a.Area < b.Area) return -1; })
 
     document.getElementById('ShelfList').innerHTML =
         `<img src="/img/delete.png" class="displaynone" onclick="shelfObservationDisplayNone()">
