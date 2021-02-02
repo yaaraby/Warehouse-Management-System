@@ -481,13 +481,21 @@ app.get('/pull-Shelf', function _callee9(req, res) {
     while (1) {
       switch (_context9.prev = _context9.next) {
         case 0:
-          // const data = await Shelfs.find({ NumberOfProductsonShelf: { $gte: 1 } })
-          data = [];
+          _context9.next = 2;
+          return regeneratorRuntime.awrap(Shelfs.find({
+            NumberOfProductsonShelf: {
+              $gte: 1
+            }
+          }));
+
+        case 2:
+          data = _context9.sent;
+          // const data = []
           res.send({
             data: data
           });
 
-        case 2:
+        case 4:
         case "end":
           return _context9.stop();
       }

@@ -247,8 +247,7 @@ app.get('/get-category', async (req, res) => {
 
 //yehial------------------------------------------------------------------
 app.get('/pull-Shelf', async (req, res) => {
-    // const data = await Shelfs.find({ NumberOfProductsonShelf: { $gte: 1 } })
-    const data = []
+    const data = await Shelfs.find({ NumberOfProductsonShelf: { $gte: 1 } })
     res.send({ data })
 })
 
