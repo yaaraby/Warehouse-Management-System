@@ -64,7 +64,6 @@ var editUsercardlogin = function editUsercardlogin(userId) {
   Search.style.display = 'none';
   ShowAll.style.display = 'none';
   cardCategory.style.display = 'none';
-  editUserById.style.display = "none";
   UsersList.style.display = 'none';
   AddShelf.style.display = 'none';
   ShelfList.style.display = 'none';
