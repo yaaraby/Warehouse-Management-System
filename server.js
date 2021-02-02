@@ -477,7 +477,18 @@ app.post('/add_Products', async (req, res) => {
               
             console.log(isExists)
             return {isExists, data};
-        }
+}
+        
+app.get('/get-details-product:id', async (req, res) => {
+    let  id  = req.params.id
+    try {
+        const findProduct = await Products.findOne({ _id: id });
+        res.send(findProduct)
+
+    } catch (e) {
+        console.log(e)
+    }
+})
 
 
 
