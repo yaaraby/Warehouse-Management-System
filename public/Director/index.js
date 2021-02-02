@@ -18,7 +18,7 @@ const menubutoon = document.querySelector(".menubutoon")
 const UsersList = document.getElementById('UsersList');
 const ShelfList = document.getElementById('ShelfList');
 const handleAddShelftext= document.querySelector(".handleAddShelftext")
-
+const textcardlogin = document.querySelector('.textcardlogin')
 // const allShelfs = document.getElementById('allShelfs');
 
 testcoocik()
@@ -28,6 +28,8 @@ function testcoocik() {
         .then(data => {
             if (data.validated == "ok") {
                 document.body.style.display = "block"
+                textcardlogin.innerHTML = data.name
+
             } else if (data.validate == 'none') {
                 location.href = '/userRegular/index.html'
             } else {

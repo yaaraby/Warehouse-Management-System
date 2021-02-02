@@ -139,7 +139,7 @@ app.post('/send-Login-details', async (req, res) => {
                 console.log(`no match ${data[i].userName}`)
             }
         }
-        token = jwt.encode({ role }, secret)
+        token = jwt.encode({ role, userName }, secret)
 
         if (validate) {
             res.cookie('validated', token, { maxAge: 10086400, httpOnly: true })
@@ -154,17 +154,20 @@ app.post('/send-Login-details', async (req, res) => {
 // index.html
 app.get('/Cookie-test', (req, res) => {
     let validated
+    let name
     let checkCookie = req.cookies.validated
 
     if (checkCookie) {
         let decoded = jwt.decode(checkCookie, secret);
         validated = decoded.role
+        name = decoded.userName
+
 
     } else {
         validated = false
     }
 
-    res.send({ validated })
+    res.send({ validated, name })
 })
 
 
@@ -215,21 +218,21 @@ app.get('/pull-Shelf', async (req, res) => {
 
 app.put("/shelf-creation", async (req, res) => {
 
-    let message =""
+    let message = ""
     // console.log(req.body);
     // let flag = await Shelfs.findOne({ Line: 1 }).exec();
     // // console.log(req.body)
     // console.log(flag.Line)
 
     req.body.forEach(async element => {
-        let flag = await Shelfs.findOne({Line: element.Line}).exec();
+        let flag = await Shelfs.findOne({ Line: element.Line }).exec();
         //console.log(flag)
-        if(flag==null){
+        if (flag == null) {
             req.body.forEach(element => {
                 // console.log(req.body)
                 const testShelf = new Shelfs(
                     {
-                       
+
                         Line: element.Line,
                         Area: element.Area,
                         Floor: element.Floor,
@@ -239,18 +242,18 @@ app.put("/shelf-creation", async (req, res) => {
                         CurrentWeight: 0,
                         height: 0
                     });
-        
+
                 testShelf.save();
-        
+
             });
             res.send(true)
         }
-        else{
-            message ='שורה זאת כבר קיימת'
-            res.send({message})
+        else {
+            message = 'שורה זאת כבר קיימת'
+            res.send({ message })
         }
     })
-        
+
     // const data = await Shelfs.find({Line:{ $gte: req.body.Line }})
     // console.log(data)
     // if(data){
@@ -261,13 +264,13 @@ app.put("/shelf-creation", async (req, res) => {
     // }
 
 
-  
 
 
 
 
 
-    
+
+
 });
 
 

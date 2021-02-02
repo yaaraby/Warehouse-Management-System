@@ -28,7 +28,7 @@ body {
   white-space: nowrap;
   transition: all 0.3s;
 }
-.menu img {
+.menu .delete {
   width: 30px;
   position: absolute;
   top: 10px;
@@ -47,6 +47,22 @@ body {
 .menu .SelectionMenu:hover {
   transition: color 0.2s;
   color: #909090;
+}
+.menu .cardlogin {
+  margin-top: 50px;
+  font-size: 20rem;
+  text-align: center;
+  font-family: var(--font-family);
+}
+.menu .cardlogin img {
+  width: 120px;
+  border-radius: 50%;
+  border: 3px solid white;
+}
+.menu .cardlogin .textcardlogin {
+  padding: 5px;
+  font-size: 23rem;
+  font-weight: 600;
 }
 
 .Registration {
@@ -818,7 +834,7 @@ body {
 
 @media only screen and (max-width: 450px) {
   html {
-    font-size: 0.9px;
+    font-size: 0.8px;
     user-select: none;
   }
 

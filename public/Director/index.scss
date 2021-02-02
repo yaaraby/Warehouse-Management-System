@@ -29,7 +29,7 @@ body {
     // display: none;
     transition: all 0.3s;
 
-    img {
+    .delete {
         width: 30px;
         position: absolute;
         top: 10px;
@@ -50,6 +50,24 @@ body {
     .SelectionMenu:hover {
         transition: color 0.2s;
         color: rgb(144, 144, 144);
+    }
+
+    .cardlogin {
+        margin-top: 50px;
+        font-size: 20rem;
+        text-align: center;
+        font-family: var(--font-family);
+
+        img {
+            width: 120px;
+            border-radius: 50%;
+border: 3px solid white;
+        }
+        .textcardlogin{
+            padding: 5px;
+            font-size: 23rem;
+            font-weight: 600;
+        }
     }
 }
 
@@ -379,7 +397,8 @@ body {
         table-layout: fixed;
         background-color: rgba(255, 255, 255, 0.425);
     }
-    thead{
+
+    thead {
         background-color: rgba(114, 111, 111, 0.801);
         color: white;
     }
@@ -391,7 +410,7 @@ body {
         padding: 12px 0px 9px 0px;
         table-layout: fixed;
         word-wrap: break-word;
-       
+
 
         img {
             width: 20px;
@@ -517,11 +536,12 @@ body {
             table-layout: fixed;
             background-color: rgba(255, 255, 255, 0.425);
         }
-        thead{
+
+        thead {
             background-color: rgba(114, 111, 111, 0.801);
             color: white;
         }
-    
+
         td,
         th {
             border: 1px solid #dddddd;
@@ -530,16 +550,16 @@ body {
             table-layout: fixed;
             word-wrap: break-word;
 
-    
+
             img {
                 width: 20px;
             }
         }
-    
+
         tr:nth-child(even) {
             background-color: rgba(128, 128, 128, 0.486);
         }
-       
+
     }
 
 
@@ -587,7 +607,7 @@ body {
         z-index: 100000000;
 
         .cardtext {
-            direction:rtl;
+            direction: rtl;
             text-align: right;
 
 
@@ -934,15 +954,16 @@ body {
     }
 }
 
-.handleAddShelftext{
+.handleAddShelftext {
     padding-bottom: 20px;
     font-size: 20rem;
     font-weight: 600;
 }
+
 @media only screen and (max-width:450px) {
 
     html {
-        font-size: 0.9px;
+        font-size: 0.8px;
         user-select: none;
     }
 

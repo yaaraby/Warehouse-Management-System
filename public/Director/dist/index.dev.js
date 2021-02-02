@@ -19,7 +19,8 @@ var menu = document.querySelector(".menu");
 var menubutoon = document.querySelector(".menubutoon");
 var UsersList = document.getElementById('UsersList');
 var ShelfList = document.getElementById('ShelfList');
-var handleAddShelftext = document.querySelector(".handleAddShelftext"); // const allShelfs = document.getElementById('allShelfs');
+var handleAddShelftext = document.querySelector(".handleAddShelftext");
+var textcardlogin = document.querySelector('.textcardlogin'); // const allShelfs = document.getElementById('allShelfs');
 
 testcoocik();
 
@@ -29,6 +30,7 @@ function testcoocik() {
   }).then(function (data) {
     if (data.validated == "ok") {
       document.body.style.display = "block";
+      textcardlogin.innerHTML = data.name;
     } else if (data.validate == 'none') {
       location.href = '/userRegular/index.html';
     } else {

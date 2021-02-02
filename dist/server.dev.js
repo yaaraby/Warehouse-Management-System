@@ -212,7 +212,8 @@ app.post('/send-Login-details', function _callee4(req, res) {
 
         case 19:
           token = jwt.encode({
-            role: role
+            role: role,
+            userName: userName
           }, secret);
 
           if (validate) {
@@ -244,17 +245,20 @@ app.post('/send-Login-details', function _callee4(req, res) {
 
 app.get('/Cookie-test', function (req, res) {
   var validated;
+  var name;
   var checkCookie = req.cookies.validated;
 
   if (checkCookie) {
     var decoded = jwt.decode(checkCookie, secret);
     validated = decoded.role;
+    name = decoded.userName;
   } else {
     validated = false;
   }
 
   res.send({
-    validated: validated
+    validated: validated,
+    name: name
   });
 });
 app.post('/send-User-details-sign-up', function _callee5(req, res) {
