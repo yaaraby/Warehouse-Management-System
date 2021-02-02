@@ -21,6 +21,25 @@ var UsersList = document.getElementById('UsersList');
 var ShelfList = document.getElementById('ShelfList');
 var handleAddShelftext = document.querySelector(".handleAddShelftext");
 var cardlogin = document.querySelector('.cardlogin');
+var xdeta = new Date().getHours();
+var hour;
+
+if (xdeta >= 6 && xdeta < 12) {
+  hour = "בוקר טוב";
+}
+
+if (xdeta >= 12 && xdeta < 18) {
+  hour = "צהרים טובים";
+}
+
+if (xdeta >= 18 && xdeta < 23) {
+  hour = "ערב טוב";
+}
+
+if (xdeta >= 23 || xdeta >= 0 && xdeta < 6) {
+  hour = "לילה טוב";
+}
+
 testcoocik();
 
 function testcoocik() {
@@ -29,7 +48,7 @@ function testcoocik() {
   }).then(function (data) {
     if (data.validated == "ok") {
       document.body.style.display = "block";
-      cardlogin.innerHTML = "<img onclick='editUsercardlogin(\"".concat(data.id, "\")' src=\"/img/user.jpg\" alt=\"\"><div class=\"textcardlogin\">").concat(data.name, "</div>");
+      cardlogin.innerHTML = "<div class=\"textcardlogin\">".concat(hour, "</div><img onclick='editUsercardlogin(\"").concat(data.id, "\")' src=\"/img/user.jpg\" alt=\"\"><div class=\"textcardlogin\">").concat(data.name, "</div>");
     } else if (data.validate == 'none') {
       location.href = '/userRegular/index.html';
     } else {

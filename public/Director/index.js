@@ -20,6 +20,23 @@ const ShelfList = document.getElementById('ShelfList');
 const handleAddShelftext = document.querySelector(".handleAddShelftext")
 const cardlogin = document.querySelector('.cardlogin')
 
+const xdeta = new Date().getHours()
+let hour
+
+if (xdeta >= 6 && xdeta < 12) {
+    hour = "בוקר טוב"
+}
+if (xdeta >= 12 && xdeta < 18) {
+    hour = "צהרים טובים"
+}
+if (xdeta >= 18 && xdeta < 23) {
+    hour = "ערב טוב"
+}
+if (xdeta >= 23 || xdeta >= 0 && xdeta < 6) {
+    hour = "לילה טוב"
+}
+
+
 testcoocik()
 function testcoocik() {
     fetch('/Cookie-test')
@@ -27,7 +44,8 @@ function testcoocik() {
         .then(data => {
             if (data.validated == "ok") {
                 document.body.style.display = "block"
-                cardlogin.innerHTML = `<img onclick='editUsercardlogin("${data.id}")' src="/img/user.jpg" alt=""><div class="textcardlogin">${data.name}</div>`
+
+                cardlogin.innerHTML = `<div class="textcardlogin">${hour}</div><img onclick='editUsercardlogin("${data.id}")' src="/img/user.jpg" alt=""><div class="textcardlogin">${data.name}</div>`
 
             } else if (data.validate == 'none') {
                 location.href = '/userRegular/index.html'
@@ -89,8 +107,8 @@ const editUsercardlogin = (userId) => {
         })
 }
 
-function displaynoneeditusercardlogin(){
-    editUserById.style.display ='none'
+function displaynoneeditusercardlogin() {
+    editUserById.style.display = 'none'
 }
 
 function Output() {
