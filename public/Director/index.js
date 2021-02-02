@@ -33,7 +33,7 @@ function connected() {
             console.log(data)
             document.getElementById('UsersList').innerHTML =
                 `<img src="/img/delete.png" class="displaynone" onclick="UsersListnone()">
-                <h1>מחוברים למערכת</h1>
+                <h1>משתמשים מחוברים</h1>
     <table>
     <thead>
         <tr>
