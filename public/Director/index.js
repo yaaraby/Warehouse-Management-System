@@ -390,21 +390,26 @@ function getCategory() {
     UsersList.style.display = 'none'
     AddShelf.style.display = 'none'
     ShelfList.style.display = 'none'
-    cardCategory.style.display = 'block'
     cardboxcatygory.innerHTML = ''
+    cardCategory.style.display = 'block'
     fetch('/get-category')
         .then(res =>
             res.json()
         )
         .then(data => {
-            data.data.forEach(element => {
-                if (aryycategory.indexOf(element.Category) == -1) {
-                    aryycategory.push(element.Category)
-                }
-            });
-            aryycategory.forEach(elm => {
-                cardboxcatygory.innerHTML += `<div class="A_line_in_a_category" onclick="PullThiscCategory(event)">${elm}</div>`
-            })
+            if (data.data.length > 0) {
+                data.data.forEach(element => {
+                    if (aryycategory.indexOf(element.Category) == -1) {
+                        aryycategory.push(element.Category)
+                    }
+                });
+                aryycategory.forEach(elm => {
+                    cardboxcatygory.innerHTML += `<div class="A_line_in_a_category" onclick="PullThiscCategory(event)">${elm}</div>`
+                })
+            }
+            else{
+                cardboxcatygory.innerHTML = '<h1>אין מה להציג</h1>'
+            }
         })
 }
 
@@ -671,7 +676,7 @@ function handleAddShelf(e) {
     const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'O']
     let tempNewRows = []
 
-    
+
     for (i = 1; i <= tempTotalRowNumber + 1; i++) {
 
         for (j = 1; j <= numberOfAreas.value; j++) {
@@ -789,7 +794,7 @@ function allShelfs(data) {
 </table>`;
 }
 
-function deleteShelf(shelf_to_delete){
+function deleteShelf(shelf_to_delete) {
 
     fetch("/delete-shelf", {
         method: 'DELETE',
@@ -802,8 +807,8 @@ function deleteShelf(shelf_to_delete){
         .then(data => {
             console.log(data)
 
-          
-           
+
+
 
 
         })

@@ -179,6 +179,7 @@ app.post('/send-Login-details', async (req, res) => {
     }
 })
 
+
 // index.html
 app.get('/Cookie-test', async (req, res) => {
     let validated
@@ -187,6 +188,7 @@ app.get('/Cookie-test', async (req, res) => {
     let checkCookie = req.cookies.validated
     newDate = new Date().getTime()
 
+    
     if (checkCookie) {
         let decoded = jwt.decode(checkCookie, secret);
         validated = decoded.role
@@ -291,9 +293,10 @@ app.delete('/delete-shelf',async(req,res)=>{
 
     const temp = req.body;
     console.log(temp);
-    res.send(temp)
+    // res.send(temp)
 
 })
+
 app.post('/PullThiscCategory', async (req, res) => {
     const { eventCategory } = req.body
     const data = await Products.find({ Category: eventCategory })
@@ -302,7 +305,6 @@ app.post('/PullThiscCategory', async (req, res) => {
 
 
 // Search
-
 app.post('/Searchdeta', async (req, res) => {
     const { placeholder, inputvalue } = req.body
     // return false 
