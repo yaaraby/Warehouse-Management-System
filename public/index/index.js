@@ -696,7 +696,7 @@ function handleEditUser(e) {
             })
     }
 }
-
+ 
 //Yehial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 function PullShelfInformation(e) {
     fetch('/PullShelfInformation', {
