@@ -1042,12 +1042,8 @@ function allShelfs(data) {
 </table>`;
 }
 
-<<<<<<< HEAD
 function deleteShelf(shelf_to_delete){
     
-=======
-function deleteShelf(shelf_to_delete) {
->>>>>>> master
 
     fetch("/delete-shelf", {
         method: 'POST',
