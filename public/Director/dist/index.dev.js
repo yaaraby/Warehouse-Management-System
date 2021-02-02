@@ -540,17 +540,21 @@ function shelfObservation() {
   fetch('/pull-Shelf').then(function (res) {
     return res.json();
   }).then(function (data) {
-    if (data.data != null) {
-      outcome.style.display = 'none';
-      Registration.style.display = 'none';
-      Search.style.display = 'none';
-      ShowAll.style.display = 'none';
-      cardCategory.style.display = 'none';
-      editUserById.style.display = "none";
-      UsersList.style.display = 'none';
-      AddShelf.style.display = 'none'; //need to change the userlist to shelf list
+    console.log(data.data);
+    ShelfList.style.display = 'block';
+    outcome.style.display = 'none';
+    Registration.style.display = 'none';
+    Search.style.display = 'none';
+    ShowAll.style.display = 'none';
+    cardCategory.style.display = 'none';
+    editUserById.style.display = "none";
+    UsersList.style.display = 'none';
+    AddShelf.style.display = 'none';
+    menubutoondisplayblock();
 
-      ShelfList.style.display = 'block';
+    if (data.data[0] == undefined) {
+      document.getElementById('ShelfList').innerHTML = "<h1 style=\"text-align: center;\">\u05DC\u05D0 \u05E0\u05DE\u05E6\u05D0\u05D5 \u05DE\u05D3\u05E4\u05D9\u05DD</h1>";
+    } else {
       allShelfs(data.data);
     }
   });

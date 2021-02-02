@@ -407,7 +407,7 @@ function getCategory() {
                     cardboxcatygory.innerHTML += `<div class="A_line_in_a_category" onclick="PullThiscCategory(event)">${elm}</div>`
                 })
             }
-            else{
+            else {
                 cardboxcatygory.innerHTML = '<h1>אין מה להציג</h1>'
             }
         })
@@ -733,20 +733,24 @@ function shelfObservation() {
             res.json()
         )
         .then(data => {
-            if (data.data != null) {
-                outcome.style.display = 'none'
-                Registration.style.display = 'none'
-                Search.style.display = 'none'
-                ShowAll.style.display = 'none'
-                cardCategory.style.display = 'none'
-                editUserById.style.display = "none"
-                UsersList.style.display = 'none'
-                AddShelf.style.display = 'none'
-                //need to change the userlist to shelf list
-                ShelfList.style.display = 'block'
+            console.log(data.data)
+            ShelfList.style.display = 'block'
+            outcome.style.display = 'none'
+            Registration.style.display = 'none'
+            Search.style.display = 'none'
+            ShowAll.style.display = 'none'
+            cardCategory.style.display = 'none'
+            editUserById.style.display = "none"
+            UsersList.style.display = 'none'
+            AddShelf.style.display = 'none'
+            menubutoondisplayblock()
+
+            if (data.data[0] == undefined) {
+                document.getElementById('ShelfList').innerHTML = `<h1 style="text-align: center;">לא נמצאו מדפים</h1>`
+            }
+            else {
                 allShelfs(data.data)
             }
-
         })
 }
 function shelfObservationDisplayNone() {
@@ -759,6 +763,7 @@ function allShelfs(data) {
     menubutoondisplayblock()
     // data.sort((a, b) => { if (a.Line < b.Line) return -1; })
     // data.sort((a, b) => { if (a.Area < b.Area) return -1; })
+
 
     document.getElementById('ShelfList').innerHTML =
         `<img src="/img/delete.png" class="displaynone" onclick="shelfObservationDisplayNone()">
