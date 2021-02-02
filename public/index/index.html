@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap"
+        rel="stylesheet">
+    <link rel="shortcut icon" href="/img/store.png" type="image/x-icon">
+    <link rel="stylesheet" href="dist/index.css">
+</head>
+
+<body onload="init()">
+    <button class="menubutoon" onclick="displayblockmenu(event)"><img src="/img/menu.png"></button>
+    <div class="menu">
+        <img class="delete" src="/img/delete.png" onclick="menubutoondisplayblock()">
+        <div class="SelectionMenu" onclick="getCategory()">מוצרים</div>
+<<<<<<< HEAD
+        <div class="SelectionMenu" onclick="shelfEditor()">עריכת מדפים</div>
+=======
+>>>>>>> master
+        <div class="SelectionMenu" onclick="shelfObservation()">רשימת מדפים</div>
+        <div class="SelectionMenu" onclick="shelfEditor()">עריכת מדפים</div>
+        <div class="SelectionMenu" onclick="getListUsers()">משתמשים</div>
+        <!-- <div class="SelectionMenu" onclick="Addauser()">הוספת משתמש</div> -->
+        <div class="SelectionMenu" onclick="Searchdisplayblock()">חיפוש</div>
+        <div class="SelectionMenu" onclick="Output()">יציאה</div>
+    </div>
+
+    <div class="Registration">
+        <img class="imgdelete" src="/img/delete.png" onclick="Registrationdisplaynone()">
+        <img class="listuser" onclick="getListUsers()" src="/img/identification.png" alt="">
+        <h1>הרשמה</h1>
+        <form onsubmit="handleRegistration(event)">
+            <div class="rtl">
+                <label for="id_user">מספר זהות:
+                    <input type="text" name="id_user" id="id_user" autocomplete='off'></br>
+                </label>
+                <label for="name">שם:
+                    <input type="text" name="name" id="name" autocomplete='off'></br>
+                </label>
+                <label for="userName">שם משתמש:
+                    <input type="text" name="username" id="userName" autocomplete='off'></br>
+                </label>
+                <label for="password">סיסמה:
+                    <input type="password" name="password" id="password" autocomplete='off'></br>
+                </label>
+                <label for="email">אימייל:
+                    <input type="email" name="email" id="email" autocomplete='off'></br>
+                </label>
+                <label for="phone">פלאפון:
+                    <input type="text" name="phone" id="phone" autocomplete='off'></br>
+                </label>
+            </div>
+            <select name="role" id="role">
+                <option style="display: none;">דירוג</option>
+                <option value="public">מחסנאי</option>
+                <option value="admin">מנהל</option>
+            </select></br>
+            <div id="message"></div></br>
+            <input type="submit" value="הוספה">
+        </form>
+    </div>
+
+    <div class="cardCategory">
+        <img src="/img/delete.png" onclick="cardCategorydisplaynone()">
+        <div class="cardboxcatygory"></div>
+    </div>
+
+    <div class="ShowAll">
+        <img class='delete' onclick="getCategory()" src="/img/return.png">
+        <h1 class="titlecategory"></h1>
+        <div class="carbox"></div>
+    </div>
+
+
+    <div class="Search">
+        <img class="img" src="/img/delete.png" onclick="deletesearch()">
+        <div class="Searchinput">
+            <select id="Searchselect" onchange="valueselect(event)">
+                <option>UPS-מקט</option>
+                <option>חיפוש לפי שם מוצר</option>
+                <option>חיפוש לפי תאריך תפוגה</option>
+                <option>חיפוש לפי מדף / מיקום</option>
+            </select>
+
+            <input type="text" id="inputSearch" placeholder="<< בחר סוג חיפוש" autocomplete='off'>
+            <button type="submit"><img class="Searchimg" src="/img/Search.png" onclick="functionSearch()"></button>
+            <div class="textmessage"></div>
+        </div>
+        <div class="Searchtml">
+        </div>
+    </div>
+
+    <div class="outcome" onclick="deleteoutcome()">
+        <div class="card">
+            <div class="cardtext">
+            </div>
+        </div>
+    </div>
+
+    <div id="UsersList"></div>
+    
+
+    <div id="editUserById"></div>
+<!-- yaara --------------------------->
+
+<form onsubmit ="addNewProduct(event)">
+    <label for="UPS">מק"ט:
+        <input type="number" name="UPS" autocomplete='off'></br>
+    </label>
+    <label for="name">שם המוצר:
+        <input type="text" name="name" autocomplete='off'></br>
+    </label>
+    <label for="price">מחיר:
+        <input type="number" name="price"  autocomplete='off'></br>
+    </label>
+    <label for="amount">כמות:
+        <input type="number" name="amount" autocomplete='off'></br>
+    </label>
+    <label for="category">קטגוריה:
+        <input type="text" name="category" autocomplete='off'></br>
+    </label>
+    <label for="weight">משקל:
+        <input type="number" name="weight"  autocomplete='off'></br>
+    </label>
+    <label for="height">גובה:
+        <input type="number" name="height" autocomplete='off'></br>
+    </label>
+    <label for="ExpiryDate">תוקף מוצר:
+        <input type="date" name="ExpiryDate" autocomplete='off'></br>
+    </label>
+<!--                 <label for="Image">תמונה:
+        <input type="Image" name="Image" id="Image" autocomplete='off'></br>
+    </label> -->
+    <label for="UPS_Shelfs">מיקום המוצר:
+    <select name= 'UPS_Shelfs' id='UPS_Shelfs'>
+    </select>
+    </label>
+    <div id="message"></div></br>
+    <input type="submit" value="הוספה">
+
+</form>
+
+<!-- yaara --------------------------->
+
+
+        <div class="Bottom">
+            <img src="/img/Bottom.png"> - מחסן
+        </div>
+        <script src="index.js"></script>
+</body>
+
+</html>

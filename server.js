@@ -405,6 +405,80 @@ app.get('/get-details-users:userId', async (req, res) => {
     }
 })
 
+// yaara
+
+
+app.post('/add_Products', async (req, res) => {
+    let status = true
+        const { UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location} = req.body
+    
+    
+            const products = new Products({UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location});
+            await products.save().then(doc => console.log(doc)).catch(e => console.log(e));
+            let sumProductOnShelf  = await updateNumberOfProduct(Amount, Location,Weight)
+    
+            if(sumProductOnShelf == true){
+                 res.send({ status })
+            }
+    })
+    
+    const  updateNumberOfProduct = async (Amount, Location, Weight)=>{
+    
+    const data = await Shelfs.find({})
+     for (i = 0; i < data.length; i++)
+      {
+            if(Location ==  data[i].UPS_Shelfs){
+              let  ups_shelf = data[i].UPS_Shelfs
+              let  numberOfProductsonShelf = data[i].NumberOfProductsonShelf 
+              let  weight = data[i].CurrentWeight
+              numberOfProductsonShelf += eval(Amount);
+              weight += eval(Weight);
+    
+                var myquery = { UPS_Shelfs:  Location};
+                var newvalues = { $set: {
+                             NumberOfProductsonShelf: numberOfProductsonShelf,
+                             CurrentWeight: weight
+                           } };
+         await Shelfs.update(myquery, newvalues, function(err, res) {
+        if (err) throw err;
+        console.log("1 document updated");
+                } )
+      }      
+      }
+        return (true);
+    };
+
+    
+    app.delete('/deleteProduct/:id', async (req, res, next) => {
+        console.log('gg')
+        let id = req.params.id;
+        console.log(id);
+        try {
+            let product = await isProductExists(id);
+    
+            if (!product.isExists) {
+                res.status(500).send('Error: Product does not exists')
+            } else {
+                await Products.deleteOne({_id:id});
+                // const data = await Products.find({})
+                res.send({deleted:true})
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    })
+    let isProductExists = async (id) => {
+        let isExists = false;
+        const data = await Products.find({_id:id})
+        console.log(data)
+            if (data !== null ) {
+                isExists = true;
+            }
+              
+            console.log(isExists)
+            return {isExists, data};
+        }
+
 
 
 const port = process.env.PORT || 8080;

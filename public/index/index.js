@@ -16,6 +16,10 @@ const menu = document.querySelector(".menu")
 const menubutoon = document.querySelector(".menubutoon")
 const UsersList = document.getElementById('UsersList');
 
+const init = () => {
+    //first function to run
+    getShelfList();
+}
 
 testcoocik()
 function testcoocik() {
@@ -423,6 +427,224 @@ const editUser = (userId) => {
         </form>`
         })
 }
+
+//yaara
+
+
+async function addNewProduct(e){
+    const message = document.querySelector("#message")
+     e.preventDefault();
+
+        let UPS = e.target[0].value;
+        let Name = e.target[1].value;
+        let price = e.target[2].value;
+        let Amount = e.target[3].value;
+        let Category = e.target[4].value;
+        let Weight = e.target[5].value;
+        let height = e.target[6].value;
+        let ExpiryDate = e.target[7].value;
+        let Location = e.target[8].value;
+
+    
+      let validations = await Validations(UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location)
+      
+      if(validations == true){
+      
+            let getWeight =  await getCurrrentWeight(Location) 
+            let checkCurrrentWeight =  CalcWeight(getWeight, Weight)
+            let getHeight = await getCurrrentHeight(Location)
+            let checkHeight =  CalcHeight(getHeight, height)
+   
+      if(checkHeight == false){
+            message.innerHTML = 'גובה המדף אינו מתאים לגובה המוצר, יש לבחור מדף אחר'
+      }
+      else if(checkCurrrentWeight == false){
+            message.innerHTML = 'המדף הנבחר מלא, יש לבחור מדף אחר'
+      }
+        else{
+           fetch('/add_Products', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location})
+        }).then(res =>res.json())
+            .then(data => {
+                console.log(data)
+              if (data.status == true) { 
+                    message.innerHTML = "המוצר נוצר בהצלחה"
+
+              /*       setTimeout(() => {
+                        getListUsers()
+                    }, 500);  */
+ 
+                 } else {
+                     message.innerHTML = 'המוצר אינו נוסף למערכת, נסה שנית'
+                 }
+})
+        
+        }
+        
+}
+}
+
+const getCurrrentWeight = async (UPS_Shelfs) =>{
+    let check ;
+    await fetch('/get-Details-Shelfs' + UPS_Shelfs, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(res => res.json())
+        .then(data=>{
+            check = data.MaximumWeight
+            });
+              return(check) 
+}
+
+ const getCurrrentHeight = async (UPS_Shelfs) =>{
+    let check ;
+    await fetch('/get-Details-Shelfs' + UPS_Shelfs, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(res => res.json())
+        .then(data=>{
+            check = data.height
+            });
+              return(check)
+    
+} 
+
+
+   const CalcWeight =  (getWeight, weight) =>{
+    if (Number(getWeight) > Number(weight)){
+        return (true);
+    }
+    else {
+        return (false)
+    }
+} 
+
+   const CalcHeight = (getHeight, height) =>{
+    if (Number(getHeight) > Number(height)){
+        return (true);
+    }
+    else {
+        return (false)
+    }
+} 
+
+const Validations = (UPS, name, price, amount, category, weight, height, ExpiryDate, UPS_Shelfs, checkCurrrentWeight,checkHeight) =>{
+    const message = document.querySelector("#message")
+        if(UPS.length < 3){
+            message.innerHTML = 'נדרש להזין מק"ט באורך 3 ומעלה'
+        }
+        else if(name.length == 0){
+             message.innerHTML = 'יש להזין את שם המוצר'
+        }
+        else if(amount.length == 0){
+            message.innerHTML = 'יש להזין את כמות המוצר'
+        }
+         else if(category.length == 0){
+            message.innerHTML = 'יש להזין את קטגוריית המוצר'
+        }
+        else if(weight.length == 0){
+            message.innerHTML = 'יש להזין את משקל המוצר'
+        }
+        else if(height.length == 0){
+            message.innerHTML = 'יש להזין את גובה המוצר'
+        }
+        else if(UPS_Shelfs.length == 0){
+            message.innerHTML = 'יש לבחור את המדף הרצוי למוצר'
+        }
+        else {
+            return (true);
+        }
+}
+
+ 
+
+const deleteProduct = (_id) =>{
+    console.log(_id)
+ fetch('/deleteProduct/' + _id, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        
+    }).then(res =>
+        res.json()
+    )
+        
+        .then(data => {
+            getListProductByCategory()
+        })
+}
+
+
+const editProduct = (id) =>{
+
+    letdistinctResult= []; 
+    fetch('/get-details-product' + id,{
+              method: 'GET',
+           headers: {
+               'Content-Type': 'application/json'
+           }
+       }).then(res =>
+           res.json()
+       )
+       .then(data => {
+           console.log(data)
+            document.getElementById('editProductById').innerHTML =
+                  
+                   `<h1>עריכת מוצר</h1>
+                   <form onsubmit="handleEditProduct(event, ${data.Amount})">
+                   
+                <div class="productDetails">
+                    <label for="UPS">מק"ט:
+                   <input type="number" name="UPS" id="UPS" value="${data.UPS}" disabled="disabled" autocomplete='off'></br>
+               </label>
+               <label for="Name">שם:
+                   <input type="text" name="Name" id="Name" value="${data.Name}" autocomplete='off'></br>
+               </label>
+               <label for="price">מחיר:
+                   <input type="text" name="price" id="price" value=${data.price} autocomplete='off'></br>
+               </label>
+               <label for="Amount">כמות:
+                   <input type="number" name="Amount" id="Amount" value=${data.Amount} autocomplete='off'></br>
+               </label>
+               <label for="Category">קטגוריה:
+                   <input type="text" name="Category" id="Category" value=${data.Category} autocomplete='off'></br>
+               </label>
+               <label for="Weight">משקל:
+                   <input type="number" name="Weight" id="Weight" value=${data.Weight} autocomplete='off'></br>
+               </label>
+                <label for="height">גובה:
+                   <input type="number" name="height" id="height" value=${data.height} autocomplete='off'></br>
+               </label>
+               <label for="ExpiryDate">תאריך תפוגה:
+                   <input type="date" name="ExpiryDate" id="ExpiryDate" value=${data.ExpiryDate} autocomplete='off'></br>
+               </label>
+           </div>
+            <select name='Location' id='Location'>
+            <option value = ${data.ExpiryDate}> ${data.ExpiryDate} </option>
+            </select></br>
+           <div id="message"></div></br>
+           <input type="submit" value="אישור">
+       </form>`;
+   // console.log(this.shelfOptions)
+   document.getElementById("Location").innerHTML = this.shelfOptions.join(" ");
+
+       }).catch(err => {
+           console.error(err);
+       }).finally(() => {
+           console.log('im done')
+       } )
+    
+} 
+
 
 
 function handleEditUser(e) {
