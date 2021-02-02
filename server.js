@@ -118,15 +118,20 @@ let ok = false
 let token
 
 app.get('/Output', async (req, res) => {
-   
+
     let checkCookie = req.cookies.validated
     let decoded = jwt.decode(checkCookie, secret);
     const _id = decoded.id
 
-    // await Users.updateOne({ _id }, { status: 'false' })
+    await Users.updateOne({ _id }, { status: 'false' })
 
-    res.cookie('validated', token, { maxAge: 10/01/1990, httpOnly: true })
+    res.cookie('validated', token, { maxAge: 10 / 01 / 1990, httpOnly: true })
     res.send(true)
+})
+app.get('/alluserconnected', async (req, res) => {
+
+    const data = await Users.find({status:true})
+    res.send({ data })
 })
 
 

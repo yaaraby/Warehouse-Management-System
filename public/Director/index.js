@@ -19,21 +19,54 @@ const UsersList = document.getElementById('UsersList');
 const ShelfList = document.getElementById('ShelfList');
 const handleAddShelftext = document.querySelector(".handleAddShelftext")
 const cardlogin = document.querySelector('.cardlogin')
+const alluserconnected = document.querySelector('.alluserconnected')
 
-// let r
-// function changeStatus(status) {
-//     if (status == true) {
-//         console.log(' Page is active');
-//         r = new Date().getSeconds()
-//         console.log(r)
-//     } else {
-//        console.log(r+20)
-//         console.log("יצאת מהאתר ל 3 דקות")
-//         clearTimeout(0)
-//         setTimeout(() => { console.log('dd') }, r + 2000);
-//     }
-// }
 
+
+function connected() {
+
+    fetch('/alluserconnected')
+        .then(res =>
+            res.json()
+        )
+        .then(data => {
+            document.getElementById('UsersList').innerHTML =
+                `<img src="/img/delete.png" class="displaynone" onclick="UsersListnone()">
+                <h1>מחוברים למערכת</h1>
+    <table>
+    <thead>
+        <tr>
+            <th></th>
+            <th>זהות משתמש</th>
+            <th>שם משתמש</th>
+            <th>תפקיד</th>
+        </tr>
+    </thead>
+        <tbody>
+            ${data.data.map(elm =>
+                    `<tr>
+            <td class="flexdeleteuser">
+            <a action="Edit" class="deleteuser" onclick='editUser("${elm._id}")'><img src="/img/edit-button.png"></a>
+            <a action="Delete" class="deleteuser" onclick='deleteUser("${elm._id}")'><img src="/img/deleteuser.png"></a>
+            </td>
+                    <td>${elm.id_user}</td>
+                    <td>${elm.userName}</td>
+                    <td>${elm.role}</td> 
+            </tr>
+    
+    `).join('')}</tbody>
+    </table>`;
+
+            UsersList.style.display = 'block'
+            outcome.style.display = 'none'
+            Registration.style.display = 'none'
+            Search.style.display = 'none'
+            ShowAll.style.display = 'none'
+            cardCategory.style.display = 'none'
+            AddShelf.style.display = 'none'
+            ShelfList.style.display = 'none'
+        })
+}
 
 const xdeta = new Date().getHours()
 let hour
@@ -125,9 +158,17 @@ function displaynoneeditusercardlogin() {
 }
 
 function Output() {
-    location.href = '/login/login.html'
     fetch('/Output')
+        .then(res =>
+            res.json()
+        )
+        .then(data => {
+            if (data) {
+                location.href = '/login/login.html'
+            }
+        })
 }
+
 
 inputSearch.addEventListener("keyup", function (event) {
     if (event.keyCode === 13) {

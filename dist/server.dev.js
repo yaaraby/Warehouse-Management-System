@@ -168,13 +168,10 @@ app.get('/Output', function _callee3(req, res) {
           }));
 
         case 5:
-          res.cookie('validated', token, {
-            maxAge: 10,
-            httpOnly: true
-          });
-          res.send(true);
+          console.log('ggg'); // res.cookie('validated', token, { maxAge: 10/01/1990, httpOnly: true })
+          // res.send(true)
 
-        case 7:
+        case 6:
         case "end":
           return _context3.stop();
       }
@@ -461,7 +458,6 @@ app.put("/shelf-creation", function _callee9(req, res) {
                   case 2:
                     flag = _context8.sent;
 
-                    //console.log(flag)
                     if (flag == null) {
                       req.body.forEach(function (element) {
                         // console.log(req.body)

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta name="theme-color" content="#aa5339e5"/>
+    <meta name="theme-color" content="#aa5339e5" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta property="og:url" content="https://warehouse-management-system1.herokuapp.com/img/mata.png" />
@@ -16,8 +17,9 @@
     <link rel="stylesheet" href="dist/index.css">
 </head>
 
-<!-- <body style="min-height:600px; width:100%; display: none;" onmouseover="changeStatus(true);" onmouseout="changeStatus(false);"> -->
-    <body style=" display: none;">
+
+<body style=" display: none;">
+    <button class="connecterd" style="left: 10px;" onclick="connected(event)"><img src="/img/connection.png"></button>
     <button class="menubutoon" onclick="displayblockmenu(event)"><img src="/img/menu.png"></button>
     <div class="menu">
         <img class="delete" src="/img/delete.png" onclick="menubutoondisplayblock()">
@@ -74,7 +76,7 @@
         <h1>הוספת מדף</h1>
         <form onsubmit="handleAddShelf(event)">
             <div class="rtl">
-                <label for="firstRow">שורה ראשונה 
+                <label for="firstRow">שורה ראשונה
                     <input type="text" name="firstRow" id="firstRow" autocomplete='off'></br>
                 </label>
                 <label for="lastRow">שורה אחרונה
@@ -87,7 +89,7 @@
                     <input type="text" name="numberOfShelfs" id="numberOfShelfs" autocomplete='off'></br>
                 </label>
                 <label for="maxWight"></label>משקל מקסימלי לכל מדף
-                    <input type="text" name="maxWight" id="maxWight" autocomplete='off'></br>
+                <input type="text" name="maxWight" id="maxWight" autocomplete='off'></br>
                 </label>
             </div>
             <div class="handleAddShelftext"></div>
@@ -134,15 +136,18 @@
 
     <div id="UsersList"></div>
     <div id="ShelfList"></div>
-    
+
 
     <div id="editUserById"></div>
 
+    <div class="alluserconnected">
+        
+    </div>
 
-        <div class="Bottom">
-            <img src="/img/Bottom.png"> - מחסן
-        </div>
-        <script src="index.js"></script>
+    <div class="Bottom">
+        <img src="/img/Bottom.png"> - מחסן
+    </div>
+    <script src="index.js"></script>
 </body>
 
 </html>
