@@ -284,27 +284,16 @@ app.put("/shelf-creation", async (req, res) => {
             res.send({ message })
         }
     })
-
-    // const data = await Shelfs.find({Line:{ $gte: req.body.Line }})
-    // console.log(data)
-    // if(data){
-    //     console.log(req.body.Line)
-    // }
-    // else{
-    //     console.log('ain')
-    // }
-
-
-
-
-
-
-
-
-
 });
 
 
+app.delete('/delete-shelf',async(req,res)=>{
+
+    const temp = req.body;
+    console.log(temp);
+    res.send(temp)
+
+})
 app.post('/PullThiscCategory', async (req, res) => {
     const { eventCategory } = req.body
     const data = await Products.find({ Category: eventCategory })

@@ -671,7 +671,7 @@ function handleAddShelf(e) {
     const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'O']
     let tempNewRows = []
 
-    // console.log(firstRow.value, lastRow.value, numberOfAreas.value, numberOfShelfs.value,maxWight.value);
+    
     for (i = 1; i <= tempTotalRowNumber + 1; i++) {
 
         for (j = 1; j <= numberOfAreas.value; j++) {
@@ -684,10 +684,10 @@ function handleAddShelf(e) {
                     Area: `${letters[j - 1]}`,
                     Floor: k,
                     UPS_Shelfs: `${tempFirstRow}-${letters[j - 1]}-${k}`,
-                    // NumberOfProductsonShelf:Number,
+                    // NumberOfProductsonShelf:Number, //Optional
                     MaximumWeight: maxWight.value,
-                    // CurrentWeight: Number,
-                    // height: Number
+                    // CurrentWeight: Number,//Optional
+                    // height: Number//Optional
                 })
             }
         }
@@ -752,8 +752,8 @@ function shelfObservationDisplayNone() {
 
 function allShelfs(data) {
     menubutoondisplayblock()
-    data.sort((a, b) => { if (a.Line < b.Line) return -1; })
-    data.sort((a, b) => { if (a.Area < b.Area) return -1; })
+    // data.sort((a, b) => { if (a.Line < b.Line) return -1; })
+    // data.sort((a, b) => { if (a.Area < b.Area) return -1; })
 
     document.getElementById('ShelfList').innerHTML =
         `<img src="/img/delete.png" class="displaynone" onclick="shelfObservationDisplayNone()">
@@ -776,7 +776,7 @@ function allShelfs(data) {
             `<tr>
         <td class="flexdeleteuser">
         <a action="Edit" class="editshelf" style="margin: 5px 15px;cursor: pointer;" onclick='editShelf("${elm._id}")'><img src="/img/edit-button.png"></a>
-        <a action="Delete" class="deleteShelf"  style="margin: 5px 15px;cursor: pointer;" onclick='deleteShelf("${elm._id}")'><img src="/img/deleteuser.png"></a>
+        <a class="deleteShelf"  style="margin: 5px 15px;cursor: pointer;" onclick='deleteShelf("${elm}")'><img src="/img/deleteuser.png"></a>
         </td>
                 <td style="direction: initial;">${elm.UPS_Shelfs}</td>
                 <td>${elm.NumberOfProductsonShelf}</td>
@@ -787,6 +787,29 @@ function allShelfs(data) {
 
 `).join('')}
 </table>`;
+}
+
+function deleteShelf(shelf_to_delete){
+
+    fetch("/delete-shelf", {
+        method: 'DELETE',
+        // headers: {
+        //     'Content-Type': 'application/json'
+        // },
+        body: JSON.stringify(shelf_to_delete)
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+
+          
+           
+
+
+        })
+
+
+
 }
 
 function addNewShelf() {
