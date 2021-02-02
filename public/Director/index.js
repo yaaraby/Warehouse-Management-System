@@ -20,17 +20,19 @@ const ShelfList = document.getElementById('ShelfList');
 const handleAddShelftext = document.querySelector(".handleAddShelftext")
 const cardlogin = document.querySelector('.cardlogin')
 
-
-
-  function changeStatus(status) { 
-    if (status==true) {
-      console.log(' Page is active');
-    } else {
-      console.log("יצאת מהאתר ל 3 דקות")
-    //   Output()
-    //   window.setTimeout(function() { if(pageStatus==false) { console.log(i+' Page is inactive'); /* change the users status to inactive */ } }, 1000);
-    }
-  }
+// let r
+// function changeStatus(status) {
+//     if (status == true) {
+//         console.log(' Page is active');
+//         r = new Date().getSeconds()
+//         console.log(r)
+//     } else {
+//        console.log(r+20)
+//         console.log("יצאת מהאתר ל 3 דקות")
+//         clearTimeout(0)
+//         setTimeout(() => { console.log('dd') }, r + 2000);
+//     }
+// }
 
 
 const xdeta = new Date().getHours()
@@ -49,7 +51,7 @@ if (xdeta >= 23 || xdeta >= 0 && xdeta < 6) {
     hour = "לילה טוב"
 }
 
-setInterval(function(){testcoocik()}, 100000);
+setInterval(function () { testcoocik() }, 100000);
 
 testcoocik()
 function testcoocik() {
@@ -58,7 +60,6 @@ function testcoocik() {
         .then(data => {
             if (data.validated == "ok") {
                 document.body.style.display = "block"
-
                 cardlogin.innerHTML = `<div class="textcardlogin">${hour}</div><img onclick='editUsercardlogin("${data.id}")' src="/img/user.jpg" alt=""><div class="textcardlogin">${data.name}</div>`
 
             } else if (data.validate == 'none') {

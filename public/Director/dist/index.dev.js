@@ -20,16 +20,19 @@ var menubutoon = document.querySelector(".menubutoon");
 var UsersList = document.getElementById('UsersList');
 var ShelfList = document.getElementById('ShelfList');
 var handleAddShelftext = document.querySelector(".handleAddShelftext");
-var cardlogin = document.querySelector('.cardlogin');
-
-function changeStatus(status) {
-  if (status == true) {
-    console.log(' Page is active');
-  } else {
-    console.log("יצאת מהאתר ל 3 דקות"); //   Output()
-    //   window.setTimeout(function() { if(pageStatus==false) { console.log(i+' Page is inactive'); /* change the users status to inactive */ } }, 1000);
-  }
-}
+var cardlogin = document.querySelector('.cardlogin'); // let r
+// function changeStatus(status) {
+//     if (status == true) {
+//         console.log(' Page is active');
+//         r = new Date().getSeconds()
+//         console.log(r)
+//     } else {
+//        console.log(r+20)
+//         console.log("יצאת מהאתר ל 3 דקות")
+//         clearTimeout(0)
+//         setTimeout(() => { console.log('dd') }, r + 2000);
+//     }
+// }
 
 var xdeta = new Date().getHours();
 var hour;

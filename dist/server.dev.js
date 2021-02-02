@@ -25,6 +25,10 @@ mongoose.connect(url, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+mongoose.set('useUnifiedTopology', true);
 var Users = mongoose.model('User', {
   id_user: String,
   userName: String,
@@ -32,7 +36,8 @@ var Users = mongoose.model('User', {
   password: String,
   email: String,
   phone: String,
-  role: String
+  role: String,
+  status: String
 });
 var Shelfs = mongoose.model('Shelf', {
   Line: Number,
@@ -146,17 +151,30 @@ var role = "מחסנאי";
 var ok = false;
 var token;
 app.get('/Output', function _callee3(req, res) {
+  var checkCookie, decoded, _id;
+
   return regeneratorRuntime.async(function _callee3$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
         case 0:
+          checkCookie = req.cookies.validated;
+          decoded = jwt.decode(checkCookie, secret);
+          _id = decoded.id;
+          _context3.next = 5;
+          return regeneratorRuntime.awrap(Users.updateOne({
+            _id: _id
+          }, {
+            status: 'false'
+          }));
+
+        case 5:
           res.cookie('validated', token, {
-            maxAge: 0,
+            maxAge: 10,
             httpOnly: true
           });
           res.send(true);
 
-        case 2:
+        case 7:
         case "end":
           return _context3.stop();
       }
@@ -164,7 +182,7 @@ app.get('/Output', function _callee3(req, res) {
   });
 });
 app.post('/send-Login-details', function _callee4(req, res) {
-  var _req$body, userName, password, validate, data, id;
+  var _req$body, userName, password, validate, id, data;
 
   return regeneratorRuntime.async(function _callee4$(_context4) {
     while (1) {
@@ -182,15 +200,24 @@ app.post('/send-Login-details', function _callee4(req, res) {
 
         case 7:
           if (!(i < data.length)) {
-            _context4.next = 19;
+            _context4.next = 22;
             break;
           }
 
           if (!(userName == data[i].userName && password == data[i].password)) {
-            _context4.next = 14;
+            _context4.next = 17;
             break;
           }
 
+          id = data[i]._id;
+          _context4.next = 12;
+          return regeneratorRuntime.awrap(Users.updateOne({
+            _id: id
+          }, {
+            status: 'true'
+          }));
+
+        case 12:
           validate = true;
 
           if (data[i].role == 'מנהל') {
@@ -199,19 +226,18 @@ app.post('/send-Login-details', function _callee4(req, res) {
             role = 'none';
           }
 
-          return _context4.abrupt("break", 19);
+          return _context4.abrupt("break", 22);
 
-        case 14:
+        case 17:
           role = 'מחסנאי';
           console.log("no match ".concat(data[i].userName));
 
-        case 16:
+        case 19:
           i++;
           _context4.next = 7;
           break;
 
-        case 19:
-          id = data[i]._id;
+        case 22:
           token = jwt.encode({
             role: role,
             userName: userName,
@@ -229,20 +255,20 @@ app.post('/send-Login-details', function _callee4(req, res) {
             validate: validate,
             role: role
           });
-          _context4.next = 28;
+          _context4.next = 30;
           break;
 
-        case 25:
-          _context4.prev = 25;
+        case 27:
+          _context4.prev = 27;
           _context4.t0 = _context4["catch"](0);
           console.log(_context4.t0.message);
 
-        case 28:
+        case 30:
         case "end":
           return _context4.stop();
       }
     }
-  }, null, null, [[0, 25]]);
+  }, null, null, [[0, 27]]);
 }); // index.html
 
 app.get('/Cookie-test', function (req, res) {
@@ -722,7 +748,7 @@ app.put("/update", function _callee13(req, res) {
             }
           };
           _context13.next = 26;
-          return regeneratorRuntime.awrap(Users.update(myquery, newvalues, function (err, res) {
+          return regeneratorRuntime.awrap(Users.updateOne(myquery, newvalues, function (err, res) {
             if (err) throw err;
             console.log("1 document updated");
           }));

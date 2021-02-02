@@ -14,6 +14,11 @@ const secret = 'gvfdgb%$^$%&3$4054423654073467$6@$&*(@%$^&2310*/-/+'
 
 const url = "mongodb+srv://yaara:987Yaara@cluster0.uya8d.mongodb.net/test";
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+mongoose.set('useUnifiedTopology', true);
+
 
 
 const Users = mongoose.model('User', {
@@ -23,7 +28,8 @@ const Users = mongoose.model('User', {
     password: String,
     email: String,
     phone: String,
-    role: String
+    role: String,
+    status: String
 });
 
 const Shelfs = mongoose.model('Shelf', {
@@ -48,7 +54,6 @@ const Products = mongoose.model('product', {
     ExpiryDate: String,
     Image: String,
     Location: String
-
 });
 
 
@@ -113,7 +118,14 @@ let ok = false
 let token
 
 app.get('/Output', async (req, res) => {
-    res.cookie('validated', token, { maxAge: 0, httpOnly: true })
+   
+    let checkCookie = req.cookies.validated
+    let decoded = jwt.decode(checkCookie, secret);
+    const _id = decoded.id
+
+    // await Users.updateOne({ _id }, { status: 'false' })
+
+    res.cookie('validated', token, { maxAge: 10/01/1990, httpOnly: true })
     res.send(true)
 })
 
@@ -122,11 +134,14 @@ app.post('/send-Login-details', async (req, res) => {
     try {
         const { userName, password } = req.body
         let validate = false
-
+        let id
 
         const data = await Users.find({})
         for (i = 0; i < data.length; i++) {
             if (userName == data[i].userName && password == data[i].password) {
+                id = data[i]._id
+
+                await Users.updateOne({ _id: id }, { status: 'true' })
 
                 validate = true;
                 if (data[i].role == 'מנהל') {
@@ -140,7 +155,6 @@ app.post('/send-Login-details', async (req, res) => {
                 console.log(`no match ${data[i].userName}`)
             }
         }
-        const id = data[i]._id
 
         token = jwt.encode({ role, userName, id }, secret)
 
@@ -171,7 +185,7 @@ app.get('/Cookie-test', (req, res) => {
         validated = false
     }
 
-    res.send({ validated, name,id })
+    res.send({ validated, name, id })
 })
 
 
@@ -364,7 +378,7 @@ app.put("/update", async (req, res) => {
                 , role: req.body.role
             }
         };
-        await Users.update(myquery, newvalues, function (err, res) {
+        await Users.updateOne(myquery, newvalues, function (err, res) {
             if (err) throw err;
             console.log("1 document updated");
 
