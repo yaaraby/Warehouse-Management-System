@@ -31,7 +31,6 @@ function connected() {
     document.getElementById('UsersList').innerHTML = "<img src=\"/img/delete.png\" class=\"displaynone\" onclick=\"UsersListnone()\">\n                <h1>\u05DE\u05D7\u05D5\u05D1\u05E8\u05D9\u05DD \u05DC\u05DE\u05E2\u05E8\u05DB\u05EA</h1>\n    <table>\n    <thead>\n        <tr>\n            <th></th>\n            <th>\u05D6\u05D4\u05D5\u05EA \u05DE\u05E9\u05EA\u05DE\u05E9</th>\n            <th>\u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9</th>\n            <th>\u05EA\u05E4\u05E7\u05D9\u05D3</th>\n        </tr>\n    </thead>\n        <tbody>\n            ".concat(data.data.map(function (elm) {
       return "<tr>\n            <td class=\"flexdeleteuser\">\n            <a action=\"Edit\" class=\"deleteuser\" onclick='editUser(\"".concat(elm._id, "\")'><img src=\"/img/edit-button.png\"></a>\n            <a action=\"Delete\" class=\"deleteuser\" onclick='deleteUser(\"").concat(elm._id, "\")'><img src=\"/img/deleteuser.png\"></a>\n            </td>\n                    <td>").concat(elm.id_user, "</td>\n                    <td>").concat(elm.userName, "</td>\n                    <td>").concat(elm.role, "</td> \n            </tr>\n    \n    ");
     }).join(''), "</tbody>\n    </table>");
-    UsersList.style.display = 'block';
     outcome.style.display = 'none';
     Registration.style.display = 'none';
     Search.style.display = 'none';
@@ -40,6 +39,8 @@ function connected() {
     AddShelf.style.display = 'none';
     ShelfList.style.display = 'none';
     editUserById.style.display = 'none';
+    menubutoondisplayblock();
+    UsersList.style.display = 'block';
   });
 }
 

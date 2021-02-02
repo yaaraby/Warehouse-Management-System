@@ -57,8 +57,6 @@ function connected() {
     
     `).join('')}</tbody>
     </table>`;
-
-            UsersList.style.display = 'block'
             outcome.style.display = 'none'
             Registration.style.display = 'none'
             Search.style.display = 'none'
@@ -67,6 +65,9 @@ function connected() {
             AddShelf.style.display = 'none'
             ShelfList.style.display = 'none'
             editUserById.style.display = 'none'
+            menubutoondisplayblock()
+            UsersList.style.display = 'block'
+
         })
 }
 
