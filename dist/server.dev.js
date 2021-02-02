@@ -164,7 +164,7 @@ app.get('/Output', function _callee3(req, res) {
   });
 });
 app.post('/send-Login-details', function _callee4(req, res) {
-  var _req$body, userName, password, validate, data;
+  var _req$body, userName, password, validate, data, id;
 
   return regeneratorRuntime.async(function _callee4$(_context4) {
     while (1) {
@@ -211,9 +211,11 @@ app.post('/send-Login-details', function _callee4(req, res) {
           break;
 
         case 19:
+          id = data[i]._id;
           token = jwt.encode({
             role: role,
-            userName: userName
+            userName: userName,
+            id: id
           }, secret);
 
           if (validate) {
@@ -227,38 +229,41 @@ app.post('/send-Login-details', function _callee4(req, res) {
             validate: validate,
             role: role
           });
-          _context4.next = 27;
+          _context4.next = 28;
           break;
 
-        case 24:
-          _context4.prev = 24;
+        case 25:
+          _context4.prev = 25;
           _context4.t0 = _context4["catch"](0);
           console.log(_context4.t0.message);
 
-        case 27:
+        case 28:
         case "end":
           return _context4.stop();
       }
     }
-  }, null, null, [[0, 24]]);
+  }, null, null, [[0, 25]]);
 }); // index.html
 
 app.get('/Cookie-test', function (req, res) {
   var validated;
   var name;
+  var id;
   var checkCookie = req.cookies.validated;
 
   if (checkCookie) {
     var decoded = jwt.decode(checkCookie, secret);
     validated = decoded.role;
     name = decoded.userName;
+    id = decoded.id;
   } else {
     validated = false;
   }
 
   res.send({
     validated: validated,
-    name: name
+    name: name,
+    id: id
   });
 });
 app.post('/send-User-details-sign-up', function _callee5(req, res) {

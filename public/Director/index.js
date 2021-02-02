@@ -17,9 +17,8 @@ const menu = document.querySelector(".menu")
 const menubutoon = document.querySelector(".menubutoon")
 const UsersList = document.getElementById('UsersList');
 const ShelfList = document.getElementById('ShelfList');
-const handleAddShelftext= document.querySelector(".handleAddShelftext")
-const textcardlogin = document.querySelector('.textcardlogin')
-// const allShelfs = document.getElementById('allShelfs');
+const handleAddShelftext = document.querySelector(".handleAddShelftext")
+const cardlogin = document.querySelector('.cardlogin')
 
 testcoocik()
 function testcoocik() {
@@ -28,7 +27,7 @@ function testcoocik() {
         .then(data => {
             if (data.validated == "ok") {
                 document.body.style.display = "block"
-                textcardlogin.innerHTML = data.name
+                cardlogin.innerHTML = `<img onclick='editUsercardlogin("${data.id}")' src="/img/user.jpg" alt=""><div class="textcardlogin">${data.name}</div>`
 
             } else if (data.validate == 'none') {
                 location.href = '/userRegular/index.html'
@@ -37,7 +36,62 @@ function testcoocik() {
             }
         })
 }
+const editUsercardlogin = (userId) => {
+    menubutoondisplayblock()
+    outcome.style.display = 'none'
+    Registration.style.display = 'none'
+    Search.style.display = 'none'
+    ShowAll.style.display = 'none'
+    cardCategory.style.display = 'none'
+    editUserById.style.display = "none"
+    UsersList.style.display = 'none'
+    AddShelf.style.display = 'none'
+    ShelfList.style.display = 'none'
 
+    fetch('/get-details-users' + userId, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(res => res.json())
+        .then(data => {
+            editUserById.style.display = "block"
+            UsersList.style.display = 'none'
+
+            document.getElementById('editUserById').innerHTML =
+                `<img onclick='displaynoneeditusercardlogin()' src="/img/delete.png" alt="">
+                <h1>עריכת פרטים אישיים</h1>
+                    <form onsubmit="handleEditUser(event)">
+                 <div class="rtl">
+                     <label for="id_user">מספר זהות:
+                    <input type="text" name="id_user" id="id_user" value="${data.id_user}" disabled="disabled" autocomplete='off'></br>
+                </label>
+                <label for="name">שם:
+                    <input type="text" name="name" id="name" value="${data.name}" autocomplete='off'></br>
+                </label>
+                <label for="userName">שם משתמש:
+                    <input type="text" name="username" id="userName" value=${data.userName} autocomplete='off'></br>
+                </label>
+                <label for="password">סיסמה:
+                    <input type="text" name="password" id="password" value=${data.password} autocomplete='off'></br>
+                </label>
+                <label for="email">אימייל:
+                    <input type="email" name="email" id="email" value=${data.email} autocomplete='off'></br>
+                </label>
+                <label for="phone">פלאפון:
+                    <input type="text" name="phone" id="phone" value=${data.phone} autocomplete='off'></br>
+                </label>
+            </div>
+            <input type="text" value="${data.role}" disabled="disabled" autocomplete='off'></br>
+            <div id="messag"></div></br>
+            <input type="submit" value="שמור שינויים">
+        </form>`
+        })
+}
+
+function displaynoneeditusercardlogin(){
+    editUserById.style.display ='none'
+}
 
 function Output() {
     location.href = '/login/login.html'
@@ -425,6 +479,7 @@ function editUserByIddisplaynone() {
 
 
 const editUser = (userId) => {
+    menubutoondisplayblock()
     letdistinctResult = [];
     fetch('/get-details-users' + userId, {
         method: 'GET',
@@ -437,7 +492,7 @@ const editUser = (userId) => {
             UsersList.style.display = 'none'
 
             document.getElementById('editUserById').innerHTML =
-                `<img src="/img/return.png" onclick="editUserByIddisplaynone()">
+                `<img class="imgdeleteeditUser" src="/img/return.png" onclick="editUserByIddisplaynone()">
                     <h1>עריכת משתמש</h1>
                     <form onsubmit="handleEditUser(event)">
                     
@@ -539,7 +594,7 @@ function handleAddShelf(e) {
 
     let tempTotalRowNumber = lastRow.value - firstRow.value;
     let tempFirstRow = firstRow.value;
-    const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K','L','M','N','O']
+    const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'O']
     let tempNewRows = []
 
     // console.log(firstRow.value, lastRow.value, numberOfAreas.value, numberOfShelfs.value,maxWight.value);
@@ -567,7 +622,7 @@ function handleAddShelf(e) {
 
     console.log(tempNewRows)
     console.log(JSON.stringify(tempNewRows))
-    handleAddShelftext.innerHTML =''
+    handleAddShelftext.innerHTML = ''
 
     fetch("/shelf-creation", {
         method: 'PUT',
@@ -578,11 +633,11 @@ function handleAddShelf(e) {
     })
         .then(res => res.json())
         .then(data => {
-            if (data){
-            shelfObservation()
-        }else{
-            handleAddShelftext.innerHTML =data.message
-        }
+            if (data) {
+                shelfObservation()
+            } else {
+                handleAddShelftext.innerHTML = data.message
+            }
         })
 }
 
@@ -622,9 +677,9 @@ function shelfObservationDisplayNone() {
 
 function allShelfs(data) {
     menubutoondisplayblock()
-    data.sort((a, b) => { if (a.Line < b.Line) return -1;})
-    data.sort((a, b) => { if (a.Area < b.Area) return -1;})
-    console.log(data) 
+    data.sort((a, b) => { if (a.Line < b.Line) return -1; })
+    data.sort((a, b) => { if (a.Area < b.Area) return -1; })
+    console.log(data)
 
     document.getElementById('ShelfList').innerHTML =
         `<img src="/img/delete.png" class="displaynone" onclick="shelfObservationDisplayNone()">

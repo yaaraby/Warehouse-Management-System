@@ -26,7 +26,6 @@ body {
     right: -220px;
     z-index: 2;
     white-space: nowrap;
-    // display: none;
     transition: all 0.3s;
 
     .delete {
@@ -61,9 +60,10 @@ body {
         img {
             width: 120px;
             border-radius: 50%;
-border: 3px solid white;
+            border: 3px solid white;
         }
-        .textcardlogin{
+
+        .textcardlogin {
             padding: 5px;
             font-size: 23rem;
             font-weight: 600;

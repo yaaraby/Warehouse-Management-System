@@ -127,6 +127,7 @@ app.post('/send-Login-details', async (req, res) => {
         const data = await Users.find({})
         for (i = 0; i < data.length; i++) {
             if (userName == data[i].userName && password == data[i].password) {
+
                 validate = true;
                 if (data[i].role == 'מנהל') {
                     role = 'ok'
@@ -139,7 +140,9 @@ app.post('/send-Login-details', async (req, res) => {
                 console.log(`no match ${data[i].userName}`)
             }
         }
-        token = jwt.encode({ role, userName }, secret)
+        const id = data[i]._id
+
+        token = jwt.encode({ role, userName, id }, secret)
 
         if (validate) {
             res.cookie('validated', token, { maxAge: 10086400, httpOnly: true })
@@ -155,26 +158,26 @@ app.post('/send-Login-details', async (req, res) => {
 app.get('/Cookie-test', (req, res) => {
     let validated
     let name
+    let id
     let checkCookie = req.cookies.validated
 
     if (checkCookie) {
         let decoded = jwt.decode(checkCookie, secret);
         validated = decoded.role
         name = decoded.userName
-
+        id = decoded.id
 
     } else {
         validated = false
     }
 
-    res.send({ validated, name })
+    res.send({ validated, name,id })
 })
 
 
 
 
 app.post('/send-User-details-sign-up', async (req, res) => {
-
     let message = ''
     const { id_user, name, userName, password, email, phone, role } = req.body
 
