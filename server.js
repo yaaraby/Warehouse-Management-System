@@ -243,13 +243,12 @@ app.put("/shelf-creation", async (req, res) => {
 
     req.body.forEach(async element => {
         let flag = await Shelfs.findOne({ Line: element.Line }).exec();
-        //console.log(flag)
+
         if (flag == null) {
             req.body.forEach(element => {
                 // console.log(req.body)
                 const testShelf = new Shelfs(
                     {
-
                         Line: element.Line,
                         Area: element.Area,
                         Floor: element.Floor,
@@ -259,9 +258,7 @@ app.put("/shelf-creation", async (req, res) => {
                         CurrentWeight: 0,
                         height: 0
                     });
-
                 testShelf.save();
-
             });
             res.send(true)
         }

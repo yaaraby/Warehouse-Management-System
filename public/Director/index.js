@@ -88,7 +88,6 @@ const editUsercardlogin = (userId) => {
     }).then(res => res.json())
         .then(data => {
             editUserById.style.display = "block"
-            UsersList.style.display = 'none'
 
             document.getElementById('editUserById').innerHTML =
                 `<img onclick='displaynoneeditusercardlogin()' src="/img/delete.png" alt="">
@@ -664,7 +663,8 @@ function handleAddShelf(e) {
     })
         .then(res => res.json())
         .then(data => {
-            if (data) {
+            console.log(data)
+            if (data == true) {
                 shelfObservation()
             } else {
                 handleAddShelftext.innerHTML = data.message

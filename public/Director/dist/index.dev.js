@@ -92,7 +92,6 @@ var editUsercardlogin = function editUsercardlogin(userId) {
     return res.json();
   }).then(function (data) {
     editUserById.style.display = "block";
-    UsersList.style.display = 'none';
     document.getElementById('editUserById').innerHTML = "<img onclick='displaynoneeditusercardlogin()' src=\"/img/delete.png\" alt=\"\">\n                <h1>\u05E2\u05E8\u05D9\u05DB\u05EA \u05E4\u05E8\u05D8\u05D9\u05DD \u05D0\u05D9\u05E9\u05D9\u05D9\u05DD</h1>\n                    <form onsubmit=\"handleEditUser(event)\">\n                 <div class=\"rtl\">\n                     <label for=\"id_user\">\u05DE\u05E1\u05E4\u05E8 \u05D6\u05D4\u05D5\u05EA:\n                    <input type=\"text\" name=\"id_user\" id=\"id_user\" value=\"".concat(data.id_user, "\" disabled=\"disabled\" autocomplete='off'></br>\n                </label>\n                <label for=\"name\">\u05E9\u05DD:\n                    <input type=\"text\" name=\"name\" id=\"name\" value=\"").concat(data.name, "\" autocomplete='off'></br>\n                </label>\n                <label for=\"userName\">\u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9:\n                    <input type=\"text\" name=\"username\" id=\"userName\" value=").concat(data.userName, " autocomplete='off'></br>\n                </label>\n                <label for=\"password\">\u05E1\u05D9\u05E1\u05DE\u05D4:\n                    <input type=\"text\" name=\"password\" id=\"password\" value=").concat(data.password, " autocomplete='off'></br>\n                </label>\n                <label for=\"email\">\u05D0\u05D9\u05DE\u05D9\u05D9\u05DC:\n                    <input type=\"email\" name=\"email\" id=\"email\" value=").concat(data.email, " autocomplete='off'></br>\n                </label>\n                <label for=\"phone\">\u05E4\u05DC\u05D0\u05E4\u05D5\u05DF:\n                    <input type=\"text\" name=\"phone\" id=\"phone\" value=").concat(data.phone, " autocomplete='off'></br>\n                </label>\n            </div>\n            <input type=\"text\" value=\"").concat(data.role, "\" disabled=\"disabled\" autocomplete='off'></br>\n            <div id=\"messag\"></div></br>\n            <input type=\"submit\" value=\"\u05E9\u05DE\u05D5\u05E8 \u05E9\u05D9\u05E0\u05D5\u05D9\u05D9\u05DD\">\n        </form>");
   });
 };
@@ -504,7 +503,9 @@ function handleAddShelf(e) {
   }).then(function (res) {
     return res.json();
   }).then(function (data) {
-    if (data) {
+    console.log(data);
+
+    if (data == true) {
       shelfObservation();
     } else {
       handleAddShelftext.innerHTML = data.message;
