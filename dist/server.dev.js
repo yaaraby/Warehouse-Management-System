@@ -490,7 +490,6 @@ app.get('/pull-Shelf', function _callee9(req, res) {
 
         case 2:
           data = _context9.sent;
-          // const data = []
           res.send({
             data: data
           });
