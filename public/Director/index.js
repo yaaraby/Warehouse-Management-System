@@ -20,6 +20,7 @@ const ShelfList = document.getElementById('ShelfList');
 const handleAddShelftext = document.querySelector(".handleAddShelftext")
 const cardlogin = document.querySelector('.cardlogin')
 const alluserconnected = document.querySelector('.alluserconnected')
+const addNewProductclass = document.querySelector('.addNewProductclass')
 
 const init = () => {
     //first function to run
@@ -202,6 +203,7 @@ function Addauser() {
 }
 function Registrationdisplaynone() {
     Registration.style.display = 'none'
+    addNewProductclass.style.display = 'none'
 }
 
 
