@@ -95,6 +95,8 @@ const Products = mongoose.model('product', {
 //  user.save().then(doc => console.log('doc')).catch(e =>console.log(e));
 
 
+
+
 app.get('/get-List-Users', async (req, res) => {
     const data = await Users.find()
     res.send({ data })
@@ -113,6 +115,8 @@ app.delete('/:userId', async (req, res) => {
 })
 
 // login.html
+
+let newDate = new Date().getTime()
 let role = "מחסנאי"
 let ok = false
 let token
@@ -125,11 +129,13 @@ app.get('/Output', async (req, res) => {
 
     await Users.updateOne({ _id }, { status: 'false' })
 
-    res.cookie('validated', token, { maxAge: 10 / 01 / 1990, httpOnly: true })
+    res.cookie('validated', token, { maxAge: 0, httpOnly: true })
     res.send(true)
 })
-app.get('/alluserconnected', async (req, res) => {
 
+
+
+app.get('/alluserconnected', async (req, res) => {
     const data = await Users.find({status:true})
     res.send({ data })
 })
@@ -160,8 +166,8 @@ app.post('/send-Login-details', async (req, res) => {
                 console.log(`no match ${data[i].userName}`)
             }
         }
-
-        token = jwt.encode({ role, userName, id }, secret)
+        newDate = new Date().getTime()
+        token = jwt.encode({ role, userName, id, newDate}, secret)
 
         if (validate) {
             res.cookie('validated', token, { maxAge: 86400000, httpOnly: true })
@@ -173,19 +179,27 @@ app.post('/send-Login-details', async (req, res) => {
     }
 })
 
+
 // index.html
-app.get('/Cookie-test', (req, res) => {
+app.get('/Cookie-test', async (req, res) => {
     let validated
     let name
     let id
     let checkCookie = req.cookies.validated
+    newDate = new Date().getTime()
 
+    
     if (checkCookie) {
         let decoded = jwt.decode(checkCookie, secret);
         validated = decoded.role
         name = decoded.userName
         id = decoded.id
-
+        
+        if (decoded.newDate + 86400000 < newDate){
+            await Users.updateOne({ _id:id }, { status: 'false' })
+            res.cookie('validated', token, { maxAge: 0, httpOnly: true })
+            validated = false
+        }
     } else {
         validated = false
     }
@@ -272,26 +286,16 @@ app.put("/shelf-creation", async (req, res) => {
             res.send({ message })
         }
     })
-
-    // const data = await Shelfs.find({Line:{ $gte: req.body.Line }})
-    // console.log(data)
-    // if(data){
-    //     console.log(req.body.Line)
-    // }
-    // else{
-    //     console.log('ain')
-    // }
-
-
-
-
-
-
-
-
-
 });
 
+
+app.delete('/delete-shelf',async(req,res)=>{
+
+    const temp = req.body;
+    console.log(temp);
+    // res.send(temp)
+
+})
 
 app.post('/PullThiscCategory', async (req, res) => {
     const { eventCategory } = req.body
@@ -301,7 +305,6 @@ app.post('/PullThiscCategory', async (req, res) => {
 
 
 // Search
-
 app.post('/Searchdeta', async (req, res) => {
     const { placeholder, inputvalue } = req.body
     // return false 
