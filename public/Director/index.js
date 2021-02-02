@@ -733,7 +733,6 @@ function shelfObservation() {
             res.json()
         )
         .then(data => {
-            console.log(data.data)
             ShelfList.style.display = 'block'
             outcome.style.display = 'none'
             Registration.style.display = 'none'
@@ -745,8 +744,9 @@ function shelfObservation() {
             AddShelf.style.display = 'none'
             menubutoondisplayblock()
 
+
             if (data.data[0] == undefined) {
-                document.getElementById('ShelfList').innerHTML = `<h1 style="text-align: center;">לא נמצאו מדפים</h1>`
+                document.getElementById('ShelfList').innerHTML = `<img src="/img/delete.png" class="displaynone" onclick="shelfObservationDisplayNone()"><button class="addNewShelf" onclick="addNewShelf()"><img src="/img/+.png"></button><h1 style="text-align: center;">לא נמצאו מדפים</h1>`
             }
             else {
                 allShelfs(data.data)

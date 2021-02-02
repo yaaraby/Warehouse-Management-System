@@ -540,7 +540,6 @@ function shelfObservation() {
   fetch('/pull-Shelf').then(function (res) {
     return res.json();
   }).then(function (data) {
-    console.log(data.data);
     ShelfList.style.display = 'block';
     outcome.style.display = 'none';
     Registration.style.display = 'none';
@@ -553,7 +552,7 @@ function shelfObservation() {
     menubutoondisplayblock();
 
     if (data.data[0] == undefined) {
-      document.getElementById('ShelfList').innerHTML = "<h1 style=\"text-align: center;\">\u05DC\u05D0 \u05E0\u05DE\u05E6\u05D0\u05D5 \u05DE\u05D3\u05E4\u05D9\u05DD</h1>";
+      document.getElementById('ShelfList').innerHTML = "<img src=\"/img/delete.png\" class=\"displaynone\" onclick=\"shelfObservationDisplayNone()\"><button class=\"addNewShelf\" onclick=\"addNewShelf()\"><img src=\"/img/+.png\"></button><h1 style=\"text-align: center;\">\u05DC\u05D0 \u05E0\u05DE\u05E6\u05D0\u05D5 \u05DE\u05D3\u05E4\u05D9\u05DD</h1>";
     } else {
       allShelfs(data.data);
     }
