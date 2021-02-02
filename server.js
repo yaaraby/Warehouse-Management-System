@@ -95,6 +95,8 @@ const Products = mongoose.model('product', {
 //  user.save().then(doc => console.log('doc')).catch(e =>console.log(e));
 
 
+
+
 app.get('/get-List-Users', async (req, res) => {
     const data = await Users.find()
     res.send({ data })
@@ -113,6 +115,8 @@ app.delete('/:userId', async (req, res) => {
 })
 
 // login.html
+
+let newDate = new Date().getTime()
 let role = "מחסנאי"
 let ok = false
 let token
@@ -125,11 +129,13 @@ app.get('/Output', async (req, res) => {
 
     await Users.updateOne({ _id }, { status: 'false' })
 
-    res.cookie('validated', token, { maxAge: 10 / 01 / 1990, httpOnly: true })
+    res.cookie('validated', token, { maxAge: 0, httpOnly: true })
     res.send(true)
 })
-app.get('/alluserconnected', async (req, res) => {
 
+
+
+app.get('/alluserconnected', async (req, res) => {
     const data = await Users.find({status:true})
     res.send({ data })
 })
@@ -160,8 +166,8 @@ app.post('/send-Login-details', async (req, res) => {
                 console.log(`no match ${data[i].userName}`)
             }
         }
-
-        token = jwt.encode({ role, userName, id }, secret)
+        newDate = new Date().getTime()
+        token = jwt.encode({ role, userName, id, newDate}, secret)
 
         if (validate) {
             res.cookie('validated', token, { maxAge: 86400000, httpOnly: true })
@@ -173,19 +179,27 @@ app.post('/send-Login-details', async (req, res) => {
     }
 })
 
+
 // index.html
-app.get('/Cookie-test', (req, res) => {
+app.get('/Cookie-test', async (req, res) => {
     let validated
     let name
     let id
     let checkCookie = req.cookies.validated
+    newDate = new Date().getTime()
 
+    
     if (checkCookie) {
         let decoded = jwt.decode(checkCookie, secret);
         validated = decoded.role
         name = decoded.userName
         id = decoded.id
-
+        
+        if (decoded.newDate + 86400000 < newDate){
+            await Users.updateOne({ _id:id }, { status: 'false' })
+            res.cookie('validated', token, { maxAge: 0, httpOnly: true })
+            validated = false
+        }
     } else {
         validated = false
     }
@@ -403,6 +417,7 @@ app.post('/delete-shelf',async(req,res)=>{
 
     const temp = req.body.UPS_Shelfs;
     console.log(temp);
+<<<<<<< HEAD
     
 
 })
@@ -410,6 +425,12 @@ app.post('/delete-shelf',async(req,res)=>{
 
 
 
+=======
+    // res.send(temp)
+
+})
+
+>>>>>>> master
 app.post('/PullThiscCategory', async (req, res) => {
     const { eventCategory } = req.body
     const data = await Products.find({ Category: eventCategory })
@@ -418,7 +439,6 @@ app.post('/PullThiscCategory', async (req, res) => {
 
 
 // Search
-
 app.post('/Searchdeta', async (req, res) => {
     const { placeholder, inputvalue } = req.body
     // return false 
@@ -513,6 +533,91 @@ app.get('/get-details-users:userId', async (req, res) => {
     try {
         const findUser = await Users.findOne({ _id: userId });
         res.send(findUser)
+
+    } catch (e) {
+        console.log(e)
+    }
+})
+
+// yaara
+
+
+app.post('/add_Products', async (req, res) => {
+    let status = true
+        const { UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location} = req.body
+    
+    
+            const products = new Products({UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location});
+            await products.save().then(doc => console.log(doc)).catch(e => console.log(e));
+            let sumProductOnShelf  = await updateNumberOfProduct(Amount, Location,Weight)
+    
+            if(sumProductOnShelf == true){
+                 res.send({ status })
+            }
+    })
+    
+    const  updateNumberOfProduct = async (Amount, Location, Weight)=>{
+    
+    const data = await Shelfs.find({})
+     for (i = 0; i < data.length; i++)
+      {
+            if(Location ==  data[i].UPS_Shelfs){
+              let  ups_shelf = data[i].UPS_Shelfs
+              let  numberOfProductsonShelf = data[i].NumberOfProductsonShelf 
+              let  weight = data[i].CurrentWeight
+              numberOfProductsonShelf += eval(Amount);
+              weight += eval(Weight);
+    
+                var myquery = { UPS_Shelfs:  Location};
+                var newvalues = { $set: {
+                             NumberOfProductsonShelf: numberOfProductsonShelf,
+                             CurrentWeight: weight
+                           } };
+         await Shelfs.update(myquery, newvalues, function(err, res) {
+        if (err) throw err;
+        console.log("1 document updated");
+                } )
+      }      
+      }
+        return (true);
+    };
+
+    
+    app.delete('/deleteProduct/:id', async (req, res, next) => {
+        console.log('gg')
+        let id = req.params.id;
+        console.log(id);
+        try {
+            let product = await isProductExists(id);
+    
+            if (!product.isExists) {
+                res.status(500).send('Error: Product does not exists')
+            } else {
+                await Products.deleteOne({_id:id});
+                // const data = await Products.find({})
+                res.send({deleted:true})
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    })
+    let isProductExists = async (id) => {
+        let isExists = false;
+        const data = await Products.find({_id:id})
+        console.log(data)
+            if (data !== null ) {
+                isExists = true;
+            }
+              
+            console.log(isExists)
+            return {isExists, data};
+}
+        
+app.get('/get-details-product:id', async (req, res) => {
+    let  id  = req.params.id
+    try {
+        const findProduct = await Products.findOne({ _id: id });
+        res.send(findProduct)
 
     } catch (e) {
         console.log(e)

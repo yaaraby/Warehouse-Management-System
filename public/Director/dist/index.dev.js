@@ -28,7 +28,7 @@ function connected() {
     return res.json();
   }).then(function (data) {
     console.log(data);
-    document.getElementById('UsersList').innerHTML = "<img src=\"/img/delete.png\" class=\"displaynone\" onclick=\"UsersListnone()\">\n                <h1>\u05DE\u05D7\u05D5\u05D1\u05E8\u05D9\u05DD \u05DC\u05DE\u05E2\u05E8\u05DB\u05EA</h1>\n    <table>\n    <thead>\n        <tr>\n            <th></th>\n            <th>\u05D6\u05D4\u05D5\u05EA \u05DE\u05E9\u05EA\u05DE\u05E9</th>\n            <th>\u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9</th>\n            <th>\u05EA\u05E4\u05E7\u05D9\u05D3</th>\n        </tr>\n    </thead>\n        <tbody>\n            ".concat(data.data.map(function (elm) {
+    document.getElementById('UsersList').innerHTML = "<img src=\"/img/delete.png\" class=\"displaynone\" onclick=\"UsersListnone()\">\n                <h1>\u05DE\u05E9\u05EA\u05DE\u05E9\u05D9\u05DD \u05DE\u05D7\u05D5\u05D1\u05E8\u05D9\u05DD</h1>\n    <table>\n    <thead>\n        <tr>\n            <th></th>\n            <th>\u05D6\u05D4\u05D5\u05EA \u05DE\u05E9\u05EA\u05DE\u05E9</th>\n            <th>\u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9</th>\n            <th>\u05EA\u05E4\u05E7\u05D9\u05D3</th>\n        </tr>\n    </thead>\n        <tbody>\n            ".concat(data.data.map(function (elm) {
       return "<tr>\n            <td class=\"flexdeleteuser\">\n            <a action=\"Edit\" class=\"deleteuser\" onclick='editUser(\"".concat(elm._id, "\")'><img src=\"/img/edit-button.png\"></a>\n            <a action=\"Delete\" class=\"deleteuser\" onclick='deleteUser(\"").concat(elm._id, "\")'><img src=\"/img/deleteuser.png\"></a>\n            </td>\n                    <td>").concat(elm.id_user, "</td>\n                    <td>").concat(elm.userName, "</td>\n                    <td>").concat(elm.role, "</td> \n            </tr>\n    \n    ");
     }).join(''), "</tbody>\n    </table>");
     outcome.style.display = 'none';
@@ -305,19 +305,23 @@ function getCategory() {
   UsersList.style.display = 'none';
   AddShelf.style.display = 'none';
   ShelfList.style.display = 'none';
-  cardCategory.style.display = 'block';
   cardboxcatygory.innerHTML = '';
+  cardCategory.style.display = 'block';
   fetch('/get-category').then(function (res) {
     return res.json();
   }).then(function (data) {
-    data.data.forEach(function (element) {
-      if (aryycategory.indexOf(element.Category) == -1) {
-        aryycategory.push(element.Category);
-      }
-    });
-    aryycategory.forEach(function (elm) {
-      cardboxcatygory.innerHTML += "<div class=\"A_line_in_a_category\" onclick=\"PullThiscCategory(event)\">".concat(elm, "</div>");
-    });
+    if (data.data.length > 0) {
+      data.data.forEach(function (element) {
+        if (aryycategory.indexOf(element.Category) == -1) {
+          aryycategory.push(element.Category);
+        }
+      });
+      aryycategory.forEach(function (elm) {
+        cardboxcatygory.innerHTML += "<div class=\"A_line_in_a_category\" onclick=\"PullThiscCategory(event)\">".concat(elm, "</div>");
+      });
+    } else {
+      cardboxcatygory.innerHTML = '<h1>אין מה להציג</h1>';
+    }
   });
 }
 
@@ -484,7 +488,7 @@ function handleAddShelf(e) {
   var tempTotalRowNumber = lastRow.value - firstRow.value;
   var tempFirstRow = firstRow.value;
   var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'O'];
-  var tempNewRows = []; // console.log(firstRow.value, lastRow.value, numberOfAreas.value, numberOfShelfs.value,maxWight.value);
+  var tempNewRows = [];
 
   for (i = 1; i <= tempTotalRowNumber + 1; i++) {
     for (j = 1; j <= numberOfAreas.value; j++) {
@@ -495,9 +499,9 @@ function handleAddShelf(e) {
           Area: "".concat(letters[j - 1]),
           Floor: k,
           UPS_Shelfs: "".concat(tempFirstRow, "-").concat(letters[j - 1], "-").concat(k),
-          // NumberOfProductsonShelf:Number,
-          MaximumWeight: maxWight.value // CurrentWeight: Number,
-          // height: Number
+          // NumberOfProductsonShelf:Number, //Optional
+          MaximumWeight: maxWight.value // CurrentWeight: Number,//Optional
+          // height: Number//Optional
 
         });
       }
@@ -536,17 +540,20 @@ function shelfObservation() {
   fetch('/pull-Shelf').then(function (res) {
     return res.json();
   }).then(function (data) {
-    if (data.data != null) {
-      outcome.style.display = 'none';
-      Registration.style.display = 'none';
-      Search.style.display = 'none';
-      ShowAll.style.display = 'none';
-      cardCategory.style.display = 'none';
-      editUserById.style.display = "none";
-      UsersList.style.display = 'none';
-      AddShelf.style.display = 'none'; //need to change the userlist to shelf list
+    ShelfList.style.display = 'block';
+    outcome.style.display = 'none';
+    Registration.style.display = 'none';
+    Search.style.display = 'none';
+    ShowAll.style.display = 'none';
+    cardCategory.style.display = 'none';
+    editUserById.style.display = "none";
+    UsersList.style.display = 'none';
+    AddShelf.style.display = 'none';
+    menubutoondisplayblock();
 
-      ShelfList.style.display = 'block';
+    if (data.data[0] == undefined) {
+      document.getElementById('ShelfList').innerHTML = "<img src=\"/img/delete.png\" class=\"displaynone\" onclick=\"shelfObservationDisplayNone()\"><button class=\"addNewShelf\" onclick=\"addNewShelf()\"><img src=\"/img/+.png\"></button><h1 style=\"text-align: center;\">\u05DC\u05D0 \u05E0\u05DE\u05E6\u05D0\u05D5 \u05DE\u05D3\u05E4\u05D9\u05DD</h1>";
+    } else {
       allShelfs(data.data);
     }
   });
@@ -557,16 +564,26 @@ function shelfObservationDisplayNone() {
 }
 
 function allShelfs(data) {
-  menubutoondisplayblock();
-  data.sort(function (a, b) {
-    if (a.Line < b.Line) return -1;
-  });
-  data.sort(function (a, b) {
-    if (a.Area < b.Area) return -1;
-  });
+  menubutoondisplayblock(); // data.sort((a, b) => { if (a.Line < b.Line) return -1; })
+  // data.sort((a, b) => { if (a.Area < b.Area) return -1; })
+
   document.getElementById('ShelfList').innerHTML = "<img src=\"/img/delete.png\" class=\"displaynone\" onclick=\"shelfObservationDisplayNone()\">\n        <div class=\"col-sm-4\">\n        <button class=\"addNewShelf\" onclick=\"addNewShelf()\"><img src=\"/img/+.png\"></button>\n        </div>\n<table>\n<thead>\n    <tr>\n        <th></th>\n        <th>\u05DE\u05E1\u05E4\u05E8 \u05DE\u05D3\u05E3</th>\n        <th>\u05DB\u05DE\u05D5\u05EA \u05DE\u05D5\u05E6\u05E8\u05D9\u05DD</th>\n        <th>\u05DE\u05E9\u05E7\u05DC \u05DE\u05D3\u05E3</th>\n        <th>\u05DE\u05E9\u05E7\u05DC \u05DE\u05E7\u05E1\u05D9\u05DE\u05DC\u05D9</th>\n    </tr>\n</thead>\n    <tbody>\n    \n        ".concat(data.map(function (elm) {
-    return "<tr>\n        <td class=\"flexdeleteuser\">\n        <a action=\"Edit\" class=\"editshelf\" style=\"margin: 5px 15px;cursor: pointer;\" onclick='editShelf(\"".concat(elm._id, "\")'><img src=\"/img/edit-button.png\"></a>\n        <a action=\"Delete\" class=\"deleteShelf\"  style=\"margin: 5px 15px;cursor: pointer;\" onclick='deleteShelf(\"").concat(elm._id, "\")'><img src=\"/img/deleteuser.png\"></a>\n        </td>\n                <td style=\"direction: initial;\">").concat(elm.UPS_Shelfs, "</td>\n                <td>").concat(elm.NumberOfProductsonShelf, "</td>\n                <td>").concat(elm.CurrentWeight, "</td> \n                <td>").concat(elm.MaximumWeight, "</td> \n                \n        </tr>\n\n");
+    return "<tr>\n        <td class=\"flexdeleteuser\">\n        <a action=\"Edit\" class=\"editshelf\" style=\"margin: 5px 15px;cursor: pointer;\" onclick='editShelf(\"".concat(elm._id, "\")'><img src=\"/img/edit-button.png\"></a>\n        <a class=\"deleteShelf\"  style=\"margin: 5px 15px;cursor: pointer;\" onclick='deleteShelf(\"").concat(elm, "\")'><img src=\"/img/deleteuser.png\"></a>\n        </td>\n                <td style=\"direction: initial;\">").concat(elm.UPS_Shelfs, "</td>\n                <td>").concat(elm.NumberOfProductsonShelf, "</td>\n                <td>").concat(elm.CurrentWeight, "</td> \n                <td>").concat(elm.MaximumWeight, "</td> \n                \n        </tr>\n\n");
   }).join(''), "\n</table>");
+}
+
+function deleteShelf(shelf_to_delete) {
+  fetch("/delete-shelf", {
+    method: 'DELETE',
+    // headers: {
+    //     'Content-Type': 'application/json'
+    // },
+    body: JSON.stringify(shelf_to_delete)
+  }).then(function (res) {
+    return res.json();
+  }).then(function (data) {
+    console.log(data);
+  });
 }
 
 function addNewShelf() {
