@@ -30,6 +30,7 @@ function connected() {
             res.json()
         )
         .then(data => {
+            console.log(data)
             document.getElementById('UsersList').innerHTML =
                 `<img src="/img/delete.png" class="displaynone" onclick="UsersListnone()">
                 <h1>מחוברים למערכת</h1>
@@ -65,6 +66,7 @@ function connected() {
             cardCategory.style.display = 'none'
             AddShelf.style.display = 'none'
             ShelfList.style.display = 'none'
+            editUserById.style.display = 'none'
         })
 }
 
