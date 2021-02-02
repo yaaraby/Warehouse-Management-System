@@ -239,49 +239,177 @@ app.get('/pull-Shelf', async (req, res) => {
 
 
 app.put("/shelf-creation", async (req, res) => {
-
     let message = ""
-    // console.log(req.body);
+    // console.log(req.body)
+
+
+    const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'O','P']
+    let tempNewRows = []
+
+
+    for(let i=0 ; i<req.body.tempTotalRowNumber;i++){
+
+
+        for (let j = 0; j<req.body.numberOfAreas; j++) {
+            
+            for (let k = 0; k < req.body.numberOfShelfs; k++) {
+                
+                // console.log(`${i+1}${letters[j]}${k+1}`) //For test
+                tempNewRows.push(
+                    {
+                     Line: i+1,
+                     Area: `${letters[j]}`,
+                     Floor: k+1,
+                     UPS_Shelfs: `${i+1}-${letters[j]}-${k+1}`,
+                    // NumberOfProductsonShelf:Number, //Optional
+                     MaximumWeight: req.body.maxWight,
+                    // CurrentWeight: Number,//Optional
+                    // height: Number//Optional
+                
+            })
+            
+        }
+
+    }
+}
+
+console.log(tempNewRows)
+
+tempNewRows.forEach(async element => {
+    
+    const testShelf = new Shelfs(
+                        {
+                            Line: element.Line,
+                            Area: element.Area,
+                            Floor: element.Floor,
+                            UPS_Shelfs: element.UPS_Shelfs,
+                            NumberOfProductsonShelf: 1,      //1 for test
+                            MaximumWeight: element.MaximumWeight,
+                            CurrentWeight: 0,
+                            height: 0
+                        });
+    
+                        testShelf.save();
+
+});
+
+
+let flag 
+
+
+for (let i=0; i<req.body.tempTotalRowNumber; i++)
+ {
+     if(await Shelfs.findOne({ Line: 1}).exec()===null){flag=null}
+     //else{flag=true}
+ }
+ console.log(flag)
     // let flag = await Shelfs.findOne({ Line: 1 }).exec();
     // // console.log(req.body)
     // console.log(flag.Line)
 
-    req.body.forEach(async element => {
-        let flag = await Shelfs.findOne({ Line: element.Line }).exec();
+    // req.body.forEach(async element => {
+    //     let flag = await Shelfs.findOne({ Line: element.Line }).exec();
 
-        if (flag == null) {
-            req.body.forEach(element => {
-                // console.log(req.body)
-                const testShelf = new Shelfs(
-                    {
-                        Line: element.Line,
-                        Area: element.Area,
-                        Floor: element.Floor,
-                        UPS_Shelfs: element.UPS_Shelfs,
-                        NumberOfProductsonShelf: 1,
-                        MaximumWeight: element.MaximumWeight,
-                        CurrentWeight: 0,
-                        height: 0
-                    });
-                testShelf.save();
-            });
-            res.send(true)
-        }
-        else {
-            message = 'שורה זאת כבר קיימת'
-            res.send({ message })
-        }
-    })
+    //     if (flag == null) {
+    //         req.body.forEach(element => {
+    //             // console.log(req.body)
+    //             const testShelf = new Shelfs(
+    //                 {
+    //                     Line: element.Line,
+    //                     Area: element.Area,
+    //                     Floor: element.Floor,
+    //                     UPS_Shelfs: element.UPS_Shelfs,
+    //                     NumberOfProductsonShelf: 1,
+    //                     MaximumWeight: element.MaximumWeight,
+    //                     CurrentWeight: 0,
+    //                     height: 0
+    //                 });
+    //             testShelf.save();
+    //         });
+    //         res.send(true)
+    //     }
+    //     else {
+    //         message = 'שורה זאת כבר קיימת'
+    //         res.send({ message })
+    //     }
+    // })
+
+
+
+
+
+
+
+
+
+
+    
+    // for (i = 0; i <=tempTotalRowNumber ; i++) {
+        
+
+    //     for (j = 0; j <numberOfAreas.value;j++) {
+
+    //         for (k = 0; k < numberOfShelfs.value; k++) {
+
+    //             console.log(`${i+1}${letters[j]}${k+1}`)
+    //             tempNewRows.push({
+    //                 Line: tempFirstRow,
+    //                 Area: `${letters[j]}`,
+    //                 Floor: k,
+    //                 UPS_Shelfs: `${tempFirstRow}-${letters[j]}-${k+1}`,
+    //                 // NumberOfProductsonShelf:Number, //Optional
+    //                 MaximumWeight: maxWight.value,
+    //                 // CurrentWeight: Number,//Optional
+    //                 // height: Number//Optional
+    //             })
+    //         }
+    //     }
+    //     tempFirstRow++
+    // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+   
 });
 
 
-app.delete('/delete-shelf',async(req,res)=>{
+app.post('/delete-shelf',async(req,res)=>{
 
-    const temp = req.body;
+    const temp = req.body.UPS_Shelfs;
     console.log(temp);
-    res.send(temp)
+    
 
 })
+
+
+
+
 app.post('/PullThiscCategory', async (req, res) => {
     const { eventCategory } = req.body
     const data = await Products.find({ Category: eventCategory })

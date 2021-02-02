@@ -661,49 +661,24 @@ function handleAddShelf(e) {
 
     const firstRow = document.querySelector('#firstRow')
     const lastRow = document.querySelector('#lastRow')
-    const numberOfAreas = document.querySelector('#numberOfAreas')
-    const numberOfShelfs = document.querySelector('#numberOfShelfs')
-    const maxWight = document.querySelector('#maxWight')
+    const numberOfAreas = document.querySelector('#numberOfAreas').value
+    const numberOfShelfs = document.querySelector('#numberOfShelfs').value
+    const maxWight = document.querySelector('#maxWight').value
 
 
-    let tempTotalRowNumber = lastRow.value - firstRow.value;
+    let tempTotalRowNumber = lastRow.value - firstRow.value+1;
     let tempFirstRow = firstRow.value;
-    const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'O']
-    let tempNewRows = []
-
     
-    for (i = 1; i <= tempTotalRowNumber + 1; i++) {
-
-        for (j = 1; j <= numberOfAreas.value; j++) {
-
-            for (k = 1; k <= numberOfShelfs.value; k++) {
-
-                console.log(`${i}${letters[j - 1]}${k}`)
-                tempNewRows.push({
-                    Line: tempFirstRow,
-                    Area: `${letters[j - 1]}`,
-                    Floor: k,
-                    UPS_Shelfs: `${tempFirstRow}-${letters[j - 1]}-${k}`,
-                    // NumberOfProductsonShelf:Number, //Optional
-                    MaximumWeight: maxWight.value,
-                    // CurrentWeight: Number,//Optional
-                    // height: Number//Optional
-                })
-            }
-        }
-        tempFirstRow++
-    }
-
-    console.log(tempNewRows)
-    console.log(JSON.stringify(tempNewRows))
-    handleAddShelftext.innerHTML = ''
+    // console.log(tempNewRows)
+    // console.log(JSON.stringify({tempFirstRow , tempTotalRowNumber,numberOfAreas,numberOfShelfs,maxWight}))
+    // handleAddShelftext.innerHTML = ''
 
     fetch("/shelf-creation", {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(tempNewRows)
+        body: JSON.stringify({tempFirstRow , tempTotalRowNumber,numberOfAreas,numberOfShelfs,maxWight})
     })
         .then(res => res.json())
         .then(data => {
@@ -790,17 +765,19 @@ function allShelfs(data) {
 }
 
 function deleteShelf(shelf_to_delete){
+    
 
     fetch("/delete-shelf", {
-        method: 'DELETE',
-        // headers: {
-        //     'Content-Type': 'application/json'
-        // },
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify(shelf_to_delete)
     })
         .then(res => res.json())
         .then(data => {
-            console.log(data)
+            console.log(data.data)
+            
 
           
            
