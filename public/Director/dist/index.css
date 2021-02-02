@@ -285,7 +285,6 @@ body {
   box-shadow: 2px 2px 15px 10px rgba(128, 128, 128, 0.445);
   direction: rtl;
   position: relative;
-  min-height: 750px;
   width: 90%;
   max-width: 750px;
   margin: 150px auto 70px;
@@ -327,7 +326,6 @@ body {
   border-radius: 10px;
   box-shadow: 2px 2px 15px 10px rgba(128, 128, 128, 0.445);
   position: relative;
-  min-height: 750px;
   width: 90%;
   max-width: 750px;
   margin: 150px auto 70px;
@@ -404,7 +402,7 @@ body {
   border-radius: 10px;
   box-shadow: 2px 2px 15px 10px rgba(128, 128, 128, 0.445);
   position: relative;
-  min-height: 750px;
+  min-height: 500px;
   width: 90%;
   max-width: 750px;
   margin: 150px auto 70px;
