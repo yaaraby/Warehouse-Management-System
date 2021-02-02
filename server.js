@@ -417,20 +417,17 @@ app.post('/delete-shelf',async(req,res)=>{
 
     const temp = req.body.UPS_Shelfs;
     console.log(temp);
-<<<<<<< HEAD
+
     
 
 })
 
 
-
-
-=======
     // res.send(temp)
 
-})
 
->>>>>>> master
+
+
 app.post('/PullThiscCategory', async (req, res) => {
     const { eventCategory } = req.body
     const data = await Products.find({ Category: eventCategory })
