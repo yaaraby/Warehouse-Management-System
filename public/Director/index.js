@@ -20,6 +20,19 @@ const ShelfList = document.getElementById('ShelfList');
 const handleAddShelftext = document.querySelector(".handleAddShelftext")
 const cardlogin = document.querySelector('.cardlogin')
 
+
+
+  function changeStatus(status) { 
+    if (status==true) {
+      console.log(' Page is active');
+    } else {
+      console.log("יצאת מהאתר ל 3 דקות")
+    //   Output()
+    //   window.setTimeout(function() { if(pageStatus==false) { console.log(i+' Page is inactive'); /* change the users status to inactive */ } }, 1000);
+    }
+  }
+
+
 const xdeta = new Date().getHours()
 let hour
 
@@ -36,6 +49,7 @@ if (xdeta >= 23 || xdeta >= 0 && xdeta < 6) {
     hour = "לילה טוב"
 }
 
+setInterval(function(){testcoocik()}, 100000);
 
 testcoocik()
 function testcoocik() {
@@ -204,7 +218,7 @@ function functionSearch() {
                             </thead>
                                 <tbody>
                                     ${data.data.map(elm =>
-                            ` <tr onclick="PullInformation('${elm.UPS}')">
+                            ` <tr onclick="PullInformation('${elm._id}')">
                             <td class="flexdeleteuser">
                             <a action="Edit" class="editshelf" style="margin: 5px 15px;cursor: pointer;" onclick='editShelf("${elm._id}")'><img src="/img/edit-button.png"></a>
                             <a action="Delete" class="deleteShelf"  style="margin: 5px 15px;cursor: pointer;" onclick='deleteShelf("${elm._id}")'><img src="/img/deleteuser.png"></a>
@@ -368,7 +382,6 @@ function PullThiscCategory(event) {
             Registration.style.display = 'none'
             cardCategory.style.display = 'none'
             ShowAll.style.display = 'block'
-            console.log(data)
             titlecategory.innerHTML = eventCategory
             carbox.innerHTML += `<table>
 <thead>
@@ -382,7 +395,7 @@ function PullThiscCategory(event) {
 </thead>
     <tbody>
         ${data.data.map(elm =>
-                `<tr onclick="PullInformation('${elm.UPS}')">
+                `<tr onclick="PullInformation('${elm._id}')">
                 <td>${elm.Location}</td> 
                 <td>${elm.ExpiryDate}</td>
                 <td>${elm.Name}</td>
@@ -696,7 +709,6 @@ function allShelfs(data) {
     menubutoondisplayblock()
     data.sort((a, b) => { if (a.Line < b.Line) return -1; })
     data.sort((a, b) => { if (a.Area < b.Area) return -1; })
-    console.log(data)
 
     document.getElementById('ShelfList').innerHTML =
         `<img src="/img/delete.png" class="displaynone" onclick="shelfObservationDisplayNone()">

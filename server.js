@@ -145,7 +145,7 @@ app.post('/send-Login-details', async (req, res) => {
         token = jwt.encode({ role, userName, id }, secret)
 
         if (validate) {
-            res.cookie('validated', token, { maxAge: 10086400, httpOnly: true })
+            res.cookie('validated', token, { maxAge: 86400000, httpOnly: true })
         }
         res.send({ validate, role });
     }
@@ -329,7 +329,7 @@ app.post('/Searchdeta', async (req, res) => {
 
 app.post('/PullInformation', async (req, res) => {
     const { e } = req.body
-    const data = await Products.find({ UPS: e })
+    const data = await Products.find({ _id: e })
     res.send({ data })
 })
 

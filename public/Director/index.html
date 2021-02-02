@@ -16,8 +16,7 @@
     <link rel="stylesheet" href="dist/index.css">
 </head>
 
-<body style="display: none;">
-    <button class="menubutoon" onclick="displayblockmenu(event)"><img src="/img/menu.png"></button>
+<body style="min-height:600px; width:100%; display: none;" onmouseover="changeStatus(true);" onmouseout="changeStatus(false);">    <button class="menubutoon" onclick="displayblockmenu(event)"><img src="/img/menu.png"></button>
     <div class="menu">
         <img class="delete" src="/img/delete.png" onclick="menubutoondisplayblock()">
         <div class="SelectionMenu" onclick="getCategory()">מוצרים</div>

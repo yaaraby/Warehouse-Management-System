@@ -220,7 +220,7 @@ app.post('/send-Login-details', function _callee4(req, res) {
 
           if (validate) {
             res.cookie('validated', token, {
-              maxAge: 10086400,
+              maxAge: 86400000,
               httpOnly: true
             });
           }
@@ -636,7 +636,7 @@ app.post('/PullInformation', function _callee12(req, res) {
           e = req.body.e;
           _context12.next = 3;
           return regeneratorRuntime.awrap(Products.find({
-            UPS: e
+            _id: e
           }));
 
         case 3:

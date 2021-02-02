@@ -21,6 +21,16 @@ var UsersList = document.getElementById('UsersList');
 var ShelfList = document.getElementById('ShelfList');
 var handleAddShelftext = document.querySelector(".handleAddShelftext");
 var cardlogin = document.querySelector('.cardlogin');
+
+function changeStatus(status) {
+  if (status == true) {
+    console.log(' Page is active');
+  } else {
+    console.log("יצאת מהאתר ל 3 דקות"); //   Output()
+    //   window.setTimeout(function() { if(pageStatus==false) { console.log(i+' Page is inactive'); /* change the users status to inactive */ } }, 1000);
+  }
+}
+
 var xdeta = new Date().getHours();
 var hour;
 
@@ -40,6 +50,9 @@ if (xdeta >= 23 || xdeta >= 0 && xdeta < 6) {
   hour = "לילה טוב";
 }
 
+setInterval(function () {
+  testcoocik();
+}, 100000);
 testcoocik();
 
 function testcoocik() {
@@ -168,7 +181,7 @@ function functionSearch() {
         if (data.data) {
           textmessage.innerHTML = placeholder;
           Searchtml.innerHTML += "<table>\n                            <thead>\n                                <tr>\n                                <th></th>\n                                    <th>\u05DE\u05E7\u05D8 - UPS </th>\n                                    <th>\u05E9\u05DD \u05D4\u05DE\u05D5\u05E6\u05E8</th>\n                                    <th>\u05EA\u05D0\u05E8\u05D9\u05DA \u05EA\u05E4\u05D5\u05D2\u05D4</th>\n                                      <th>\u05DE\u05D9\u05E7\u05D5\u05DD</th>\n                                </tr>\n                            </thead>\n                                <tbody>\n                                    ".concat(data.data.map(function (elm) {
-            return " <tr onclick=\"PullInformation('".concat(elm.UPS, "')\">\n                            <td class=\"flexdeleteuser\">\n                            <a action=\"Edit\" class=\"editshelf\" style=\"margin: 5px 15px;cursor: pointer;\" onclick='editShelf(\"").concat(elm._id, "\")'><img src=\"/img/edit-button.png\"></a>\n                            <a action=\"Delete\" class=\"deleteShelf\"  style=\"margin: 5px 15px;cursor: pointer;\" onclick='deleteShelf(\"").concat(elm._id, "\")'><img src=\"/img/deleteuser.png\"></a>\n                            </td>\n                    \n                                            <td>").concat(elm.UPS, "</td>\n                                            <td>").concat(elm.Name, "</td>\n                                            <td>").concat(elm.ExpiryDate, "</td>\n                                            <td>").concat(elm.Location, "</td> \n                                    </tr>\n                            ");
+            return " <tr onclick=\"PullInformation('".concat(elm._id, "')\">\n                            <td class=\"flexdeleteuser\">\n                            <a action=\"Edit\" class=\"editshelf\" style=\"margin: 5px 15px;cursor: pointer;\" onclick='editShelf(\"").concat(elm._id, "\")'><img src=\"/img/edit-button.png\"></a>\n                            <a action=\"Delete\" class=\"deleteShelf\"  style=\"margin: 5px 15px;cursor: pointer;\" onclick='deleteShelf(\"").concat(elm._id, "\")'><img src=\"/img/deleteuser.png\"></a>\n                            </td>\n                    \n                                            <td>").concat(elm.UPS, "</td>\n                                            <td>").concat(elm.Name, "</td>\n                                            <td>").concat(elm.ExpiryDate, "</td>\n                                            <td>").concat(elm.Location, "</td> \n                                    </tr>\n                            ");
           }).join(''), "</tbody>\n                            </table>");
         }
       });
@@ -308,10 +321,9 @@ function PullThiscCategory(event) {
     Registration.style.display = 'none';
     cardCategory.style.display = 'none';
     ShowAll.style.display = 'block';
-    console.log(data);
     titlecategory.innerHTML = eventCategory;
     carbox.innerHTML += "<table>\n<thead>\n    <tr>\n        <th>\u05DE\u05D9\u05E7\u05D5\u05DD</th>\n        <th>\u05EA\u05D0\u05E8\u05D9\u05DA \u05EA\u05E4\u05D5\u05D2\u05D4</th>\n        <th>\u05E9\u05DD \u05D4\u05DE\u05D5\u05E6\u05E8</th>\n        <th>\u05DE\u05E7\u05D8 - UPS </th>\n        <th></th>\n    </tr>\n</thead>\n    <tbody>\n        ".concat(data.data.map(function (elm) {
-      return "<tr onclick=\"PullInformation('".concat(elm.UPS, "')\">\n                <td>").concat(elm.Location, "</td> \n                <td>").concat(elm.ExpiryDate, "</td>\n                <td>").concat(elm.Name, "</td>\n                <td>").concat(elm.UPS, "</td>\n                <td class=\"flexdeleteuser\">\n                <a action=\"Edit\" class=\"editshelf\" style=\"margin: 5px 15px;cursor: pointer;\" onclick='editShelf(\"").concat(elm._id, "\")'><img src=\"/img/edit-button.png\"></a>\n                <a action=\"Delete\" class=\"deleteShelf\"  style=\"margin: 5px 15px;cursor: pointer;\" onclick='deleteShelf(\"").concat(elm._id, "\")'><img src=\"/img/deleteuser.png\"></a>\n                </td>\n        </tr>\n");
+      return "<tr onclick=\"PullInformation('".concat(elm._id, "')\">\n                <td>").concat(elm.Location, "</td> \n                <td>").concat(elm.ExpiryDate, "</td>\n                <td>").concat(elm.Name, "</td>\n                <td>").concat(elm.UPS, "</td>\n                <td class=\"flexdeleteuser\">\n                <a action=\"Edit\" class=\"editshelf\" style=\"margin: 5px 15px;cursor: pointer;\" onclick='editShelf(\"").concat(elm._id, "\")'><img src=\"/img/edit-button.png\"></a>\n                <a action=\"Delete\" class=\"deleteShelf\"  style=\"margin: 5px 15px;cursor: pointer;\" onclick='deleteShelf(\"").concat(elm._id, "\")'><img src=\"/img/deleteuser.png\"></a>\n                </td>\n        </tr>\n");
     }).join(''), "</tbody>\n</table>");
   });
 }
@@ -533,7 +545,6 @@ function allShelfs(data) {
   data.sort(function (a, b) {
     if (a.Area < b.Area) return -1;
   });
-  console.log(data);
   document.getElementById('ShelfList').innerHTML = "<img src=\"/img/delete.png\" class=\"displaynone\" onclick=\"shelfObservationDisplayNone()\">\n        <div class=\"col-sm-4\">\n        <button class=\"addNewShelf\" onclick=\"addNewShelf()\"><img src=\"/img/+.png\"></button>\n        </div>\n<table>\n<thead>\n    <tr>\n        <th></th>\n        <th>\u05DE\u05E1\u05E4\u05E8 \u05DE\u05D3\u05E3</th>\n        <th>\u05DB\u05DE\u05D5\u05EA \u05DE\u05D5\u05E6\u05E8\u05D9\u05DD</th>\n        <th>\u05DE\u05E9\u05E7\u05DC \u05DE\u05D3\u05E3</th>\n        <th>\u05DE\u05E9\u05E7\u05DC \u05DE\u05E7\u05E1\u05D9\u05DE\u05DC\u05D9</th>\n    </tr>\n</thead>\n    <tbody>\n    \n        ".concat(data.map(function (elm) {
     return "<tr>\n        <td class=\"flexdeleteuser\">\n        <a action=\"Edit\" class=\"editshelf\" style=\"margin: 5px 15px;cursor: pointer;\" onclick='editShelf(\"".concat(elm._id, "\")'><img src=\"/img/edit-button.png\"></a>\n        <a action=\"Delete\" class=\"deleteShelf\"  style=\"margin: 5px 15px;cursor: pointer;\" onclick='deleteShelf(\"").concat(elm._id, "\")'><img src=\"/img/deleteuser.png\"></a>\n        </td>\n                <td style=\"direction: initial;\">").concat(elm.UPS_Shelfs, "</td>\n                <td>").concat(elm.NumberOfProductsonShelf, "</td>\n                <td>").concat(elm.CurrentWeight, "</td> \n                <td>").concat(elm.MaximumWeight, "</td> \n                \n        </tr>\n\n");
   }).join(''), "\n</table>");
