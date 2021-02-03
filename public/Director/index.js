@@ -662,6 +662,156 @@ function handleEditUser(e) {
             })
     }
 }
+
+
+//Yehial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+function handleAddShelf(e) {
+    e.preventDefault();
+
+    const firstRow = document.querySelector('#firstRow')
+    const lastRow = document.querySelector('#lastRow')
+    const numberOfAreas = document.querySelector('#numberOfAreas')
+    const numberOfShelfs = document.querySelector('#numberOfShelfs')
+    const maxWight = document.querySelector('#maxWight')
+
+
+    let tempTotalRowNumber = lastRow.value - firstRow.value;
+    let tempFirstRow = firstRow.value;
+    const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'O']
+    let tempNewRows = []
+
+    // console.log(firstRow.value, lastRow.value, numberOfAreas.value, numberOfShelfs.value,maxWight.value);
+    for (i = 1; i <= tempTotalRowNumber + 1; i++) {
+
+        for (j = 1; j <= numberOfAreas.value; j++) {
+
+            for (k = 1; k <= numberOfShelfs.value; k++) {
+
+                console.log(`${i}${letters[j - 1]}${k}`)
+                tempNewRows.push({
+                    Line: tempFirstRow,
+                    Area: `${letters[j - 1]}`,
+                    Floor: k,
+                    UPS_Shelfs: `${tempFirstRow}-${letters[j - 1]}-${k}`,
+                    // NumberOfProductsonShelf:Number,
+                    MaximumWeight: maxWight.value,
+                    // CurrentWeight: Number,
+                    // height: Number
+                })
+            }
+        }
+        tempFirstRow++
+    }
+
+    console.log(tempNewRows)
+    console.log(JSON.stringify(tempNewRows))
+    handleAddShelftext.innerHTML = ''
+
+    fetch("/shelf-creation", {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(tempNewRows)
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            if (data == true) {
+                shelfObservation()
+            } else {
+                handleAddShelftext.innerHTML = data.message
+            }
+        })
+}
+
+
+
+function addShelfDisplayNone() {
+    AddShelf.style.display = 'none'
+}
+
+function shelfObservation() {
+    fetch('/pull-Shelf')
+        .then(res =>
+            res.json()
+        )
+        .then(data => {
+            if (data.data != null) {
+                outcome.style.display = 'none'
+                Registration.style.display = 'none'
+                Search.style.display = 'none'
+                ShowAll.style.display = 'none'
+                cardCategory.style.display = 'none'
+                editUserById.style.display = "none"
+                UsersList.style.display = 'none'
+                AddShelf.style.display = 'none'
+                //need to change the userlist to shelf list
+                ShelfList.style.display = 'block'
+                allShelfs(data.data)
+            }
+
+        })
+}
+function shelfObservationDisplayNone() {
+    ShelfList.style.display = 'none'
+
+
+}
+
+function allShelfs(data) {
+    menubutoondisplayblock()
+    data.sort((a, b) => { if (a.Line < b.Line) return -1; })
+    data.sort((a, b) => { if (a.Area < b.Area) return -1; })
+
+    document.getElementById('ShelfList').innerHTML =
+        `<img src="/img/delete.png" class="displaynone" onclick="shelfObservationDisplayNone()">
+        <div class="col-sm-4">
+        <button class="addNewShelf" onclick="addNewShelf()"><img src="/img/+.png"></button>
+        </div>
+<table>
+<thead>
+    <tr>
+        <th></th>
+        <th>מספר מדף</th>
+        <th>כמות מוצרים</th>
+        <th>משקל מדף</th>
+        <th>משקל מקסימלי</th>
+    </tr>
+</thead>
+    <tbody>
+    
+        ${data.map(elm =>
+            `<tr>
+        <td class="flexdeleteuser">
+        <a action="Edit" class="editshelf" style="margin: 5px 15px;cursor: pointer;" onclick='editShelf("${elm._id}")'><img src="/img/edit-button.png"></a>
+        <a action="Delete" class="deleteShelf"  style="margin: 5px 15px;cursor: pointer;" onclick='deleteShelf("${elm._id}")'><img src="/img/deleteuser.png"></a>
+        </td>
+                <td style="direction: initial;">${elm.UPS_Shelfs}</td>
+                <td>${elm.NumberOfProductsonShelf}</td>
+                <td>${elm.CurrentWeight}</td> 
+                <td>${elm.MaximumWeight}</td> 
+                
+        </tr>
+
+`).join('')}
+</table>`;
+}
+
+function addNewShelf() {
+    menubutoondisplayblock()
+    ShelfList.style.display = 'none'
+    AddShelf.style.display = 'block'
+
+}
+
+function addShelflist() {
+    AddShelf.style.display = 'none'
+    ShelfList.style.display = 'block'
+}
+
+
+
 //yaara ------------------------------------
 
 function getShelfList(){
