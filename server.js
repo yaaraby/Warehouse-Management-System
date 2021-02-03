@@ -604,7 +604,7 @@ app.post('/add_Products', async (req, res) => {
                              NumberOfProductsonShelf: numberOfProductsonShelf,
                              CurrentWeight: weight
                            } };
-         await Shelfs.update(myquery, newvalues, function(err, res) {
+         await Shelfs.updateOne(myquery, newvalues, function(err, res) {
         if (err) throw err;
         console.log("1 document updated");
                 } )
