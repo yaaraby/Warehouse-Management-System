@@ -661,7 +661,7 @@ function handleEditUser(e) {
                 }
             })
     }
-}
+} 
 //yaara ------------------------------------
 
 function getShelfList(){
