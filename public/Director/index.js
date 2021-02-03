@@ -878,9 +878,9 @@ async function addNewProduct(e){
               if (data.status == true) { 
                     message.innerHTML = "המוצר נוצר בהצלחה"
 
-              /*       setTimeout(() => {
-                        getListUsers()
-                    }, 500);  */
+                     setTimeout(() => {
+                        getCategory()
+                    }, 500);  
  
                  } else {
                      message.innerHTML = 'המוצר אינו נוסף למערכת, נסה שנית'
