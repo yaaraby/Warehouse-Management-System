@@ -855,7 +855,7 @@ async function addNewProduct(e){
       if(validations == true){
       
             let getWeight =  await getCurrrentWeight(Location) 
-             let checkCurrrentWeight =  CalcWeight(getWeight, Weight)
+            let checkCurrrentWeight =  CalcWeight(getWeight, Weight)
             let getHeight = await getCurrrentHeight(Location)
             let checkHeight =  CalcHeight(getHeight, height)
    
