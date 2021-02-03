@@ -20,9 +20,9 @@ const ShelfList = document.getElementById('ShelfList');
 const handleAddShelftext = document.querySelector(".handleAddShelftext")
 const cardlogin = document.querySelector('.cardlogin')
 const alluserconnected = document.querySelector('.alluserconnected')
-
+const addNewProductclass = document.querySelector('.addNewProductclass')
+let shelfOptionsGlobal = [];
 const init = () => {
-    //first function to run
     getShelfList();
 }
 
@@ -202,6 +202,7 @@ function Addauser() {
 }
 function Registrationdisplaynone() {
     Registration.style.display = 'none'
+    addNewProductclass.style.display = 'none'
 }
 
 
@@ -660,6 +661,160 @@ function handleEditUser(e) {
             })
     }
 }
+
+
+//Yehial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+function handleAddShelf(e) {
+    e.preventDefault();
+
+    const firstRow = document.querySelector('#firstRow')
+    const lastRow = document.querySelector('#lastRow')
+    const numberOfAreas = document.querySelector('#numberOfAreas')
+    const numberOfShelfs = document.querySelector('#numberOfShelfs')
+    const maxWight = document.querySelector('#maxWight')
+
+
+    let tempTotalRowNumber = lastRow.value - firstRow.value;
+    let tempFirstRow = firstRow.value;
+    const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'O']
+    let tempNewRows = []
+
+    // console.log(firstRow.value, lastRow.value, numberOfAreas.value, numberOfShelfs.value,maxWight.value);
+    for (i = 1; i <= tempTotalRowNumber + 1; i++) {
+
+        for (j = 1; j <= numberOfAreas.value; j++) {
+
+            for (k = 1; k <= numberOfShelfs.value; k++) {
+
+                console.log(`${i}${letters[j - 1]}${k}`)
+                tempNewRows.push({
+                    Line: tempFirstRow,
+                    Area: `${letters[j - 1]}`,
+                    Floor: k,
+                    UPS_Shelfs: `${tempFirstRow}-${letters[j - 1]}-${k}`,
+                    // NumberOfProductsonShelf:Number,
+                    MaximumWeight: maxWight.value,
+                    // CurrentWeight: Number,
+                    // height: Number
+                })
+            }
+        }
+        tempFirstRow++
+    }
+
+    console.log(tempNewRows)
+    console.log(JSON.stringify(tempNewRows))
+    handleAddShelftext.innerHTML = ''
+
+    fetch("/shelf-creation", {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(tempNewRows)
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            if (data == true) {
+                shelfObservation()
+            } else {
+                handleAddShelftext.innerHTML = data.message
+            }
+        })
+}
+
+
+
+function addShelfDisplayNone() {
+    AddShelf.style.display = 'none'
+}
+
+function shelfObservation() {
+    fetch('/pull-Shelf')
+        .then(res =>
+            res.json()
+        )
+        .then(data => {
+            ShelfList.style.display = 'block'
+            outcome.style.display = 'none'
+            Registration.style.display = 'none'
+            Search.style.display = 'none'
+            ShowAll.style.display = 'none'
+            cardCategory.style.display = 'none'
+            editUserById.style.display = "none"
+            UsersList.style.display = 'none'
+            AddShelf.style.display = 'none'
+            menubutoondisplayblock()
+
+
+            if (data.data[0] == undefined) {
+                document.getElementById('ShelfList').innerHTML = `<img src="/img/delete.png" class="displaynone" onclick="shelfObservationDisplayNone()"><button class="addNewShelf" onclick="addNewShelf()"><img src="/img/+.png"></button><h1 style="text-align: center;">לא נמצאו מדפים</h1>`
+            }
+            else {
+                allShelfs(data.data)
+            }
+        })
+}
+function shelfObservationDisplayNone() {
+    ShelfList.style.display = 'none'
+
+
+}
+
+function allShelfs(data) {
+    menubutoondisplayblock()
+    data.sort((a, b) => { if (a.Line < b.Line) return -1; })
+    data.sort((a, b) => { if (a.Area < b.Area) return -1; })
+
+    document.getElementById('ShelfList').innerHTML =
+        `<img src="/img/delete.png" class="displaynone" onclick="shelfObservationDisplayNone()">
+        <div class="col-sm-4">
+        <button class="addNewShelf" onclick="addNewShelf()"><img src="/img/+.png"></button>
+        </div>
+<table>
+<thead>
+    <tr>
+        <th></th>
+        <th>מספר מדף</th>
+        <th>כמות מוצרים</th>
+        <th>משקל מדף</th>
+        <th>משקל מקסימלי</th>
+    </tr>
+</thead>
+    <tbody>
+    
+        ${data.map(elm =>
+            `<tr>
+        <td class="flexdeleteuser">
+        <a action="Edit" class="editshelf" style="margin: 5px 15px;cursor: pointer;" onclick='editShelf("${elm._id}")'><img src="/img/edit-button.png"></a>
+        <a action="Delete" class="deleteShelf"  style="margin: 5px 15px;cursor: pointer;" onclick='deleteShelf("${elm._id}")'><img src="/img/deleteuser.png"></a>
+        </td>
+                <td style="direction: initial;">${elm.UPS_Shelfs}</td>
+                <td>${elm.NumberOfProductsonShelf}</td>
+                <td>${elm.CurrentWeight}</td> 
+                <td>${elm.MaximumWeight}</td> 
+                
+        </tr>
+
+`).join('')}
+</table>`;
+}
+
+function addNewShelf() {
+    menubutoondisplayblock()
+    ShelfList.style.display = 'none'
+    AddShelf.style.display = 'block'
+
+}
+
+function addShelflist() {
+    AddShelf.style.display = 'none'
+    ShelfList.style.display = 'block'
+}
+
+
+ 
 //yaara ------------------------------------
 
 function getShelfList(){
@@ -675,13 +830,13 @@ function getShelfList(){
 }
 function setShelfList (shelfs) {
      const shelfOptions = shelfs.map(shelf => `<option value='${shelf.UPS_Shelfs}'>${shelf.UPS_Shelfs}</option>`);
-    this.shelfOptions = [...shelfOptions];
+    shelfOptionsGlobal = [...shelfOptions];
     //  this.shelfOptions = shelfOptions
-    document.getElementById("UPS_Shelfs").innerHTML = shelfOptions.join(" ");
+    document.getElementById("UPS_Shelfs").innerHTML = shelfOptionsGlobal.join(" ");
 }
 
 async function addNewProduct(e){
-    const message = document.querySelector("#message")
+    const message = document.querySelector("#messagetext")
      e.preventDefault();
 
         let UPS = e.target[0].value;
@@ -695,7 +850,7 @@ async function addNewProduct(e){
         let Location = e.target[8].value;
 
     
-      let validations = await Validations(UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location)
+      let validations = Validations(UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location)
       
       if(validations == true){
       
@@ -769,6 +924,7 @@ const getCurrrentWeight = async (UPS_Shelfs) =>{
 
 
 
+<<<<<<< HEAD
 //    const CalcWeight =  (getWeight, weight) =>{
 //     if (Number(getWeight) > Number(weight)){
 //         return (true);
@@ -777,6 +933,16 @@ const getCurrrentWeight = async (UPS_Shelfs) =>{
 //         return (false)
 //     }
 // } 
+=======
+   const CalcWeight =  (getWeight, weight) =>{
+    if (Number(getWeight) > Number(weight)){
+        return (true);
+    }
+    else {
+        return (false)
+    }
+} 
+>>>>>>> master
 
    const CalcHeight = (getHeight, height) =>{
     if (Number(getHeight) > Number(height)){
@@ -788,7 +954,7 @@ const getCurrrentWeight = async (UPS_Shelfs) =>{
 } 
 
 const Validations = (UPS, name, price, amount, category, weight, height, ExpiryDate, UPS_Shelfs, checkCurrrentWeight,checkHeight) =>{
-    const message = document.querySelector("#message")
+    const message = document.querySelector("#messagetext")
         if(UPS.length < 3){
             message.innerHTML = 'נדרש להזין מק"ט באורך 3 ומעלה'
         }
@@ -885,7 +1051,7 @@ const editProduct = (id) =>{
            <input type="submit" value="אישור">
        </form>`;
    // console.log(this.shelfOptions)
-   document.getElementById("Location").innerHTML = this.shelfOptions.join(" ");
+   document.getElementById("Location").innerHTML = shelfOptionsGlobal.join(" ");
 
        }).catch(err => {
            console.error(err);
@@ -1023,6 +1189,7 @@ const editProduct = (id) =>{
 // } 
 
 
+<<<<<<< HEAD
 //Yehial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 function handleAddShelf(e) {
     e.preventDefault();
@@ -1176,3 +1343,5 @@ function addShelflist() {
     ShelfList.style.display = 'block'
 }
 
+=======
+>>>>>>> master
