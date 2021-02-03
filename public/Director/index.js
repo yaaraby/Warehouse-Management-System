@@ -737,20 +737,24 @@ function shelfObservation() {
             res.json()
         )
         .then(data => {
-            if (data.data != null) {
-                outcome.style.display = 'none'
-                Registration.style.display = 'none'
-                Search.style.display = 'none'
-                ShowAll.style.display = 'none'
-                cardCategory.style.display = 'none'
-                editUserById.style.display = "none"
-                UsersList.style.display = 'none'
-                AddShelf.style.display = 'none'
-                //need to change the userlist to shelf list
-                ShelfList.style.display = 'block'
+            ShelfList.style.display = 'block'
+            outcome.style.display = 'none'
+            Registration.style.display = 'none'
+            Search.style.display = 'none'
+            ShowAll.style.display = 'none'
+            cardCategory.style.display = 'none'
+            editUserById.style.display = "none"
+            UsersList.style.display = 'none'
+            AddShelf.style.display = 'none'
+            menubutoondisplayblock()
+
+
+            if (data.data[0] == undefined) {
+                document.getElementById('ShelfList').innerHTML = `<img src="/img/delete.png" class="displaynone" onclick="shelfObservationDisplayNone()"><button class="addNewShelf" onclick="addNewShelf()"><img src="/img/+.png"></button><h1 style="text-align: center;">לא נמצאו מדפים</h1>`
+            }
+            else {
                 allShelfs(data.data)
             }
-
         })
 }
 function shelfObservationDisplayNone() {
