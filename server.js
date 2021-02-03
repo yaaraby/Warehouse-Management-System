@@ -593,18 +593,18 @@ app.get('/get-Details-Shelfs:UPS_Shelfs', async (req, res, next) =>
 })
 
 app.post('/add_Products', async (req, res) => {
-let status = true
-    const { UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location} = req.body
-
-
-        const products = new Products({UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location});
-        await products.save().then(doc => console.log(doc)).catch(e => console.log(e));
-        let sumProductOnShelf  = await updateNumberOfProduct(Amount, Location,Weight)
-
-        if(sumProductOnShelf == true){
-             res.send({ status })
-        }
-})
+    let status = true
+        const { UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location} = req.body
+    
+    
+            const products = new Products({UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location});
+            await products.save().then(doc => console.log(doc)).catch(e => console.log(e));
+            let sumProductOnShelf  = await updateNumberOfProduct(Amount, Location,Weight)
+    
+            if(sumProductOnShelf == true){
+                 res.send({ status })
+            }
+    })
     
     const  updateNumberOfProduct = async (Amount, Location, Weight)=>{
     
@@ -623,14 +623,16 @@ let status = true
                              NumberOfProductsonShelf: numberOfProductsonShelf,
                              CurrentWeight: weight
                            } };
-         await Shelfs.updateOne(myquery, newvalues, function(err, res) {
+         await Shelfs.update(myquery, newvalues, function(err, res) {
         if (err) throw err;
         console.log("1 document updated");
                 } )
       }      
       }
         return (true);
-};
+    };
+    
+    
     
 app.get('/get-Shelfs-list', async (req, res) => {
     const data = await Shelfs.find({}, { UPS_Shelfs: 1 })
