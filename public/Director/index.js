@@ -21,9 +21,8 @@ const handleAddShelftext = document.querySelector(".handleAddShelftext")
 const cardlogin = document.querySelector('.cardlogin')
 const alluserconnected = document.querySelector('.alluserconnected')
 const addNewProductclass = document.querySelector('.addNewProductclass')
-
+let shelfOptionsGlobal = [];
 const init = () => {
-    //first function to run
     getShelfList();
 }
 
@@ -831,7 +830,7 @@ function getShelfList(){
 }
 function setShelfList (shelfs) {
      const shelfOptions = shelfs.map(shelf => `<option value='${shelf.UPS_Shelfs}'>${shelf.UPS_Shelfs}</option>`);
-    this.shelfOptions = [...shelfOptions];
+    shelfOptionsGlobal = [...shelfOptions];
     //  this.shelfOptions = shelfOptions
     document.getElementById("UPS_Shelfs").innerHTML = shelfOptions.join(" ");
 }
@@ -1041,7 +1040,7 @@ const editProduct = (id) =>{
            <input type="submit" value="אישור">
        </form>`;
    // console.log(this.shelfOptions)
-   document.getElementById("Location").innerHTML = this.shelfOptions.join(" ");
+   document.getElementById("Location").innerHTML = shelfOptionsGlobal.join(" ");
 
        }).catch(err => {
            console.error(err);
