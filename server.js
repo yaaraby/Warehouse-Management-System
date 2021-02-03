@@ -555,6 +555,24 @@ app.get('/get-details-users:userId', async (req, res) => {
 // yaara
 
 
+app.get('/get-Shelfs-list', async (req, res) => {
+    const data = await Shelfs.find({}, { UPS_Shelfs: 1 })
+    console.log(data)
+    res.send({ data })
+})
+
+app.get('/get-Details-Shelfs:UPS_Shelfs', async (req, res, next) =>
+ {
+     let {UPS_Shelfs} = req.params;
+     try {
+     const CurrrentDetailsShelf = await Shelfs.findOne({ UPS_Shelfs : UPS_Shelfs});
+
+        res.send(CurrrentDetailsShelf)
+    } catch (e) {
+        console.log(e)
+    }
+})
+
 app.post('/add_Products', async (req, res) => {
     let status = true
         const { UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location} = req.body
@@ -593,7 +611,9 @@ app.post('/add_Products', async (req, res) => {
       }      
       }
         return (true);
-};
+    };
+    
+    
     
 app.get('/get-Shelfs-list', async (req, res) => {
     const data = await Shelfs.find({}, { UPS_Shelfs: 1 })
