@@ -577,7 +577,12 @@ app.post('/add_Products', async (req, res) => {
       }      
       }
         return (true);
-    };
+};
+    
+app.get('/get-Shelfs-list', async (req, res) => {
+    const data = await Shelfs.find({}, { UPS_Shelfs: 1 })
+    res.send({ data })
+})
 
     
     app.delete('/deleteProduct/:id', async (req, res, next) => {
