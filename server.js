@@ -613,7 +613,142 @@ app.post('/add_Products', async (req, res) => {
         return (true);
     };
     
-    
+   
+
+
+    app.put("/Product/", async (req, res) => {
+        console.log('nn')
+      const PreviosAmount = req.body.PreviosAmount;
+      const PreviosWeight = req.body.PreviosWeight;
+      const PreviosLocation = req.body.PreviosLocation;
+      const Amount = req.body.Amount;
+      const Weight = req.body.Weight;
+      const Location = req.body.Location;
+        console.log(PreviosAmount, Amount, PreviosWeight, Weight, PreviosLocation,Location)
+     const data = await Products.find({})
+   
+     var myquery = {UPS:  req.body.UPS, Location: req.body.Location};
+     var newvalues = { $set: {
+                             UPS: req.body.UPS
+                           , Name:     req.body.Name
+                           , price: req.body.price
+                           , Amount:    req.body.Amount
+                           , Category:    req.body.Category
+                           , Weight:     req.body.Weight
+                           , height:    req.body.height
+                           , ExpiryDate:    req.body.ExpiryDate
+                           , Location:    req.body.Location
+                           } };
+       const checkHighNumber = theHighNumber(PreviosAmount, Amount, PreviosWeight, Weight, PreviosLocation,Location) 
+       console.log(checkHighNumber)
+       if(checkHighNumber){
+          await Products.updateOne(myquery, newvalues, function(err, res) {
+       if (err) throw err;
+       console.log("1 document updated"); 
+       })
+       
+     }
+     res.send({message:true})
+   });
+   
+   const  theHighNumber = (PreviosAmount, Amount, PreviosWeight, Weight, PreviosLocation,Location) =>{
+   
+       let sumAmount = 0 ; 
+       let sumWeight = 0 ;
+       if (PreviosLocation != Location){
+           if(PreviosAmount == Amount){
+            updateMinusAmountPreviosShelf(PreviosAmount, PreviosWeight, PreviosLocation)
+            updateNewShelf( Amount, Weight,Location)
+           }
+           else{
+            sumAmount = PreviosAmount - Amount ; 
+            sumWeight = PreviosWeight - Weight ; 
+   
+            updateNewInventory(sumAmount,sumWeight ,Location) 
+           }
+       }
+       else{
+            updateNewInventory(sumAmount,sumWeight ,Location)
+       }
+   
+       return(true)
+   
+   }
+   const updateMinusAmountPreviosShelf = async(PreviosAmount, PreviosWeight, PreviosLocation)=>{
+         console.log('aa')
+         const data = await Shelfs.find({})
+    for (i = 0; i < data.length; i++)
+     {
+           if(PreviosLocation ==  data[i].UPS_Shelfs){
+             let  ups_shelf = data[i].UPS_Shelfs
+             let  numberOfProductsonShelf = data[i].NumberOfProductsonShelf 
+             let  weight = data[i].CurrentWeight
+             numberOfProductsonShelf -= eval(PreviosAmount);
+             weight -= eval(PreviosWeight);
+         ;
+               var myquery = { UPS_Shelfs:  PreviosLocation};
+               var newvalues = { $set: {
+                            NumberOfProductsonShelf: numberOfProductsonShelf,
+                            CurrentWeight: weight
+                          } };
+        await Shelfs.updateOne(myquery, newvalues, function(err, res) {
+       if (err) throw err;
+       console.log("1 document updated");
+   
+               } )
+     }
+     }} 
+   
+   const updateNewShelf = async( Amount, Weight,Location) =>{
+      const data = await Shelfs.find({})
+    for (i = 0; i < data.length; i++)
+     {
+           if(Location ==  data[i].UPS_Shelfs){
+             let  ups_shelf = data[i].UPS_Shelfs
+             let  numberOfProductsonShelf = data[i].NumberOfProductsonShelf 
+             let  weight = data[i].CurrentWeight
+             numberOfProductsonShelf += eval(Amount);
+             weight += eval(Weight);
+         ;
+               var myquery = { UPS_Shelfs: Location};
+               var newvalues = { $set: {
+                            NumberOfProductsonShelf: numberOfProductsonShelf,
+                            CurrentWeight: weight
+                          } };
+        await Shelfs.updateOne(myquery, newvalues, function(err, res) {
+       if (err) throw err;
+       console.log("1 document updated");
+   
+               } )
+     }
+     }
+   } 
+   
+   const updateNewInventory = async (sumAmount,sumWeight ,Location) => {
+       console.log('cc')
+    const data = await Shelfs.find({})
+    for (i = 0; i < data.length; i++)
+     {
+           if(Location ==  data[i].UPS_Shelfs){
+             let  ups_shelf = data[i].UPS_Shelfs
+             let  numberOfProductsonShelf = data[i].NumberOfProductsonShelf 
+             let  weight = data[i].CurrentWeight
+             numberOfProductsonShelf += eval(sumAmount);
+             weight += eval(sumWeight);
+         ;
+               var myquery = { UPS_Shelfs: Location};
+               var newvalues = { $set: {
+                            NumberOfProductsonShelf: numberOfProductsonShelf,
+                            CurrentWeight: weight
+                          } };
+        await Shelfs.updateOne(myquery, newvalues, function(err, res) {
+       if (err) throw err;
+       console.log("1 document updated");
+   
+               } )
+     }
+     }
+   }
     
 app.get('/get-Shelfs-list', async (req, res) => {
     const data = await Shelfs.find({}, { UPS_Shelfs: 1 })
