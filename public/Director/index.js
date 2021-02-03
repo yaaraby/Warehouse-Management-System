@@ -832,7 +832,7 @@ function setShelfList (shelfs) {
      const shelfOptions = shelfs.map(shelf => `<option value='${shelf.UPS_Shelfs}'>${shelf.UPS_Shelfs}</option>`);
     shelfOptionsGlobal = [...shelfOptions];
     //  this.shelfOptions = shelfOptions
-    document.getElementById("UPS_Shelfs").innerHTML = shelfOptions.join(" ");
+    document.getElementById("UPS_Shelfs").innerHTML = shelfOptionsGlobal.join(" ");
 }
 
 async function addNewProduct(e){
