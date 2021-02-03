@@ -576,6 +576,7 @@ app.get('/get-details-users:userId', async (req, res) => {
 
 app.get('/get-Shelfs-list', async (req, res) => {
     const data = await Shelfs.find({}, { UPS_Shelfs: 1 })
+    console.log(data)
     res.send({ data })
 })
 
