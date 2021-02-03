@@ -518,7 +518,7 @@ function addNewProduct(e) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
-          message = document.querySelector("#message");
+          message = document.querySelector("#messagetext");
           e.preventDefault();
           UPS = e.target[0].value;
           Name = e.target[1].value;
@@ -529,26 +529,22 @@ function addNewProduct(e) {
           height = e.target[6].value;
           ExpiryDate = e.target[7].value;
           Location = e.target[8].value;
-          _context.next = 13;
-          return regeneratorRuntime.awrap(Validations(UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location));
-
-        case 13:
-          validations = _context.sent;
+          validations = Validations(UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location);
 
           if (!(validations == true)) {
-            _context.next = 23;
+            _context.next = 21;
             break;
           }
 
-          _context.next = 17;
+          _context.next = 15;
           return regeneratorRuntime.awrap(getCurrrentWeight(Location));
 
-        case 17:
+        case 15:
           getWeight = _context.sent;
-          _context.next = 20;
+          _context.next = 18;
           return regeneratorRuntime.awrap(getCurrrentHeight(Location));
 
-        case 20:
+        case 18:
           getHeight = _context.sent;
           checkHeight = CalcHeight(getHeight, height);
 
@@ -589,7 +585,7 @@ function addNewProduct(e) {
             });
           }
 
-        case 23:
+        case 21:
         case "end":
           return _context.stop();
       }
@@ -672,7 +668,7 @@ var CalcHeight = function CalcHeight(getHeight, height) {
 };
 
 var Validations = function Validations(UPS, name, price, amount, category, weight, height, ExpiryDate, UPS_Shelfs, checkCurrrentWeight, checkHeight) {
-  var message = document.querySelector("#message");
+  var message = document.querySelector("#messagetext");
 
   if (UPS.length < 3) {
     message.innerHTML = 'נדרש להזין מק"ט באורך 3 ומעלה';
