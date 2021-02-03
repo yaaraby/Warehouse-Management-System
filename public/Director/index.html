@@ -19,7 +19,7 @@
 
 
 <body style=" display: none;" onload="init()">
-    
+
     <button class="connecterd" style="left: 10px;" onclick="connected(event)"><img src="/img/connection.png"></button>
     <button class="menubutoon" onclick="displayblockmenu(event)"><img src="/img/menu.png"></button>
     <div class="menu">
@@ -140,44 +140,48 @@
 
 
     <div id="editUserById"></div>
-<!-- yaara -->
-    
-<form onsubmit ="addNewProduct(event)">
-    <label for="UPS">מק"ט:
-        <input type="number" name="UPS" autocomplete='off'></br>
-    </label>
-    <label for="name">שם המוצר:
-        <input type="text" name="name" autocomplete='off'></br>
-    </label>
-    <label for="price">מחיר:
-        <input type="number" name="price"  autocomplete='off'></br>
-    </label>
-    <label for="amount">כמות:
-        <input type="number" name="amount" autocomplete='off'></br>
-    </label>
-    <label for="category">קטגוריה:
-        <input type="text" name="category" autocomplete='off'></br>
-    </label>
-    <label for="weight">משקל:
-        <input type="number" name="weight"  autocomplete='off'></br>
-    </label>
-    <label for="height">גובה:
-        <input type="number" name="height" autocomplete='off'></br>
-    </label>
-    <label for="ExpiryDate">תוקף מוצר:
-        <input type="date" name="ExpiryDate" autocomplete='off'></br>
-    </label>
-<!--                 <label for="Image">תמונה:
-        <input type="Image" name="Image" id="Image" autocomplete='off'></br>
-    </label> -->
-    <label for="UPS_Shelfs">מיקום המוצר:
-    <select name= 'UPS_Shelfs' id='UPS_Shelfs'>
-    </select>
-    </label>
-    <div id="message"></div></br>
-    <input type="submit" value="הוספה">
+    <!-- yaara -->
 
-</form>
+    <div class="addNewProductclass">
+        <img class="imgdelete" src="/img/delete.png" onclick="Registrationdisplaynone()">
+        <h1>הוספת מוצר</h1>
+        <form onsubmit="addNewProduct(event)">
+            <div class="rtl">
+                <label for="UPS">מק"ט:
+                    <input type="number" name="UPS" autocomplete='off'></br>
+                </label>
+                <label for="name">שם המוצר:
+                    <input type="text" name="name" autocomplete='off'></br>
+                </label>
+                <label for="price">מחיר:
+                    <input type="number" name="price" autocomplete='off'></br>
+                </label>
+                <label for="amount">כמות:
+                    <input type="number" name="amount" autocomplete='off'></br>
+                </label>
+                <label for="category">קטגוריה:
+                    <input type="text" name="category" autocomplete='off'></br>
+                </label>
+                <label for="weight">משקל:
+                    <input type="number" name="weight" autocomplete='off'></br>
+                </label>
+                <label for="height">גובה:
+                    <input type="number" name="height" autocomplete='off'></br>
+                </label>
+                <label for="ExpiryDate">תוקף מוצר:
+                    <input type="date" name="ExpiryDate" autocomplete='off'></br>
+                </label>
+                <label for="UPS_Shelfs">מיקום המוצר:
+                    <select name='UPS_Shelfs' id='UPS_Shelfs'>
+                    </select>
+                </label>
+                <div id="messagetext"></div></br> 
+               </div>
+                <input type="submit" value="הוספה">
+        
+        </form>
+
+    </div>
 
     <div class="Bottom">
         <img src="/img/Bottom.png"> - מחסן

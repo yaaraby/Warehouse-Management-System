@@ -259,10 +259,11 @@ app.put("/shelf-creation", async (req, res) => {
 
     const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'O','P']
     let tempNewRows = []
+    let tempFirstRowToLoop=parseInt(req.body.tempFirstRow)
 
 
     for(let i=0 ; i<req.body.tempTotalRowNumber;i++){
-
+       
 
         for (let j = 0; j<req.body.numberOfAreas; j++) {
             
@@ -274,7 +275,7 @@ app.put("/shelf-creation", async (req, res) => {
                      Line: i+1,
                      Area: `${letters[j]}`,
                      Floor: k+1,
-                     UPS_Shelfs: `${i+1}-${letters[j]}-${k+1}`,
+                     UPS_Shelfs: `${tempFirstRowToLoop}-${letters[j]}-${k+1}`,
                     // NumberOfProductsonShelf:Number, //Optional
                      MaximumWeight: req.body.maxWight,
                     // CurrentWeight: Number,//Optional
@@ -285,44 +286,56 @@ app.put("/shelf-creation", async (req, res) => {
         }
 
     }
+    tempFirstRowToLoop++
 }
 
 // console.log(tempNewRows)
 
 
 
-tempNewRows.forEach(async element => {
-    console.log(req.body.tempFirstRow )
-    let flag = await Shelfs.findOne({ Line: req.body.tempFirstRow }).exec();
-    
-    if (flag == null) {
-        tempNewRows.forEach(element => {
-            console.log(element.Line)
-            const testShelf = new Shelfs(
-                {
-                    Line: element.Line,
-                    Area: element.Area,
-                    Floor: element.Floor,
-                    UPS_Shelfs: element.UPS_Shelfs,
-                    NumberOfProductsonShelf: 1,
-                    MaximumWeight: element.MaximumWeight,
-                    CurrentWeight: 0,
-                    height: 0
-                });
-            testShelf.save();
-        });
-        res.send(true)
-    }
-    else {
-        message = 'שורה זאת כבר קיימת'
-        res.send({ message })
-    }
-})
+
+
+tempNewRows.forEach(async element =>    {
+        console.log(element)
+        let flag = await Shelfs.findOne({ Line:1}).exec();
+        
+        console.log(flag)
+        if (flag == null) {
+            setTimeout(function() {
+                tempNewRows.forEach(async element => {
+                
+                const testShelf = new Shelfs(
+                                    {
+                                        Line: element.Line,
+                                        Area: element.Area,
+                                        Floor: element.Floor,
+                                        UPS_Shelfs: element.UPS_Shelfs,
+                                        NumberOfProductsonShelf: 1,      //1 for test
+                                        MaximumWeight: element.MaximumWeight,
+                                        CurrentWeight: 0,
+                                        height: 0
+                                    });
+                
+                                    testShelf.save();
+            
+            });
+            res.send(true)}, 100);
+        }
+        else {
+            message = 'שורה זאת כבר קיימת'
+            res.send({ message })
+        }
+    })
 
 
 
 
-// tempNewRows.forEach(async element => {
+
+
+
+
+// setTimeout(function() {
+//     tempNewRows.forEach(async element => {
     
 //     const testShelf = new Shelfs(
 //                         {
@@ -339,52 +352,20 @@ tempNewRows.forEach(async element => {
 //                         testShelf.save();
 
 // });
+// res.send(true)}, 100);
+
+// let flag 
+
+//      if(await Shelfs.exists({ Line: req.body.tempFirstRow }))
+//      {flag=false}
+//      else
+//      {flag=true}
+    
+ 
+//  console.log(flag)
 
 
 // let flag = false
-
-
-// for (let i=0; i<req.body.tempTotalRowNumber; i++)
-//  {
-//      if(await Shelfs.exists({ Line: i }))
-//      {flag=true
-//       break}
-//      //else{flag=true}
-//  }
-//  console.log(flag)
-    // let flag = await Shelfs.findOne({ Line: 1 }).exec();
-    // // console.log(req.body)
-    // console.log(flag.Line)
-
-    // req.body.forEach(async element => {
-    //     let flag = await Shelfs.findOne({ Line: element.Line }).exec();
-
-    //     if (flag == null) {
-    //         req.body.forEach(element => {
-    //             // console.log(req.body)
-    //             const testShelf = new Shelfs(
-    //                 {
-    //                     Line: element.Line,
-    //                     Area: element.Area,
-    //                     Floor: element.Floor,
-    //                     UPS_Shelfs: element.UPS_Shelfs,
-    //                     NumberOfProductsonShelf: 1,
-    //                     MaximumWeight: element.MaximumWeight,
-    //                     CurrentWeight: 0,
-    //                     height: 0
-    //                 });
-    //             testShelf.save();
-    //         });
-    //         res.send(true)
-    //     }
-    //     else {
-    //         message = 'שורה זאת כבר קיימת'
-    //         res.send({ message })
-    //     }
-    // })
-
-
-
 
 
 
@@ -612,7 +593,12 @@ app.post('/add_Products', async (req, res) => {
       }      
       }
         return (true);
-    };
+};
+    
+app.get('/get-Shelfs-list', async (req, res) => {
+    const data = await Shelfs.find({}, { UPS_Shelfs: 1 })
+    res.send({ data })
+})
 
     
     app.delete('/deleteProduct/:id', async (req, res, next) => {

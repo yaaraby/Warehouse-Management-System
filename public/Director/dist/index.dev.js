@@ -1,5 +1,15 @@
 "use strict";
 
+var _this = void 0;
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 var Searchselect = document.querySelector("#Searchselect");
 var inputSearch = document.querySelector("#inputSearch");
 var Search = document.querySelector('.Search');
@@ -22,6 +32,12 @@ var ShelfList = document.getElementById('ShelfList');
 var handleAddShelftext = document.querySelector(".handleAddShelftext");
 var cardlogin = document.querySelector('.cardlogin');
 var alluserconnected = document.querySelector('.alluserconnected');
+var addNewProductclass = document.querySelector('.addNewProductclass');
+
+var init = function init() {
+  //first function to run
+  getShelfList();
+};
 
 function connected() {
   fetch('/alluserconnected').then(function (res) {
@@ -147,6 +163,7 @@ function Addauser() {
 
 function Registrationdisplaynone() {
   Registration.style.display = 'none';
+  addNewProductclass.style.display = 'none';
 }
 
 function Searchdisplayblock() {
@@ -475,18 +492,366 @@ function handleEditUser(e) {
       }
     });
   }
-} //Yehial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+} //yaara ------------------------------------
+
+
+function getShelfList() {
+  fetch('/get-Shelfs-list').then(function (res) {
+    return res.json();
+  }).then(function (data) {
+    setShelfList(data.data);
+  });
+}
+
+function setShelfList(shelfs) {
+  var shelfOptions = shelfs.map(function (shelf) {
+    return "<option value='".concat(shelf.UPS_Shelfs, "'>").concat(shelf.UPS_Shelfs, "</option>");
+  });
+  this.shelfOptions = _toConsumableArray(shelfOptions); //  this.shelfOptions = shelfOptions
+
+  document.getElementById("UPS_Shelfs").innerHTML = shelfOptions.join(" ");
+}
+
+function addNewProduct(e) {
+  var message, UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location, validations, getWeight, getHeight, checkHeight;
+  return regeneratorRuntime.async(function addNewProduct$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          message = document.querySelector("#messagetext");
+          e.preventDefault();
+          UPS = e.target[0].value;
+          Name = e.target[1].value;
+          price = e.target[2].value;
+          Amount = e.target[3].value;
+          Category = e.target[4].value;
+          Weight = e.target[5].value;
+          height = e.target[6].value;
+          ExpiryDate = e.target[7].value;
+          Location = e.target[8].value;
+          validations = Validations(UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location);
+
+          if (!(validations == true)) {
+            _context.next = 21;
+            break;
+          }
+
+          _context.next = 15;
+          return regeneratorRuntime.awrap(getCurrrentWeight(Location));
+
+        case 15:
+          getWeight = _context.sent;
+          _context.next = 18;
+          return regeneratorRuntime.awrap(getCurrrentHeight(Location));
+
+        case 18:
+          getHeight = _context.sent;
+          checkHeight = CalcHeight(getHeight, height);
+
+          if (checkHeight == false) {
+            message.innerHTML = 'גובה המדף אינו מתאים לגובה המוצר, יש לבחור מדף אחר';
+          } else if (checkCurrrentWeight == false) {
+            message.innerHTML = 'המדף הנבחר מלא, יש לבחור מדף אחר';
+          } else {
+            fetch('/add_Products', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                UPS: UPS,
+                Name: Name,
+                price: price,
+                Amount: Amount,
+                Category: Category,
+                Weight: Weight,
+                height: height,
+                ExpiryDate: ExpiryDate,
+                Location: Location
+              })
+            }).then(function (res) {
+              return res.json();
+            }).then(function (data) {
+              console.log(data);
+
+              if (data.status == true) {
+                message.innerHTML = "המוצר נוצר בהצלחה";
+                /*       setTimeout(() => {
+                          getListUsers()
+                      }, 500);  */
+              } else {
+                message.innerHTML = 'המוצר אינו נוסף למערכת, נסה שנית';
+              }
+            });
+          }
+
+        case 21:
+        case "end":
+          return _context.stop();
+      }
+    }
+  });
+}
+
+var getCurrrentWeight = function getCurrrentWeight(UPS_Shelfs) {
+  var check;
+  return regeneratorRuntime.async(function getCurrrentWeight$(_context2) {
+    while (1) {
+      switch (_context2.prev = _context2.next) {
+        case 0:
+          _context2.next = 2;
+          return regeneratorRuntime.awrap(fetch('/get-Details-Shelfs' + UPS_Shelfs, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }).then(function (res) {
+            return res.json();
+          }).then(function (data) {
+            check = data.MaximumWeight;
+          }));
+
+        case 2:
+          return _context2.abrupt("return", check);
+
+        case 3:
+        case "end":
+          return _context2.stop();
+      }
+    }
+  });
+};
+
+var getCurrrentHeight = function getCurrrentHeight(UPS_Shelfs) {
+  var check;
+  return regeneratorRuntime.async(function getCurrrentHeight$(_context3) {
+    while (1) {
+      switch (_context3.prev = _context3.next) {
+        case 0:
+          _context3.next = 2;
+          return regeneratorRuntime.awrap(fetch('/get-Details-Shelfs' + UPS_Shelfs, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }).then(function (res) {
+            return res.json();
+          }).then(function (data) {
+            check = data.height;
+          }));
+
+        case 2:
+          return _context3.abrupt("return", check);
+
+        case 3:
+        case "end":
+          return _context3.stop();
+      }
+    }
+  });
+}; //    const CalcWeight =  (getWeight, weight) =>{
+//     if (Number(getWeight) > Number(weight)){
+//         return (true);
+//     }
+//     else {
+//         return (false)
+//     }
+// } 
+
+
+var CalcHeight = function CalcHeight(getHeight, height) {
+  if (Number(getHeight) > Number(height)) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+var Validations = function Validations(UPS, name, price, amount, category, weight, height, ExpiryDate, UPS_Shelfs, checkCurrrentWeight, checkHeight) {
+  var message = document.querySelector("#messagetext");
+
+  if (UPS.length < 3) {
+    message.innerHTML = 'נדרש להזין מק"ט באורך 3 ומעלה';
+  } else if (name.length == 0) {
+    message.innerHTML = 'יש להזין את שם המוצר';
+  } else if (amount.length == 0) {
+    message.innerHTML = 'יש להזין את כמות המוצר';
+  } else if (category.length == 0) {
+    message.innerHTML = 'יש להזין את קטגוריית המוצר';
+  } else if (weight.length == 0) {
+    message.innerHTML = 'יש להזין את משקל המוצר';
+  } else if (height.length == 0) {
+    message.innerHTML = 'יש להזין את גובה המוצר';
+  } else if (UPS_Shelfs.length == 0) {
+    message.innerHTML = 'יש לבחור את המדף הרצוי למוצר';
+  } else {
+    return true;
+  }
+};
+
+var deleteProduct = function deleteProduct(_id) {
+  console.log(_id);
+  fetch('/deleteProduct/' + _id, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then(function (res) {
+    return res.json();
+  }).then(function (data) {
+    getListProductByCategory();
+  });
+};
+
+var editProduct = function editProduct(id) {
+  letdistinctResult = [];
+  fetch('/get-details-product' + id, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then(function (res) {
+    return res.json();
+  }).then(function (data) {
+    console.log(data);
+    document.getElementById('editProductById').innerHTML = "<h1>\u05E2\u05E8\u05D9\u05DB\u05EA \u05DE\u05D5\u05E6\u05E8</h1>\n                   <form onsubmit=\"handleEditProduct(event, ".concat(data.Amount, ")\">\n                   \n                <div class=\"productDetails\">\n                    <label for=\"UPS\">\u05DE\u05E7\"\u05D8:\n                   <input type=\"number\" name=\"UPS\" id=\"UPS\" value=\"").concat(data.UPS, "\" disabled=\"disabled\" autocomplete='off'></br>\n               </label>\n               <label for=\"Name\">\u05E9\u05DD:\n                   <input type=\"text\" name=\"Name\" id=\"Name\" value=\"").concat(data.Name, "\" autocomplete='off'></br>\n               </label>\n               <label for=\"price\">\u05DE\u05D7\u05D9\u05E8:\n                   <input type=\"text\" name=\"price\" id=\"price\" value=").concat(data.price, " autocomplete='off'></br>\n               </label>\n               <label for=\"Amount\">\u05DB\u05DE\u05D5\u05EA:\n                   <input type=\"number\" name=\"Amount\" id=\"Amount\" value=").concat(data.Amount, " autocomplete='off'></br>\n               </label>\n               <label for=\"Category\">\u05E7\u05D8\u05D2\u05D5\u05E8\u05D9\u05D4:\n                   <input type=\"text\" name=\"Category\" id=\"Category\" value=").concat(data.Category, " autocomplete='off'></br>\n               </label>\n               <label for=\"Weight\">\u05DE\u05E9\u05E7\u05DC:\n                   <input type=\"number\" name=\"Weight\" id=\"Weight\" value=").concat(data.Weight, " autocomplete='off'></br>\n               </label>\n                <label for=\"height\">\u05D2\u05D5\u05D1\u05D4:\n                   <input type=\"number\" name=\"height\" id=\"height\" value=").concat(data.height, " autocomplete='off'></br>\n               </label>\n               <label for=\"ExpiryDate\">\u05EA\u05D0\u05E8\u05D9\u05DA \u05EA\u05E4\u05D5\u05D2\u05D4:\n                   <input type=\"date\" name=\"ExpiryDate\" id=\"ExpiryDate\" value=").concat(data.ExpiryDate, " autocomplete='off'></br>\n               </label>\n           </div>\n            <select name='Location' id='Location'>\n            <option value = ").concat(data.ExpiryDate, "> ").concat(data.ExpiryDate, " </option>\n            </select></br>\n           <div id=\"message\"></div></br>\n           <input type=\"submit\" value=\"\u05D0\u05D9\u05E9\u05D5\u05E8\">\n       </form>"); // console.log(this.shelfOptions)
+
+    document.getElementById("Location").innerHTML = _this.shelfOptions.join(" ");
+  })["catch"](function (err) {
+    console.error(err);
+  })["finally"](function () {
+    console.log('im done');
+  });
+}; //    const CalcWeight =  (getWeight, weight) =>{
+//     if (Number(getWeight) > Number(weight)){
+//         return (true);
+//     }
+//     else {
+//         return (false)
+//     }
+// } 
+//    const CalcHeight = (getHeight, height) =>{
+//     if (Number(getHeight) > Number(height)){
+//         return (true);
+//     }
+//     else {
+//         return (false)
+//     }
+// } 
+// const Validations = (UPS, name, price, amount, category, weight, height, ExpiryDate, UPS_Shelfs, checkCurrrentWeight,checkHeight) =>{
+//     const message = document.querySelector("#message")
+//         if(UPS.length < 3){
+//             message.innerHTML = 'נדרש להזין מק"ט באורך 3 ומעלה'
+//         }
+//         else if(name.length == 0){
+//              message.innerHTML = 'יש להזין את שם המוצר'
+//         }
+//         else if(amount.length == 0){
+//             message.innerHTML = 'יש להזין את כמות המוצר'
+//         }
+//          else if(category.length == 0){
+//             message.innerHTML = 'יש להזין את קטגוריית המוצר'
+//         }
+//         else if(weight.length == 0){
+//             message.innerHTML = 'יש להזין את משקל המוצר'
+//         }
+//         else if(height.length == 0){
+//             message.innerHTML = 'יש להזין את גובה המוצר'
+//         }
+//         else if(UPS_Shelfs.length == 0){
+//             message.innerHTML = 'יש לבחור את המדף הרצוי למוצר'
+//         }
+//         else {
+//             return (true);
+//         }
+// }
+// const deleteProduct = (_id) =>{
+//     console.log(_id)
+//  fetch('/deleteProduct/' + _id, {
+//         method: 'DELETE',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//     }).then(res =>
+//         res.json()
+//     )
+//         .then(data => {
+//             getListProductByCategory()
+//         })
+// }
+// const editProduct = (id) =>{
+//     letdistinctResult= []; 
+//     fetch('/get-details-product' + id,{
+//               method: 'GET',
+//            headers: {
+//                'Content-Type': 'application/json'
+//            }
+//        }).then(res =>
+//            res.json()
+//        )
+//        .then(data => {
+//            console.log(data)
+//             document.getElementById('editProductById').innerHTML =
+//                    `<h1>עריכת מוצר</h1>
+//                    <form onsubmit="handleEditProduct(event, ${data.Amount})">
+//                 <div class="productDetails">
+//                     <label for="UPS">מק"ט:
+//                    <input type="number" name="UPS" id="UPS" value="${data.UPS}" disabled="disabled" autocomplete='off'></br>
+//                </label>
+//                <label for="Name">שם:
+//                    <input type="text" name="Name" id="Name" value="${data.Name}" autocomplete='off'></br>
+//                </label>
+//                <label for="price">מחיר:
+//                    <input type="text" name="price" id="price" value=${data.price} autocomplete='off'></br>
+//                </label>
+//                <label for="Amount">כמות:
+//                    <input type="number" name="Amount" id="Amount" value=${data.Amount} autocomplete='off'></br>
+//                </label>
+//                <label for="Category">קטגוריה:
+//                    <input type="text" name="Category" id="Category" value=${data.Category} autocomplete='off'></br>
+//                </label>
+//                <label for="Weight">משקל:
+//                    <input type="number" name="Weight" id="Weight" value=${data.Weight} autocomplete='off'></br>
+//                </label>
+//                 <label for="height">גובה:
+//                    <input type="number" name="height" id="height" value=${data.height} autocomplete='off'></br>
+//                </label>
+//                <label for="ExpiryDate">תאריך תפוגה:
+//                    <input type="date" name="ExpiryDate" id="ExpiryDate" value=${data.ExpiryDate} autocomplete='off'></br>
+//                </label>
+//            </div>
+//             <select name='Location' id='Location'>
+//             <option value = ${data.ExpiryDate}> ${data.ExpiryDate} </option>
+//             </select></br>
+//            <div id="message"></div></br>
+//            <input type="submit" value="אישור">
+//        </form>`;
+//    // console.log(this.shelfOptions)
+//    document.getElementById("Location").innerHTML = this.shelfOptions.join(" ");
+//        }).catch(err => {
+//            console.error(err);
+//        }).finally(() => {
+//            console.log('im done')
+//        } )
+// } 
+//Yehial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
 function handleAddShelf(e) {
   e.preventDefault();
   var firstRow = document.querySelector('#firstRow');
   var lastRow = document.querySelector('#lastRow');
-  var numberOfAreas = document.querySelector('#numberOfAreas');
-  var numberOfShelfs = document.querySelector('#numberOfShelfs');
-  var maxWight = document.querySelector('#maxWight');
-  var tempTotalRowNumber = lastRow.value - firstRow.value;
-  var tempFirstRow = firstRow.value;
+  var numberOfAreas = document.querySelector('#numberOfAreas').value;
+  var numberOfShelfs = document.querySelector('#numberOfShelfs').value;
+  var maxWight = document.querySelector('#maxWight').value;
+  var tempTotalRowNumber = lastRow.value - firstRow.value + 1;
+  var tempFirstRow = firstRow.value; // console.log(tempNewRows)
+  // console.log(JSON.stringify({tempFirstRow , tempTotalRowNumber,numberOfAreas,numberOfShelfs,maxWight}))
+  // handleAddShelftext.innerHTML = ''
+  // console.log(tempNewRows)
+  // console.log(JSON.stringify(tempNewRows))
+  // handleAddShelftext.innerHTML = ''
+
   var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'O'];
   var tempNewRows = [];
 
@@ -518,7 +883,13 @@ function handleAddShelf(e) {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(tempNewRows)
+    body: JSON.stringify({
+      tempFirstRow: tempFirstRow,
+      tempTotalRowNumber: tempTotalRowNumber,
+      numberOfAreas: numberOfAreas,
+      numberOfShelfs: numberOfShelfs,
+      maxWight: maxWight
+    })
   }).then(function (res) {
     return res.json();
   }).then(function (data) {
@@ -574,15 +945,15 @@ function allShelfs(data) {
 
 function deleteShelf(shelf_to_delete) {
   fetch("/delete-shelf", {
-    method: 'DELETE',
-    // headers: {
-    //     'Content-Type': 'application/json'
-    // },
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
     body: JSON.stringify(shelf_to_delete)
   }).then(function (res) {
     return res.json();
   }).then(function (data) {
-    console.log(data);
+    console.log(data.data);
   });
 }
 

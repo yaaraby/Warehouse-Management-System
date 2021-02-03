@@ -854,3 +854,104 @@ body {
     margin: 70px auto 70px;
   }
 }
+.addNewProductclass {
+  font-size: 20rem;
+  font-family: var(--font-family);
+  background-color: var(--background);
+  padding: 40px 20px;
+  text-align: center;
+  font-family: "Rubik", sans-serif;
+  border-radius: 10px;
+  box-shadow: 2px 2px 15px 10px rgba(128, 128, 128, 0.445);
+  direction: rtl;
+  position: relative;
+  margin: 150px auto 70px;
+  width: 90%;
+  max-width: 500px;
+  box-sizing: border-box;
+}
+.addNewProductclass .imgdelete {
+  width: 30px;
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  background-color: var(--background);
+  padding: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  z-index: 1;
+}
+.addNewProductclass .listuser {
+  width: 50px;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  z-index: 1;
+}
+.addNewProductclass input[type=text],
+.addNewProductclass input[type=number],
+.addNewProductclass input[type=date] {
+  padding: 10px;
+  font-size: 20rem;
+  border: 0;
+  border-bottom: 2px solid var(--color);
+  background: none;
+  margin-bottom: 25px;
+  outline: none;
+  font-family: var(--font-family);
+  color: var(--color);
+  width: 100%;
+  box-sizing: border-box;
+}
+.addNewProductclass input[type=submit] {
+  padding: 10px 20px;
+  font-size: 20rem;
+  border-radius: 10px;
+  border: 3px solid grey;
+  font-family: var(--font-family);
+  outline: none;
+  background: rgba(128, 128, 128, 0.623);
+  color: var(--color);
+  font-weight: 600;
+  cursor: pointer;
+}
+.addNewProductclass input[type=submit]:active {
+  border: 3px solid var(--color);
+  color: var(--background);
+  transition: color 0.3s;
+}
+.addNewProductclass input[type=submit]:hover {
+  background: #a8998f;
+  transition: color 0.3s;
+}
+.addNewProductclass label {
+  font-size: 20rem;
+  padding: 5px;
+}
+.addNewProductclass .rtl {
+  text-align: right;
+}
+.addNewProductclass select {
+  padding: 10px;
+  font-size: 20rem;
+  border: 0;
+  border-bottom: 2px solid var(--color);
+  background: none;
+  margin-bottom: 25px;
+  margin-top: 20px;
+  outline: none;
+  font-family: var(--font-family);
+  width: 100%;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.addNewProductclass #message {
+  font-size: 25rem;
+  font-weight: 600;
+  padding: 5px;
+}
+.addNewProductclass #message img {
+  width: 30px;
+}
