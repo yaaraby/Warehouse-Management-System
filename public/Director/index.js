@@ -683,7 +683,7 @@ function setShelfList (shelfs) {
 }
 
 async function addNewProduct(e){
-    const message = document.querySelector("#message")
+    const message = document.querySelector("#messagetext")
      e.preventDefault();
 
         let UPS = e.target[0].value;
@@ -697,7 +697,7 @@ async function addNewProduct(e){
         let Location = e.target[8].value;
 
     
-      let validations = await Validations(UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location)
+      let validations = Validations(UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location)
       
       if(validations == true){
       
@@ -790,7 +790,7 @@ const getCurrrentWeight = async (UPS_Shelfs) =>{
 } 
 
 const Validations = (UPS, name, price, amount, category, weight, height, ExpiryDate, UPS_Shelfs, checkCurrrentWeight,checkHeight) =>{
-    const message = document.querySelector("#message")
+    const message = document.querySelector("#messagetext")
         if(UPS.length < 3){
             message.innerHTML = 'נדרש להזין מק"ט באורך 3 ומעלה'
         }
