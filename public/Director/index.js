@@ -412,7 +412,7 @@ function getCategory() {
                 })
             }
             else {
-                cardboxcatygory.innerHTML = '<h1>אין מה להציג</h1>'
+                cardboxcatygory.innerHTML = '<h1>הנתונים לא זמינים</h1>'
             }
         })
 }
@@ -454,8 +454,8 @@ function PullThiscCategory(event) {
                 <td>${elm.Name}</td>
                 <td>${elm.UPS}</td>
                 <td class="flexdeleteuser">
-                <a action="Edit" class="editshelf" style="margin: 5px 15px;cursor: pointer;" onclick='editShelf("${elm._id}")'><img src="/img/edit-button.png"></a>
-                <a action="Delete" class="deleteShelf"  style="margin: 5px 15px;cursor: pointer;" onclick='deleteShelf("${elm._id}")'><img src="/img/deleteuser.png"></a>
+                <a action="Edit" class="editProduct" style="margin: 5px 15px;cursor: pointer;" onclick='editProduct("${elm._id}")'><img src="/img/edit-button.png"></a>
+                <a action="Delete" class="deleteProduct"  style="margin: 5px 15px;cursor: pointer;" onclick='deleteProduct("${elm._id}")'><img src="/img/deleteuser.png"></a>
                 </td>
         </tr>
 `).join('')}</tbody>
@@ -855,7 +855,7 @@ async function addNewProduct(e){
       if(validations == true){
       
             let getWeight =  await getCurrrentWeight(Location) 
-            // let checkCurrrentWeight =  CalcWeight(getWeight, Weight)
+            let checkCurrrentWeight =  CalcWeight(getWeight, Weight)
             let getHeight = await getCurrrentHeight(Location)
             let checkHeight =  CalcHeight(getHeight, height)
    
@@ -878,9 +878,9 @@ async function addNewProduct(e){
               if (data.status == true) { 
                     message.innerHTML = "המוצר נוצר בהצלחה"
 
-              /*       setTimeout(() => {
-                        getListUsers()
-                    }, 500);  */
+                     setTimeout(() => {
+                        getCategory()
+                    }, 500);  
  
                  } else {
                      message.innerHTML = 'המוצר אינו נוסף למערכת, נסה שנית'
@@ -932,6 +932,7 @@ const getCurrrentWeight = async (UPS_Shelfs) =>{
 //         return (false)
 //     }
 // } 
+
    const CalcWeight =  (getWeight, weight) =>{
     if (Number(getWeight) > Number(weight)){
         return (true);
@@ -1057,6 +1058,7 @@ const editProduct = (id) =>{
        } )
     
 } 
+
 
 //    const CalcWeight =  (getWeight, weight) =>{
 //     if (Number(getWeight) > Number(weight)){
