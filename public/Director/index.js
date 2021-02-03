@@ -922,6 +922,19 @@ const getCurrrentWeight = async (UPS_Shelfs) =>{
     
 } 
 
+<<<<<<< HEAD
+
+
+//    const CalcWeight =  (getWeight, weight) =>{
+//     if (Number(getWeight) > Number(weight)){
+//         return (true);
+//     }
+//     else {
+//         return (false)
+//     }
+// } 
+=======
+>>>>>>> master
    const CalcWeight =  (getWeight, weight) =>{
     if (Number(getWeight) > Number(weight)){
         return (true);
@@ -930,7 +943,10 @@ const getCurrrentWeight = async (UPS_Shelfs) =>{
         return (false)
     }
 } 
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
 
    const CalcHeight = (getHeight, height) =>{
     if (Number(getHeight) > Number(height)){
@@ -1049,6 +1065,137 @@ const editProduct = (id) =>{
     
 } 
 
+<<<<<<< HEAD
+//    const CalcWeight =  (getWeight, weight) =>{
+//     if (Number(getWeight) > Number(weight)){
+//         return (true);
+//     }
+//     else {
+//         return (false)
+//     }
+// } 
+
+//    const CalcHeight = (getHeight, height) =>{
+//     if (Number(getHeight) > Number(height)){
+//         return (true);
+//     }
+//     else {
+//         return (false)
+//     }
+// } 
+
+// const Validations = (UPS, name, price, amount, category, weight, height, ExpiryDate, UPS_Shelfs, checkCurrrentWeight,checkHeight) =>{
+//     const message = document.querySelector("#message")
+//         if(UPS.length < 3){
+//             message.innerHTML = 'נדרש להזין מק"ט באורך 3 ומעלה'
+//         }
+//         else if(name.length == 0){
+//              message.innerHTML = 'יש להזין את שם המוצר'
+//         }
+//         else if(amount.length == 0){
+//             message.innerHTML = 'יש להזין את כמות המוצר'
+//         }
+//          else if(category.length == 0){
+//             message.innerHTML = 'יש להזין את קטגוריית המוצר'
+//         }
+//         else if(weight.length == 0){
+//             message.innerHTML = 'יש להזין את משקל המוצר'
+//         }
+//         else if(height.length == 0){
+//             message.innerHTML = 'יש להזין את גובה המוצר'
+//         }
+//         else if(UPS_Shelfs.length == 0){
+//             message.innerHTML = 'יש לבחור את המדף הרצוי למוצר'
+//         }
+//         else {
+//             return (true);
+//         }
+// }
+
+ 
+
+// const deleteProduct = (_id) =>{
+//     console.log(_id)
+//  fetch('/deleteProduct/' + _id, {
+//         method: 'DELETE',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+        
+//     }).then(res =>
+//         res.json()
+//     )
+        
+//         .then(data => {
+//             getListProductByCategory()
+//         })
+// }
+
+
+// const editProduct = (id) =>{
+
+//     letdistinctResult= []; 
+//     fetch('/get-details-product' + id,{
+//               method: 'GET',
+//            headers: {
+//                'Content-Type': 'application/json'
+//            }
+//        }).then(res =>
+//            res.json()
+//        )
+//        .then(data => {
+//            console.log(data)
+//             document.getElementById('editProductById').innerHTML =
+                  
+//                    `<h1>עריכת מוצר</h1>
+//                    <form onsubmit="handleEditProduct(event, ${data.Amount})">
+                   
+//                 <div class="productDetails">
+//                     <label for="UPS">מק"ט:
+//                    <input type="number" name="UPS" id="UPS" value="${data.UPS}" disabled="disabled" autocomplete='off'></br>
+//                </label>
+//                <label for="Name">שם:
+//                    <input type="text" name="Name" id="Name" value="${data.Name}" autocomplete='off'></br>
+//                </label>
+//                <label for="price">מחיר:
+//                    <input type="text" name="price" id="price" value=${data.price} autocomplete='off'></br>
+//                </label>
+//                <label for="Amount">כמות:
+//                    <input type="number" name="Amount" id="Amount" value=${data.Amount} autocomplete='off'></br>
+//                </label>
+//                <label for="Category">קטגוריה:
+//                    <input type="text" name="Category" id="Category" value=${data.Category} autocomplete='off'></br>
+//                </label>
+//                <label for="Weight">משקל:
+//                    <input type="number" name="Weight" id="Weight" value=${data.Weight} autocomplete='off'></br>
+//                </label>
+//                 <label for="height">גובה:
+//                    <input type="number" name="height" id="height" value=${data.height} autocomplete='off'></br>
+//                </label>
+//                <label for="ExpiryDate">תאריך תפוגה:
+//                    <input type="date" name="ExpiryDate" id="ExpiryDate" value=${data.ExpiryDate} autocomplete='off'></br>
+//                </label>
+//            </div>
+//             <select name='Location' id='Location'>
+//             <option value = ${data.ExpiryDate}> ${data.ExpiryDate} </option>
+//             </select></br>
+//            <div id="message"></div></br>
+//            <input type="submit" value="אישור">
+//        </form>`;
+//    // console.log(this.shelfOptions)
+//    document.getElementById("Location").innerHTML = this.shelfOptions.join(" ");
+
+//        }).catch(err => {
+//            console.error(err);
+//        }).finally(() => {
+//            console.log('im done')
+//        } )
+    
+// } 
+
+
+=======
+>>>>>>> master
 //Yehial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 function handleAddShelf(e) {
     e.preventDefault();
@@ -1077,7 +1224,7 @@ function handleAddShelf(e) {
     })
         .then(res => res.json())
         .then(data => {
-            console.log(data)
+            console.log('asdasdasd')
             if (data == true) {
                 shelfObservation()
             } else {
@@ -1164,31 +1311,31 @@ function allShelfs(data) {
 </table>`;
 }
 
-function deleteShelf(shelf_to_delete){
+// function deleteShelf(shelf_to_delete){
     
 
 
-    fetch("/delete-shelf", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(shelf_to_delete)
-    })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data.data)
+//     fetch("/delete-shelf", {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(shelf_to_delete)
+//     })
+//         .then(res => res.json())
+//         .then(data => {
+//             console.log(data.data)
             
 
 
 
 
 
-        })
+//         })
 
 
 
-}
+// }
 
 function addNewShelf() {
     menubutoondisplayblock()
@@ -1201,4 +1348,7 @@ function addShelflist() {
     AddShelf.style.display = 'none'
     ShelfList.style.display = 'block'
 }
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
