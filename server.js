@@ -539,19 +539,36 @@ app.get('/get-details-users:userId', async (req, res) => {
 // yaara
 
 
+app.get('/get-Shelfs-list', async (req, res) => {
+    const data = await Shelfs.find({}, { UPS_Shelfs: 1 })
+    res.send({ data })
+})
+
+app.get('/get-Details-Shelfs:UPS_Shelfs', async (req, res, next) =>
+ {
+     let {UPS_Shelfs} = req.params;
+     try {
+     const CurrrentDetailsShelf = await Shelfs.findOne({ UPS_Shelfs : UPS_Shelfs});
+
+        res.send(CurrrentDetailsShelf)
+    } catch (e) {
+        console.log(e)
+    }
+})
+
 app.post('/add_Products', async (req, res) => {
-    let status = true
-        const { UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location} = req.body
-    
-    
-            const products = new Products({UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location});
-            await products.save().then(doc => console.log(doc)).catch(e => console.log(e));
-            let sumProductOnShelf  = await updateNumberOfProduct(Amount, Location,Weight)
-    
-            if(sumProductOnShelf == true){
-                 res.send({ status })
-            }
-    })
+let status = true
+    const { UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location} = req.body
+
+
+        const products = new Products({UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location});
+        await products.save().then(doc => console.log(doc)).catch(e => console.log(e));
+        let sumProductOnShelf  = await updateNumberOfProduct(Amount, Location,Weight)
+
+        if(sumProductOnShelf == true){
+             res.send({ status })
+        }
+})
     
     const  updateNumberOfProduct = async (Amount, Location, Weight)=>{
     
@@ -570,7 +587,7 @@ app.post('/add_Products', async (req, res) => {
                              NumberOfProductsonShelf: numberOfProductsonShelf,
                              CurrentWeight: weight
                            } };
-         await Shelfs.update(myquery, newvalues, function(err, res) {
+         await Shelfs.updateOne(myquery, newvalues, function(err, res) {
         if (err) throw err;
         console.log("1 document updated");
                 } )
