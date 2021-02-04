@@ -454,7 +454,8 @@ function PullThiscCategory(event) {
 </thead>
     <tbody>
         ${data.data.map(elm =>
-                `<tr>
+                // `<tr onclick="PullInformation('${elm._id}')">
+                 `<tr>
                 <td>${elm.Location}</td> 
                 <td>${elm.ExpiryDate}</td>
                 <td>${elm.Name}</td>
@@ -462,7 +463,7 @@ function PullThiscCategory(event) {
                 <td class="flexCrudProduct">
                 <div class="list" onclick="editProduct('${elm._id}')"><img src="/img/edit-button.png"></div>
                 <div class="list" onclick="deleteProduct('${elm._id}')"><img src="/img/deleteuser.png"></div>
-                </td> 
+                </td>
         </tr>
 `).join('')}</tbody>
 </table>`;
