@@ -1025,7 +1025,7 @@ const editProduct = (id) =>{
             `<img onclick='displaynoneeditProductardlogin()' src="/img/delete.png" alt="">
                   
                    <h1>עריכת מוצר</h1>
-                   <form onsubmit="handleEditProduct(event, ${data.Amount})">
+                   <form onsubmit="handleEditProduct(event, '${data.Amount}', '${data.Weight}','${data.Location}')">
              <div class="rtl"> 
                 <div class="productDetails">
                     <label for="UPS">מק"ט:
