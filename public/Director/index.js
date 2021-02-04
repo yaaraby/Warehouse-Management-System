@@ -68,6 +68,7 @@ function connected() {
             AddShelf.style.display = 'none'
             ShelfList.style.display = 'none'
             editUserById.style.display = 'none'
+            addNewProductclass.style.display = 'none'
             menubutoondisplayblock()
             UsersList.style.display = 'block'
 
@@ -395,6 +396,7 @@ function getCategory() {
     AddShelf.style.display = 'none'
     ShelfList.style.display = 'none'
     cardboxcatygory.innerHTML = ''
+    addNewProductclass.style.display = 'none'
     cardCategory.style.display = 'block'
     fetch('/get-category')
         .then(res =>
@@ -436,6 +438,7 @@ function PullThiscCategory(event) {
             cardCategory.style.display = 'none'
             ShowAll.style.display = 'block'
             titlecategory.innerHTML = eventCategory
+            addNewProductclass.style.display = 'none'
             carbox.innerHTML += `<table>
 <thead>
     <tr>
@@ -483,6 +486,7 @@ function getListUsers() {
                 editUserById.style.display = "none"
                 AddShelf.style.display = 'none'
                 ShelfList.style.display = 'none'
+                addNewProductclass.style.display = 'none'
                 UsersList.style.display = 'block'
                 alluser(data.data)
             }
