@@ -781,8 +781,8 @@ function shelfObservationDisplayNone() {
 
 function allShelfs(data) {
     menubutoondisplayblock()
-    data.sort((a, b) => { if (a.Line < b.Line) return -1; })
-    data.sort((a, b) => { if (a.Area < b.Area) return -1; })
+    // data.sort((a, b) => { if (a.Line < b.Line) return -1; })
+    // data.sort((a, b) => { if (a.Area < b.Area) return -1; })
 
     document.getElementById('ShelfList').innerHTML =
         `<img src="/img/delete.png" class="displaynone" onclick="shelfObservationDisplayNone()">
@@ -810,6 +810,7 @@ function allShelfs(data) {
                 <td style="direction: initial;">${elm.UPS_Shelfs}</td>
                 <td>${elm.NumberOfProductsonShelf}</td>
                 <td>${elm.CurrentWeight}</td> 
+                <td>${elm.CurrentHeight}</td> 
                 <td>${elm.MaximumWeight}</td> 
                 
         </tr>
@@ -940,7 +941,6 @@ const getCurrrentWeight = async (UPS_Shelfs) =>{
 } 
 
 
-
 //    const CalcWeight =  (getWeight, weight) =>{
 //     if (Number(getWeight) > Number(weight)){
 //         return (true);
@@ -1036,6 +1036,7 @@ const editProduct = (id) =>{
             `<img onclick='displaynoneeditProductardlogin()' src="/img/delete.png" alt="">
                   
                    <h1>עריכת מוצר</h1>
+                <h1>עריכת מוצר</h1>
                    <form onsubmit="handleEditProduct(event, ${data.Amount})">
                    
                 <div class="productDetails">
@@ -1171,6 +1172,52 @@ const editProduct = (id) =>{
 //     console.log('im done')
 // } )
 
+//             `<h1>עריכת מוצר</h1>
+//             <form onsubmit="handleEditProduct(event, '${data.Amount}', '${data.Weight}','${data.Location}')">
+            
+//          <div class="productDetails">
+//              <label for="UPS">מק"ט:
+//             <input type="number" name="UPS" id="UPS" value="${data.UPS}" disabled="disabled" autocomplete='off'></br>
+//         </label>
+//         <label for="Name">שם:
+//             <input type="text" name="Name" id="Name" value="${data.Name}" autocomplete='off'></br>
+//         </label>
+//         <label for="price">מחיר:
+//             <input type="text" name="price" id="price" value=${data.price} autocomplete='off'></br>
+//         </label>
+//         <label for="Amount">כמות:
+//             <input type="number" name="Amount" id="Amount" value=${data.Amount} autocomplete='off'></br>
+//         </label>
+//         <label for="Category">קטגוריה:
+//             <input type="text" name="Category" id="Category" value=${data.Category} autocomplete='off'></br>
+//         </label>
+//         <label for="Weight">משקל:
+//             <input type="number" name="Weight" id="Weight" value=${data.Weight} autocomplete='off'></br>
+//         </label>
+//          <label for="height">גובה:
+//             <input type="number" name="height" id="height" value=${data.height} autocomplete='off'></br>
+//         </label>
+//         <label for="ExpiryDate">תאריך תפוגה:
+//             <input type="date" name="ExpiryDate" id="ExpiryDate" value=${data.ExpiryDate} autocomplete='off'></br>
+//         </label>
+//     </div>
+//      <select name='Location' id='Location'>
+//      <option value = ${data.Location}> ${data.Location} </option>
+//      </select></br>
+//     <div id="message"></div></br>
+//     <input type="submit" value="אישור">
+// </form>`;
+// // console.log(this.shelfOptions)
+
+// document.getElementById("Location").innerHTML = this.shelfOptions.join(" ");
+
+// }).catch(err => {
+//     console.error(err);
+// }).finally(() => {
+//     console.log('im done')
+// } )
+
+
 
 // } 
 
@@ -1236,6 +1283,7 @@ function handleAddShelf(e) {
     const lastRow = document.querySelector('#lastRow').value
     const numberOfAreas = document.querySelector('#numberOfAreas').value
     const numberOfShelfs = document.querySelector('#numberOfShelfs').value
+    const shelfHeight = document.querySelector('#shelfHight').value
     const maxWight = document.querySelector('#maxWight').value
 
 
@@ -1252,7 +1300,7 @@ function handleAddShelf(e) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({firstRow,lastRow,numberOfAreas,numberOfShelfs,maxWight})
+        body: JSON.stringify({firstRow,lastRow,numberOfAreas,numberOfShelfs,shelfHeight,maxWight})
     })
         .then(res => res.json())
         .then(data => {
@@ -1295,6 +1343,7 @@ function shelfObservation() {
             }
             else {
                 allShelfs(data.data)
+                console.log(data.data)
             }
         })
 }
@@ -1321,6 +1370,7 @@ function allShelfs(data) {
         <th></th>
         <th>מספר מדף</th>
         <th>כמות מוצרים</th>
+        <th>גובה מדף</th>
         <th>משקל מדף</th>
         <th>משקל מקסימלי</th>
     </tr>
@@ -1335,6 +1385,7 @@ function allShelfs(data) {
         </td>
                 <td style="direction: initial;">${elm.UPS_Shelfs}</td>
                 <td>${elm.NumberOfProductsonShelf}</td>
+                <td>${elm.height}</td> 
                 <td>${elm.CurrentWeight}</td> 
                 <td>${elm.MaximumWeight}</td> 
                 

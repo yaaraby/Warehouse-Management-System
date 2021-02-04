@@ -265,6 +265,7 @@ app.put("/shelf-creation", async (req, res) => {
     const lastRow = parseInt(req.body.lastRow) 
     const numberOfAreas = parseInt(req.body.numberOfAreas) 
     const numberOfShelfs = parseInt(req.body.numberOfShelfs) 
+    const maxHeight = parseInt(req.body.shelfHeight) 
     const maxWight = parseInt(req.body.maxWight) 
 
 
@@ -283,9 +284,9 @@ app.put("/shelf-creation", async (req, res) => {
                      Floor: k+1,
                      UPS_Shelfs: `${i}-${letters[j]}-${k+1}`,
                     // NumberOfProductsonShelf:Number, //Optional
-                     MaximumWeight: req.body.maxWight,
+                     MaximumWeight: maxWight,
                     // CurrentWeight: Number,//Optional
-                    // height: Number//Optional
+                     CurrentHeight: maxHeight//Optional
                 
             })
          }
@@ -333,7 +334,7 @@ function saveToDataBase(aprovedArry){
                                 NumberOfProductsonShelf: 1,      //1 for test
                                 MaximumWeight: element.MaximumWeight,
                                 CurrentWeight: 0,
-                                height: 0
+                                height: element.CurrentHeight
                             });
         
                             testShelf.save();
