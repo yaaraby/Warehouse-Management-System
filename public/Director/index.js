@@ -454,7 +454,7 @@ function PullThiscCategory(event) {
 </thead>
     <tbody>
         ${data.data.map(elm =>
-                `<tr onclick="PullInformation('${elm._id}')">
+                `<tr>
                 <td>${elm.Location}</td> 
                 <td>${elm.ExpiryDate}</td>
                 <td>${elm.Name}</td>
