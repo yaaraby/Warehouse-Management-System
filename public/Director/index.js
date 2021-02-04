@@ -166,6 +166,10 @@ function displaynoneeditusercardlogin() {
     editUserById.style.display = 'none'
 }
 
+function displaynoneeditProductardlogin() {
+    editProductById.style.display = 'none'
+}
+
 function Output() {
     fetch('/Output')
         .then(res =>
@@ -1017,7 +1021,7 @@ const editProduct = (id) =>{
         editProductById.style.display = "block"
 
         document.getElementById('editProductById').innerHTML =
-            `<img onclick='displaynoneeditusercardlogin()' src="/img/delete.png" alt="">
+            `<img onclick='displaynoneeditProductardlogin()' src="/img/delete.png" alt="">
                   
                    <h1>עריכת מוצר</h1>
                    <form onsubmit="handleEditProduct(event, ${data.Amount})">
