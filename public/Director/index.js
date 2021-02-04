@@ -1072,6 +1072,7 @@ const editProduct = (id) =>{
 
 
 async function handleEditProduct(e, PreviosAmount, PreviosWeight, PreviosLocation) {
+    console.log(e)
     e.preventDefault();
 
    let UPS = e.target[0].value;
