@@ -1018,7 +1018,7 @@ const editProduct = (id) =>{
        .then(data => {
            carbox.style.display = 'none'
            titlecategory.style.display = 'none' 
-        // ShowAll.style.display = 'none'
+         ShowAll.style.display = 'none'
         editProductById.style.display = "block"
         
         document.getElementById('editProductById').innerHTML =
