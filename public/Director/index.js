@@ -994,7 +994,7 @@ const deleteProduct = (_id) =>{
         })
 }
 
-
+ 
 const editProduct = (id) =>{
     menubutoondisplayblock()
     letdistinctResult= []; 
