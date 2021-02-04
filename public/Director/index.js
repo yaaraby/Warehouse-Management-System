@@ -1021,8 +1021,7 @@ const editProduct = (id) =>{
         editProductById.style.display = "block"
 
         document.getElementById('editProductById').innerHTML =
-            `<img onclick='displaynoneeditProductardlogin()' src="/img/delete.png" alt="">
-                  
+            ` 
                    <h1>עריכת מוצר</h1>
                    <form onsubmit="handleEditProduct(event, ${data.Amount})">
              <div class="rtl">
