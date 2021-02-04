@@ -840,7 +840,121 @@ h1{
 // #editUserById {
 //     margin-top: 70px;
 // }
+#editProductById {
+    font-size: 20rem;
+    font-family: var(--font-family);
+    background-color: var(--background);
+    padding: 40px 20px;
+    text-align: center;
+    font-family: 'Rubik', sans-serif;
+    border-radius: 10px;
+    box-shadow: 2px 2px 15px 10px rgba(128, 128, 128, 0.445);
+    direction: rtl;
+    position: relative;
+    margin: 150px auto 70px;
+    width: 90%;
+    max-width: 500px;
+    box-sizing: border-box;
+    display: none;
 
+    img {
+        width: 30px;
+        position: absolute;
+        top: -15px;
+        right: -15px;
+        background-color: var(--background);
+        padding: 10px;
+        border-radius: 20px;
+        cursor: pointer;
+        z-index: 1;
+    }
+
+    .listuser {
+        width: 50px;
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        border-radius: 20px;
+        cursor: pointer;
+        z-index: 1;
+    }
+
+
+    input[type=text],
+    input[type=email],
+    input[type=password] {
+        padding: 10px;
+        font-size: 20rem;
+        border: 0;
+        border-bottom: 2px solid var(--color);
+        background: none;
+        margin-bottom: 25px;
+        outline: none;
+        font-family: var(--font-family);
+        color: var(--color);
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    input[type=submit] {
+        padding: 10px 20px;
+        font-size: 20rem;
+        border-radius: 10px;
+        border: 3px solid grey;
+        font-family: var(--font-family);
+        outline: none;
+        background: rgba(128, 128, 128, 0.623);
+        color: var(--color);
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    input[type=submit]:active {
+        border: 3px solid var(--color);
+        color: var(--background);
+        transition: color 0.3s;
+    }
+
+    input[type=submit]:hover {
+        background: rgb(168, 153, 143);
+        transition: color 0.3s;
+    }
+
+    label {
+        font-size: 20rem;
+        padding: 5px;
+    }
+
+    .rtl {
+        text-align: right;
+    }
+
+
+    select {
+        padding: 10px;
+        font-size: 20rem;
+        border: 0;
+        border-bottom: 2px solid var(--color);
+        background: none;
+        margin-bottom: 25px;
+        margin-top: 20px;
+        outline: none;
+        font-family: var(--font-family);
+        width: 100%;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
+
+    #messag {
+        font-size: 25rem;
+        font-weight: 600;
+        padding: 5px;
+
+        img {
+            width: 30px;
+        }
+    }
+}
 
 
 #editUserById {
@@ -988,7 +1102,7 @@ h1{
 
 
 
-.addNewProductclass {
+.addNewProductclass,.editProductById {
     font-size: 20rem;
     font-family: var(--font-family);
     background-color: var(--background);
@@ -999,7 +1113,7 @@ h1{
     box-shadow: 2px 2px 15px 10px rgba(128, 128, 128, 0.445);
     direction: rtl;
     position: relative;
-    // display: none;
+    display: none;
     margin: 150px auto 70px;
     width: 90%;
     max-width: 500px;
@@ -1105,3 +1219,18 @@ h1{
 }
 
 
+input[type=text],
+input[type=number],
+input[type=date] {
+    padding: 10px;
+    font-size: 20rem;
+    border: 0;
+    border-bottom: 2px solid var(--color);
+    background: none;
+    margin-bottom: 25px;
+    outline: none;
+    font-family: var(--font-family);
+    color: var(--color);
+    width: 100%;
+    box-sizing: border-box;
+}

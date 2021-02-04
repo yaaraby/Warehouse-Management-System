@@ -68,6 +68,8 @@ function connected() {
             AddShelf.style.display = 'none'
             ShelfList.style.display = 'none'
             editUserById.style.display = 'none'
+            editProductById.style.display = 'none'
+            addNewProductclass.style.display = 'none'
             menubutoondisplayblock()
             UsersList.style.display = 'block'
 
@@ -118,6 +120,7 @@ const editUsercardlogin = (userId) => {
     UsersList.style.display = 'none'
     AddShelf.style.display = 'none'
     ShelfList.style.display = 'none'
+    addNewProductclass.style.display = 'none'
 
     fetch('/get-details-users' + userId, {
         method: 'GET',
@@ -163,6 +166,10 @@ function displaynoneeditusercardlogin() {
     editUserById.style.display = 'none'
 }
 
+function displaynoneeditProductardlogin() {
+    editProductById.style.display = 'none'
+}
+
 function Output() {
     fetch('/Output')
         .then(res =>
@@ -198,6 +205,7 @@ function Addauser() {
     ShowAll.style.display = 'none'
     Search.style.display = 'none'
     UsersList.style.display = 'none'
+    addNewProductclass.style.display = 'none'
     Registration.style.display = 'block'
 }
 function Registrationdisplaynone() {
@@ -211,12 +219,14 @@ function Searchdisplayblock() {
     menubutoondisplayblock()
     Search.style.display = 'block'
     editUserById.style.display = "none"
+    editProductById.style.display = "none"
     cardCategory.style.display = 'none'
     ShowAll.style.display = 'none'
     UsersList.style.display = 'none'
     Registration.style.display = 'none'
     AddShelf.style.display = 'none'
     ShelfList.style.display = 'none'
+    addNewProductclass.style.display = 'none'
     inputSearch.focus()
 }
 function deleteoutcome() {
@@ -388,6 +398,7 @@ function getCategory() {
     menubutoondisplayblock()
     let aryycategory = []
     editUserById.style.display = "none"
+    editProductById.style.display = "none"
     Registration.style.display = 'none'
     Search.style.display = 'none'
     ShowAll.style.display = 'none'
@@ -395,6 +406,7 @@ function getCategory() {
     AddShelf.style.display = 'none'
     ShelfList.style.display = 'none'
     cardboxcatygory.innerHTML = ''
+    addNewProductclass.style.display = 'none'
     cardCategory.style.display = 'block'
     fetch('/get-category')
         .then(res =>
@@ -434,6 +446,7 @@ function PullThiscCategory(event) {
         .then(data => {
             Registration.style.display = 'none'
             cardCategory.style.display = 'none'
+            addNewProductclass.style.display = 'none'
             ShowAll.style.display = 'block'
             titlecategory.innerHTML = eventCategory
             carbox.innerHTML += `<table>
@@ -448,14 +461,14 @@ function PullThiscCategory(event) {
 </thead>
     <tbody>
         ${data.data.map(elm =>
-                `<tr onclick="PullInformation('${elm._id}')">
+                 `<tr>
                 <td>${elm.Location}</td> 
                 <td>${elm.ExpiryDate}</td>
                 <td>${elm.Name}</td>
                 <td>${elm.UPS}</td>
-                <td class="flexdeleteuser">
-                <a action="Edit" class="editProduct" style="margin: 5px 15px;cursor: pointer;" onclick='editProduct("${elm._id}")'><img src="/img/edit-button.png"></a>
-                <a action="Delete" class="deleteProduct"  style="margin: 5px 15px;cursor: pointer;" onclick='deleteProduct("${elm._id}")'><img src="/img/deleteuser.png"></a>
+                <td class="flexCrudProduct">
+                <div class="list" onclick="editProduct('${elm._id}')"><img src="/img/edit-button.png"></div>
+                <div class="list" onclick="deleteProduct('${elm._id}')"><img src="/img/deleteuser.png"></div>
                 </td>
         </tr>
 `).join('')}</tbody>
@@ -481,8 +494,10 @@ function getListUsers() {
                 ShowAll.style.display = 'none'
                 cardCategory.style.display = 'none'
                 editUserById.style.display = "none"
+                editProductById.style.display = "none"
                 AddShelf.style.display = 'none'
                 ShelfList.style.display = 'none'
+                addNewProductclass.style.display = 'none'
                 UsersList.style.display = 'block'
                 alluser(data.data)
             }
@@ -743,8 +758,10 @@ function shelfObservation() {
             ShowAll.style.display = 'none'
             cardCategory.style.display = 'none'
             editUserById.style.display = "none"
+            editProductById.style.display = "none"
             UsersList.style.display = 'none'
             AddShelf.style.display = 'none'
+            addNewProductclass.style.display = 'none'
             menubutoondisplayblock()
 
 
@@ -922,6 +939,7 @@ const getCurrrentWeight = async (UPS_Shelfs) =>{
     
 } 
 
+<<<<<<< HEAD
 
 
 //    const CalcWeight =  (getWeight, weight) =>{
@@ -933,6 +951,8 @@ const getCurrrentWeight = async (UPS_Shelfs) =>{
 //     }
 // } 
 
+=======
+>>>>>>> master
    const CalcWeight =  (getWeight, weight) =>{
     if (Number(getWeight) > Number(weight)){
         return (true);
@@ -993,13 +1013,13 @@ const deleteProduct = (_id) =>{
     )
         
         .then(data => {
-            getListProductByCategory()
+            getCategory()
         })
 }
 
-
+ 
 const editProduct = (id) =>{
-
+    menubutoondisplayblock()
     letdistinctResult= []; 
     fetch('/get-details-product' + id,{
               method: 'GET',
@@ -1010,9 +1030,15 @@ const editProduct = (id) =>{
            res.json()
        )
        .then(data => {
-           console.log(data)
-            document.getElementById('editProductById').innerHTML =
+           carbox.style.display = 'none'
+           titlecategory.style.display = 'none' 
+         ShowAll.style.display = 'none'
+        editProductById.style.display = "block"
+        
+        document.getElementById('editProductById').innerHTML =
+            `<img onclick='displaynoneeditProductardlogin()' src="/img/delete.png" alt="">
                   
+<<<<<<< HEAD
                    `<h1>עריכת מוצר</h1>
                    <form onsubmit="handleEditProduct(event, ${data.Amount})">
                    
@@ -1105,87 +1131,106 @@ const editProduct = (id) =>{
 //             return (true);
 //         }
 // }
+=======
+            <h1>עריכת מוצר</h1>
+            <form onsubmit="handleEditProduct(event, '${data.Amount}', '${data.Weight}','${data.Location}')">
+            
+         <div class="productDetails">
+             <label for="UPS">מק"ט:
+            <input type="number" name="UPS" id="UPS" value="${data.UPS}" disabled="disabled" autocomplete='off'></br>
+        </label>
+        <label for="Name">שם:
+            <input type="text" name="Name" id="Name" value="${data.Name}" autocomplete='off'></br>
+        </label>
+        <label for="price">מחיר:
+            <input type="text" name="price" id="price" value=${data.price} autocomplete='off'></br>
+        </label>
+        <label for="Amount">כמות:
+            <input type="number" name="Amount" id="Amount" value=${data.Amount} autocomplete='off'></br>
+        </label>
+        <label for="Category">קטגוריה:
+            <input type="text" name="Category" id="Category" value=${data.Category} autocomplete='off'></br>
+        </label>
+        <label for="Weight">משקל:
+            <input type="number" name="Weight" id="Weight" value=${data.Weight} autocomplete='off'></br>
+        </label>
+         <label for="height">גובה:
+            <input type="number" name="height" id="height" value=${data.height} autocomplete='off'></br>
+        </label>
+        <label for="ExpiryDate">תאריך תפוגה:
+            <input type="date" name="ExpiryDate" id="ExpiryDate" value=${data.ExpiryDate} autocomplete='off'></br>
+        </label>
+    </div>
+     <select name='Location' id='Location'>
+     <option value = ${data.Location}> ${data.Location} </option>
+     </select></br>
+    <div id="message"></div></br>
+    <input type="submit" value="אישור">
+</form>`;
+// console.log(this.shelfOptions)
+document.getElementById("Location").innerHTML = this.shelfOptions.join(" ");
 
- 
+}).catch(err => {
+    console.error(err);
+}).finally(() => {
+    console.log('im done')
+} )
+>>>>>>> master
 
-// const deleteProduct = (_id) =>{
-//     console.log(_id)
-//  fetch('/deleteProduct/' + _id, {
-//         method: 'DELETE',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-        
-//     }).then(res =>
-//         res.json()
-//     )
-        
-//         .then(data => {
-//             getListProductByCategory()
-//         })
-// }
+} 
 
 
-// const editProduct = (id) =>{
+async function handleEditProduct(e, PreviosAmount, PreviosWeight, PreviosLocation) {
+    e.preventDefault();
 
-//     letdistinctResult= []; 
-//     fetch('/get-details-product' + id,{
-//               method: 'GET',
-//            headers: {
-//                'Content-Type': 'application/json'
-//            }
-//        }).then(res =>
-//            res.json()
-//        )
-//        .then(data => {
-//            console.log(data)
-//             document.getElementById('editProductById').innerHTML =
-                  
-//                    `<h1>עריכת מוצר</h1>
-//                    <form onsubmit="handleEditProduct(event, ${data.Amount})">
-                   
-//                 <div class="productDetails">
-//                     <label for="UPS">מק"ט:
-//                    <input type="number" name="UPS" id="UPS" value="${data.UPS}" disabled="disabled" autocomplete='off'></br>
-//                </label>
-//                <label for="Name">שם:
-//                    <input type="text" name="Name" id="Name" value="${data.Name}" autocomplete='off'></br>
-//                </label>
-//                <label for="price">מחיר:
-//                    <input type="text" name="price" id="price" value=${data.price} autocomplete='off'></br>
-//                </label>
-//                <label for="Amount">כמות:
-//                    <input type="number" name="Amount" id="Amount" value=${data.Amount} autocomplete='off'></br>
-//                </label>
-//                <label for="Category">קטגוריה:
-//                    <input type="text" name="Category" id="Category" value=${data.Category} autocomplete='off'></br>
-//                </label>
-//                <label for="Weight">משקל:
-//                    <input type="number" name="Weight" id="Weight" value=${data.Weight} autocomplete='off'></br>
-//                </label>
-//                 <label for="height">גובה:
-//                    <input type="number" name="height" id="height" value=${data.height} autocomplete='off'></br>
-//                </label>
-//                <label for="ExpiryDate">תאריך תפוגה:
-//                    <input type="date" name="ExpiryDate" id="ExpiryDate" value=${data.ExpiryDate} autocomplete='off'></br>
-//                </label>
-//            </div>
-//             <select name='Location' id='Location'>
-//             <option value = ${data.ExpiryDate}> ${data.ExpiryDate} </option>
-//             </select></br>
-//            <div id="message"></div></br>
-//            <input type="submit" value="אישור">
-//        </form>`;
-//    // console.log(this.shelfOptions)
-//    document.getElementById("Location").innerHTML = this.shelfOptions.join(" ");
+   let UPS = e.target[0].value;
+   let Name = e.target[1].value;
+   let price = e.target[2].value;
+   let Amount = e.target[3].value;
+   let Category = e.target[4].value;
+   let Weight = e.target[5].value;
+   let height = e.target[6].value;
+   let ExpiryDate = e.target[7].value;
+   let Location = e.target[8].value;
+   let message = document.getElementById('message');
+   message.innerHTML=''
+   let validations = await Validations(UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location)
+     if(validations == true){
+     
+           let getWeight =  await getCurrrentWeight(Location) 
+           let checkCurrrentWeight =  CalcWeight(getWeight, Weight)
+           let getHeight = await getCurrrentHeight(Location)
+           let checkHeight =  CalcHeight(getHeight, height)
+  
+     if(checkHeight == false){
+           message.innerHTML = 'גובה המדף אינו מתאים לגובה המוצר, יש לבחור מדף אחר'
+     }
+     else if(checkCurrrentWeight == false){
+           message.innerHTML = 'המדף הנבחר מלא, יש לבחור מדף אחר'
+     }
+       else{
+       fetch("/Product" , {
+           method: 'PUT',
+           headers: {
+               'Content-Type': 'application/json'
+           },
+           body: JSON.stringify({UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location, PreviosAmount, PreviosWeight, PreviosLocation })
+       })
+           .then(res => res.json())
+           .then(data => {
+               console.log(data)
+                if (message) {
+               message.innerHTML  = 'המוצר עודכן במערכת'
 
-//        }).catch(err => {
-//            console.error(err);
-//        }).finally(() => {
-//            console.log('im done')
-//        } )
-    
-// } 
+
+               } else {
+                   message.innerHTML = data.message
+               } 
+                 
+           }) 
+       }
+     }
+}
 
 
 //Yehial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -1244,6 +1289,7 @@ function shelfObservation() {
             ShowAll.style.display = 'none'
             cardCategory.style.display = 'none'
             editUserById.style.display = "none"
+            editProductById.style.display = "none"
             UsersList.style.display = 'none'
             AddShelf.style.display = 'none'
             menubutoondisplayblock()
