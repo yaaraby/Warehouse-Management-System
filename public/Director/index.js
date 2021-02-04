@@ -1016,7 +1016,8 @@ const editProduct = (id) =>{
            res.json()
        )
        .then(data => {
-        carbox.style.display = 'none'
+           carbox.style.display = 'none'
+           titlecategory.style.display = 'none'
         // ShowAll.style.display = 'none'
         editProductById.style.display = "block"
         
