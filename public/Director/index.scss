@@ -1102,7 +1102,7 @@ h1{
 
 
 
-.addNewProductclass {
+.addNewProductclass,.editProductById {
     font-size: 20rem;
     font-family: var(--font-family);
     background-color: var(--background);
@@ -1113,7 +1113,7 @@ h1{
     box-shadow: 2px 2px 15px 10px rgba(128, 128, 128, 0.445);
     direction: rtl;
     position: relative;
-    // display: none;
+    display: none;
     margin: 150px auto 70px;
     width: 90%;
     max-width: 500px;
@@ -1219,3 +1219,18 @@ h1{
 }
 
 
+input[type=text],
+input[type=number],
+input[type=date] {
+    padding: 10px;
+    font-size: 20rem;
+    border: 0;
+    border-bottom: 2px solid var(--color);
+    background: none;
+    margin-bottom: 25px;
+    outline: none;
+    font-family: var(--font-family);
+    color: var(--color);
+    width: 100%;
+    box-sizing: border-box;
+}

@@ -446,9 +446,9 @@ function PullThiscCategory(event) {
         .then(data => {
             Registration.style.display = 'none'
             cardCategory.style.display = 'none'
+            addNewProductclass.style.display = 'none'
             ShowAll.style.display = 'block'
             titlecategory.innerHTML = eventCategory
-            addNewProductclass.style.display = 'none'
             carbox.innerHTML += `<table>
 <thead>
     <tr>
@@ -461,7 +461,6 @@ function PullThiscCategory(event) {
 </thead>
     <tbody>
         ${data.data.map(elm =>
-                // `<tr onclick="PullInformation('${elm._id}')">
                  `<tr>
                 <td>${elm.Location}</td> 
                 <td>${elm.ExpiryDate}</td>
@@ -1018,8 +1017,9 @@ const editProduct = (id) =>{
        )
        .then(data => {
         carbox.style.display = 'none'
+        // ShowAll.style.display = 'none'
         editProductById.style.display = "block"
-
+        
         document.getElementById('editProductById').innerHTML =
             ` 
                    <h1>עריכת מוצר</h1>
@@ -1111,7 +1111,7 @@ async function handleEditProduct(e, PreviosAmount, PreviosWeight, PreviosLocatio
                console.log(data)
                 if (message) {
                message.innerHTML  = 'המוצר עודכן במערכת'
-
+               getCategory()
 
                } else {
                    message.innerHTML = data.message
