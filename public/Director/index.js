@@ -1025,7 +1025,7 @@ const editProduct = (id) =>{
                   
                    <h1>עריכת מוצר</h1>
                    <form onsubmit="handleEditProduct(event, ${data.Amount})">
-                   
+             <div class="rtl">
                 <div class="productDetails">
                     <label for="UPS">מק"ט:
                    <input type="number" name="UPS" id="UPS" value="${data.UPS}" disabled="disabled" autocomplete='off'></br>
@@ -1051,6 +1051,7 @@ const editProduct = (id) =>{
                <label for="ExpiryDate">תאריך תפוגה:
                    <input type="date" name="ExpiryDate" id="ExpiryDate" value=${data.ExpiryDate} autocomplete='off'></br>
                </label>
+               </div>
            </div>
             <select name='Location' id='Location'>
             <option value = ${data.ExpiryDate}> ${data.ExpiryDate} </option>
