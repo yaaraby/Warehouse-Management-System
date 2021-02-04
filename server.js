@@ -259,173 +259,87 @@ app.put("/shelf-creation", async (req, res) => {
 
     const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'O','P']
     let tempNewRows = []
-    let tempFirstRowToLoop=parseInt(req.body.tempFirstRow)
+    
+
+    const firstRow = parseInt(req.body.firstRow) 
+    const lastRow = parseInt(req.body.lastRow) 
+    const numberOfAreas = parseInt(req.body.numberOfAreas) 
+    const numberOfShelfs = parseInt(req.body.numberOfShelfs) 
+    const maxWight = parseInt(req.body.maxWight) 
 
 
-    for(let i=0 ; i<req.body.tempTotalRowNumber;i++){
-       
+    //new shelfs builder
+    for(let i=firstRow; i<=lastRow; i++){
 
-        for (let j = 0; j<req.body.numberOfAreas; j++) {
+        for (let j = 0; j<numberOfAreas; j++) {
             
-            for (let k = 0; k < req.body.numberOfShelfs; k++) {
+            for (let k = 0; k <numberOfShelfs; k++) {
                 
                 // console.log(`${i+1}${letters[j]}${k+1}`) //For test
                 tempNewRows.push(
                     {
-                     Line: i+1,
+                     Line: i,
                      Area: `${letters[j]}`,
                      Floor: k+1,
-                     UPS_Shelfs: `${tempFirstRowToLoop}-${letters[j]}-${k+1}`,
+                     UPS_Shelfs: `${i}-${letters[j]}-${k+1}`,
                     // NumberOfProductsonShelf:Number, //Optional
                      MaximumWeight: req.body.maxWight,
                     // CurrentWeight: Number,//Optional
                     // height: Number//Optional
                 
             })
-            
-        }
-
+         }
     }
-    tempFirstRowToLoop++
+    
 }
 
-// console.log(tempNewRows)
+
+let  aa = exCheck(tempNewRows).then((res,rej)=>{
+    console.log(res)
+
+    if(res==false){errorMessage()}
+    else{saveToDataBase(tempNewRows)}
+})
+
+function errorMessage(){
+    message = 'שורה אחת ו\או כמה קיימת\ות כבר בחר שורות אחרות '
+    res.send({ message })
+
+}
 
 
+async function exCheck(arrayToCheck){
+    let flag
+    for (let i = 0; i < arrayToCheck.length; i++){
+        let theTest =await Shelfs.exists({Line:arrayToCheck[i].Line}).then(token => { return token })
+        if(theTest == true)
+        {flag=false
+            break}
+    }
+    return flag
+
+}
 
 
-
-tempNewRows.forEach(async element =>    {
-    
-        // let flag = await Shelfs.findOne({ Line:parseInt(req.body.tempFirstRow)}).exec()
-        let falg2 =await Shelfs.exists({ Line:parseInt(req.body.tempFirstRow) })
-        console.log(flag)
-        if (falg2 == null) {
-            // setTimeout(function() {
-                tempNewRows.forEach(async element => {
+function saveToDataBase(aprovedArry){
+    aprovedArry.forEach(async element => {
                 
-                const testShelf = new Shelfs(
-                                    {
-                                        Line: element.Line,
-                                        Area: element.Area,
-                                        Floor: element.Floor,
-                                        UPS_Shelfs: element.UPS_Shelfs,
-                                        NumberOfProductsonShelf: 1,      //1 for test
-                                        MaximumWeight: element.MaximumWeight,
-                                        CurrentWeight: 0,
-                                        height: 0
-                                    });
-                
-                                    testShelf.save();
-            
-            });
-            // res.send(true)}, 100);
-        }
-        else {
-            message = 'שורה זאת כבר קיימת'
-            res.send({ message })
-        }
-    })
-
-
-
-
-
-
-
-
-// setTimeout(function() {
-//     tempNewRows.forEach(async element => {
-    
-//     const testShelf = new Shelfs(
-//                         {
-//                             Line: element.Line,
-//                             Area: element.Area,
-//                             Floor: element.Floor,
-//                             UPS_Shelfs: element.UPS_Shelfs,
-//                             NumberOfProductsonShelf: 1,      //1 for test
-//                             MaximumWeight: element.MaximumWeight,
-//                             CurrentWeight: 0,
-//                             height: 0
-//                         });
-    
-//                         testShelf.save();
-
-// });
-// res.send(true)}, 100);
-
-// let flag 
-
-//      if(await Shelfs.exists({ Line: req.body.tempFirstRow }))
-//      {flag=false}
-//      else
-//      {flag=true}
-    
- 
-//  console.log(flag)
-
-
-// let flag = false
-
-
-
-
-
-
-
-    
-    // for (i = 0; i <=tempTotalRowNumber ; i++) {
+        const testShelf = new Shelfs(
+                            {
+                                Line: element.Line,
+                                Area: element.Area,
+                                Floor: element.Floor,
+                                UPS_Shelfs: element.UPS_Shelfs,
+                                NumberOfProductsonShelf: 1,      //1 for test
+                                MaximumWeight: element.MaximumWeight,
+                                CurrentWeight: 0,
+                                height: 0
+                            });
         
-
-    //     for (j = 0; j <numberOfAreas.value;j++) {
-
-    //         for (k = 0; k < numberOfShelfs.value; k++) {
-
-    //             console.log(`${i+1}${letters[j]}${k+1}`)
-    //             tempNewRows.push({
-    //                 Line: tempFirstRow,
-    //                 Area: `${letters[j]}`,
-    //                 Floor: k,
-    //                 UPS_Shelfs: `${tempFirstRow}-${letters[j]}-${k+1}`,
-    //                 // NumberOfProductsonShelf:Number, //Optional
-    //                 MaximumWeight: maxWight.value,
-    //                 // CurrentWeight: Number,//Optional
-    //                 // height: Number//Optional
-    //             })
-    //         }
-    //     }
-    //     tempFirstRow++
-    // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                            testShelf.save();
     
-   
+    });
+    res.send(true)}
 });
 
 
@@ -437,11 +351,6 @@ app.post('/delete-shelf',async(req,res)=>{
     
 
 })
-
-
-    // res.send(temp)
-
-
 
 
 app.post('/PullThiscCategory', async (req, res) => {
@@ -604,7 +513,7 @@ app.post('/add_Products', async (req, res) => {
                              NumberOfProductsonShelf: numberOfProductsonShelf,
                              CurrentWeight: weight
                            } };
-         await Shelfs.update(myquery, newvalues, function(err, res) {
+         await Shelfs.updateOne(myquery, newvalues, function(err, res) {
         if (err) throw err;
         console.log("1 document updated");
                 } )
@@ -613,7 +522,142 @@ app.post('/add_Products', async (req, res) => {
         return (true);
     };
     
-    
+   
+
+
+    app.put("/Product/", async (req, res) => {
+        console.log('nn')
+      const PreviosAmount = req.body.PreviosAmount;
+      const PreviosWeight = req.body.PreviosWeight;
+      const PreviosLocation = req.body.PreviosLocation;
+      const Amount = req.body.Amount;
+      const Weight = req.body.Weight;
+      const Location = req.body.Location;
+        console.log(PreviosAmount, Amount, PreviosWeight, Weight, PreviosLocation,Location)
+     const data = await Products.find({})
+   
+     var myquery = {UPS:  req.body.UPS, Location: req.body.Location};
+     var newvalues = { $set: {
+                             UPS: req.body.UPS
+                           , Name:     req.body.Name
+                           , price: req.body.price
+                           , Amount:    req.body.Amount
+                           , Category:    req.body.Category
+                           , Weight:     req.body.Weight
+                           , height:    req.body.height
+                           , ExpiryDate:    req.body.ExpiryDate
+                           , Location:    req.body.Location
+                           } };
+       const checkHighNumber = theHighNumber(PreviosAmount, Amount, PreviosWeight, Weight, PreviosLocation,Location) 
+       console.log(checkHighNumber)
+       if(checkHighNumber){
+          await Products.updateOne(myquery, newvalues, function(err, res) {
+       if (err) throw err;
+       console.log("1 document updated"); 
+       })
+       
+     }
+     res.send({message:true})
+   });
+   
+   const  theHighNumber = (PreviosAmount, Amount, PreviosWeight, Weight, PreviosLocation,Location) =>{
+   
+       let sumAmount = 0 ; 
+       let sumWeight = 0 ;
+       if (PreviosLocation != Location){
+           if(PreviosAmount == Amount){
+            updateMinusAmountPreviosShelf(PreviosAmount, PreviosWeight, PreviosLocation)
+            updateNewShelf( Amount, Weight,Location)
+           }
+           else{
+            sumAmount = PreviosAmount - Amount ; 
+            sumWeight = PreviosWeight - Weight ; 
+   
+            updateNewInventory(sumAmount,sumWeight ,Location) 
+           }
+       }
+       else{
+            updateNewInventory(sumAmount,sumWeight ,Location)
+       }
+   
+       return(true)
+   
+   }
+   const updateMinusAmountPreviosShelf = async(PreviosAmount, PreviosWeight, PreviosLocation)=>{
+         console.log('aa')
+         const data = await Shelfs.find({})
+    for (i = 0; i < data.length; i++)
+     {
+           if(PreviosLocation ==  data[i].UPS_Shelfs){
+             let  ups_shelf = data[i].UPS_Shelfs
+             let  numberOfProductsonShelf = data[i].NumberOfProductsonShelf 
+             let  weight = data[i].CurrentWeight
+             numberOfProductsonShelf -= eval(PreviosAmount);
+             weight -= eval(PreviosWeight);
+         ;
+               var myquery = { UPS_Shelfs:  PreviosLocation};
+               var newvalues = { $set: {
+                            NumberOfProductsonShelf: numberOfProductsonShelf,
+                            CurrentWeight: weight
+                          } };
+        await Shelfs.updateOne(myquery, newvalues, function(err, res) {
+       if (err) throw err;
+       console.log("1 document updated");
+   
+               } )
+     }
+     }} 
+   
+   const updateNewShelf = async( Amount, Weight,Location) =>{
+      const data = await Shelfs.find({})
+    for (i = 0; i < data.length; i++)
+     {
+           if(Location ==  data[i].UPS_Shelfs){
+             let  ups_shelf = data[i].UPS_Shelfs
+             let  numberOfProductsonShelf = data[i].NumberOfProductsonShelf 
+             let  weight = data[i].CurrentWeight
+             numberOfProductsonShelf += eval(Amount);
+             weight += eval(Weight);
+         ;
+               var myquery = { UPS_Shelfs: Location};
+               var newvalues = { $set: {
+                            NumberOfProductsonShelf: numberOfProductsonShelf,
+                            CurrentWeight: weight
+                          } };
+        await Shelfs.updateOne(myquery, newvalues, function(err, res) {
+       if (err) throw err;
+       console.log("1 document updated");
+   
+               } )
+     }
+     }
+   } 
+   
+   const updateNewInventory = async (sumAmount,sumWeight ,Location) => {
+       console.log('cc')
+    const data = await Shelfs.find({})
+    for (i = 0; i < data.length; i++)
+     {
+           if(Location ==  data[i].UPS_Shelfs){
+             let  ups_shelf = data[i].UPS_Shelfs
+             let  numberOfProductsonShelf = data[i].NumberOfProductsonShelf 
+             let  weight = data[i].CurrentWeight
+             numberOfProductsonShelf += eval(sumAmount);
+             weight += eval(sumWeight);
+         ;
+               var myquery = { UPS_Shelfs: Location};
+               var newvalues = { $set: {
+                            NumberOfProductsonShelf: numberOfProductsonShelf,
+                            CurrentWeight: weight
+                          } };
+        await Shelfs.updateOne(myquery, newvalues, function(err, res) {
+       if (err) throw err;
+       console.log("1 document updated");
+   
+               } )
+     }
+     }
+   }
     
 app.get('/get-Shelfs-list', async (req, res) => {
     const data = await Shelfs.find({}, { UPS_Shelfs: 1 })
@@ -632,8 +676,8 @@ app.get('/get-Shelfs-list', async (req, res) => {
                 res.status(500).send('Error: Product does not exists')
             } else {
                 await Products.deleteOne({_id:id});
-                // const data = await Products.find({})
-                res.send({deleted:true})
+                 const data = await Products.find({})
+                res.send({data})
             }
         } catch (e) {
             console.log(e)
