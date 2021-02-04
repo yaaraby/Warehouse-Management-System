@@ -459,9 +459,9 @@ function PullThiscCategory(event) {
                 <td>${elm.ExpiryDate}</td>
                 <td>${elm.Name}</td>
                 <td>${elm.UPS}</td>
-                <td class="flexdeleteuser">
-                <div class="list"  style="margin: 5px 15px;cursor: pointer;" onclick='editProduct("${elm._id}")'><img src="/img/edit-button.png"></div>
-                <div class="list"   style="margin: 5px 15px;cursor: pointer;" onclick='deleteProduct("${elm._id}")'><img src="/img/deleteuser.png"></div>
+                <td class="flexCrudProduct">
+                <a action="Edit" class="deleteuser" onclick='editProduct("${elm._id}")'><img src="/img/edit-button.png"></a>
+                <a action="Delete" class="deleteuser" onclick='deleteProduct("${elm._id}")'><img src="/img/deleteuser.png"></a>
                 </td>
         </tr>
 `).join('')}</tbody>
@@ -996,7 +996,7 @@ const deleteProduct = (_id) =>{
 
 
 const editProduct = (id) =>{
-
+    menubutoondisplayblock()
     letdistinctResult= []; 
     fetch('/get-details-product' + id,{
               method: 'GET',
@@ -1007,7 +1007,8 @@ const editProduct = (id) =>{
            res.json()
        )
        .then(data => {
-           console.log(data)
+        editProductById.style.display = "block"
+        carbox.style.display = 'none'
             document.getElementById('editProductById').innerHTML =
                   
                    `<h1>עריכת מוצר</h1>
