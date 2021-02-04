@@ -1000,7 +1000,7 @@ const deleteProduct = (_id) =>{
     )
         
         .then(data => {
-            PullThiscCategory(data)()
+            PullThiscCategory(data)
         })
 }
 
