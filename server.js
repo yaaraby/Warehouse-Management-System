@@ -767,8 +767,8 @@ app.get('/get-Shelfs-list', async (req, res) => {
                 res.status(500).send('Error: Product does not exists')
             } else {
                 await Products.deleteOne({_id:id});
-                // const data = await Products.find({})
-                res.send({deleted:true})
+                 const data = await Products.find({})
+                res.send({data})
             }
         } catch (e) {
             console.log(e)
