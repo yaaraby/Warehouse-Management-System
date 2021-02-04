@@ -119,6 +119,7 @@ const editUsercardlogin = (userId) => {
     UsersList.style.display = 'none'
     AddShelf.style.display = 'none'
     ShelfList.style.display = 'none'
+    addNewProductclass.style.display = 'none'
 
     fetch('/get-details-users' + userId, {
         method: 'GET',
@@ -199,6 +200,7 @@ function Addauser() {
     ShowAll.style.display = 'none'
     Search.style.display = 'none'
     UsersList.style.display = 'none'
+    addNewProductclass.style.display = 'none'
     Registration.style.display = 'block'
 }
 function Registrationdisplaynone() {
@@ -218,6 +220,7 @@ function Searchdisplayblock() {
     Registration.style.display = 'none'
     AddShelf.style.display = 'none'
     ShelfList.style.display = 'none'
+    addNewProductclass.style.display = 'none'
     inputSearch.focus()
 }
 function deleteoutcome() {
@@ -749,6 +752,7 @@ function shelfObservation() {
             editUserById.style.display = "none"
             UsersList.style.display = 'none'
             AddShelf.style.display = 'none'
+            addNewProductclass.style.display = 'none'
             menubutoondisplayblock()
 
 
