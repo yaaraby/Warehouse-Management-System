@@ -296,7 +296,7 @@ app.put("/shelf-creation", async (req, res) => {
 
 
 let  aa = exCheck(tempNewRows).then((res,rej)=>{
-    console.log(res)
+    console.log(`ressssres${res}`)
 
     if(res==false){errorMessage()}
     else{saveToDataBase(tempNewRows)}
@@ -320,8 +320,6 @@ async function exCheck(arrayToCheck){
     return flag
 
 }
-
-
 function saveToDataBase(aprovedArry){
     aprovedArry.forEach(async element => {
                 
