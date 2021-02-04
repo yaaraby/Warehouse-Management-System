@@ -469,7 +469,7 @@ function PullThiscCategory(event) {
                 <td>${elm.UPS}</td>
                 <td class="flexCrudProduct">
                 <div class="list" onclick="editProduct('${elm._id}')"><img src="/img/edit-button.png"></div>
-                <div class="list" onclick="deleteProduct('${elm._id}')"><img src="/img/deleteuser.png"></div>
+                <div class="list" onclick="deleteProduct('${elm._id}', '${event}' )"><img src="/img/deleteuser.png"></div>
                 </td>
         </tr>
 `).join('')}</tbody>
@@ -987,7 +987,7 @@ const Validations = (UPS, name, price, amount, category, weight, height, ExpiryD
 }
 
 
-const deleteProduct = (_id) =>{
+const deleteProduct = (_id, e) =>{
     console.log(_id)
  fetch('/deleteProduct/' + _id, {
         method: 'DELETE',
@@ -1000,7 +1000,7 @@ const deleteProduct = (_id) =>{
     )
         
         .then(data => {
-            getListProductByCategory()
+            PullThiscCategory(e)()
         })
 }
 
@@ -1021,7 +1021,8 @@ const editProduct = (id) =>{
         editProductById.style.display = "block"
 
         document.getElementById('editProductById').innerHTML =
-            ` 
+            `<img onclick='displaynoneeditProductardlogin()' src="/img/delete.png" alt="">
+                  
                    <h1>עריכת מוצר</h1>
                    <form onsubmit="handleEditProduct(event, ${data.Amount})">
              <div class="rtl">
