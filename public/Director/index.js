@@ -999,7 +999,7 @@ const deleteProduct = (_id) =>{
     )
         
         .then(data => {
-            
+            getCategory()
         })
 }
 
