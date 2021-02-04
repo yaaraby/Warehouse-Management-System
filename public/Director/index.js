@@ -1026,7 +1026,7 @@ const editProduct = (id) =>{
                   
                    <h1>עריכת מוצר</h1>
                    <form onsubmit="handleEditProduct(event, ${data.Amount})">
-             <div class="rtl">
+             <div class="rtl"> 
                 <div class="productDetails">
                     <label for="UPS">מק"ט:
                    <input type="number" name="UPS" id="UPS" value="${data.UPS}" disabled="disabled" autocomplete='off'></br>
