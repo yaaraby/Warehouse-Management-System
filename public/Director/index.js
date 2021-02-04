@@ -21,7 +21,6 @@ const handleAddShelftext = document.querySelector(".handleAddShelftext")
 const cardlogin = document.querySelector('.cardlogin')
 const alluserconnected = document.querySelector('.alluserconnected')
 const addNewProductclass = document.querySelector('.addNewProductclass')
-const editProductById = document.querySelector('editProductById')
 let shelfOptionsGlobal = [];
 const init = () => {
     getShelfList();
@@ -1009,11 +1008,13 @@ const editProduct = (id) =>{
            res.json()
        )
        .then(data => {
-        editProductById.style.display = "block"
         carbox.style.display = 'none'
-        editProductById.innerHTML =
+        editProductById.style.display = "block"
+
+        document.getElementById('editProductById').innerHTML =
+            `<img onclick='displaynoneeditusercardlogin()' src="/img/delete.png" alt="">
                   
-                   `<h1>עריכת מוצר</h1>
+                   <h1>עריכת מוצר</h1>
                    <form onsubmit="handleEditProduct(event, ${data.Amount})">
                    
                 <div class="productDetails">
