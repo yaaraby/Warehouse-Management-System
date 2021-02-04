@@ -21,6 +21,7 @@ const handleAddShelftext = document.querySelector(".handleAddShelftext")
 const cardlogin = document.querySelector('.cardlogin')
 const alluserconnected = document.querySelector('.alluserconnected')
 const addNewProductclass = document.querySelector('.addNewProductclass')
+const editProductById = document.querySelector('editProductById')
 let shelfOptionsGlobal = [];
 const init = () => {
     getShelfList();
@@ -1010,7 +1011,7 @@ const editProduct = (id) =>{
        .then(data => {
         editProductById.style.display = "block"
         carbox.style.display = 'none'
-            document.getElementById('editProductById').innerHTML =
+        editProductById.innerHTML =
                   
                    `<h1>עריכת מוצר</h1>
                    <form onsubmit="handleEditProduct(event, ${data.Amount})">
