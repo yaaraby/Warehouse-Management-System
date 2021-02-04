@@ -460,8 +460,8 @@ function PullThiscCategory(event) {
                 <td>${elm.Name}</td>
                 <td>${elm.UPS}</td>
                 <td class="flexCrudProduct">
-                <a action="Edit" class="deleteuser" onclick='editProduct("${elm._id}")'><img src="/img/edit-button.png"></a>
-                <a action="Delete" class="deleteuser" onclick='deleteProduct("${elm._id}")'><img src="/img/deleteuser.png"></a>
+                <div class="list" onclick="editProduct('${elm._id}')"><img src="/img/edit-button.png"></div>
+                <div class="list" onclick="deleteProduct('${elm._id}')"><img src="/img/deleteuser.png"></div>
                 </td>
         </tr>
 `).join('')}</tbody>
