@@ -68,6 +68,7 @@ function connected() {
             AddShelf.style.display = 'none'
             ShelfList.style.display = 'none'
             editUserById.style.display = 'none'
+            editProductById.style.display = 'none'
             addNewProductclass.style.display = 'none'
             menubutoondisplayblock()
             UsersList.style.display = 'block'
@@ -214,6 +215,7 @@ function Searchdisplayblock() {
     menubutoondisplayblock()
     Search.style.display = 'block'
     editUserById.style.display = "none"
+    editProductById.style.display = "none"
     cardCategory.style.display = 'none'
     ShowAll.style.display = 'none'
     UsersList.style.display = 'none'
@@ -392,6 +394,7 @@ function getCategory() {
     menubutoondisplayblock()
     let aryycategory = []
     editUserById.style.display = "none"
+    editProductById.style.display = "none"
     Registration.style.display = 'none'
     Search.style.display = 'none'
     ShowAll.style.display = 'none'
@@ -488,6 +491,7 @@ function getListUsers() {
                 ShowAll.style.display = 'none'
                 cardCategory.style.display = 'none'
                 editUserById.style.display = "none"
+                editProductById.style.display = "none"
                 AddShelf.style.display = 'none'
                 ShelfList.style.display = 'none'
                 addNewProductclass.style.display = 'none'
@@ -751,6 +755,7 @@ function shelfObservation() {
             ShowAll.style.display = 'none'
             cardCategory.style.display = 'none'
             editUserById.style.display = "none"
+            editProductById.style.display = "none"
             UsersList.style.display = 'none'
             AddShelf.style.display = 'none'
             addNewProductclass.style.display = 'none'
@@ -1171,6 +1176,7 @@ function shelfObservation() {
             ShowAll.style.display = 'none'
             cardCategory.style.display = 'none'
             editUserById.style.display = "none"
+            editProductById.style.display = "none"
             UsersList.style.display = 'none'
             AddShelf.style.display = 'none'
             menubutoondisplayblock()
