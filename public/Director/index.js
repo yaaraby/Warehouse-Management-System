@@ -918,6 +918,10 @@ const getCurrrentWeight = async (UPS_Shelfs) =>{
     
 } 
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> master
 
 //    const CalcWeight =  (getWeight, weight) =>{
 //     if (Number(getWeight) > Number(weight)){
@@ -929,6 +933,11 @@ const getCurrrentWeight = async (UPS_Shelfs) =>{
 // } 
 
 
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> master
+>>>>>>> master
    const CalcWeight =  (getWeight, weight) =>{
     if (Number(getWeight) > Number(weight)){
         return (true);
@@ -1134,6 +1143,10 @@ const editProduct = (id) =>{
 }  */
 
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> master
 //    const CalcWeight =  (getWeight, weight) =>{
 //     if (Number(getWeight) > Number(weight)){
 //         return (true);
@@ -1318,7 +1331,15 @@ const editProduct = (id) =>{
 
 // } 
 
+<<<<<<< HEAD
 async function handleEditProduct(e, PreviousAmount, PreviousWeight, PreviousLocation) {
+=======
+
+async function handleEditProduct(e, PreviosAmount, PreviosWeight, PreviosLocation) {
+=======
+async function handleEditProduct(e, PreviousAmount, PreviousWeight, PreviousLocation) {
+>>>>>>> master
+>>>>>>> master
     e.preventDefault();
 
    let UPS = e.target[0].value;
