@@ -296,7 +296,7 @@ app.put("/shelf-creation", async (req, res) => {
 
 
 let  aa = exCheck(tempNewRows).then((res,rej)=>{
-    console.log(`ressssres${res}`)
+    console.log(res)
 
     if(res==false){errorMessage()}
     else{saveToDataBase(tempNewRows)}
@@ -320,6 +320,8 @@ async function exCheck(arrayToCheck){
     return flag
 
 }
+
+
 function saveToDataBase(aprovedArry){
     aprovedArry.forEach(async element => {
                 
@@ -526,13 +528,13 @@ app.post('/add_Products', async (req, res) => {
 
     app.put("/Product/", async (req, res) => {
         console.log('nn')
-      const PreviosAmount = req.body.PreviosAmount;
-      const PreviosWeight = req.body.PreviosWeight;
-      const PreviosLocation = req.body.PreviosLocation;
+      const PreviousAmount = req.body.PreviousAmount;
+      const PreviousWeight = req.body.PreviousWeight;
+      const PreviousLocation = req.body.PreviousLocation;
       const Amount = req.body.Amount;
       const Weight = req.body.Weight;
       const Location = req.body.Location;
-        console.log(PreviosAmount, Amount, PreviosWeight, Weight, PreviosLocation,Location)
+        console.log(PreviousAmount, Amount, PreviousWeight, Weight, PreviousLocation,Location)
      const data = await Products.find({})
    
      var myquery = {UPS:  req.body.UPS, Location: req.body.Location};
@@ -547,7 +549,7 @@ app.post('/add_Products', async (req, res) => {
                            , ExpiryDate:    req.body.ExpiryDate
                            , Location:    req.body.Location
                            } };
-       const checkHighNumber = theHighNumber(PreviosAmount, Amount, PreviosWeight, Weight, PreviosLocation,Location) 
+       const checkHighNumber = theHighNumber(PreviousAmount, Amount, PreviousWeight, Weight, PreviousLocation,Location) 
        console.log(checkHighNumber)
        if(checkHighNumber){
           await Products.updateOne(myquery, newvalues, function(err, res) {
@@ -559,19 +561,19 @@ app.post('/add_Products', async (req, res) => {
      res.send({message:true})
    });
    
-   const  theHighNumber = (PreviosAmount, Amount, PreviosWeight, Weight, PreviosLocation,Location) =>{
+   const  theHighNumber = (PreviousAmount, Amount, PreviousWeight, Weight, PreviousLocation,Location) =>{
    
        let sumAmount = 0 ; 
        let sumWeight = 0 ;
-       if (PreviosLocation != Location){
-           if(PreviosAmount == Amount){
-            updateMinusAmountPreviosShelf(PreviosAmount, PreviosWeight, PreviosLocation)
+       if (PreviousLocation != Location){
+           if (PreviousAmount == Amount) {
+            updateMinusAmountPreviousShelf(PreviousAmount, PreviousWeight, PreviousLocation)
             updateNewShelf( Amount, Weight,Location)
            }
            else{
-            sumAmount = PreviosAmount - Amount ; 
-            sumWeight = PreviosWeight - Weight ; 
-   
+            sumAmount = PreviousAmount - Amount ; 
+            sumWeight = PreviousWeight - Weight ; 
+            updateMinusAmountPreviousShelf(sumAmount, sumWeight, PreviousLocation)
             updateNewInventory(sumAmount,sumWeight ,Location) 
            }
        }
@@ -582,19 +584,19 @@ app.post('/add_Products', async (req, res) => {
        return(true)
    
    }
-   const updateMinusAmountPreviosShelf = async(PreviosAmount, PreviosWeight, PreviosLocation)=>{
+   const updateMinusAmountPreviousShelf = async(PreviousAmount, PreviousWeight, PreviousLocation)=>{
          console.log('aa')
          const data = await Shelfs.find({})
     for (i = 0; i < data.length; i++)
      {
-           if(PreviosLocation ==  data[i].UPS_Shelfs){
+           if(PreviousLocation ==  data[i].UPS_Shelfs){
              let  ups_shelf = data[i].UPS_Shelfs
              let  numberOfProductsonShelf = data[i].NumberOfProductsonShelf 
              let  weight = data[i].CurrentWeight
-             numberOfProductsonShelf -= eval(PreviosAmount);
-             weight -= eval(PreviosWeight);
+             numberOfProductsonShelf -= eval(PreviousAmount);
+             weight -= eval(PreviousWeight);
          ;
-               var myquery = { UPS_Shelfs:  PreviosLocation};
+               var myquery = { UPS_Shelfs:  PreviousLocation};
                var newvalues = { $set: {
                             NumberOfProductsonShelf: numberOfProductsonShelf,
                             CurrentWeight: weight
@@ -675,8 +677,8 @@ app.get('/get-Shelfs-list', async (req, res) => {
                 res.status(500).send('Error: Product does not exists')
             } else {
                 await Products.deleteOne({_id:id});
-                 const data = await Products.find({})
-                res.send({data})
+                //  const data = await Products.find({})
+                res.send({deleted: true})
             }
         } catch (e) {
             console.log(e)
