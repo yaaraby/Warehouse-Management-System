@@ -1021,7 +1021,7 @@ const editProduct = (id) =>{
            titlecategory.style.display = 'none' 
          ShowAll.style.display = 'none'
         editProductById.style.display = "block"
-        
+        console.log(data.Location)
         document.getElementById('editProductById').innerHTML =
             `<img onclick='displaynoneeditProductardlogin()' src="/img/delete.png" alt="">
                   
