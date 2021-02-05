@@ -1054,7 +1054,7 @@ const editProduct = (id) =>{
             <select name='Location' id='Location'>
             <option value = ${data.Location}> ${data.Location} </option>
             </select></br>
-           <div id="message"></div></br>
+           <div id="checkValidation"></div></br>
            <input type="submit" value="אישור">
        </form>`;
    document.getElementById("Location").innerHTML = shelfOptionsGlobal.join(" ");
@@ -1145,8 +1145,8 @@ async function handleEditProduct(e, PreviousAmount, PreviousWeight, PreviousLoca
    let height = e.target[6].value;
    let ExpiryDate = e.target[7].value;
    let Location = e.target[8].value;
-   let message = document.getElementById('message');
-   message.innerHTML=''
+   let checkValidation = document.getElementById('checkValidation');
+   checkValidation.innerHTML=''
    let validations = await Validations(UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location)
      if(validations == true){
      
@@ -1156,12 +1156,13 @@ async function handleEditProduct(e, PreviousAmount, PreviousWeight, PreviousLoca
            let checkHeight =  CalcHeight(getHeight, height)
   
      if(checkHeight == false){
-           message.innerHTML = 'גובה המדף אינו מתאים לגובה המוצר, יש לבחור מדף אחר'
+        checkValidation.innerHTML = 'גובה המדף אינו מתאים לגובה המוצר, יש לבחור מדף אחר'
      }
      else if(checkCurrrentWeight == false){
-           message.innerHTML = 'המדף הנבחר מלא, יש לבחור מדף אחר'
+        checkValidation.innerHTML = 'המדף הנבחר מלא, יש לבחור מדף אחר'
      }
-       else{
+     else {
+         console.log('good')
        fetch("/Product" , {
            method: 'PUT',
            headers: {
@@ -1173,11 +1174,11 @@ async function handleEditProduct(e, PreviousAmount, PreviousWeight, PreviousLoca
            .then(data => {
                console.log(data)
                 if (message) {
-               message.innerHTML  = 'המוצר עודכן במערכת'
+                    checkValidation.innerHTML  = 'המוצר עודכן במערכת'
 
 
                } else {
-                   message.innerHTML = data.message
+                checkValidation.innerHTML = data.message
                } 
                  
            }) 
