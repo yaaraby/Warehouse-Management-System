@@ -1070,3 +1070,56 @@ const editProduct = (id) =>{
 } 
 
 
+async function handleEditProduct(e, PreviosAmount, PreviosWeight, PreviosLocation) {
+    e.preventDefault();
+
+   let UPS = e.target[0].value;
+   let Name = e.target[1].value;
+   let price = e.target[2].value;
+   let Amount = e.target[3].value;
+   let Category = e.target[4].value;
+   let Weight = e.target[5].value;
+   let height = e.target[6].value;
+   let ExpiryDate = e.target[7].value;
+   let Location = e.target[8].value;
+   let message = document.getElementById('message');
+   message.innerHTML=''
+   let validations = await Validations(UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location)
+     if(validations == true){
+     
+           let getWeight =  await getCurrrentWeight(Location) 
+           let checkCurrrentWeight =  CalcWeight(getWeight, Weight)
+           let getHeight = await getCurrrentHeight(Location)
+           let checkHeight =  CalcHeight(getHeight, height)
+  
+     if(checkHeight == false){
+           message.innerHTML = 'גובה המדף אינו מתאים לגובה המוצר, יש לבחור מדף אחר'
+     }
+     else if(checkCurrrentWeight == false){
+           message.innerHTML = 'המדף הנבחר מלא, יש לבחור מדף אחר'
+     }
+       else{
+       fetch("/Product" , {
+           method: 'PUT',
+           headers: {
+               'Content-Type': 'application/json'
+           },
+           body: JSON.stringify({UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location, PreviosAmount, PreviosWeight, PreviosLocation })
+       })
+           .then(res => res.json())
+           .then(data => {
+               console.log(data)
+                if (message) {
+               message.innerHTML  = 'המוצר עודכן במערכת'
+
+
+               } else {
+                   message.innerHTML = data.message
+               } 
+                 
+           }) 
+       }
+     }
+}
+
+
