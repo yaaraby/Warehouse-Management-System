@@ -1133,7 +1133,7 @@ const editProduct = (id) =>{
 }  */
 
 
-async function handleEditProduct(e, PreviosAmount, PreviosWeight, PreviosLocation) {
+async function handleEditProduct(e, PreviousAmount, PreviousWeight, PreviousLocation) {
     e.preventDefault();
 
    let UPS = e.target[0].value;
@@ -1167,7 +1167,7 @@ async function handleEditProduct(e, PreviosAmount, PreviosWeight, PreviosLocatio
            headers: {
                'Content-Type': 'application/json'
            },
-           body: JSON.stringify({UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location, PreviosAmount, PreviosWeight, PreviosLocation })
+           body: JSON.stringify({UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location, PreviousAmount, PreviousWeight, PreviousLocation })
        })
            .then(res => res.json())
            .then(data => {
