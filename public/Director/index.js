@@ -585,9 +585,9 @@ const editUser = (userId) => {
         }
     }).then(res => res.json())
         .then(data => {
+            console.log(data.Location)
             editUserById.style.display = "block"
             UsersList.style.display = 'none'
-
             document.getElementById('editUserById').innerHTML =
                 `<img class="imgdeleteeditUser" src="/img/return.png" onclick="editUserByIddisplaynone()">
                     <h1>עריכת משתמש</h1>
@@ -615,7 +615,7 @@ const editUser = (userId) => {
                 </label>
             </div>
             <select name="role" id="role" value=${data.role}>
-                <option style="display: none;">${data.role}</option>
+                <option selected disabled hidden>${data.role}</option>
                 <option>מחסנאי</option>
                 <option>מנהל</option>
             </select></br>
@@ -846,7 +846,7 @@ function getShelfList(){
   
 }
 function setShelfList (shelfs) {
-     const shelfOptions = shelfs.map(shelf => `<option value='${shelf.UPS_Shelfs}'>${shelf.UPS_Shelfs}</option>`);
+     const shelfOptions = shelfs.map(shelf => `<option style="direction: initial;" value='${shelf.UPS_Shelfs}'>${shelf.UPS_Shelfs}</option>`);
     shelfOptionsGlobal = [...shelfOptions];
     //  this.shelfOptions = shelfOptions
     document.getElementById("UPS_Shelfs").innerHTML = shelfOptionsGlobal.join(" ");
@@ -1019,7 +1019,7 @@ const editProduct = (id) =>{
            titlecategory.style.display = 'none' 
            ShowAll.style.display = 'none'
             editProductById.style.display = "block"
-           console.log(data)
+
             document.getElementById('editProductById').innerHTML =
                  
                    `<h1>עריכת מוצר</h1>
@@ -1052,12 +1052,12 @@ const editProduct = (id) =>{
                </label>
            </div>
             <select name='Location' id='Location'>
-            <option value = ${data.Location}> ${data.Location} </option>
+           
             </select></br>
            <div id="checkValidation"></div></br>
            <input type="submit" value="אישור">
        </form>`;
-   document.getElementById("Location").innerHTML = shelfOptionsGlobal.join(" ");
+   document.getElementById("Location").innerHTML = `<option style="direction: initial;" selected hidden>${data.Location}</option>` + shelfOptionsGlobal.join(" ");
 
        }).catch(err => {
            console.error(err);
@@ -1162,7 +1162,7 @@ async function handleEditProduct(e, PreviousAmount, PreviousWeight, PreviousLoca
         checkValidation.innerHTML = 'המדף הנבחר מלא, יש לבחור מדף אחר'
      }
      else {
-         console.log('good')
+         
        fetch("/Product" , {
            method: 'PUT',
            headers: {
@@ -1175,6 +1175,10 @@ async function handleEditProduct(e, PreviousAmount, PreviousWeight, PreviousLoca
                console.log(data)
                 if (message) {
                     checkValidation.innerHTML  = 'המוצר עודכן במערכת'
+                
+                 /*    setTimeout(() => {
+                        PullThiscCategory(e)
+                    }, 500); */
 
 
                } else {

@@ -567,14 +567,13 @@ app.post('/add_Products', async (req, res) => {
        let sumWeight = 0 ;
        if (PreviousLocation != Location){
            if (PreviousAmount == Amount) {
-               console.log('ss')
             updateMinusAmountPreviousShelf(PreviousAmount, PreviousWeight, PreviousLocation)
             updateNewShelf( Amount, Weight,Location)
            }
            else{
             sumAmount = PreviousAmount - Amount ; 
             sumWeight = PreviousWeight - Weight ; 
-   
+            updateMinusAmountPreviousShelf(sumAmount, sumWeight, PreviousLocation)
             updateNewInventory(sumAmount,sumWeight ,Location) 
            }
        }
