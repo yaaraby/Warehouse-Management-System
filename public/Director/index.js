@@ -398,7 +398,6 @@ function getCategory() {
     menubutoondisplayblock()
     let aryycategory = []
     editUserById.style.display = "none"
-    editProductById.style.display = "none"
     Registration.style.display = 'none'
     Search.style.display = 'none'
     ShowAll.style.display = 'none'
@@ -586,9 +585,9 @@ const editUser = (userId) => {
         }
     }).then(res => res.json())
         .then(data => {
+            console.log(data.Location)
             editUserById.style.display = "block"
             UsersList.style.display = 'none'
-
             document.getElementById('editUserById').innerHTML =
                 `<img class="imgdeleteeditUser" src="/img/return.png" onclick="editUserByIddisplaynone()">
                     <h1>עריכת משתמש</h1>
@@ -616,7 +615,7 @@ const editUser = (userId) => {
                 </label>
             </div>
             <select name="role" id="role" value=${data.role}>
-                <option style="display: none;">${data.role}</option>
+                <option selected disabled hidden>${data.role}</option>
                 <option>מחסנאי</option>
                 <option>מנהל</option>
             </select></br>
@@ -844,10 +843,10 @@ function getShelfList(){
         .then(data=>{
              setShelfList(data.data);
         })
-
+  
 }
 function setShelfList (shelfs) {
-     const shelfOptions = shelfs.map(shelf => `<option value='${shelf.UPS_Shelfs}'>${shelf.UPS_Shelfs}</option>`);
+     const shelfOptions = shelfs.map(shelf => `<option style="direction: initial;" value='${shelf.UPS_Shelfs}'>${shelf.UPS_Shelfs}</option>`);
     shelfOptionsGlobal = [...shelfOptions];
     //  this.shelfOptions = shelfOptions
     document.getElementById("UPS_Shelfs").innerHTML = shelfOptionsGlobal.join(" ");
@@ -940,6 +939,7 @@ const getCurrrentWeight = async (UPS_Shelfs) =>{
     
 } 
 
+<<<<<<< HEAD
 
 //    const CalcWeight =  (getWeight, weight) =>{
 //     if (Number(getWeight) > Number(weight)){
@@ -951,6 +951,8 @@ const getCurrrentWeight = async (UPS_Shelfs) =>{
 // } 
 
 
+=======
+>>>>>>> master
    const CalcWeight =  (getWeight, weight) =>{
     if (Number(getWeight) > Number(weight)){
         return (true);
@@ -1015,7 +1017,70 @@ const deleteProduct = (_id) =>{
         })
 }
 
- 
+const editProduct = (id) =>{
+    menubutoondisplayblock()
+    letdistinctResult= []; 
+    fetch('/get-details-product' + id,{
+              method: 'GET',
+           headers: {
+               'Content-Type': 'application/json'
+           }
+       }).then(res =>
+           res.json()
+       )
+        .then(data => {
+            carbox.style.display = 'none'
+           titlecategory.style.display = 'none' 
+           ShowAll.style.display = 'none'
+            editProductById.style.display = "block"
+
+            document.getElementById('editProductById').innerHTML =
+                 
+                   `<h1>עריכת מוצר</h1>
+                   <form onsubmit="handleEditProduct(event, '${data.Amount}', '${data.Weight}','${data.Location}')">
+                   
+                <div class="productDetails">
+                    <label for="UPS">מק"ט:
+                   <input type="number" name="UPS" id="UPS" value="${data.UPS}" disabled="disabled" autocomplete='off'></br>
+               </label>
+               <label for="Name">שם:
+                   <input type="text" name="Name" id="Name" value="${data.Name}" autocomplete='off'></br>
+               </label>
+               <label for="price">מחיר:
+                   <input type="text" name="price" id="price" value=${data.price} autocomplete='off'></br>
+               </label>
+               <label for="Amount">כמות:
+                   <input type="number" name="Amount" id="Amount" value=${data.Amount} autocomplete='off'></br>
+               </label>
+               <label for="Category">קטגוריה:
+                   <input type="text" name="Category" id="Category" value=${data.Category} autocomplete='off'></br>
+               </label>
+               <label for="Weight">משקל:
+                   <input type="number" name="Weight" id="Weight" value=${data.Weight} autocomplete='off'></br>
+               </label>
+                <label for="height">גובה:
+                   <input type="number" name="height" id="height" value=${data.height} autocomplete='off'></br>
+               </label>
+               <label for="ExpiryDate">תאריך תפוגה:
+                   <input type="date" name="ExpiryDate" id="ExpiryDate" value=${data.ExpiryDate} autocomplete='off'></br>
+               </label>
+           </div>
+            <select name='Location' id='Location'>
+           
+            </select></br>
+           <div id="checkValidation"></div></br>
+           <input type="submit" value="אישור">
+       </form>`;
+   document.getElementById("Location").innerHTML = `<option style="direction: initial;" selected hidden>${data.Location}</option>` + shelfOptionsGlobal.join(" ");
+
+       }).catch(err => {
+           console.error(err);
+       }).finally(() => {
+           console.log('im done')
+       } )
+    
+} 
+ /* 
 const editProduct = (id) =>{
     menubutoondisplayblock()
     letdistinctResult= []; 
@@ -1032,10 +1097,10 @@ const editProduct = (id) =>{
            titlecategory.style.display = 'none' 
          ShowAll.style.display = 'none'
         editProductById.style.display = "block"
-        
         document.getElementById('editProductById').innerHTML =
             `<img onclick='displaynoneeditProductardlogin()' src="/img/delete.png" alt="">
                   
+<<<<<<< HEAD
 
                    <h1>עריכת מוצר</h1>
                 <h1>עריכת מוצר</h1>
@@ -1044,6 +1109,9 @@ const editProduct = (id) =>{
 
                    <h1>עריכת מוצר</h1>
 
+=======
+                   <h1>עריכת מוצר</h1>
+>>>>>>> master
                    <form onsubmit="handleEditProduct(event, ${data.Amount})">
                    
                 <div class="productDetails">
@@ -1087,9 +1155,10 @@ const editProduct = (id) =>{
            console.log('im done')
        } )
     
-} 
+}  */
 
 
+<<<<<<< HEAD
 //    const CalcWeight =  (getWeight, weight) =>{
 //     if (Number(getWeight) > Number(weight)){
 //         return (true);
@@ -1276,6 +1345,9 @@ const editProduct = (id) =>{
 
 
 async function handleEditProduct(e, PreviosAmount, PreviosWeight, PreviosLocation) {
+=======
+async function handleEditProduct(e, PreviousAmount, PreviousWeight, PreviousLocation) {
+>>>>>>> master
     e.preventDefault();
 
    let UPS = e.target[0].value;
@@ -1287,8 +1359,8 @@ async function handleEditProduct(e, PreviosAmount, PreviosWeight, PreviosLocatio
    let height = e.target[6].value;
    let ExpiryDate = e.target[7].value;
    let Location = e.target[8].value;
-   let message = document.getElementById('message');
-   message.innerHTML=''
+   let checkValidation = document.getElementById('checkValidation');
+   checkValidation.innerHTML=''
    let validations = await Validations(UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location)
      if(validations == true){
      
@@ -1298,28 +1370,33 @@ async function handleEditProduct(e, PreviosAmount, PreviosWeight, PreviosLocatio
            let checkHeight =  CalcHeight(getHeight, height)
   
      if(checkHeight == false){
-           message.innerHTML = 'גובה המדף אינו מתאים לגובה המוצר, יש לבחור מדף אחר'
+        checkValidation.innerHTML = 'גובה המדף אינו מתאים לגובה המוצר, יש לבחור מדף אחר'
      }
      else if(checkCurrrentWeight == false){
-           message.innerHTML = 'המדף הנבחר מלא, יש לבחור מדף אחר'
+        checkValidation.innerHTML = 'המדף הנבחר מלא, יש לבחור מדף אחר'
      }
-       else{
+     else {
+         
        fetch("/Product" , {
            method: 'PUT',
            headers: {
                'Content-Type': 'application/json'
            },
-           body: JSON.stringify({UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location, PreviosAmount, PreviosWeight, PreviosLocation })
+           body: JSON.stringify({UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location, PreviousAmount, PreviousWeight, PreviousLocation })
        })
            .then(res => res.json())
            .then(data => {
                console.log(data)
                 if (message) {
-               message.innerHTML  = 'המוצר עודכן במערכת'
+                    checkValidation.innerHTML  = 'המוצר עודכן במערכת'
+                
+                 /*    setTimeout(() => {
+                        PullThiscCategory(e)
+                    }, 500); */
 
 
                } else {
-                   message.innerHTML = data.message
+                checkValidation.innerHTML = data.message
                } 
                  
            }) 
@@ -1328,160 +1405,3 @@ async function handleEditProduct(e, PreviosAmount, PreviosWeight, PreviosLocatio
 }
 
 
-//Yehial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-function handleAddShelf(e) {
-    e.preventDefault();
-
-    const firstRow = document.querySelector('#firstRow').value
-    const lastRow = document.querySelector('#lastRow').value
-    const numberOfAreas = document.querySelector('#numberOfAreas').value
-    const numberOfShelfs = document.querySelector('#numberOfShelfs').value
-    const shelfHeight = document.querySelector('#shelfHight').value
-    const maxWight = document.querySelector('#maxWight').value
-
-
-    // let tempTotalRowNumber = lastRow.value - firstRow.value;
-    // let tempFirstRow = firstRow.value;
-
-    // console.log(tempNewRows)
-    // console.log(JSON.stringify({tempFirstRow , tempTotalRowNumber,numberOfAreas,numberOfShelfs,maxWight}))
-     handleAddShelftext.innerHTML = ''
-
-
-    fetch("/shelf-creation", {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({firstRow,lastRow,numberOfAreas,numberOfShelfs,shelfHeight,maxWight})
-    })
-        .then(res => res.json())
-        .then(data => {
-            console.log('Got Frome Server')
-            if (data == true) {
-                shelfObservation()
-            } else {
-                handleAddShelftext.innerHTML = data.message
-            }
-        })
-}
-
-
-
-function addShelfDisplayNone() {
-    AddShelf.style.display = 'none'
-}
-
-function shelfObservation() {
-    fetch('/pull-Shelf')
-        .then(res =>
-            res.json()
-        )
-        .then(data => {
-            ShelfList.style.display = 'block'
-            outcome.style.display = 'none'
-            Registration.style.display = 'none'
-            Search.style.display = 'none'
-            ShowAll.style.display = 'none'
-            cardCategory.style.display = 'none'
-            editUserById.style.display = "none"
-            editProductById.style.display = "none"
-            UsersList.style.display = 'none'
-            AddShelf.style.display = 'none'
-            menubutoondisplayblock()
-
-
-            if (data.data[0] == undefined) {
-                document.getElementById('ShelfList').innerHTML = `<img src="/img/delete.png" class="displaynone" onclick="shelfObservationDisplayNone()"><button class="addNewShelf" onclick="addNewShelf()"><img src="/img/+.png"></button><h1 style="text-align: center;">לא נמצאו מדפים</h1>`
-            }
-            else {
-                allShelfs(data.data)
-                console.log(data.data)
-            }
-        })
-}
-function shelfObservationDisplayNone() {
-    ShelfList.style.display = 'none'
-
-
-}
-
-function allShelfs(data) {
-    menubutoondisplayblock()
-    // data.sort((a, b) => { if (a.Line < b.Line) return -1; })
-    // data.sort((a, b) => { if (a.Area < b.Area) return -1; })
-
-
-    document.getElementById('ShelfList').innerHTML =
-        `<img src="/img/delete.png" class="displaynone" onclick="shelfObservationDisplayNone()">
-        <div class="col-sm-4">
-        <button class="addNewShelf" onclick="addNewShelf()"><img src="/img/+.png"></button>
-        </div>
-<table>
-<thead>
-    <tr>
-        <th></th>
-        <th>מספר מדף</th>
-        <th>כמות מוצרים</th>
-        <th>גובה מדף</th>
-        <th>משקל מדף</th>
-        <th>משקל מקסימלי</th>
-    </tr>
-</thead>
-    <tbody>
-    
-        ${data.map(elm =>
-            `<tr>
-        <td class="flexdeleteuser">
-        <a action="Edit" class="editshelf" style="margin: 5px 15px;cursor: pointer;" onclick='editShelf("${elm._id}")'><img src="/img/edit-button.png"></a>
-        <a class="deleteShelf"  style="margin: 5px 15px;cursor: pointer;" onclick='deleteShelf("${elm}")'><img src="/img/deleteuser.png"></a>
-        </td>
-                <td style="direction: initial;">${elm.UPS_Shelfs}</td>
-                <td>${elm.NumberOfProductsonShelf}</td>
-                <td>${elm.height}</td> 
-                <td>${elm.CurrentWeight}</td> 
-                <td>${elm.MaximumWeight}</td> 
-                
-        </tr>
-
-`).join('')}
-</table>`;
-}
-
-// function deleteShelf(shelf_to_delete){
-    
-
-
-//     fetch("/delete-shelf", {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify(shelf_to_delete)
-//     })
-//         .then(res => res.json())
-//         .then(data => {
-//             console.log(data.data)
-            
-
-
-
-
-
-//         })
-
-
-
-// }
-
-function addNewShelf() {
-    menubutoondisplayblock()
-    ShelfList.style.display = 'none'
-    AddShelf.style.display = 'block'
-
-}
-
-function addShelflist() {
-    AddShelf.style.display = 'none'
-    ShelfList.style.display = 'block'
-}
