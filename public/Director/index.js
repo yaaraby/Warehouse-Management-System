@@ -1014,10 +1014,14 @@ const editProduct = (id) =>{
        }).then(res =>
            res.json()
        )
-       .then(data => {
+        .then(data => {
+            carbox.style.display = 'none'
+           titlecategory.style.display = 'none' 
+           ShowAll.style.display = 'none'
+            editProductById.style.display = "block"
            console.log(data)
             document.getElementById('editProductById').innerHTML =
-            editProductById.style.display = "block"     
+                 
                    `<h1>עריכת מוצר</h1>
                    <form onsubmit="handleEditProduct(event, '${data.Amount}', '${data.Weight}','${data.Location}')">
                    
@@ -1053,8 +1057,7 @@ const editProduct = (id) =>{
            <div id="message"></div></br>
            <input type="submit" value="אישור">
        </form>`;
-   // console.log(this.shelfOptions)
-   document.getElementById("Location").innerHTML = this.shelfOptions.join(" ");
+   document.getElementById("Location").innerHTML = shelfOptionsGlobal.join(" ");
 
        }).catch(err => {
            console.error(err);
