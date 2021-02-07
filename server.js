@@ -346,13 +346,13 @@ function saveToDataBase(aprovedArry){
 });
 
 
-app.delete('/delete-shelf',async(req,res)=>{
+app.post('/delete-shelf',async(req,res)=>{
 
     console.log(req.body.shelfToDelete);
 
     Shelfs.deleteOne({ UPS_Shelfs: `${req.body.shelfToDelete}`}, function (err) {
         if(Shelfs.findOne({ UPS_Shelfs: `${req.body.shelfToDelete}`})){
-         res.send(false)
+        //  res.send(false)
         }
     });
 

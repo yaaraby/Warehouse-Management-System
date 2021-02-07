@@ -642,7 +642,7 @@ app.put("/shelf-creation", function _callee11(req, res) {
     }
   });
 });
-app["delete"]('/delete-shelf', function _callee12(req, res) {
+app.post('/delete-shelf', function _callee12(req, res) {
   return regeneratorRuntime.async(function _callee12$(_context13) {
     while (1) {
       switch (_context13.prev = _context13.next) {
@@ -653,8 +653,7 @@ app["delete"]('/delete-shelf', function _callee12(req, res) {
           }, function (err) {
             if (Shelfs.findOne({
               UPS_Shelfs: "".concat(req.body.shelfToDelete)
-            })) {
-              res.send(false);
+            })) {//  res.send(false)
             }
           });
           res.send(true);

@@ -800,14 +800,14 @@ function allShelfs(data) {
 
 function deleteShelf(shelfToDelete){
 
-    console.log(shelfToDelete)
+    //console.log(shelfToDelete)
 
     fetch("/delete-shelf", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: {shelfToDelete}
+        body: JSON.stringify({shelfToDelete})
     })
         .then(res => res.json())
         .then(data => {

@@ -593,15 +593,15 @@ function allShelfs(data) {
 }
 
 function deleteShelf(shelfToDelete) {
-  console.log(shelfToDelete);
+  //console.log(shelfToDelete)
   fetch("/delete-shelf", {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: {
+    body: JSON.stringify({
       shelfToDelete: shelfToDelete
-    }
+    })
   }).then(function (res) {
     return res.json();
   }).then(function (data) {
