@@ -680,6 +680,7 @@ function handleEditUser(e) {
 
 //Yehial!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 function handleAddShelf(e) {
+
     e.preventDefault();
 
     const firstRow = document.querySelector('#firstRow')
@@ -805,11 +806,15 @@ function allShelfs(data) {
             `<tr>
         <td class="flexdeleteuser">
         <a action="Edit" class="editshelf" style="margin: 5px 15px;cursor: pointer;" onclick='editShelf("${elm._id}")'><img src="/img/edit-button.png"></a>
+<<<<<<< Updated upstream
 <<<<<<< HEAD
         <a class="deleteShelf"  style="margin: 5px 15px;cursor: pointer;" onclick='deleteShelf("${elm.UPS_Shelfs}")'><img src="/img/deleteuser.png"></a>
 =======
         <a action="Delete" class="deleteShelf"  style="margin: 5px 15px;cursor: pointer;" onclick='deleteShelf("${elm._id}")'><img src="/img/deleteuser.png"></a>
 >>>>>>> master
+=======
+        <a class="deleteShelf"  style="margin: 5px 15px;cursor: pointer;" onclick='deleteShelf("${elm.UPS_Shelfs}")'><img src="/img/deleteuser.png"></a>
+>>>>>>> Stashed changes
         </td>
                 <td style="direction: initial;">${elm.UPS_Shelfs}</td>
                 <td>${elm.NumberOfProductsonShelf}</td>
@@ -862,7 +867,6 @@ function addShelflist() {
     AddShelf.style.display = 'none'
     ShelfList.style.display = 'block'
 }
-
 
  
 //yaara ------------------------------------
@@ -972,7 +976,10 @@ const getCurrrentWeight = async (UPS_Shelfs) =>{
     
 } 
 
+<<<<<<< Updated upstream
 <<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
 
 
 //    const CalcWeight =  (getWeight, weight) =>{
@@ -986,8 +993,11 @@ const getCurrrentWeight = async (UPS_Shelfs) =>{
 
 
 
+<<<<<<< Updated upstream
 =======
 >>>>>>> master
+=======
+>>>>>>> Stashed changes
    const CalcWeight =  (getWeight, weight) =>{
     if (Number(getWeight) > Number(weight)){
         return (true);
@@ -1136,18 +1146,25 @@ const editProduct = (id) =>{
         document.getElementById('editProductById').innerHTML =
             `<img onclick='displaynoneeditProductardlogin()' src="/img/delete.png" alt="">
                   
+<<<<<<< Updated upstream
+
+=======
+>>>>>>> Stashed changes
 
 
                    <h1>עריכת מוצר</h1>
-                <h1>עריכת מוצר</h1>
-
-                   <h1>עריכת מוצר</h1>
+<<<<<<< Updated upstream
 =======
 >>>>>>> master
 
 
 <<<<<<< HEAD
 =======
+=======
+                <h1>עריכת מוצר</h1>
+
+                   <h1>עריכת מוצר</h1>
+>>>>>>> Stashed changes
                    <h1>עריכת מוצר</h1>
 >>>>>>> master
                    <form onsubmit="handleEditProduct(event, ${data.Amount})">
@@ -1381,12 +1398,19 @@ const editProduct = (id) =>{
 
 // } 
 
+<<<<<<< Updated upstream
 
 async function handleEditProduct(e, PreviousAmount, PreviousWeight, PreviousLocation) {
 
 =======
 async function handleEditProduct(e, PreviousAmount, PreviousWeight, PreviousLocation) {
 >>>>>>> master
+=======
+
+
+
+async function handleEditProduct(e, PreviousAmount, PreviousWeight, PreviousLocation) {
+>>>>>>> Stashed changes
     e.preventDefault();
 
    let UPS = e.target[0].value;
@@ -1442,5 +1466,4 @@ async function handleEditProduct(e, PreviousAmount, PreviousWeight, PreviousLoca
        }
      }
 }
-
 

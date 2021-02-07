@@ -513,7 +513,10 @@ function handleEditUser(e) {
 
 function handleAddShelf(e) {
   e.preventDefault();
+<<<<<<< Updated upstream
 <<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
   var firstRow = document.querySelector('#firstRow').value;
   var lastRow = document.querySelector('#lastRow').value;
   var numberOfAreas = document.querySelector('#numberOfAreas').value;
@@ -524,6 +527,7 @@ function handleAddShelf(e) {
   // console.log(tempNewRows)
   // console.log(JSON.stringify({tempFirstRow , tempTotalRowNumber,numberOfAreas,numberOfShelfs,maxWight}))
 
+<<<<<<< Updated upstream
 =======
   var firstRow = document.querySelector('#firstRow');
   var lastRow = document.querySelector('#lastRow');
@@ -558,13 +562,18 @@ function handleAddShelf(e) {
   console.log(tempNewRows);
   console.log(JSON.stringify(tempNewRows));
 >>>>>>> master
+=======
+>>>>>>> Stashed changes
   handleAddShelftext.innerHTML = '';
   fetch("/shelf-creation", {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
     },
+<<<<<<< Updated upstream
 <<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
     body: JSON.stringify({
       firstRow: firstRow,
       lastRow: lastRow,
@@ -577,6 +586,7 @@ function handleAddShelf(e) {
     return res.json();
   }).then(function (data) {
     console.log('Got Frome Server');
+<<<<<<< Updated upstream
 =======
     body: JSON.stringify(tempNewRows)
   }).then(function (res) {
@@ -584,6 +594,8 @@ function handleAddShelf(e) {
   }).then(function (data) {
     console.log(data);
 >>>>>>> master
+=======
+>>>>>>> Stashed changes
 
     if (data == true) {
       shelfObservation();
@@ -630,7 +642,10 @@ function allShelfs(data) {
   menubutoondisplayblock(); // data.sort((a, b) => { if (a.Line < b.Line) return -1; })
   // data.sort((a, b) => { if (a.Area < b.Area) return -1; })
 
+<<<<<<< Updated upstream
 <<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
   document.getElementById('ShelfList').innerHTML = "<img src=\"/img/delete.png\" class=\"displaynone\" onclick=\"shelfObservationDisplayNone()\">\n        <div class=\"col-sm-4\">\n        <button class=\"addNewShelf\" onclick=\"addNewShelf()\"><img src=\"/img/+.png\"></button>\n        </div>\n<table>\n<thead>\n    <tr>\n        <th></th>\n        <th>\u05DE\u05E1\u05E4\u05E8 \u05DE\u05D3\u05E3</th>\n        <th>\u05DB\u05DE\u05D5\u05EA \u05DE\u05D5\u05E6\u05E8\u05D9\u05DD</th>\n        <th>\u05D2\u05D5\u05D1\u05D4 \u05DE\u05D3\u05E3</th>\n        <th>\u05DE\u05E9\u05E7\u05DC \u05DE\u05D3\u05E3</th>\n        <th>\u05DE\u05E9\u05E7\u05DC \u05DE\u05E7\u05E1\u05D9\u05DE\u05DC\u05D9</th>\n    </tr>\n</thead>\n    <tbody>\n    \n        ".concat(data.map(function (elm) {
     return "<tr>\n        <td class=\"flexdeleteuser\">\n        <a action=\"Edit\" class=\"editshelf\" style=\"margin: 5px 15px;cursor: pointer;\" onclick='editShelf(\"".concat(elm._id, "\")'><img src=\"/img/edit-button.png\"></a>\n        <a class=\"deleteShelf\"  style=\"margin: 5px 15px;cursor: pointer;\" onclick='deleteShelf(\"").concat(elm.UPS_Shelfs, "\")'><img src=\"/img/deleteuser.png\"></a>\n        </td>\n                <td style=\"direction: initial;\">").concat(elm.UPS_Shelfs, "</td>\n                <td>").concat(elm.NumberOfProductsonShelf, "</td>\n                <td>").concat(elm.height, "</td> \n                <td>").concat(elm.CurrentWeight, "</td> \n                <td>").concat(elm.MaximumWeight, "</td> \n                \n        </tr>\n\n");
   }).join(''), "\n</table>");
@@ -660,6 +675,7 @@ function deleteShelf(shelfToDelete) {
   });
 }
 
+<<<<<<< Updated upstream
 =======
   document.getElementById('ShelfList').innerHTML = "<img src=\"/img/delete.png\" class=\"displaynone\" onclick=\"shelfObservationDisplayNone()\">\n        <div class=\"col-sm-4\">\n        <button class=\"addNewShelf\" onclick=\"addNewShelf()\"><img src=\"/img/+.png\"></button>\n        </div>\n<table>\n<thead>\n    <tr>\n        <th></th>\n        <th>\u05DE\u05E1\u05E4\u05E8 \u05DE\u05D3\u05E3</th>\n        <th>\u05DB\u05DE\u05D5\u05EA \u05DE\u05D5\u05E6\u05E8\u05D9\u05DD</th>\n        <th>\u05DE\u05E9\u05E7\u05DC \u05DE\u05D3\u05E3</th>\n        <th>\u05DE\u05E9\u05E7\u05DC \u05DE\u05E7\u05E1\u05D9\u05DE\u05DC\u05D9</th>\n    </tr>\n</thead>\n    <tbody>\n    \n        ".concat(data.map(function (elm) {
     return "<tr>\n        <td class=\"flexdeleteuser\">\n        <a action=\"Edit\" class=\"editshelf\" style=\"margin: 5px 15px;cursor: pointer;\" onclick='editShelf(\"".concat(elm._id, "\")'><img src=\"/img/edit-button.png\"></a>\n        <a action=\"Delete\" class=\"deleteShelf\"  style=\"margin: 5px 15px;cursor: pointer;\" onclick='deleteShelf(\"").concat(elm._id, "\")'><img src=\"/img/deleteuser.png\"></a>\n        </td>\n                <td style=\"direction: initial;\">").concat(elm.UPS_Shelfs, "</td>\n                <td>").concat(elm.NumberOfProductsonShelf, "</td>\n                <td>").concat(elm.CurrentWeight, "</td> \n                <td>").concat(elm.CurrentHeight, "</td> \n                <td>").concat(elm.MaximumWeight, "</td> \n                \n        </tr>\n\n");
@@ -667,6 +683,8 @@ function deleteShelf(shelfToDelete) {
 }
 
 >>>>>>> master
+=======
+>>>>>>> Stashed changes
 function addNewShelf() {
   menubutoondisplayblock();
   ShelfList.style.display = 'none';
@@ -852,6 +870,14 @@ var CalcWeight = function CalcWeight(getWeight, weight) {
   }
 };
 
+var CalcWeight = function CalcWeight(getWeight, weight) {
+  if (Number(getWeight) > Number(weight)) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 var CalcHeight = function CalcHeight(getHeight, height) {
   if (Number(getHeight) > Number(height)) {
     return true;
@@ -892,11 +918,15 @@ var deleteProduct = function deleteProduct(_id) {
   }).then(function (res) {
     return res.json();
   }).then(function (data) {
+<<<<<<< Updated upstream
 <<<<<<< HEAD
     getCategory();
 =======
     PullThiscCategory(globalCategories);
 >>>>>>> master
+=======
+    PullThiscCategory(globalCategories);
+>>>>>>> Stashed changes
   });
 };
 
@@ -923,7 +953,10 @@ var editProduct = function editProduct(id) {
     console.log('im done');
   });
 };
+<<<<<<< Updated upstream
 <<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
 /* 
 const editProduct = (id) =>{
    menubutoondisplayblock()
@@ -950,10 +983,13 @@ const editProduct = (id) =>{
                <h1>עריכת מוצר</h1>
 
                   <h1>עריכת מוצר</h1>
+<<<<<<< Updated upstream
 
                   <h1>עריכת מוצר</h1>
 
 =======
+=======
+>>>>>>> Stashed changes
                   <h1>עריכת מוצר</h1>
 >>>>>>> master
                   <form onsubmit="handleEditProduct(event, ${data.Amount})">
@@ -1167,6 +1203,7 @@ const editProduct = (id) =>{
 //     console.log('im done')
 // } )
 // } 
+<<<<<<< Updated upstream
 
 =======
 >>>>>>> master
@@ -1318,6 +1355,92 @@ function handleEditProduct(e, PreviousAmount, PreviousWeight, PreviousLocation) 
           }
 
 >>>>>>> master
+=======
+
+
+function handleEditProduct(e, PreviousAmount, PreviousWeight, PreviousLocation) {
+  var UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location, checkValidation, validations, getWeight, checkCurrrentWeight, getHeight, checkHeight;
+  return regeneratorRuntime.async(function handleEditProduct$(_context4) {
+    while (1) {
+      switch (_context4.prev = _context4.next) {
+        case 0:
+          e.preventDefault();
+          UPS = e.target[0].value;
+          Name = e.target[1].value;
+          price = e.target[2].value;
+          Amount = e.target[3].value;
+          Category = e.target[4].value;
+          Weight = e.target[5].value;
+          height = e.target[6].value;
+          ExpiryDate = e.target[7].value;
+          Location = e.target[8].value;
+          checkValidation = document.getElementById('checkValidation');
+          checkValidation.innerHTML = '';
+          _context4.next = 14;
+          return regeneratorRuntime.awrap(Validations(UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location));
+
+        case 14:
+          validations = _context4.sent;
+
+          if (!(validations == true)) {
+            _context4.next = 25;
+            break;
+          }
+
+          _context4.next = 18;
+          return regeneratorRuntime.awrap(getCurrrentWeight(Location));
+
+        case 18:
+          getWeight = _context4.sent;
+          checkCurrrentWeight = CalcWeight(getWeight, Weight);
+          _context4.next = 22;
+          return regeneratorRuntime.awrap(getCurrrentHeight(Location));
+
+        case 22:
+          getHeight = _context4.sent;
+          checkHeight = CalcHeight(getHeight, height);
+
+          if (checkHeight == false) {
+            checkValidation.innerHTML = 'גובה המדף אינו מתאים לגובה המוצר, יש לבחור מדף אחר';
+          } else if (checkCurrrentWeight == false) {
+            checkValidation.innerHTML = 'המדף הנבחר מלא, יש לבחור מדף אחר';
+          } else {
+            fetch("/Product", {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                UPS: UPS,
+                Name: Name,
+                price: price,
+                Amount: Amount,
+                Category: Category,
+                Weight: Weight,
+                height: height,
+                ExpiryDate: ExpiryDate,
+                Location: Location,
+                PreviousAmount: PreviousAmount,
+                PreviousWeight: PreviousWeight,
+                PreviousLocation: PreviousLocation
+              })
+            }).then(function (res) {
+              return res.json();
+            }).then(function (data) {
+              console.log(data);
+
+              if (message) {
+                checkValidation.innerHTML = 'המוצר עודכן במערכת';
+                /*    setTimeout(() => {
+                       PullThiscCategory(e)
+                   }, 500); */
+              } else {
+                checkValidation.innerHTML = data.message;
+              }
+            });
+          }
+
+>>>>>>> Stashed changes
         case 25:
         case "end":
           return _context4.stop();

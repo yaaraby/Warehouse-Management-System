@@ -502,11 +502,15 @@ app.get('/pull-Shelf', function _callee9(req, res) {
   });
 });
 app.put("/shelf-creation", function _callee11(req, res) {
+<<<<<<< Updated upstream
 <<<<<<< HEAD
   var message, letters, tempNewRows, firstRow, lastRow, numberOfAreas, numberOfShelfs, maxHeight, maxWight, _i, j, k, errorMessage, exCheck, saveToDataBase;
 =======
   var message, letters, tempNewRows, firstRow, lastRow, numberOfAreas, numberOfShelfs, maxHeight, maxWight, _i, j, k, aa, errorMessage, exCheck, saveToDataBase;
 >>>>>>> master
+=======
+  var message, letters, tempNewRows, firstRow, lastRow, numberOfAreas, numberOfShelfs, maxHeight, maxWight, _i, j, k, errorMessage, exCheck, saveToDataBase;
+>>>>>>> Stashed changes
 
   return regeneratorRuntime.async(function _callee11$(_context12) {
     while (1) {
@@ -530,16 +534,22 @@ app.put("/shelf-creation", function _callee11(req, res) {
                         CurrentWeight: 0,
                         height: element.CurrentHeight
                       });
+<<<<<<< Updated upstream
 <<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
                       console.log(testShelf);
                       testShelf.save();
 
                     case 3:
+<<<<<<< Updated upstream
 =======
                       testShelf.save();
 
                     case 2:
 >>>>>>> master
+=======
+>>>>>>> Stashed changes
                     case "end":
                       return _context11.stop();
                   }
@@ -556,7 +566,10 @@ app.put("/shelf-creation", function _callee11(req, res) {
               while (1) {
                 switch (_context10.prev = _context10.next) {
                   case 0:
+<<<<<<< Updated upstream
 <<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
                     console.log(arrayToCheck);
                     _i2 = 0;
 
@@ -564,6 +577,7 @@ app.put("/shelf-creation", function _callee11(req, res) {
                     if (!(_i2 < arrayToCheck.length)) {
                       _context10.next = 12;
                       break;
+<<<<<<< Updated upstream
                     }
 
                     _context10.next = 5;
@@ -578,18 +592,27 @@ app.put("/shelf-creation", function _callee11(req, res) {
 
                     _context10.next = 4;
 >>>>>>> master
+=======
+                    }
+
+                    _context10.next = 5;
+>>>>>>> Stashed changes
                     return regeneratorRuntime.awrap(Shelfs.exists({
                       Line: arrayToCheck[_i2].Line
                     }).then(function (token) {
                       return token;
                     }));
 
+<<<<<<< Updated upstream
 <<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
                   case 5:
                     theTest = _context10.sent;
 
                     if (!(theTest == true)) {
                       _context10.next = 9;
+<<<<<<< Updated upstream
 =======
                   case 4:
                     theTest = _context10.sent;
@@ -597,11 +620,16 @@ app.put("/shelf-creation", function _callee11(req, res) {
                     if (!(theTest == true)) {
                       _context10.next = 8;
 >>>>>>> master
+=======
+>>>>>>> Stashed changes
                       break;
                     }
 
                     flag = false;
+<<<<<<< Updated upstream
 <<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
                     return _context10.abrupt("break", 12);
 
                   case 9:
@@ -613,6 +641,7 @@ app.put("/shelf-creation", function _callee11(req, res) {
                     return _context10.abrupt("return", flag);
 
                   case 13:
+<<<<<<< Updated upstream
 =======
                     return _context10.abrupt("break", 11);
 
@@ -626,6 +655,8 @@ app.put("/shelf-creation", function _callee11(req, res) {
 
                   case 12:
 >>>>>>> master
+=======
+>>>>>>> Stashed changes
                   case "end":
                     return _context10.stop();
                 }
@@ -640,6 +671,7 @@ app.put("/shelf-creation", function _callee11(req, res) {
             });
           };
 
+<<<<<<< Updated upstream
 <<<<<<< HEAD
           message = ""; //console.log(req.body)
 
@@ -647,6 +679,10 @@ app.put("/shelf-creation", function _callee11(req, res) {
           message = "";
           console.log(req.body);
 >>>>>>> master
+=======
+          message = ""; //console.log(req.body)
+
+>>>>>>> Stashed changes
           letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'O', 'P'];
           tempNewRows = [];
           firstRow = parseInt(req.body.firstRow);
@@ -675,6 +711,7 @@ app.put("/shelf-creation", function _callee11(req, res) {
             }
           }
 
+<<<<<<< Updated upstream
 <<<<<<< HEAD
           exCheck(tempNewRows).then(function (res, rej) {
             //console.log(res)
@@ -683,6 +720,10 @@ app.put("/shelf-creation", function _callee11(req, res) {
             console.log(res);
 
 >>>>>>> master
+=======
+          exCheck(tempNewRows).then(function (res, rej) {
+            //console.log(res)
+>>>>>>> Stashed changes
             if (res == false) {
               errorMessage();
             } else {
@@ -690,11 +731,15 @@ app.put("/shelf-creation", function _callee11(req, res) {
             }
           });
 
+<<<<<<< Updated upstream
 <<<<<<< HEAD
         case 14:
 =======
         case 15:
 >>>>>>> master
+=======
+        case 14:
+>>>>>>> Stashed changes
         case "end":
           return _context12.stop();
       }
@@ -702,15 +747,21 @@ app.put("/shelf-creation", function _callee11(req, res) {
   });
 });
 app.post('/delete-shelf', function _callee12(req, res) {
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 =======
   var temp;
 >>>>>>> master
+=======
+>>>>>>> Stashed changes
   return regeneratorRuntime.async(function _callee12$(_context13) {
     while (1) {
       switch (_context13.prev = _context13.next) {
         case 0:
+<<<<<<< Updated upstream
 <<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
           console.log(req.body.shelfToDelete);
           Shelfs.deleteOne({
             UPS_Shelfs: "".concat(req.body.shelfToDelete)
@@ -722,10 +773,13 @@ app.post('/delete-shelf', function _callee12(req, res) {
             }
           });
           res.send(true);
+<<<<<<< Updated upstream
 =======
           temp = req.body.UPS_Shelfs;
           console.log(temp);
 >>>>>>> master
+=======
+>>>>>>> Stashed changes
 
         case 3:
         case "end":
@@ -1349,20 +1403,28 @@ var updateNewShelf = function updateNewShelf(Amount, Weight, Location) {
 
         case 4:
           if (!(i < data.length)) {
+<<<<<<< Updated upstream
 <<<<<<< HEAD
             _context25.next = 19;
 =======
             _context25.next = 18;
 >>>>>>> master
+=======
+            _context25.next = 18;
+>>>>>>> Stashed changes
             break;
           }
 
           if (!(Location == data[i].UPS_Shelfs)) {
+<<<<<<< Updated upstream
 <<<<<<< HEAD
             _context25.next = 16;
 =======
             _context25.next = 15;
 >>>>>>> master
+=======
+            _context25.next = 15;
+>>>>>>> Stashed changes
             break;
           }
 
@@ -1371,10 +1433,13 @@ var updateNewShelf = function updateNewShelf(Amount, Weight, Location) {
           weight = data[i].CurrentWeight;
           numberOfProductsonShelf += eval(Amount);
           weight += eval(Weight);
+<<<<<<< Updated upstream
 <<<<<<< HEAD
           ;
 =======
 >>>>>>> master
+=======
+>>>>>>> Stashed changes
           myquery = {
             UPS_Shelfs: Location
           };
@@ -1384,30 +1449,42 @@ var updateNewShelf = function updateNewShelf(Amount, Weight, Location) {
               CurrentWeight: weight
             }
           };
+<<<<<<< Updated upstream
 <<<<<<< HEAD
           _context25.next = 16;
 =======
           _context25.next = 15;
 >>>>>>> master
+=======
+          _context25.next = 15;
+>>>>>>> Stashed changes
           return regeneratorRuntime.awrap(Shelfs.updateOne(myquery, newvalues, function (err, res) {
             if (err) throw err;
             console.log("1 document updated");
           }));
 
+<<<<<<< Updated upstream
 <<<<<<< HEAD
         case 16:
 =======
         case 15:
 >>>>>>> master
+=======
+        case 15:
+>>>>>>> Stashed changes
           i++;
           _context25.next = 4;
           break;
 
+<<<<<<< Updated upstream
 <<<<<<< HEAD
         case 19:
 =======
         case 18:
 >>>>>>> master
+=======
+        case 18:
+>>>>>>> Stashed changes
         case "end":
           return _context25.stop();
       }
