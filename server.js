@@ -346,7 +346,7 @@ function saveToDataBase(aprovedArry){
 });
 
 
-app.post('/delete-shelf',async(req,res)=>{
+app.delete('/delete-shelf',async(req,res)=>{
 
     console.log(req.body.shelfToDelete);
 
