@@ -428,8 +428,9 @@ function getCategory() {
         })
 }
 
-
+let globalCategories = [];
 function PullThiscCategory(event) {
+    globalCategories = event;
     const eventCategory = event.target.innerText
     carbox.innerHTML = ''
 
@@ -681,32 +682,55 @@ function handleEditUser(e) {
 function handleAddShelf(e) {
     e.preventDefault();
 
-    const firstRow = document.querySelector('#firstRow').value
-    const lastRow = document.querySelector('#lastRow').value
-    const numberOfAreas = document.querySelector('#numberOfAreas').value
-    const numberOfShelfs = document.querySelector('#numberOfShelfs').value
-    const shelfHeight = document.querySelector('#shelfHight').value
-    const maxWight = document.querySelector('#maxWight').value
+    const firstRow = document.querySelector('#firstRow')
+    const lastRow = document.querySelector('#lastRow')
+    const numberOfAreas = document.querySelector('#numberOfAreas')
+    const numberOfShelfs = document.querySelector('#numberOfShelfs')
+    const maxWight = document.querySelector('#maxWight')
 
 
-    // let tempTotalRowNumber = lastRow.value - firstRow.value;
-    // let tempFirstRow = firstRow.value;
+    let tempTotalRowNumber = lastRow.value - firstRow.value;
+    let tempFirstRow = firstRow.value;
+    const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'O']
+    let tempNewRows = []
 
-    // console.log(tempNewRows)
-    // console.log(JSON.stringify({tempFirstRow , tempTotalRowNumber,numberOfAreas,numberOfShelfs,maxWight}))
-     handleAddShelftext.innerHTML = ''
+    // console.log(firstRow.value, lastRow.value, numberOfAreas.value, numberOfShelfs.value,maxWight.value);
+    for (i = 1; i <= tempTotalRowNumber + 1; i++) {
 
+        for (j = 1; j <= numberOfAreas.value; j++) {
+
+            for (k = 1; k <= numberOfShelfs.value; k++) {
+
+                console.log(`${i}${letters[j - 1]}${k}`)
+                tempNewRows.push({
+                    Line: tempFirstRow,
+                    Area: `${letters[j - 1]}`,
+                    Floor: k,
+                    UPS_Shelfs: `${tempFirstRow}-${letters[j - 1]}-${k}`,
+                    // NumberOfProductsonShelf:Number,
+                    MaximumWeight: maxWight.value,
+                    // CurrentWeight: Number,
+                    // height: Number
+                })
+            }
+        }
+        tempFirstRow++
+    }
+
+    console.log(tempNewRows)
+    console.log(JSON.stringify(tempNewRows))
+    handleAddShelftext.innerHTML = ''
 
     fetch("/shelf-creation", {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({firstRow,lastRow,numberOfAreas,numberOfShelfs,shelfHeight,maxWight})
+        body: JSON.stringify(tempNewRows)
     })
         .then(res => res.json())
         .then(data => {
-            console.log('Got Frome Server')
+            console.log(data)
             if (data == true) {
                 shelfObservation()
             } else {
@@ -760,7 +784,6 @@ function allShelfs(data) {
     // data.sort((a, b) => { if (a.Line < b.Line) return -1; })
     // data.sort((a, b) => { if (a.Area < b.Area) return -1; })
 
-
     document.getElementById('ShelfList').innerHTML =
         `<img src="/img/delete.png" class="displaynone" onclick="shelfObservationDisplayNone()">
         <div class="col-sm-4">
@@ -772,7 +795,6 @@ function allShelfs(data) {
         <th></th>
         <th>מספר מדף</th>
         <th>כמות מוצרים</th>
-        <th>גובה מדף</th>
         <th>משקל מדף</th>
         <th>משקל מקסימלי</th>
     </tr>
@@ -783,18 +805,50 @@ function allShelfs(data) {
             `<tr>
         <td class="flexdeleteuser">
         <a action="Edit" class="editshelf" style="margin: 5px 15px;cursor: pointer;" onclick='editShelf("${elm._id}")'><img src="/img/edit-button.png"></a>
-        <a class="deleteShelf"  style="margin: 5px 15px;cursor: pointer;" onclick='deleteShelf("${elm}")'><img src="/img/deleteuser.png"></a>
+<<<<<<< HEAD
+        <a class="deleteShelf"  style="margin: 5px 15px;cursor: pointer;" onclick='deleteShelf("${elm.UPS_Shelfs}")'><img src="/img/deleteuser.png"></a>
+=======
+        <a action="Delete" class="deleteShelf"  style="margin: 5px 15px;cursor: pointer;" onclick='deleteShelf("${elm._id}")'><img src="/img/deleteuser.png"></a>
+>>>>>>> master
         </td>
                 <td style="direction: initial;">${elm.UPS_Shelfs}</td>
                 <td>${elm.NumberOfProductsonShelf}</td>
-                <td>${elm.height}</td> 
                 <td>${elm.CurrentWeight}</td> 
+                <td>${elm.CurrentHeight}</td> 
                 <td>${elm.MaximumWeight}</td> 
                 
         </tr>
 
 `).join('')}
 </table>`;
+}
+
+function deleteShelf(shelfToDelete){
+
+    //console.log(shelfToDelete)
+
+    fetch("/delete-shelf", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({shelfToDelete})
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data.data)
+            console.log('Got Frome Server')
+            if (data == true) {
+                shelfObservation()
+            } else {
+                handleAddShelftext.innerHTML = data.message
+            }
+            
+        })
+
+
+
+
 }
 
 function addNewShelf() {
@@ -919,9 +973,7 @@ const getCurrrentWeight = async (UPS_Shelfs) =>{
 } 
 
 <<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> master
+
 
 //    const CalcWeight =  (getWeight, weight) =>{
 //     if (Number(getWeight) > Number(weight)){
@@ -933,10 +985,8 @@ const getCurrrentWeight = async (UPS_Shelfs) =>{
 // } 
 
 
-<<<<<<< HEAD
+
 =======
-=======
->>>>>>> master
 >>>>>>> master
    const CalcWeight =  (getWeight, weight) =>{
     if (Number(getWeight) > Number(weight)){
@@ -998,7 +1048,7 @@ const deleteProduct = (_id) =>{
     )
         
         .then(data => {
-            getCategory()
+            PullThiscCategory(globalCategories)
         })
 }
 
@@ -1065,6 +1115,7 @@ const editProduct = (id) =>{
        } )
     
 } 
+<<<<<<< HEAD
  /* 
 const editProduct = (id) =>{
     menubutoondisplayblock()
@@ -1085,15 +1136,17 @@ const editProduct = (id) =>{
         document.getElementById('editProductById').innerHTML =
             `<img onclick='displaynoneeditProductardlogin()' src="/img/delete.png" alt="">
                   
-<<<<<<< HEAD
+
 
                    <h1>עריכת מוצר</h1>
                 <h1>עריכת מוצר</h1>
 
                    <h1>עריכת מוצר</h1>
+=======
+>>>>>>> master
 
-                   <h1>עריכת מוצר</h1>
 
+<<<<<<< HEAD
 =======
                    <h1>עריכת מוצר</h1>
 >>>>>>> master
@@ -1143,10 +1196,7 @@ const editProduct = (id) =>{
 }  */
 
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> master
+
 //    const CalcWeight =  (getWeight, weight) =>{
 //     if (Number(getWeight) > Number(weight)){
 //         return (true);
@@ -1283,41 +1333,41 @@ const editProduct = (id) =>{
 // } )
 
 
-            `<h1>עריכת מוצר</h1>
-            <form onsubmit="handleEditProduct(event, '${data.Amount}', '${data.Weight}','${data.Location}')">
+//             `<h1>עריכת מוצר</h1>
+//             <form onsubmit="handleEditProduct(event, '${data.Amount}', '${data.Weight}','${data.Location}')">
             
-         <div class="productDetails">
-             <label for="UPS">מק"ט:
-            <input type="number" name="UPS" id="UPS" value="${data.UPS}" disabled="disabled" autocomplete='off'></br>
-        </label>
-        <label for="Name">שם:
-            <input type="text" name="Name" id="Name" value="${data.Name}" autocomplete='off'></br>
-        </label>
-        <label for="price">מחיר:
-            <input type="text" name="price" id="price" value=${data.price} autocomplete='off'></br>
-        </label>
-        <label for="Amount">כמות:
-            <input type="number" name="Amount" id="Amount" value=${data.Amount} autocomplete='off'></br>
-        </label>
-        <label for="Category">קטגוריה:
-            <input type="text" name="Category" id="Category" value=${data.Category} autocomplete='off'></br>
-        </label>
-        <label for="Weight">משקל:
-            <input type="number" name="Weight" id="Weight" value=${data.Weight} autocomplete='off'></br>
-        </label>
-         <label for="height">גובה:
-            <input type="number" name="height" id="height" value=${data.height} autocomplete='off'></br>
-        </label>
-        <label for="ExpiryDate">תאריך תפוגה:
-            <input type="date" name="ExpiryDate" id="ExpiryDate" value=${data.ExpiryDate} autocomplete='off'></br>
-        </label>
-    </div>
-     <select name='Location' id='Location'>
-     <option value = ${data.Location}> ${data.Location} </option>
-     </select></br>
-    <div id="message"></div></br>
-    <input type="submit" value="אישור">
-</form>`;
+//          <div class="productDetails">
+//              <label for="UPS">מק"ט:
+//             <input type="number" name="UPS" id="UPS" value="${data.UPS}" disabled="disabled" autocomplete='off'></br>
+//         </label>
+//         <label for="Name">שם:
+//             <input type="text" name="Name" id="Name" value="${data.Name}" autocomplete='off'></br>
+//         </label>
+//         <label for="price">מחיר:
+//             <input type="text" name="price" id="price" value=${data.price} autocomplete='off'></br>
+//         </label>
+//         <label for="Amount">כמות:
+//             <input type="number" name="Amount" id="Amount" value=${data.Amount} autocomplete='off'></br>
+//         </label>
+//         <label for="Category">קטגוריה:
+//             <input type="text" name="Category" id="Category" value=${data.Category} autocomplete='off'></br>
+//         </label>
+//         <label for="Weight">משקל:
+//             <input type="number" name="Weight" id="Weight" value=${data.Weight} autocomplete='off'></br>
+//         </label>
+//          <label for="height">גובה:
+//             <input type="number" name="height" id="height" value=${data.height} autocomplete='off'></br>
+//         </label>
+//         <label for="ExpiryDate">תאריך תפוגה:
+//             <input type="date" name="ExpiryDate" id="ExpiryDate" value=${data.ExpiryDate} autocomplete='off'></br>
+//         </label>
+//     </div>
+//      <select name='Location' id='Location'>
+//      <option value = ${data.Location}> ${data.Location} </option>
+//      </select></br>
+//     <div id="message"></div></br>
+//     <input type="submit" value="אישור">
+// </form>`;
 // console.log(this.shelfOptions)
 // document.getElementById("Location").innerHTML = this.shelfOptions.join(" ");
 
@@ -1331,14 +1381,11 @@ const editProduct = (id) =>{
 
 // } 
 
-<<<<<<< HEAD
-async function handleEditProduct(e, PreviousAmount, PreviousWeight, PreviousLocation) {
-=======
 
-async function handleEditProduct(e, PreviosAmount, PreviosWeight, PreviosLocation) {
+async function handleEditProduct(e, PreviousAmount, PreviousWeight, PreviousLocation) {
+
 =======
 async function handleEditProduct(e, PreviousAmount, PreviousWeight, PreviousLocation) {
->>>>>>> master
 >>>>>>> master
     e.preventDefault();
 
