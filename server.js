@@ -254,7 +254,7 @@ app.get('/pull-Shelf', async (req, res) => {
 
 app.put("/shelf-creation", async (req, res) => {
     let message = ""
-    console.log(req.body)
+    //console.log(req.body)
 
 
     const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'O','P']
@@ -295,8 +295,8 @@ app.put("/shelf-creation", async (req, res) => {
 }
 
 
-let  aa = exCheck(tempNewRows).then((res,rej)=>{
-    console.log(res)
+exCheck(tempNewRows).then((res,rej)=>{
+    //console.log(res)
 
     if(res==false){errorMessage()}
     else{saveToDataBase(tempNewRows)}
@@ -310,6 +310,7 @@ function errorMessage(){
 
 
 async function exCheck(arrayToCheck){
+    console.log(arrayToCheck)
     let flag
     for (let i = 0; i < arrayToCheck.length; i++){
         let theTest =await Shelfs.exists({Line:arrayToCheck[i].Line}).then(token => { return token })
@@ -337,6 +338,7 @@ function saveToDataBase(aprovedArry){
                                 height: element.CurrentHeight
                             });
         
+                            console.log(testShelf)
                             testShelf.save();
     
     });
@@ -346,15 +348,21 @@ function saveToDataBase(aprovedArry){
 
 app.post('/delete-shelf',async(req,res)=>{
 
-    const temp = req.body.UPS_Shelfs;
-    console.log(temp);
+    console.log(req.body.shelfToDelete);
 
+    Shelfs.deleteOne({ UPS_Shelfs: `${req.body.shelfToDelete}`}, function (err) {
+        if(Shelfs.findOne({ UPS_Shelfs: `${req.body.shelfToDelete}`})){
+         res.send(false)
+        }
+    });
+
+res.send(true)
     
 
 })
 
 
-app.post('/PullThiscCategory', async (req, res) => {
+app.delete('/PullThiscCategory', async (req, res) => {
     const { eventCategory } = req.body
     const data = await Products.find({ Category: eventCategory })
     res.send({ data })
@@ -534,8 +542,8 @@ app.post('/add_Products', async (req, res) => {
       const Amount = req.body.Amount;
       const Weight = req.body.Weight;
       const Location = req.body.Location;
-        console.log(PreviousAmount, Amount, PreviousWeight, Weight, PreviousLocation,Location)
-     const data = await Products.find({})
+      console.log(PreviousAmount, Amount, PreviousWeight, Weight, PreviousLocation,Location)
+      const data = await Products.find({})
    
      var myquery = {UPS:  req.body.UPS, Location: req.body.Location};
      var newvalues = { $set: {
@@ -619,7 +627,7 @@ app.post('/add_Products', async (req, res) => {
              let  weight = data[i].CurrentWeight
              numberOfProductsonShelf += eval(Amount);
              weight += eval(Weight);
-         ;
+         
                var myquery = { UPS_Shelfs: Location};
                var newvalues = { $set: {
                             NumberOfProductsonShelf: numberOfProductsonShelf,
