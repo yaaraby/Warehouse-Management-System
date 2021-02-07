@@ -502,105 +502,182 @@ app.get('/pull-Shelf', function _callee9(req, res) {
   });
 });
 app.put("/shelf-creation", function _callee11(req, res) {
-  var message;
-  return regeneratorRuntime.async(function _callee11$(_context11) {
-    while (1) {
-      switch (_context11.prev = _context11.next) {
-        case 0:
-          message = ""; // console.log(req.body);
-          // let flag = await Shelfs.findOne({ Line: 1 }).exec();
-          // // console.log(req.body)
-          // console.log(flag.Line)
+  var message, letters, tempNewRows, firstRow, lastRow, numberOfAreas, numberOfShelfs, maxHeight, maxWight, _i, j, k, aa, errorMessage, exCheck, saveToDataBase;
 
-          req.body.forEach(function _callee10(element) {
-            var flag;
-            return regeneratorRuntime.async(function _callee10$(_context10) {
+  return regeneratorRuntime.async(function _callee11$(_context12) {
+    while (1) {
+      switch (_context12.prev = _context12.next) {
+        case 0:
+          saveToDataBase = function _ref3(aprovedArry) {
+            aprovedArry.forEach(function _callee10(element) {
+              var testShelf;
+              return regeneratorRuntime.async(function _callee10$(_context11) {
+                while (1) {
+                  switch (_context11.prev = _context11.next) {
+                    case 0:
+                      testShelf = new Shelfs({
+                        Line: element.Line,
+                        Area: element.Area,
+                        Floor: element.Floor,
+                        UPS_Shelfs: element.UPS_Shelfs,
+                        NumberOfProductsonShelf: 1,
+                        //1 for test
+                        MaximumWeight: element.MaximumWeight,
+                        CurrentWeight: 0,
+                        height: element.CurrentHeight
+                      });
+                      testShelf.save();
+
+                    case 2:
+                    case "end":
+                      return _context11.stop();
+                  }
+                }
+              });
+            });
+            res.send(true);
+          };
+
+          exCheck = function _ref2(arrayToCheck) {
+            var flag, _i2, theTest;
+
+            return regeneratorRuntime.async(function exCheck$(_context10) {
               while (1) {
                 switch (_context10.prev = _context10.next) {
                   case 0:
-                    _context10.next = 2;
-                    return regeneratorRuntime.awrap(Shelfs.findOne({
-                      Line: element.Line
-                    }).exec());
+                    _i2 = 0;
 
-                  case 2:
-                    flag = _context10.sent;
-
-                    if (flag == null) {
-                      req.body.forEach(function (element) {
-                        // console.log(req.body)
-                        var testShelf = new Shelfs({
-                          Line: element.Line,
-                          Area: element.Area,
-                          Floor: element.Floor,
-                          UPS_Shelfs: element.UPS_Shelfs,
-                          NumberOfProductsonShelf: 1,
-                          MaximumWeight: element.MaximumWeight,
-                          CurrentWeight: 0,
-                          height: 0
-                        });
-                        testShelf.save();
-                      });
-                      res.send(true);
-                    } else {
-                      message = 'שורה זאת כבר קיימת';
-                      res.send({
-                        message: message
-                      });
+                  case 1:
+                    if (!(_i2 < arrayToCheck.length)) {
+                      _context10.next = 11;
+                      break;
                     }
 
+                    _context10.next = 4;
+                    return regeneratorRuntime.awrap(Shelfs.exists({
+                      Line: arrayToCheck[_i2].Line
+                    }).then(function (token) {
+                      return token;
+                    }));
+
                   case 4:
+                    theTest = _context10.sent;
+
+                    if (!(theTest == true)) {
+                      _context10.next = 8;
+                      break;
+                    }
+
+                    flag = false;
+                    return _context10.abrupt("break", 11);
+
+                  case 8:
+                    _i2++;
+                    _context10.next = 1;
+                    break;
+
+                  case 11:
+                    return _context10.abrupt("return", flag);
+
+                  case 12:
                   case "end":
                     return _context10.stop();
                 }
               }
             });
+          };
+
+          errorMessage = function _ref() {
+            message = 'שורה אחת ו\או כמה קיימת\ות כבר בחר שורות אחרות ';
+            res.send({
+              message: message
+            });
+          };
+
+          message = "";
+          console.log(req.body);
+          letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'O', 'P'];
+          tempNewRows = [];
+          firstRow = parseInt(req.body.firstRow);
+          lastRow = parseInt(req.body.lastRow);
+          numberOfAreas = parseInt(req.body.numberOfAreas);
+          numberOfShelfs = parseInt(req.body.numberOfShelfs);
+          maxHeight = parseInt(req.body.shelfHeight);
+          maxWight = parseInt(req.body.maxWight); //new shelfs builder
+
+          for (_i = firstRow; _i <= lastRow; _i++) {
+            for (j = 0; j < numberOfAreas; j++) {
+              for (k = 0; k < numberOfShelfs; k++) {
+                // console.log(`${i+1}${letters[j]}${k+1}`) //For test
+                tempNewRows.push({
+                  Line: _i,
+                  Area: "".concat(letters[j]),
+                  Floor: k + 1,
+                  UPS_Shelfs: "".concat(_i, "-").concat(letters[j], "-").concat(k + 1),
+                  // NumberOfProductsonShelf:Number, //Optional
+                  MaximumWeight: maxWight,
+                  // CurrentWeight: Number,//Optional
+                  CurrentHeight: maxHeight //Optional
+
+                });
+              }
+            }
+          }
+
+          aa = exCheck(tempNewRows).then(function (res, rej) {
+            console.log(res);
+
+            if (res == false) {
+              errorMessage();
+            } else {
+              saveToDataBase(tempNewRows);
+            }
           });
 
-        case 2:
-        case "end":
-          return _context11.stop();
-      }
-    }
-  });
-});
-app["delete"]('/delete-shelf', function _callee12(req, res) {
-  var temp;
-  return regeneratorRuntime.async(function _callee12$(_context12) {
-    while (1) {
-      switch (_context12.prev = _context12.next) {
-        case 0:
-          temp = req.body;
-          console.log(temp); // res.send(temp)
-
-        case 2:
+        case 15:
         case "end":
           return _context12.stop();
       }
     }
   });
 });
-app.post('/PullThiscCategory', function _callee13(req, res) {
-  var eventCategory, data;
-  return regeneratorRuntime.async(function _callee13$(_context13) {
+app.post('/delete-shelf', function _callee12(req, res) {
+  var temp;
+  return regeneratorRuntime.async(function _callee12$(_context13) {
     while (1) {
       switch (_context13.prev = _context13.next) {
         case 0:
+          temp = req.body.UPS_Shelfs;
+          console.log(temp);
+
+        case 2:
+        case "end":
+          return _context13.stop();
+      }
+    }
+  });
+});
+app.post('/PullThiscCategory', function _callee13(req, res) {
+  var eventCategory, data;
+  return regeneratorRuntime.async(function _callee13$(_context14) {
+    while (1) {
+      switch (_context14.prev = _context14.next) {
+        case 0:
           eventCategory = req.body.eventCategory;
-          _context13.next = 3;
+          _context14.next = 3;
           return regeneratorRuntime.awrap(Products.find({
             Category: eventCategory
           }));
 
         case 3:
-          data = _context13.sent;
+          data = _context14.sent;
           res.send({
             data: data
           });
 
         case 5:
         case "end":
-          return _context13.stop();
+          return _context14.stop();
       }
     }
   });
@@ -609,24 +686,24 @@ app.post('/PullThiscCategory', function _callee13(req, res) {
 app.post('/Searchdeta', function _callee14(req, res) {
   var _req$body3, placeholder, inputvalue, data, _data, _data2, _data3;
 
-  return regeneratorRuntime.async(function _callee14$(_context14) {
+  return regeneratorRuntime.async(function _callee14$(_context15) {
     while (1) {
-      switch (_context14.prev = _context14.next) {
+      switch (_context15.prev = _context15.next) {
         case 0:
           _req$body3 = req.body, placeholder = _req$body3.placeholder, inputvalue = _req$body3.inputvalue; // return false 
 
           if (!(placeholder == 'UPS-מקט')) {
-            _context14.next = 8;
+            _context15.next = 8;
             break;
           }
 
-          _context14.next = 4;
+          _context15.next = 4;
           return regeneratorRuntime.awrap(Products.find({
             UPS: inputvalue
           }));
 
         case 4:
-          data = _context14.sent;
+          data = _context15.sent;
 
           if (data.length == 0) {
             res.send({
@@ -638,22 +715,22 @@ app.post('/Searchdeta', function _callee14(req, res) {
             });
           }
 
-          _context14.next = 27;
+          _context15.next = 27;
           break;
 
         case 8:
           if (!(placeholder == 'חיפוש לפי שם מוצר')) {
-            _context14.next = 15;
+            _context15.next = 15;
             break;
           }
 
-          _context14.next = 11;
+          _context15.next = 11;
           return regeneratorRuntime.awrap(Products.find({
             Name: inputvalue
           }));
 
         case 11:
-          _data = _context14.sent;
+          _data = _context15.sent;
 
           if (_data.length == 0) {
             res.send({
@@ -665,22 +742,22 @@ app.post('/Searchdeta', function _callee14(req, res) {
             });
           }
 
-          _context14.next = 27;
+          _context15.next = 27;
           break;
 
         case 15:
           if (!(placeholder == 'חיפוש לפי תאריך תפוגה')) {
-            _context14.next = 22;
+            _context15.next = 22;
             break;
           }
 
-          _context14.next = 18;
+          _context15.next = 18;
           return regeneratorRuntime.awrap(Products.find({
             ExpiryDate: inputvalue
           }));
 
         case 18:
-          _data2 = _context14.sent;
+          _data2 = _context15.sent;
 
           if (_data2.length == 0) {
             res.send({
@@ -692,22 +769,22 @@ app.post('/Searchdeta', function _callee14(req, res) {
             });
           }
 
-          _context14.next = 27;
+          _context15.next = 27;
           break;
 
         case 22:
           if (!(placeholder == 'חיפוש לפי מדף / מיקום')) {
-            _context14.next = 27;
+            _context15.next = 27;
             break;
           }
 
-          _context14.next = 25;
+          _context15.next = 25;
           return regeneratorRuntime.awrap(Products.find({
             Location: inputvalue
           }));
 
         case 25:
-          _data3 = _context14.sent;
+          _data3 = _context15.sent;
 
           if (_data3.length == 0) {
             res.send({
@@ -721,89 +798,89 @@ app.post('/Searchdeta', function _callee14(req, res) {
 
         case 27:
         case "end":
-          return _context14.stop();
+          return _context15.stop();
       }
     }
   });
 });
 app.post('/PullInformation', function _callee15(req, res) {
   var e, data;
-  return regeneratorRuntime.async(function _callee15$(_context15) {
+  return regeneratorRuntime.async(function _callee15$(_context16) {
     while (1) {
-      switch (_context15.prev = _context15.next) {
+      switch (_context16.prev = _context16.next) {
         case 0:
           e = req.body.e;
-          _context15.next = 3;
+          _context16.next = 3;
           return regeneratorRuntime.awrap(Products.find({
             _id: e
           }));
 
         case 3:
-          data = _context15.sent;
+          data = _context16.sent;
           res.send({
             data: data
           });
 
         case 5:
         case "end":
-          return _context15.stop();
+          return _context16.stop();
       }
     }
   });
 });
 app.put("/update", function _callee16(req, res) {
   var data, myquery, newvalues;
-  return regeneratorRuntime.async(function _callee16$(_context16) {
+  return regeneratorRuntime.async(function _callee16$(_context17) {
     while (1) {
-      switch (_context16.prev = _context16.next) {
+      switch (_context17.prev = _context17.next) {
         case 0:
-          _context16.next = 2;
+          _context17.next = 2;
           return regeneratorRuntime.awrap(Users.find({}));
 
         case 2:
-          data = _context16.sent;
+          data = _context17.sent;
           i = 0;
 
         case 4:
           if (!(i < data.length)) {
-            _context16.next = 21;
+            _context17.next = 21;
             break;
           }
 
           if (!(req.body.id_user !== data[i].id_user)) {
-            _context16.next = 18;
+            _context17.next = 18;
             break;
           }
 
           if (!(req.body.userName == data[i].userName)) {
-            _context16.next = 11;
+            _context17.next = 11;
             break;
           }
 
           message = 'שם משתמש כבר קיים';
-          return _context16.abrupt("break", 21);
+          return _context17.abrupt("break", 21);
 
         case 11:
           if (!(req.body.email == data[i].email)) {
-            _context16.next = 16;
+            _context17.next = 16;
             break;
           }
 
           message = 'מייל זה כבר קיים במערכת';
-          return _context16.abrupt("break", 21);
+          return _context17.abrupt("break", 21);
 
         case 16:
           message = 'ok';
-          return _context16.abrupt("break", 21);
+          return _context17.abrupt("break", 21);
 
         case 18:
           i++;
-          _context16.next = 4;
+          _context17.next = 4;
           break;
 
         case 21:
           if (!(message == 'ok')) {
-            _context16.next = 26;
+            _context17.next = 26;
             break;
           }
 
@@ -820,7 +897,7 @@ app.put("/update", function _callee16(req, res) {
               role: req.body.role
             }
           };
-          _context16.next = 26;
+          _context17.next = 26;
           return regeneratorRuntime.awrap(Users.updateOne(myquery, newvalues, function (err, res) {
             if (err) throw err;
             console.log("1 document updated");
@@ -835,42 +912,609 @@ app.put("/update", function _callee16(req, res) {
 
         case 27:
         case "end":
-          return _context16.stop();
+          return _context17.stop();
       }
     }
   });
 });
 app.get('/get-details-users:userId', function _callee17(req, res) {
   var userId, findUser;
-  return regeneratorRuntime.async(function _callee17$(_context17) {
+  return regeneratorRuntime.async(function _callee17$(_context18) {
     while (1) {
-      switch (_context17.prev = _context17.next) {
+      switch (_context18.prev = _context18.next) {
         case 0:
           userId = req.params.userId;
           console.log(userId);
-          _context17.prev = 2;
-          _context17.next = 5;
+          _context18.prev = 2;
+          _context18.next = 5;
           return regeneratorRuntime.awrap(Users.findOne({
             _id: userId
           }));
 
         case 5:
-          findUser = _context17.sent;
+          findUser = _context18.sent;
           res.send(findUser);
-          _context17.next = 12;
+          _context18.next = 12;
           break;
 
         case 9:
-          _context17.prev = 9;
-          _context17.t0 = _context17["catch"](2);
-          console.log(_context17.t0);
+          _context18.prev = 9;
+          _context18.t0 = _context18["catch"](2);
+          console.log(_context18.t0);
 
         case 12:
         case "end":
-          return _context17.stop();
+          return _context18.stop();
       }
     }
   }, null, null, [[2, 9]]);
+}); // yaara
+
+app.get('/get-Shelfs-list', function _callee18(req, res) {
+  var data;
+  return regeneratorRuntime.async(function _callee18$(_context19) {
+    while (1) {
+      switch (_context19.prev = _context19.next) {
+        case 0:
+          _context19.next = 2;
+          return regeneratorRuntime.awrap(Shelfs.find({}, {
+            UPS_Shelfs: 1
+          }));
+
+        case 2:
+          data = _context19.sent;
+          console.log(data);
+          res.send({
+            data: data
+          });
+
+        case 5:
+        case "end":
+          return _context19.stop();
+      }
+    }
+  });
+});
+app.get('/get-Details-Shelfs:UPS_Shelfs', function _callee19(req, res, next) {
+  var UPS_Shelfs, CurrrentDetailsShelf;
+  return regeneratorRuntime.async(function _callee19$(_context20) {
+    while (1) {
+      switch (_context20.prev = _context20.next) {
+        case 0:
+          UPS_Shelfs = req.params.UPS_Shelfs;
+          _context20.prev = 1;
+          _context20.next = 4;
+          return regeneratorRuntime.awrap(Shelfs.findOne({
+            UPS_Shelfs: UPS_Shelfs
+          }));
+
+        case 4:
+          CurrrentDetailsShelf = _context20.sent;
+          res.send(CurrrentDetailsShelf);
+          _context20.next = 11;
+          break;
+
+        case 8:
+          _context20.prev = 8;
+          _context20.t0 = _context20["catch"](1);
+          console.log(_context20.t0);
+
+        case 11:
+        case "end":
+          return _context20.stop();
+      }
+    }
+  }, null, null, [[1, 8]]);
+});
+app.post('/add_Products', function _callee20(req, res) {
+  var status, _req$body4, UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location, products, sumProductOnShelf;
+
+  return regeneratorRuntime.async(function _callee20$(_context21) {
+    while (1) {
+      switch (_context21.prev = _context21.next) {
+        case 0:
+          status = true;
+          _req$body4 = req.body, UPS = _req$body4.UPS, Name = _req$body4.Name, price = _req$body4.price, Amount = _req$body4.Amount, Category = _req$body4.Category, Weight = _req$body4.Weight, height = _req$body4.height, ExpiryDate = _req$body4.ExpiryDate, Location = _req$body4.Location;
+          products = new Products({
+            UPS: UPS,
+            Name: Name,
+            price: price,
+            Amount: Amount,
+            Category: Category,
+            Weight: Weight,
+            height: height,
+            ExpiryDate: ExpiryDate,
+            Location: Location
+          });
+          _context21.next = 5;
+          return regeneratorRuntime.awrap(products.save().then(function (doc) {
+            return console.log(doc);
+          })["catch"](function (e) {
+            return console.log(e);
+          }));
+
+        case 5:
+          _context21.next = 7;
+          return regeneratorRuntime.awrap(updateNumberOfProduct(Amount, Location, Weight));
+
+        case 7:
+          sumProductOnShelf = _context21.sent;
+
+          if (sumProductOnShelf == true) {
+            res.send({
+              status: status
+            });
+          }
+
+        case 9:
+        case "end":
+          return _context21.stop();
+      }
+    }
+  });
+});
+
+var updateNumberOfProduct = function updateNumberOfProduct(Amount, Location, Weight) {
+  var data, ups_shelf, numberOfProductsonShelf, weight, myquery, newvalues;
+  return regeneratorRuntime.async(function updateNumberOfProduct$(_context22) {
+    while (1) {
+      switch (_context22.prev = _context22.next) {
+        case 0:
+          _context22.next = 2;
+          return regeneratorRuntime.awrap(Shelfs.find({}));
+
+        case 2:
+          data = _context22.sent;
+          i = 0;
+
+        case 4:
+          if (!(i < data.length)) {
+            _context22.next = 18;
+            break;
+          }
+
+          if (!(Location == data[i].UPS_Shelfs)) {
+            _context22.next = 15;
+            break;
+          }
+
+          ups_shelf = data[i].UPS_Shelfs;
+          numberOfProductsonShelf = data[i].NumberOfProductsonShelf;
+          weight = data[i].CurrentWeight;
+          numberOfProductsonShelf += eval(Amount);
+          weight += eval(Weight);
+          myquery = {
+            UPS_Shelfs: Location
+          };
+          newvalues = {
+            $set: {
+              NumberOfProductsonShelf: numberOfProductsonShelf,
+              CurrentWeight: weight
+            }
+          };
+          _context22.next = 15;
+          return regeneratorRuntime.awrap(Shelfs.updateOne(myquery, newvalues, function (err, res) {
+            if (err) throw err;
+            console.log("1 document updated");
+          }));
+
+        case 15:
+          i++;
+          _context22.next = 4;
+          break;
+
+        case 18:
+          return _context22.abrupt("return", true);
+
+        case 19:
+        case "end":
+          return _context22.stop();
+      }
+    }
+  });
+};
+
+app.put("/Product/", function _callee21(req, res) {
+  var PreviousAmount, PreviousWeight, PreviousLocation, Amount, Weight, Location, data, myquery, newvalues, checkHighNumber;
+  return regeneratorRuntime.async(function _callee21$(_context23) {
+    while (1) {
+      switch (_context23.prev = _context23.next) {
+        case 0:
+          console.log('nn');
+          PreviousAmount = req.body.PreviousAmount;
+          PreviousWeight = req.body.PreviousWeight;
+          PreviousLocation = req.body.PreviousLocation;
+          Amount = req.body.Amount;
+          Weight = req.body.Weight;
+          Location = req.body.Location;
+          console.log(PreviousAmount, Amount, PreviousWeight, Weight, PreviousLocation, Location);
+          _context23.next = 10;
+          return regeneratorRuntime.awrap(Products.find({}));
+
+        case 10:
+          data = _context23.sent;
+          myquery = {
+            UPS: req.body.UPS,
+            Location: req.body.Location
+          };
+          newvalues = {
+            $set: {
+              UPS: req.body.UPS,
+              Name: req.body.Name,
+              price: req.body.price,
+              Amount: req.body.Amount,
+              Category: req.body.Category,
+              Weight: req.body.Weight,
+              height: req.body.height,
+              ExpiryDate: req.body.ExpiryDate,
+              Location: req.body.Location
+            }
+          };
+          checkHighNumber = theHighNumber(PreviousAmount, Amount, PreviousWeight, Weight, PreviousLocation, Location);
+          console.log(checkHighNumber);
+
+          if (!checkHighNumber) {
+            _context23.next = 18;
+            break;
+          }
+
+          _context23.next = 18;
+          return regeneratorRuntime.awrap(Products.updateOne(myquery, newvalues, function (err, res) {
+            if (err) throw err;
+            console.log("1 document updated");
+          }));
+
+        case 18:
+          res.send({
+            message: true
+          });
+
+        case 19:
+        case "end":
+          return _context23.stop();
+      }
+    }
+  });
+});
+
+var theHighNumber = function theHighNumber(PreviousAmount, Amount, PreviousWeight, Weight, PreviousLocation, Location) {
+  var sumAmount = 0;
+  var sumWeight = 0;
+
+  if (PreviousLocation != Location) {
+    if (PreviousAmount == Amount) {
+      updateMinusAmountPreviousShelf(PreviousAmount, PreviousWeight, PreviousLocation);
+      updateNewShelf(Amount, Weight, Location);
+    } else {
+      sumAmount = PreviousAmount - Amount;
+      sumWeight = PreviousWeight - Weight;
+      updateMinusAmountPreviousShelf(sumAmount, sumWeight, PreviousLocation);
+      updateNewInventory(sumAmount, sumWeight, Location);
+    }
+  } else {
+    updateNewInventory(sumAmount, sumWeight, Location);
+  }
+
+  return true;
+};
+
+var updateMinusAmountPreviousShelf = function updateMinusAmountPreviousShelf(PreviousAmount, PreviousWeight, PreviousLocation) {
+  var data, ups_shelf, numberOfProductsonShelf, weight, myquery, newvalues;
+  return regeneratorRuntime.async(function updateMinusAmountPreviousShelf$(_context24) {
+    while (1) {
+      switch (_context24.prev = _context24.next) {
+        case 0:
+          console.log('aa');
+          _context24.next = 3;
+          return regeneratorRuntime.awrap(Shelfs.find({}));
+
+        case 3:
+          data = _context24.sent;
+          i = 0;
+
+        case 5:
+          if (!(i < data.length)) {
+            _context24.next = 20;
+            break;
+          }
+
+          if (!(PreviousLocation == data[i].UPS_Shelfs)) {
+            _context24.next = 17;
+            break;
+          }
+
+          ups_shelf = data[i].UPS_Shelfs;
+          numberOfProductsonShelf = data[i].NumberOfProductsonShelf;
+          weight = data[i].CurrentWeight;
+          numberOfProductsonShelf -= eval(PreviousAmount);
+          weight -= eval(PreviousWeight);
+          ;
+          myquery = {
+            UPS_Shelfs: PreviousLocation
+          };
+          newvalues = {
+            $set: {
+              NumberOfProductsonShelf: numberOfProductsonShelf,
+              CurrentWeight: weight
+            }
+          };
+          _context24.next = 17;
+          return regeneratorRuntime.awrap(Shelfs.updateOne(myquery, newvalues, function (err, res) {
+            if (err) throw err;
+            console.log("1 document updated");
+          }));
+
+        case 17:
+          i++;
+          _context24.next = 5;
+          break;
+
+        case 20:
+        case "end":
+          return _context24.stop();
+      }
+    }
+  });
+};
+
+var updateNewShelf = function updateNewShelf(Amount, Weight, Location) {
+  var data, ups_shelf, numberOfProductsonShelf, weight, myquery, newvalues;
+  return regeneratorRuntime.async(function updateNewShelf$(_context25) {
+    while (1) {
+      switch (_context25.prev = _context25.next) {
+        case 0:
+          _context25.next = 2;
+          return regeneratorRuntime.awrap(Shelfs.find({}));
+
+        case 2:
+          data = _context25.sent;
+          i = 0;
+
+        case 4:
+          if (!(i < data.length)) {
+            _context25.next = 18;
+            break;
+          }
+
+          if (!(Location == data[i].UPS_Shelfs)) {
+            _context25.next = 15;
+            break;
+          }
+
+          ups_shelf = data[i].UPS_Shelfs;
+          numberOfProductsonShelf = data[i].NumberOfProductsonShelf;
+          weight = data[i].CurrentWeight;
+          numberOfProductsonShelf += eval(Amount);
+          weight += eval(Weight);
+          myquery = {
+            UPS_Shelfs: Location
+          };
+          newvalues = {
+            $set: {
+              NumberOfProductsonShelf: numberOfProductsonShelf,
+              CurrentWeight: weight
+            }
+          };
+          _context25.next = 15;
+          return regeneratorRuntime.awrap(Shelfs.updateOne(myquery, newvalues, function (err, res) {
+            if (err) throw err;
+            console.log("1 document updated");
+          }));
+
+        case 15:
+          i++;
+          _context25.next = 4;
+          break;
+
+        case 18:
+        case "end":
+          return _context25.stop();
+      }
+    }
+  });
+};
+
+var updateNewInventory = function updateNewInventory(sumAmount, sumWeight, Location) {
+  var data, ups_shelf, numberOfProductsonShelf, weight, myquery, newvalues;
+  return regeneratorRuntime.async(function updateNewInventory$(_context26) {
+    while (1) {
+      switch (_context26.prev = _context26.next) {
+        case 0:
+          console.log('cc');
+          _context26.next = 3;
+          return regeneratorRuntime.awrap(Shelfs.find({}));
+
+        case 3:
+          data = _context26.sent;
+          i = 0;
+
+        case 5:
+          if (!(i < data.length)) {
+            _context26.next = 20;
+            break;
+          }
+
+          if (!(Location == data[i].UPS_Shelfs)) {
+            _context26.next = 17;
+            break;
+          }
+
+          ups_shelf = data[i].UPS_Shelfs;
+          numberOfProductsonShelf = data[i].NumberOfProductsonShelf;
+          weight = data[i].CurrentWeight;
+          numberOfProductsonShelf += eval(sumAmount);
+          weight += eval(sumWeight);
+          ;
+          myquery = {
+            UPS_Shelfs: Location
+          };
+          newvalues = {
+            $set: {
+              NumberOfProductsonShelf: numberOfProductsonShelf,
+              CurrentWeight: weight
+            }
+          };
+          _context26.next = 17;
+          return regeneratorRuntime.awrap(Shelfs.updateOne(myquery, newvalues, function (err, res) {
+            if (err) throw err;
+            console.log("1 document updated");
+          }));
+
+        case 17:
+          i++;
+          _context26.next = 5;
+          break;
+
+        case 20:
+        case "end":
+          return _context26.stop();
+      }
+    }
+  });
+};
+
+app.get('/get-Shelfs-list', function _callee22(req, res) {
+  var data;
+  return regeneratorRuntime.async(function _callee22$(_context27) {
+    while (1) {
+      switch (_context27.prev = _context27.next) {
+        case 0:
+          _context27.next = 2;
+          return regeneratorRuntime.awrap(Shelfs.find({}, {
+            UPS_Shelfs: 1
+          }));
+
+        case 2:
+          data = _context27.sent;
+          res.send({
+            data: data
+          });
+
+        case 4:
+        case "end":
+          return _context27.stop();
+      }
+    }
+  });
+});
+app["delete"]('/deleteProduct/:id', function _callee23(req, res, next) {
+  var id, product;
+  return regeneratorRuntime.async(function _callee23$(_context28) {
+    while (1) {
+      switch (_context28.prev = _context28.next) {
+        case 0:
+          console.log('gg');
+          id = req.params.id;
+          console.log(id);
+          _context28.prev = 3;
+          _context28.next = 6;
+          return regeneratorRuntime.awrap(isProductExists(id));
+
+        case 6:
+          product = _context28.sent;
+
+          if (product.isExists) {
+            _context28.next = 11;
+            break;
+          }
+
+          res.status(500).send('Error: Product does not exists');
+          _context28.next = 14;
+          break;
+
+        case 11:
+          _context28.next = 13;
+          return regeneratorRuntime.awrap(Products.deleteOne({
+            _id: id
+          }));
+
+        case 13:
+          //  const data = await Products.find({})
+          res.send({
+            deleted: true
+          });
+
+        case 14:
+          _context28.next = 19;
+          break;
+
+        case 16:
+          _context28.prev = 16;
+          _context28.t0 = _context28["catch"](3);
+          console.log(_context28.t0);
+
+        case 19:
+        case "end":
+          return _context28.stop();
+      }
+    }
+  }, null, null, [[3, 16]]);
+});
+
+var isProductExists = function isProductExists(id) {
+  var isExists, data;
+  return regeneratorRuntime.async(function isProductExists$(_context29) {
+    while (1) {
+      switch (_context29.prev = _context29.next) {
+        case 0:
+          isExists = false;
+          _context29.next = 3;
+          return regeneratorRuntime.awrap(Products.find({
+            _id: id
+          }));
+
+        case 3:
+          data = _context29.sent;
+          console.log(data);
+
+          if (data !== null) {
+            isExists = true;
+          }
+
+          console.log(isExists);
+          return _context29.abrupt("return", {
+            isExists: isExists,
+            data: data
+          });
+
+        case 8:
+        case "end":
+          return _context29.stop();
+      }
+    }
+  });
+};
+
+app.get('/get-details-product:id', function _callee24(req, res) {
+  var id, findProduct;
+  return regeneratorRuntime.async(function _callee24$(_context30) {
+    while (1) {
+      switch (_context30.prev = _context30.next) {
+        case 0:
+          id = req.params.id;
+          _context30.prev = 1;
+          _context30.next = 4;
+          return regeneratorRuntime.awrap(Products.findOne({
+            _id: id
+          }));
+
+        case 4:
+          findProduct = _context30.sent;
+          res.send(findProduct);
+          _context30.next = 11;
+          break;
+
+        case 8:
+          _context30.prev = 8;
+          _context30.t0 = _context30["catch"](1);
+          console.log(_context30.t0);
+
+        case 11:
+        case "end":
+          return _context30.stop();
+      }
+    }
+  }, null, null, [[1, 8]]);
 });
 var port = process.env.PORT || 8080;
 app.listen(port, function () {

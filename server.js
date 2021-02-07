@@ -619,7 +619,7 @@ app.post('/add_Products', async (req, res) => {
              let  weight = data[i].CurrentWeight
              numberOfProductsonShelf += eval(Amount);
              weight += eval(Weight);
-         ;
+         
                var myquery = { UPS_Shelfs: Location};
                var newvalues = { $set: {
                             NumberOfProductsonShelf: numberOfProductsonShelf,
