@@ -446,6 +446,7 @@ function editProductByIddisplaynone() {
 let globalCategories = [];
 function PullThiscCategory(event) {
     globalCategories = event;
+
     const eventCategory = event.target.innerText
     carbox.innerHTML = ''
 
@@ -472,6 +473,7 @@ function PullThiscCategory(event) {
             ShowAll.style.display = 'block'
             titlecategory.innerHTML = eventCategory
             carbox.innerHTML += `<table>
+        
 <thead>
     <tr>
         <th>מיקום</th>
@@ -1150,7 +1152,10 @@ async function handleEditProduct(e, _id, PreviousAmount, PreviousWeight, Previou
                     checkValidation.innerHTML  = 'המוצר עודכן במערכת'
                 
                      setTimeout(() => {
-                        PullThiscCategory(globalCategories)
+                         PullThiscCategory(globalCategories)
+                         cardCategory.style.display = 'block'
+                         carbox.style.display = 'block'
+                         titlecategory.style.display = 'block'
                     }, 500); 
 
 

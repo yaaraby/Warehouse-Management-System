@@ -393,7 +393,7 @@ function PullThiscCategory(event) {
     UsersList.style.display = 'none';
     ShowAll.style.display = 'block';
     titlecategory.innerHTML = eventCategory;
-    carbox.innerHTML += "<table>\n<thead>\n    <tr>\n        <th>\u05DE\u05D9\u05E7\u05D5\u05DD</th>\n        <th>\u05EA\u05D0\u05E8\u05D9\u05DA \u05EA\u05E4\u05D5\u05D2\u05D4</th>\n        <th>\u05E9\u05DD \u05D4\u05DE\u05D5\u05E6\u05E8</th>\n        <th>\u05DE\u05E7\u05D8 - UPS </th>\n        <th></th>\n    </tr>\n</thead>\n    <tbody>\n        ".concat(data.data.map(function (elm) {
+    carbox.innerHTML += "<table>\n        \n<thead>\n    <tr>\n        <th>\u05DE\u05D9\u05E7\u05D5\u05DD</th>\n        <th>\u05EA\u05D0\u05E8\u05D9\u05DA \u05EA\u05E4\u05D5\u05D2\u05D4</th>\n        <th>\u05E9\u05DD \u05D4\u05DE\u05D5\u05E6\u05E8</th>\n        <th>\u05DE\u05E7\u05D8 - UPS </th>\n        <th></th>\n    </tr>\n</thead>\n    <tbody>\n        ".concat(data.data.map(function (elm) {
       return "<tr>\n                <td>".concat(elm.Location, "</td> \n                <td>").concat(elm.ExpiryDate, "</td>\n                <td>").concat(elm.Name, "</td>\n                <td>").concat(elm.UPS, "</td>\n                <td class=\"flexCrudProduct\">\n                <div class=\"list\" onclick=\"editProduct('").concat(elm._id, "')\"><img src=\"/img/edit-button.png\"></div>\n                <div class=\"list\" onclick=\"deleteProduct('").concat(elm._id, "')\"><img src=\"/img/deleteuser.png\"></div>\n                </td>\n        </tr>\n");
     }).join(''), "</tbody>\n</table>");
   });
@@ -966,6 +966,9 @@ function handleEditProduct(e, _id, PreviousAmount, PreviousWeight, PreviousLocat
                 checkValidation.innerHTML = 'המוצר עודכן במערכת';
                 setTimeout(function () {
                   PullThiscCategory(globalCategories);
+                  cardCategory.style.display = 'block';
+                  carbox.style.display = 'block';
+                  titlecategory.style.display = 'block';
                 }, 500);
               } else {
                 checkValidation.innerHTML = data.message;
