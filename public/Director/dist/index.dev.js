@@ -343,12 +343,16 @@ function getCategory() {
         }
       });
       aryycategory.forEach(function (elm) {
-        cardboxcatygory.innerHTML += "<img src=\"/img/delete.png\" class=\"displaynone\" onclick=\"shelfObservationDisplayNone()\">\n                    <button class=\"addProduct\" onclick=\"addProductStyle()\"><img src=\"/img/+.png\"></button>\n                    <div class=\"A_line_in_a_category\" onclick=\"PullThiscCategory(event)\">".concat(elm, "</div>");
+        cardboxcatygory.innerHTML += "<img src=\"/img/delete.png\" class=\"displaynone\" onclick=\"categoriesDisplayNone()\">\n                    <button class=\"addProduct\" onclick=\"addProductStyle()\"><img src=\"/img/+.png\"></button>\n                    <div class=\"A_line_in_a_category\" onclick=\"PullThiscCategory(event)\">".concat(elm, "</div>");
       });
     } else {
       cardboxcatygory.innerHTML = '<h1>הנתונים לא זמינים</h1>';
     }
   });
+}
+
+function categoriesDisplayNone() {
+  cardCategory.style.display = 'none';
 }
 
 function addProductStyle() {

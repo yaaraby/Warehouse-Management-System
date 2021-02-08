@@ -420,7 +420,7 @@ function getCategory() {
                     }
                 });
                 aryycategory.forEach(elm => {
-                    cardboxcatygory.innerHTML += `<img src="/img/delete.png" class="displaynone" onclick="shelfObservationDisplayNone()">
+                    cardboxcatygory.innerHTML += `<img src="/img/delete.png" class="displaynone" onclick="categoriesDisplayNone()">
                     <button class="addProduct" onclick="addProductStyle()"><img src="/img/+.png"></button>
                     <div class="A_line_in_a_category" onclick="PullThiscCategory(event)">${elm}</div>`
                 })
@@ -429,6 +429,12 @@ function getCategory() {
                 cardboxcatygory.innerHTML = '<h1>הנתונים לא זמינים</h1>'
             }
         })
+}
+
+function categoriesDisplayNone() {
+    cardCategory.style.display = 'none'
+
+
 }
 
 function addProductStyle() {
@@ -779,6 +785,8 @@ function shelfObservationDisplayNone() {
 
 
 }
+
+
 
 function allShelfs(data) {
     menubutoondisplayblock()
