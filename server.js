@@ -362,7 +362,7 @@ res.send(true)
 })
 
 
-app.delete('/PullThiscCategory', async (req, res) => {
+app.post('/PullThiscCategory', async (req, res) => {
     const { eventCategory } = req.body
     const data = await Products.find({ Category: eventCategory })
     res.send({ data })
@@ -545,7 +545,7 @@ app.post('/add_Products', async (req, res) => {
       console.log(PreviousAmount, Amount, PreviousWeight, Weight, PreviousLocation,Location)
       const data = await Products.find({})
    
-     var myquery = {UPS:  req.body.UPS, Location: req.body.Location};
+     var myquery = {_id:  req.body._id};
      var newvalues = { $set: {
                              UPS: req.body.UPS
                            , Name:     req.body.Name
@@ -573,20 +573,34 @@ app.post('/add_Products', async (req, res) => {
    
        let sumAmount = 0 ; 
        let sumWeight = 0 ;
-       if (PreviousLocation != Location){
+       if (PreviousLocation != Location) {
            if (PreviousAmount == Amount) {
-            updateMinusAmountPreviousShelf(PreviousAmount, PreviousWeight, PreviousLocation)
-            updateNewShelf( Amount, Weight,Location)
+               updateMinusAmountPreviousShelf(PreviousAmount, PreviousWeight, PreviousLocation)
+               updateNewShelf(Amount, Weight, Location)
            }
-           else{
-            sumAmount = PreviousAmount - Amount ; 
-            sumWeight = PreviousWeight - Weight ; 
-            updateMinusAmountPreviousShelf(sumAmount, sumWeight, PreviousLocation)
-            updateNewInventory(sumAmount,sumWeight ,Location) 
+           else if (eval(PreviousAmount) > eval(Amount)) {
+               sumAmount = PreviousAmount - Amount;
+               sumWeight = PreviousWeight - Weight;
+               updateMinusAmountPreviousShelf(sumAmount, sumWeight, PreviousLocation)
+               updateNewInventory(Amount, Weight, Location)
+           }
+       
+           else {
+               updateMinusAmountPreviousShelf(PreviousAmount, PreviousWeight, PreviousLocation)
+               updateNewInventory(Amount, Weight, Location)
            }
        }
-       else{
-            updateNewInventory(sumAmount,sumWeight ,Location)
+       else {
+           if (eval(PreviousAmount) > eval(Amount)) {
+            sumAmount = PreviousAmount - Amount;
+            sumWeight = PreviousWeight - Weight;
+            updateNewInventory(sumAmount, sumWeight, Location)  
+           }
+           else {
+            sumAmount =  Amount - PreviousAmount ;
+            sumWeight = Weight - PreviousWeight;
+            updateNewInventory(sumAmount, sumWeight, Location)   
+           }
        }
    
        return(true)

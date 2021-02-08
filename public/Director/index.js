@@ -394,6 +394,7 @@ const handleRegistration = (e) => {
     }
 }
 
+
 function getCategory() {
     menubutoondisplayblock()
     let aryycategory = []
@@ -419,13 +420,27 @@ function getCategory() {
                     }
                 });
                 aryycategory.forEach(elm => {
-                    cardboxcatygory.innerHTML += `<div class="A_line_in_a_category" onclick="PullThiscCategory(event)">${elm}</div>`
+                    cardboxcatygory.innerHTML += `<img src="/img/delete.png" class="displaynone" onclick="shelfObservationDisplayNone()">
+                    <button class="addProduct" onclick="addProductStyle()"><img src="/img/+.png"></button>
+                    <div class="A_line_in_a_category" onclick="PullThiscCategory(event)">${elm}</div>`
                 })
             }
             else {
                 cardboxcatygory.innerHTML = '<h1>הנתונים לא זמינים</h1>'
             }
         })
+}
+
+function addProductStyle() {
+    menubutoondisplayblock()
+    cardCategory.style.display = 'none'
+    addNewProductclass.style.display = 'block'
+}
+function editProductByIddisplaynone() {
+    editProductById.style.display = "none"
+    cardCategory.style.display = 'block'
+    carbox.style.display = 'block'
+    titlecategory.style.display = 'block'
 }
 
 let globalCategories = [];
@@ -444,9 +459,16 @@ function PullThiscCategory(event) {
         res.json()
     )
         .then(data => {
+            outcome.style.display = 'none'
             Registration.style.display = 'none'
+            Search.style.display = 'none'
             cardCategory.style.display = 'none'
+            editUserById.style.display = "none"
+            editProductById.style.display = "none"
+            AddShelf.style.display = 'none'
+            ShelfList.style.display = 'none'
             addNewProductclass.style.display = 'none'
+            UsersList.style.display = 'none'
             ShowAll.style.display = 'block'
             titlecategory.innerHTML = eventCategory
             carbox.innerHTML += `<table>
@@ -837,7 +859,7 @@ function addShelflist() {
     AddShelf.style.display = 'none'
     ShelfList.style.display = 'block'
 }
- 
+  
 //yaara ------------------------------------
 
 function getShelfList(){
@@ -899,12 +921,22 @@ async function addNewProduct(e){
             .then(data => {
                 console.log(data)
               if (data.status == true) { 
-                    message.innerHTML = "המוצר נוצר בהצלחה"
+                  message.innerHTML = "המוצר נוצר בהצלחה"
+                  
+                  e.target[0].value= ''
+                  e.target[1].value = ''
+                  e.target[2].value = ''
+                  e.target[3].value = ''
+                  e.target[4].value = ''
+                  e.target[5].value = ''
+                  e.target[6].value = ''
+                  e.target[7].value = ''
+                  e.target[8].value = ''
 
                      setTimeout(() => {
                         getCategory()
-                    }, 500);  
- 
+                     }, 500);  
+
                  } else {
                      message.innerHTML = 'המוצר אינו נוסף למערכת, נסה שנית'
                  }
@@ -944,17 +976,6 @@ const getCurrrentWeight = async (UPS_Shelfs) =>{
               return(check)
     
 } 
-
-
-//    const CalcWeight =  (getWeight, weight) =>{
-//     if (Number(getWeight) > Number(weight)){
-//         return (true);
-//     }
-//     else {
-//         return (false)
-//     }
-// } 
-
 
    const CalcWeight =  (getWeight, weight) =>{
     if (Number(getWeight) > Number(weight)){
@@ -1034,13 +1055,13 @@ const editProduct = (id) =>{
         .then(data => {
             carbox.style.display = 'none'
            titlecategory.style.display = 'none' 
-           ShowAll.style.display = 'none'
+            ShowAll.style.display = 'none'
             editProductById.style.display = "block"
 
             document.getElementById('editProductById').innerHTML =
-                 
-                   `<h1>עריכת מוצר</h1>
-                   <form onsubmit="handleEditProduct(event, '${data.Amount}', '${data.Weight}','${data.Location}')">
+            `<img class="imgdeleteeditUser" src="/img/return.png" onclick="editProductByIddisplaynone()">    
+                   <h1>עריכת מוצר</h1>
+                   <form onsubmit="handleEditProduct(event, '${data._id}', '${data.Amount}', '${data.Weight}','${data.Location}')">
                    
                 <div class="productDetails">
                     <label for="UPS">מק"ט:
@@ -1083,281 +1104,11 @@ const editProduct = (id) =>{
        } )
     
 } 
- /* 
-const editProduct = (id) =>{
-    menubutoondisplayblock()
-    letdistinctResult= []; 
-    fetch('/get-details-product' + id,{
-              method: 'GET',
-           headers: {
-               'Content-Type': 'application/json'
-           }
-       }).then(res =>
-           res.json()
-       )
-       .then(data => {
-           carbox.style.display = 'none'
-           titlecategory.style.display = 'none' 
-         ShowAll.style.display = 'none'
-        editProductById.style.display = "block"
-        document.getElementById('editProductById').innerHTML =
-            `<img onclick='displaynoneeditProductardlogin()' src="/img/delete.png" alt="">
-                  
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 
 
-                   <h1>עריכת מוצר</h1>
-<<<<<<< Updated upstream
-=======
->>>>>>> master
-
-
-<<<<<<< HEAD
-=======
-=======
-                <h1>עריכת מוצר</h1>
-
-                   <h1>עריכת מוצר</h1>
->>>>>>> Stashed changes
-                   <h1>עריכת מוצר</h1>
->>>>>>> master
-                   <form onsubmit="handleEditProduct(event, ${data.Amount})">
-                   
-                <div class="productDetails">
-                    <label for="UPS">מק"ט:
-                   <input type="number" name="UPS" id="UPS" value="${data.UPS}" disabled="disabled" autocomplete='off'></br>
-               </label>
-               <label for="Name">שם:
-                   <input type="text" name="Name" id="Name" value="${data.Name}" autocomplete='off'></br>
-               </label>
-               <label for="price">מחיר:
-                   <input type="text" name="price" id="price" value=${data.price} autocomplete='off'></br>
-               </label>
-               <label for="Amount">כמות:
-                   <input type="number" name="Amount" id="Amount" value=${data.Amount} autocomplete='off'></br>
-               </label>
-               <label for="Category">קטגוריה:
-                   <input type="text" name="Category" id="Category" value=${data.Category} autocomplete='off'></br>
-               </label>
-               <label for="Weight">משקל:
-                   <input type="number" name="Weight" id="Weight" value=${data.Weight} autocomplete='off'></br>
-               </label>
-                <label for="height">גובה:
-                   <input type="number" name="height" id="height" value=${data.height} autocomplete='off'></br>
-               </label>
-               <label for="ExpiryDate">תאריך תפוגה:
-                   <input type="date" name="ExpiryDate" id="ExpiryDate" value=${data.ExpiryDate} autocomplete='off'></br>
-               </label>
-           </div>
-            <select name='Location' id='Location'>
-            <option value = ${data.ExpiryDate}> ${data.ExpiryDate} </option>
-            </select></br>
-           <div id="message"></div></br>
-           <input type="submit" value="אישור">
-       </form>`;
-   // console.log(this.shelfOptions)
-   document.getElementById("Location").innerHTML = shelfOptionsGlobal.join(" ");
-
-       }).catch(err => {
-           console.error(err);
-       }).finally(() => {
-           console.log('im done')
-       } )
-    
-}  */
-
-
-
-//    const CalcWeight =  (getWeight, weight) =>{
-//     if (Number(getWeight) > Number(weight)){
-//         return (true);
-//     }
-//     else {
-//         return (false)
-//     }
-// } 
-
-//    const CalcHeight = (getHeight, height) =>{
-//     if (Number(getHeight) > Number(height)){
-//         return (true);
-//     }
-//     else {
-//         return (false)
-//     }
-// } 
-
-// const Validations = (UPS, name, price, amount, category, weight, height, ExpiryDate, UPS_Shelfs, checkCurrrentWeight,checkHeight) =>{
-//     const message = document.querySelector("#message")
-//         if(UPS.length < 3){
-//             message.innerHTML = 'נדרש להזין מק"ט באורך 3 ומעלה'
-//         }
-//         else if(name.length == 0){
-//              message.innerHTML = 'יש להזין את שם המוצר'
-//         }
-//         else if(amount.length == 0){
-//             message.innerHTML = 'יש להזין את כמות המוצר'
-//         }
-//          else if(category.length == 0){
-//             message.innerHTML = 'יש להזין את קטגוריית המוצר'
-//         }
-//         else if(weight.length == 0){
-//             message.innerHTML = 'יש להזין את משקל המוצר'
-//         }
-//         else if(height.length == 0){
-//             message.innerHTML = 'יש להזין את גובה המוצר'
-//         }
-//         else if(UPS_Shelfs.length == 0){
-//             message.innerHTML = 'יש לבחור את המדף הרצוי למוצר'
-//         }
-//         else {
-//             return (true);
-//         }
-// }
-
-//            ` <h1>עריכת מוצר</h1>
-//             <form onsubmit="handleEditProduct(event, '${data.Amount}', '${data.Weight}','${data.Location}')">
-            
-//          <div class="productDetails">
-//              <label for="UPS">מק"ט:
-//             <input type="number" name="UPS" id="UPS" value="${data.UPS}" disabled="disabled" autocomplete='off'></br>
-//         </label>
-//         <label for="Name">שם:
-//             <input type="text" name="Name" id="Name" value="${data.Name}" autocomplete='off'></br>
-//         </label>
-//         <label for="price">מחיר:
-//             <input type="text" name="price" id="price" value=${data.price} autocomplete='off'></br>
-//         </label>
-//         <label for="Amount">כמות:
-//             <input type="number" name="Amount" id="Amount" value=${data.Amount} autocomplete='off'></br>
-//         </label>
-//         <label for="Category">קטגוריה:
-//             <input type="text" name="Category" id="Category" value=${data.Category} autocomplete='off'></br>
-//         </label>
-//         <label for="Weight">משקל:
-//             <input type="number" name="Weight" id="Weight" value=${data.Weight} autocomplete='off'></br>
-//         </label>
-//          <label for="height">גובה:
-//             <input type="number" name="height" id="height" value=${data.height} autocomplete='off'></br>
-//         </label>
-//         <label for="ExpiryDate">תאריך תפוגה:
-//             <input type="date" name="ExpiryDate" id="ExpiryDate" value=${data.ExpiryDate} autocomplete='off'></br>
-//         </label>
-//     </div>
-//      <select name='Location' id='Location'>
-//      <option value = ${data.Location}> ${data.Location} </option>
-//      </select></br>
-//     <div id="message"></div></br>
-//     <input type="submit" value="אישור">
-// </form>`;
-// // console.log(this.shelfOptions)
-// document.getElementById("Location").innerHTML = this.shelfOptions.join(" ");
-
-// }).catch(err => {
-//     console.error(err);
-// }).finally(() => {
-//     console.log('im done')
-// } )
-
-//             `<h1>עריכת מוצר</h1>
-//             <form onsubmit="handleEditProduct(event, '${data.Amount}', '${data.Weight}','${data.Location}')">
-            
-//          <div class="productDetails">
-//              <label for="UPS">מק"ט:
-//             <input type="number" name="UPS" id="UPS" value="${data.UPS}" disabled="disabled" autocomplete='off'></br>
-//         </label>
-//         <label for="Name">שם:
-//             <input type="text" name="Name" id="Name" value="${data.Name}" autocomplete='off'></br>
-//         </label>
-//         <label for="price">מחיר:
-//             <input type="text" name="price" id="price" value=${data.price} autocomplete='off'></br>
-//         </label>
-//         <label for="Amount">כמות:
-//             <input type="number" name="Amount" id="Amount" value=${data.Amount} autocomplete='off'></br>
-//         </label>
-//         <label for="Category">קטגוריה:
-//             <input type="text" name="Category" id="Category" value=${data.Category} autocomplete='off'></br>
-//         </label>
-//         <label for="Weight">משקל:
-//             <input type="number" name="Weight" id="Weight" value=${data.Weight} autocomplete='off'></br>
-//         </label>
-//          <label for="height">גובה:
-//             <input type="number" name="height" id="height" value=${data.height} autocomplete='off'></br>
-//         </label>
-//         <label for="ExpiryDate">תאריך תפוגה:
-//             <input type="date" name="ExpiryDate" id="ExpiryDate" value=${data.ExpiryDate} autocomplete='off'></br>
-//         </label>
-//     </div>
-//      <select name='Location' id='Location'>
-//      <option value = ${data.Location}> ${data.Location} </option>
-//      </select></br>
-//     <div id="message"></div></br>
-//     <input type="submit" value="אישור">
-// </form>`;
-// // console.log(this.shelfOptions)
-
-// document.getElementById("Location").innerHTML = this.shelfOptions.join(" ");
-
-// }).catch(err => {
-//     console.error(err);
-// }).finally(() => {
-//     console.log('im done')
-// } )
-
-
-//             `<h1>עריכת מוצר</h1>
-//             <form onsubmit="handleEditProduct(event, '${data.Amount}', '${data.Weight}','${data.Location}')">
-            
-//          <div class="productDetails">
-//              <label for="UPS">מק"ט:
-//             <input type="number" name="UPS" id="UPS" value="${data.UPS}" disabled="disabled" autocomplete='off'></br>
-//         </label>
-//         <label for="Name">שם:
-//             <input type="text" name="Name" id="Name" value="${data.Name}" autocomplete='off'></br>
-//         </label>
-//         <label for="price">מחיר:
-//             <input type="text" name="price" id="price" value=${data.price} autocomplete='off'></br>
-//         </label>
-//         <label for="Amount">כמות:
-//             <input type="number" name="Amount" id="Amount" value=${data.Amount} autocomplete='off'></br>
-//         </label>
-//         <label for="Category">קטגוריה:
-//             <input type="text" name="Category" id="Category" value=${data.Category} autocomplete='off'></br>
-//         </label>
-//         <label for="Weight">משקל:
-//             <input type="number" name="Weight" id="Weight" value=${data.Weight} autocomplete='off'></br>
-//         </label>
-//          <label for="height">גובה:
-//             <input type="number" name="height" id="height" value=${data.height} autocomplete='off'></br>
-//         </label>
-//         <label for="ExpiryDate">תאריך תפוגה:
-//             <input type="date" name="ExpiryDate" id="ExpiryDate" value=${data.ExpiryDate} autocomplete='off'></br>
-//         </label>
-//     </div>
-//      <select name='Location' id='Location'>
-//      <option value = ${data.Location}> ${data.Location} </option>
-//      </select></br>
-//     <div id="message"></div></br>
-//     <input type="submit" value="אישור">
-// </form>`;
-// console.log(this.shelfOptions)
-// document.getElementById("Location").innerHTML = this.shelfOptions.join(" ");
-
-// }).catch(err => {
-//     console.error(err);
-// }).finally(() => {
-//     console.log('im done')
-// } )
-
-
-
-// } 
-
-async function handleEditProduct(e, PreviousAmount, PreviousWeight, PreviousLocation) {
+async function handleEditProduct(e, _id, PreviousAmount, PreviousWeight, PreviousLocation) {
     e.preventDefault();
-
+    
    let UPS = e.target[0].value;
    let Name = e.target[1].value;
    let price = e.target[2].value;
@@ -1390,7 +1141,7 @@ async function handleEditProduct(e, PreviousAmount, PreviousWeight, PreviousLoca
            headers: {
                'Content-Type': 'application/json'
            },
-           body: JSON.stringify({UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location, PreviousAmount, PreviousWeight, PreviousLocation })
+           body: JSON.stringify({_id,UPS, Name, price, Amount, Category, Weight, height, ExpiryDate, Location, PreviousAmount, PreviousWeight, PreviousLocation })
        })
            .then(res => res.json())
            .then(data => {
@@ -1398,9 +1149,9 @@ async function handleEditProduct(e, PreviousAmount, PreviousWeight, PreviousLoca
                 if (message) {
                     checkValidation.innerHTML  = 'המוצר עודכן במערכת'
                 
-                 /*    setTimeout(() => {
-                        PullThiscCategory(e)
-                    }, 500); */
+                     setTimeout(() => {
+                        PullThiscCategory(globalCategories)
+                    }, 500); 
 
 
                } else {
@@ -1411,4 +1162,3 @@ async function handleEditProduct(e, PreviousAmount, PreviousWeight, PreviousLoca
        }
      }
 }
-

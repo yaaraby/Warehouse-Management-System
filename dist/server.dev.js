@@ -665,7 +665,7 @@ app.post('/delete-shelf', function _callee12(req, res) {
     }
   });
 });
-app["delete"]('/PullThiscCategory', function _callee13(req, res) {
+app.post('/PullThiscCategory', function _callee13(req, res) {
   var eventCategory, data;
   return regeneratorRuntime.async(function _callee13$(_context14) {
     while (1) {
@@ -1142,8 +1142,7 @@ app.put("/Product/", function _callee21(req, res) {
         case 10:
           data = _context23.sent;
           myquery = {
-            UPS: req.body.UPS,
-            Location: req.body.Location
+            _id: req.body._id
           };
           newvalues = {
             $set: {
@@ -1193,14 +1192,25 @@ var theHighNumber = function theHighNumber(PreviousAmount, Amount, PreviousWeigh
     if (PreviousAmount == Amount) {
       updateMinusAmountPreviousShelf(PreviousAmount, PreviousWeight, PreviousLocation);
       updateNewShelf(Amount, Weight, Location);
-    } else {
+    } else if (eval(PreviousAmount) > eval(Amount)) {
       sumAmount = PreviousAmount - Amount;
       sumWeight = PreviousWeight - Weight;
       updateMinusAmountPreviousShelf(sumAmount, sumWeight, PreviousLocation);
-      updateNewInventory(sumAmount, sumWeight, Location);
+      updateNewInventory(Amount, Weight, Location);
+    } else {
+      updateMinusAmountPreviousShelf(PreviousAmount, PreviousWeight, PreviousLocation);
+      updateNewInventory(Amount, Weight, Location);
     }
   } else {
-    updateNewInventory(sumAmount, sumWeight, Location);
+    if (eval(PreviousAmount) > eval(Amount)) {
+      sumAmount = PreviousAmount - Amount;
+      sumWeight = PreviousWeight - Weight;
+      updateNewInventory(sumAmount, sumWeight, Location);
+    } else {
+      sumAmount = Amount - PreviousAmount;
+      sumWeight = Weight - PreviousWeight;
+      updateNewInventory(sumAmount, sumWeight, Location);
+    }
   }
 
   return true;

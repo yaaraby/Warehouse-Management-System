@@ -840,6 +840,26 @@ h1{
 // #editUserById {
 //     margin-top: 70px;
 // }
+
+.addProduct {
+    background: none;
+    border: none;
+    outline: none;
+    background: none;
+    width: 55px;
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    background-color: var(--background);
+    padding: 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    z-index: 1;
+
+    img {
+        width: 70%;
+    }
+}
 #editProductById {
     font-size: 20rem;
     font-family: var(--font-family);
